@@ -1,0 +1,14 @@
+C:\Users\Maxim\Desktop\Новая папка (2)\CustomSaveDialog\obj\Release\net462\CustomSaveDialog.csproj.AssemblyReference.cache
+C:\Users\Maxim\Desktop\Новая папка (2)\CustomSaveDialog\obj\Release\net462\CustomSaveDialog.csproj.SuggestedBindingRedirects.cache
+C:\Users\Maxim\Desktop\Новая папка (2)\CustomSaveDialog\obj\Release\net462\CustomSaveDialog.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Maxim\Desktop\Новая папка (2)\CustomSaveDialog\obj\Release\net462\CustomSaveDialog.AssemblyInfoInputs.cache
+C:\Users\Maxim\Desktop\Новая папка (2)\CustomSaveDialog\obj\Release\net462\CustomSaveDialog.AssemblyInfo.cs
+C:\Users\Maxim\Desktop\Новая папка (2)\CustomSaveDialog\obj\Release\net462\CustomSaveDialog.csproj.CoreCompileInputs.cache
+C:\Users\Maxim\Desktop\Новая папка (2)\CustomSaveDialog\bin\Release\net462\CustomSaveDialog.exe.config
+C:\Users\Maxim\Desktop\Новая папка (2)\CustomSaveDialog\bin\Release\net462\CustomSaveDialog.exe
+C:\Users\Maxim\Desktop\Новая папка (2)\CustomSaveDialog\bin\Release\net462\CustomSaveDialog.pdb
+C:\Users\Maxim\Desktop\Новая папка (2)\CustomSaveDialog\bin\Release\net462\Microsoft.WindowsAPICodePack.dll
+C:\Users\Maxim\Desktop\Новая папка (2)\CustomSaveDialog\bin\Release\net462\Microsoft.WindowsAPICodePack.Shell.dll
+C:\Users\Maxim\Desktop\Новая папка (2)\CustomSaveDialog\obj\Release\net462\CustomSaveDialog.csproj.CopyComplete
+C:\Users\Maxim\Desktop\Новая папка (2)\CustomSaveDialog\obj\Release\net462\CustomSaveDialog.exe
+C:\Users\Maxim\Desktop\Новая папка (2)\CustomSaveDialog\obj\Release\net462\CustomSaveDialog.pdb

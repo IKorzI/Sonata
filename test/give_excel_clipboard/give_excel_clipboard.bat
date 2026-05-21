@@ -1,0 +1,2 @@
+py give_excel_clipboard.py
+pause

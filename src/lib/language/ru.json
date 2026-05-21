@@ -1,0 +1,18 @@
+{
+  "lng": "ru",
+  
+  "playerConnect.header": "Настройки подключения",
+  "playerConnect.username": "Ник игрока",
+  "playerConnect.adress": "IP сервера",
+  "playerConnect.version": "Версия майнкрафт",
+  "playerConnect.save": "Сохранить",
+
+  "playerControl.click.header": "Кликать",
+  "playerControl.hold.header": "Зажать",
+  "playerControl.lmb": "ЛКМ",
+  "playerControl.rmb": "ПКМ",
+  "playerControl.shift": "Шифт",
+
+  "playerControl.settingsWindow.header": "Настройки",
+  "playerControl.settingsWindow.intervalHeader": "Интервал (мс) между кликами"
+}

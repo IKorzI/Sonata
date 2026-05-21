@@ -1,0 +1,18 @@
+{
+  "lng": "en",
+
+  "playerConnect.header": "Connect control",
+  "playerConnect.username": "Username",
+  "playerConnect.adress": "Server IP",
+  "playerConnect.version": "Minecraft version",
+  "playerConnect.save": "Save",
+
+  "playerControl.click.header": "Clicks",
+  "playerControl.hold.header": "Hold",
+  "playerControl.lmb": "LMB",
+  "playerControl.rmb": "RMB",
+  "playerControl.shift": "Shift",
+
+  "playerControl.settingsWindow.header": "Settings",
+  "playerControl.settingsWindow.intervalHeader": "Interval (ms) between clicks"
+}

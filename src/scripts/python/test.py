@@ -1,0 +1,401 @@
+import start
+
+info = {
+    "id": "session--debtors",
+    "filePath": "D:\\Мои документы\\JavaScript\\Sonata\\test\\1\\statements14.xlsx",
+    "groups": [
+        {
+            "groupCode": "26-1",
+            "students": [
+                {
+                    "studentName": "Тарасенко Л.С.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Географія", "teacherName": "Наговська Т.С.", "grade": "н/а" },
+                        { "subjectName": "Іноземна мова", "teacherName": "Сербулова Ю.А.", "grade": "н/а" },
+                        { "subjectName": "Українська мова", "teacherName": "Антропова Л.І.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Гончар М.С.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Біологія", "teacherName": "Богданенко О.В.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Корнієнко В.І.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Зарубіжна література", "teacherName": "Сербулова Ю.А.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Левченко В.В.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Історія України", "teacherName": "Левчук Т.Г.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Паламарчук О.В.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Хімія", "teacherName": "Сахно Н.О.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Романенко Ю.А.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Географія", "teacherName": "Наговська Т.С.", "grade": "н/а" },
+                        { "subjectName": "Іноземна мова", "teacherName": "Сербулова Ю.А.", "grade": "н/а" },
+                        { "subjectName": "Українська мова", "teacherName": "Антропова Л.І.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Тимченко О.В.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Біологія", "teacherName": "Богданенко О.В.", "grade": "н/а" },
+                        { "subjectName": "Зарубіжна література", "teacherName": "Сербулова Ю.А.", "grade": "н/а" },
+                        { "subjectName": "Фізична культура", "teacherName": "Возіян О.Г.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Харченко Г.О.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Інформатика", "teacherName": "Бєльдюгіна С.С.", "grade": "н/а" },
+                        { "subjectName": "Фізика", "teacherName": "Калюта Н.М.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Яремчук Є.С.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Біологія", "teacherName": "Богданенко О.В.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Цвєтков А.Г.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Всесвітня історія", "teacherName": "Мельничук С.А.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Шевченко О.І.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Зарубіжна література", "teacherName": "Сербулова Ю.А.", "grade": "н/а" }
+                    ]
+                }
+            ],
+            "specialityCodes": [ "D5", "D7", "G1" ]
+        },
+        {
+            "groupCode": "26-2",
+            "students": [
+                {
+                    "studentName": "Мельник О.В.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Математика", "teacherName": "Іванов І.І.", "grade": 3 }
+                    ]
+                },
+                {
+                    "studentName": "Бойко А.А.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Фізика", "teacherName": "Петров П.П.", "grade": "н/а" },
+                        { "subjectName": "Хімія", "teacherName": "Сидоров С.С.", "grade": 2 }
+                    ]
+                },
+                {
+                    "studentName": "Ковальчук С.С.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Алгебра", "teacherName": "Коваленко О.О.", "grade": 1 }
+                    ]
+                },
+                {
+                    "studentName": "Бондаренко Д.О.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Геометрія", "teacherName": "Іванов І.І.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Карпенко В.І.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Біологія", "teacherName": "Богданенко О.В.", "grade": 2 },
+                        { "subjectName": "Економіка", "teacherName": "Вовк О.О.", "grade": 3 }
+                    ]
+                },
+                {
+                    "studentName": "Марченко Л.П.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Інформатика", "teacherName": "Бєльдюгіна С.С.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Павленко Т.Т.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Фізика", "teacherName": "Калюта Н.М.", "grade": 1 },
+                        { "subjectName": "Астрономія", "teacherName": "Мороз Д.Д.", "grade": "н/а" },
+                        { "subjectName": "Історія України", "teacherName": "Левчук Т.Г.", "grade": 2 }
+                    ]
+                }
+            ],
+            "specialityCodes": [ "A1", "A2" ]
+        },
+        {
+            "groupCode": "26-3",
+            "students": [
+                {
+                    "studentName": "Руденко М.М.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Правознавство", "teacherName": "Козак С.С.", "grade": 3 }
+                    ]
+                },
+                {
+                    "studentName": "Савченко К.К.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Українська література", "teacherName": "Антропова Л.І.", "grade": "н/а" },
+                        { "subjectName": "Українська мова", "teacherName": "Антропова Л.І.", "grade": 2 }
+                    ]
+                },
+                {
+                    "studentName": "Лисенко Н.Н.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Всесвітня історія", "teacherName": "Мельничук С.А.", "grade": 1 }
+                    ]
+                },
+                {
+                    "studentName": "Петренко Ю.Ю.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Математика", "teacherName": "Іванов І.І.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Клименко Р.Р.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Географія", "teacherName": "Наговська Т.С.", "grade": 2 },
+                        { "subjectName": "Хімія", "teacherName": "Сахно Н.О.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Сидоренко О.О.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Фізична культура", "teacherName": "Возіян О.Г.", "grade": 3 }
+                    ]
+                },
+                {
+                    "studentName": "Мазур В.В.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Біологія", "teacherName": "Богданенко О.В.", "grade": 1 },
+                        { "subjectName": "Економіка", "teacherName": "Вовк О.О.", "grade": 2 }
+                    ]
+                }
+            ],
+            "specialityCodes": [ "B1", "B2", "B3" ]
+        },
+        {
+            "groupCode": "26-4",
+            "students": [
+                {
+                    "studentName": "Олійник І.І.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Інформатика", "teacherName": "Бєльдюгіна С.С.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Мороз М.М.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Алгебра", "teacherName": "Коваленко О.О.", "grade": 3 },
+                        { "subjectName": "Геометрія", "teacherName": "Іванов І.І.", "grade": 2 }
+                    ]
+                },
+                {
+                    "studentName": "Сушко П.П.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Фізика", "teacherName": "Петров П.П.", "grade": 1 }
+                    ]
+                },
+                {
+                    "studentName": "Гаврилюк С.С.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Іноземна мова", "teacherName": "Сербулова Ю.А.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Поліщук А.А.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Правознавство", "teacherName": "Козак С.С.", "grade": 2 },
+                        { "subjectName": "Історія України", "teacherName": "Левчук Т.Г.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Костюк Л.Л.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Астрономія", "teacherName": "Мороз Д.Д.", "grade": 3 }
+                    ]
+                },
+                {
+                    "studentName": "Гриценко В.О.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Хімія", "teacherName": "Сидоров С.С.", "grade": 1 }
+                    ]
+                },
+                {
+                    "studentName": "Романюк І.В.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Українська мова", "teacherName": "Антропова Л.І.", "grade": 2 },
+                        { "subjectName": "Зарубіжна література", "teacherName": "Сербулова Ю.А.", "grade": "н/а" }
+                    ]
+                }
+            ],
+            "specialityCodes": [ "C1", "C2" ]
+        },
+        {
+            "groupCode": "26-5",
+            "students": [
+                {
+                    "studentName": "Василенко Д.Д.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Математика", "teacherName": "Іванов І.І.", "grade": 2 }
+                    ]
+                },
+                {
+                    "studentName": "Власенко О.П.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Географія", "teacherName": "Наговська Т.С.", "grade": 3 },
+                        { "subjectName": "Економіка", "teacherName": "Вовк О.О.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Хоменко С.І.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Фізична культура", "teacherName": "Возіян О.Г.", "grade": 1 }
+                    ]
+                },
+                {
+                    "studentName": "Панченко М.А.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Фізика", "teacherName": "Калюта Н.М.", "grade": "н/а" },
+                        { "subjectName": "Біологія", "teacherName": "Богданенко О.В.", "grade": 2 }
+                    ]
+                },
+                {
+                    "studentName": "Попова О.С.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Українська література", "teacherName": "Антропова Л.І.", "grade": 3 }
+                    ]
+                },
+                {
+                    "studentName": "Іванова К.М.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Алгебра", "teacherName": "Коваленко О.О.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Гусак В.Т.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Всесвітня історія", "teacherName": "Мельничук С.А.", "grade": 2 },
+                        { "subjectName": "Історія України", "teacherName": "Левчук Т.Г.", "grade": 1 }
+                    ]
+                }
+            ],
+            "specialityCodes": [ "E1" ]
+        },
+        {
+            "groupCode": "26-6",
+            "students": [
+                {
+                    "studentName": "Дзюба А.В.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Правознавство", "teacherName": "Козак С.С.", "grade": 3 }
+                    ]
+                },
+                {
+                    "studentName": "Зінченко Н.О.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Інформатика", "teacherName": "Бєльдюгіна С.С.", "grade": "н/а" },
+                        { "subjectName": "Хімія", "teacherName": "Сахно Н.О.", "grade": 2 }
+                    ]
+                },
+                {
+                    "studentName": "Яковенко П.Р.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Геометрія", "teacherName": "Іванов І.І.", "grade": 1 }
+                    ]
+                },
+                {
+                    "studentName": "Зайцев Є.Є.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Іноземна мова", "teacherName": "Сербулова Ю.А.", "grade": 3 },
+                        { "subjectName": "Зарубіжна література", "teacherName": "Сербулова Ю.А.", "grade": "н/а" }
+                    ]
+                },
+                {
+                    "studentName": "Литвин М.М.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Астрономія", "teacherName": "Мороз Д.Д.", "grade": 2 }
+                    ]
+                },
+                {
+                    "studentName": "Соколов В.В.",
+                    "bc": "К",
+                    "grades": [
+                        { "subjectName": "Біологія", "teacherName": "Богданенко О.В.", "grade": "н/а" },
+                        { "subjectName": "Географія", "teacherName": "Наговська Т.С.", "grade": 1 }
+                    ]
+                },
+                {
+                    "studentName": "Ільїн А.А.",
+                    "bc": "Б",
+                    "grades": [
+                        { "subjectName": "Математика", "teacherName": "Іванов І.І.", "grade": 3 }
+                    ]
+                }
+            ],
+            "specialityCodes": [ "F1", "F2", "F3" ]
+        }
+    ]
+}
+
+app_path = 'D:/Мои документы/JavaScript/Sonata'
+
+result = start.session_DebtorsStart(info, app_path)
+print(result)

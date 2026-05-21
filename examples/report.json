@@ -1,0 +1,123 @@
+{
+    "id": "session--report",
+    "filePath": "D:\\Мои документы\\JavaScript\\Sonata\\test\\1\\statements14.xlsx",
+    "groups": [
+        {
+            "groupCode": "26-1",
+            "specialityCodes": [
+                "D5",
+                "D7",
+                "G1"
+            ],
+            "amount": 55,
+            "budget": 24,
+            "kontrakt": 31,
+            "socialScholarship": 0,
+            "scholarship": 8,
+            "achievement": {
+                "hight": 0,
+                "sufficient": 28,
+                "middle": 6,
+                "low": 0
+            },
+            "avgGrade": 7.62
+        },
+        {
+            "groupCode": "26-2",
+            "specialityCodes": [
+                "A1",
+                "A2"
+            ],
+            "amount": 30,
+            "budget": 15,
+            "kontrakt": 15,
+            "socialScholarship": 2,
+            "scholarship": 5,
+            "achievement": {
+                "hight": 2,
+                "sufficient": 10,
+                "middle": 5,
+                "low": 1
+            },
+            "avgGrade": 8.45
+        },
+        {
+            "groupCode": "26-3",
+            "specialityCodes": [
+                "B1",
+                "B2",
+                "B3"
+            ],
+            "amount": 40,
+            "budget": 20,
+            "kontrakt": 20,
+            "socialScholarship": 5,
+            "scholarship": 10,
+            "achievement": {
+                "hight": 5,
+                "sufficient": 15,
+                "middle": 5,
+                "low": 0
+            },
+            "avgGrade": 9.12
+        },
+        {
+            "groupCode": "26-4",
+            "specialityCodes": [
+                "C1",
+                "C2"
+            ],
+            "amount": 25,
+            "budget": 10,
+            "kontrakt": 15,
+            "socialScholarship": 1,
+            "scholarship": 4,
+            "achievement": {
+                "hight": 1,
+                "sufficient": 8,
+                "middle": 4,
+                "low": 2
+            },
+            "avgGrade": 6.80
+        },
+        {
+            "groupCode": "26-5",
+            "specialityCodes": [
+                "E1",
+                "E2",
+                "E3"
+            ],
+            "amount": 60,
+            "budget": 30,
+            "kontrakt": 30,
+            "socialScholarship": 3,
+            "scholarship": 12,
+            "achievement": {
+                "hight": 8,
+                "sufficient": 20,
+                "middle": 10,
+                "low": 2
+            },
+            "avgGrade": 8.90
+        },
+        {
+            "groupCode": "26-6",
+            "specialityCodes": [
+                "F1",
+                "F2"
+            ],
+            "amount": 45,
+            "budget": 18,
+            "kontrakt": 27,
+            "socialScholarship": 2,
+            "scholarship": 6,
+            "achievement": {
+                "hight": 3,
+                "sufficient": 15,
+                "middle": 8,
+                "low": 4
+            },
+            "avgGrade": 7.25
+        }
+    ]
+}

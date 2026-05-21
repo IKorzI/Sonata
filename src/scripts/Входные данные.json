@@ -1,0 +1,1156 @@
+{
+    "hours": {
+        "25-1": {
+            "groupCode": "25-1",
+            "subjects": [
+                {
+                    "subject": "Біологія",
+                    "teacher": "Богданенко О.В.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2
+                    ]
+                },
+                {
+                    "subject": "Всесвітня Історія",
+                    "teacher": "Мельничук С.А.",
+                    "values": [
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Географія",
+                    "teacher": "Наговська Т.С.",
+                    "values": [
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Зарубіжна література",
+                    "teacher": "Бабенко Л.Е.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Захист України",
+                    "teacher": "Лазар В.І.",
+                    "values": [
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Іноземна мова",
+                    "teacher": "Нічик Н.О.",
+                    "values": [
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Інформатика",
+                    "teacher": "Андрльє І.О.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Історія України",
+                    "teacher": "Левчук Т.Г.",
+                    "values": [
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Математика",
+                    "teacher": "Бондаренко О.С.",
+                    "values": [
+                        2,
+                        2,
+                        2,
+                        null,
+                        null,
+                        null,
+                        2,
+                        2,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Українська література",
+                    "teacher": "Юрченко О.Б.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Українська мова",
+                    "teacher": "Юрченко О.Б.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2
+                    ]
+                },
+                {
+                    "subject": "Фізика",
+                    "teacher": "Калюта Н.М.",
+                    "values": [
+                        null,
+                        2,
+                        null,
+                        2,
+                        null,
+                        null,
+                        2,
+                        null,
+                        2,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Фізична культура",
+                    "teacher": "Возіян О.Г.",
+                    "values": [
+                        2,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2
+                    ]
+                },
+                {
+                    "subject": "Хімія",
+                    "teacher": "Сахно Н.О.",
+                    "values": [
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null
+                    ]
+                }
+            ]
+        },
+        "25-2": {
+            "groupCode": "25-2",
+            "subjects": [
+                {
+                    "subject": "Біологія",
+                    "teacher": "Богданенко О.В.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2
+                    ]
+                },
+                {
+                    "subject": "Всесвітня Історія",
+                    "teacher": "Мельничук С.А.",
+                    "values": [
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Географія",
+                    "teacher": "Наговська Т.С.",
+                    "values": [
+                        null,
+                        null,
+                        2,
+                        2,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Зарубіжна література",
+                    "teacher": "Бабенко Л. Е.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Захист України",
+                    "teacher": "Лазар В.І.",
+                    "values": [
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Іноземна мова",
+                    "teacher": "Нічик Н.О.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2
+                    ]
+                },
+                {
+                    "subject": "Інформатика",
+                    "teacher": "Андрльє І.О.",
+                    "values": [
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Історія України",
+                    "teacher": "Левчук Т.Г.",
+                    "values": [
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Математика",
+                    "teacher": "Бондаренко О.С.",
+                    "values": [
+                        2,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Українська література",
+                    "teacher": "Антропова Л.І.",
+                    "values": [
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Українська мова",
+                    "teacher": "Антропова Л.І.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Фізика",
+                    "teacher": "Калюта Н.М.",
+                    "values": [
+                        null,
+                        2,
+                        null,
+                        2,
+                        null,
+                        null,
+                        2,
+                        null,
+                        2,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Фізична культура",
+                    "teacher": "Возіян О.Г.",
+                    "values": [
+                        2,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Хімія",
+                    "teacher": "Сахно Н.О.",
+                    "values": [
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null
+                    ]
+                }
+            ]
+        },
+        "25-3": {
+            "groupCode": "25-3",
+            "subjects": [
+                {
+                    "subject": "Біологія",
+                    "teacher": "Богданенко О.В.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2
+                    ]
+                },
+                {
+                    "subject": "Всесвітня Історія",
+                    "teacher": "Мельничук С.А.",
+                    "values": [
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Географія",
+                    "teacher": "Наговська Т.С.",
+                    "values": [
+                        null,
+                        null,
+                        2,
+                        2,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Зарубіжна література",
+                    "teacher": "Бабенко Л. Е.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Захист України",
+                    "teacher": "Лазар В.І.",
+                    "values": [
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Іноземна мова",
+                    "teacher": "Нічик Н.О.",
+                    "values": [
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Інформатика",
+                    "teacher": "Андрльє І.О.",
+                    "values": [
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Історія України",
+                    "teacher": "Левчук Т.Г.",
+                    "values": [
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Математика",
+                    "teacher": "Земляна Т.М.",
+                    "values": [
+                        2,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Українська література",
+                    "teacher": "Юрченко О.Б.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2
+                    ]
+                },
+                {
+                    "subject": "Українська мова",
+                    "teacher": "Юрченко О.Б.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2
+                    ]
+                },
+                {
+                    "subject": "Фізика",
+                    "teacher": "Калюта Н.М.",
+                    "values": [
+                        null,
+                        2,
+                        null,
+                        2,
+                        null,
+                        null,
+                        2,
+                        null,
+                        2,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Фізична культура",
+                    "teacher": "Галеніна І.С.",
+                    "values": [
+                        2,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Хімія",
+                    "teacher": "Сахно Н.О.",
+                    "values": [
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null
+                    ]
+                }
+            ]
+        },
+        "25-4": {
+            "groupCode": "25-4",
+            "subjects": [
+                {
+                    "subject": "Біологія",
+                    "teacher": "Богданенко О.В.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Всесвітня Історія",
+                    "teacher": "Мельничук С.А.",
+                    "values": [
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Географія",
+                    "teacher": "Наговська Т.С.",
+                    "values": [
+                        2,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Зарубіжна література",
+                    "teacher": "Бабенко Л. Е.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Захист України",
+                    "teacher": "Лазар В.І.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2
+                    ]
+                },
+                {
+                    "subject": "Іноземна мова",
+                    "teacher": "Нічик Н.О.",
+                    "values": [
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Інформатика",
+                    "teacher": "Андрльє І.О.",
+                    "values": [
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Історія України",
+                    "teacher": "Левчук Т.Г.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2
+                    ]
+                },
+                {
+                    "subject": "Математика",
+                    "teacher": "Земляна Т.М.",
+                    "values": [
+                        2,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Українська література",
+                    "teacher": "Антропова Л.І.",
+                    "values": [
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Українська мова",
+                    "teacher": "Антропова Л.І.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Фізика",
+                    "teacher": "Калюта Н.М.",
+                    "values": [
+                        null,
+                        2,
+                        null,
+                        2,
+                        null,
+                        null,
+                        2,
+                        null,
+                        2,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Фізична культура",
+                    "teacher": "Галеніна І.С.",
+                    "values": [
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        2
+                    ]
+                },
+                {
+                    "subject": "Хімія",
+                    "teacher": "Пономарьов К.М.",
+                    "values": [
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null
+                    ]
+                }
+            ]
+        },
+        "25-5": {
+            "groupCode": "25-5",
+            "subjects": [
+                {
+                    "subject": "Біологія",
+                    "teacher": "Богданенко О.В.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Всесвітня Історія",
+                    "teacher": "Мельничук С.А.",
+                    "values": [
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Географія",
+                    "teacher": "Наговська Т.С.",
+                    "values": [
+                        2,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Зарубіжна література",
+                    "teacher": "Бабенко Л. Е.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Захист України",
+                    "teacher": "Лазар В.І.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2
+                    ]
+                },
+                {
+                    "subject": "Іноземна мова",
+                    "teacher": "Нічик Н.О.",
+                    "values": [
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Інформатика",
+                    "teacher": "Андрльє І.О.",
+                    "values": [
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Історія України",
+                    "teacher": "Левчук Т.Г.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2
+                    ]
+                },
+                {
+                    "subject": "Математика",
+                    "teacher": "Земляна Т.М.",
+                    "values": [
+                        null,
+                        2,
+                        null,
+                        2,
+                        null,
+                        null,
+                        2,
+                        null,
+                        2,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Українська література",
+                    "teacher": "Юрченко О.Б.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2
+                    ]
+                },
+                {
+                    "subject": "Українська мова",
+                    "teacher": "Юрченко О.Б.",
+                    "values": [
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Фізика",
+                    "teacher": "Калюта Н.М.",
+                    "values": [
+                        null,
+                        null,
+                        2,
+                        null,
+                        2,
+                        null,
+                        null,
+                        2,
+                        null,
+                        2
+                    ]
+                },
+                {
+                    "subject": "Фізична культура",
+                    "teacher": "Галеніна І.С.",
+                    "values": [
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "subject": "Хімія",
+                    "teacher": "Пономарьов К.М.",
+                    "values": [
+                        null,
+                        2,
+                        null,
+                        null,
+                        null,
+                        null,
+                        2,
+                        null,
+                        null,
+                        null
+                    ]
+                }
+            ]
+        }
+    },
+    "month": 9,
+    "year": 2025,
+    "date": "14.09.2025",
+    "semesterEnd": "31.12.2025",
+    "semesterEndMonth": 12,
+    "id": "hours--based-on-the-first-month",
+    "filePath": "D:\\Мои файлы\\JavaScript\\Sonata\\test\\hours--based-on-the-first-month-hours1.xlsx"
+}

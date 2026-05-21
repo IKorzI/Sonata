@@ -1,0 +1,53 @@
+{
+  "name": "sonata",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "main": "main.cjs",
+  "scripts": {
+    "vite:dev": "vite",
+    "electron:dev": "nodemon",
+    "app:dev": "concurrently -k \"npm run vite:dev\" \"npm run electron:dev\"",
+    "py:build": "src\\scripts\\python\\build.bat",
+    "python:build": "src\\scripts\\python\\build.bat",
+    "py:test": "src\\scripts\\python\\test.bat",
+    "python:test": "src\\scripts\\python\\test.bat",
+    "vite:build": "vite build",
+    "electron:build": "electron-builder --config.forceCodeSigning=false --config.generateUpdatesFilesForAllChannels=false",
+    "app:build": "npm run electron:build && npm run vite:build",
+    "vite:preview": "vite preview"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "svelte": "^4.2.7",
+    "web-streams-polyfill": "^4.2.0",
+    "xlsx": "^0.18.5",
+    "xlsx-populate": "^1.21.0"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^3.0.0",
+    "concurrently": "^9.1.2",
+    "electron": "^22.0.0",
+    "electron-builder": "^23.6.0",
+    "nodemon": "^3.1.10",
+    "vite": "^5.0.0",
+    "wait-on": "^8.0.3"
+  },
+  "build": {
+    "appId": "com.sonata",
+    "productName": "Sonata",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*"
+    ],
+    "asar": false,
+    "forceCodeSigning": false,
+    "generateUpdatesFilesForAllChannels": false,
+    "win": {
+      "icon": "public/icon.ico",
+      "target": "nsis"
+    }
+  }
+}

@@ -1,0 +1,1088 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"start",
+				"start_index"
+			],
+			[
+				"get",
+				"get_column_letter"
+			],
+			[
+				"stud",
+				"studentList"
+			],
+			[
+				"b",
+				"border_y"
+			],
+			[
+				"bor",
+				"border_x"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/scripts/python/start.py",
+			"settings":
+			{
+				"buffer_size": 6013,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+				[
+					10,
+					1,
+					"insert",
+					{
+						"characters": "\n\n"
+					},
+					"AgAAAP8AAAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAABAQAAAAAAAAAAAAA",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAP8AAAAAAAAA/wAAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					12,
+					1,
+					"paste",
+					null,
+					"AQAAAP8AAAAAAAAAfwkAAAAAAAAAAAAA",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAP8AAAAAAAAA/wAAAAAAAAAAAAAAAAAAAA"
+				],
+				[
+					18,
+					1,
+					"paste",
+					null,
+					"AgAAAHgFAAAAAAAAMwkAAAAAAAAAAAAAMwkAAAAAAAAzCQAAAAAAAAcBAAAKICAgICAgICAgICAgaWYgaW5mb1siaWQiXSA9PSAic2Vzc2lvbi0tcGFja2FnZS1vZi1kb2N1bWVudHMiOgogICAgICAgICAgICAgICAgcmVzdWx0ID0gc2Vzc2lvbl9QYWNrYWdlT2ZEb2N1bWVudHMoaW5mbywgdXAyKQogICAgICAgICAgICBlbGlmIGluZm9bImlkIl0gPT0gInNlc3Npb24tLWVtcHR5LXN0YXRlbWVudHMiOgogICAgICAgICAgICAgICAgcmVzdWx0ID0gc2Vzc2lvbl9FbXB0eVN0YXJ0KGluZm8sIHVwMikKICAgICAgICAgICAgIyBlbGlmIC4uLg",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAHgFAAAAAAAAfwYAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					26,
+					1,
+					"indent",
+					null,
+					"EgAAAHkFAAAAAAAAfQUAAAAAAAAAAAAAtwUAAAAAAAC7BQAAAAAAAAAAAAD2BQAAAAAAAPoFAAAAAAAAAAAAADIGAAAAAAAANgYAAAAAAAAAAAAAaQYAAAAAAABtBgAAAAAAAAAAAACbBgAAAAAAAJ8GAAAAAAAAAAAAANMGAAAAAAAA1wYAAAAAAAAAAAAABgcAAAAAAAAKBwAAAAAAAAAAAAA/BwAAAAAAAEMHAAAAAAAAAAAAAIEHAAAAAAAAhQcAAAAAAAAAAAAAwAcAAAAAAADEBwAAAAAAAAAAAAD9BwAAAAAAAAEIAAAAAAAAAAAAADkIAAAAAAAAPQgAAAAAAAAAAAAAfwgAAAAAAACDCAAAAAAAAAAAAACnCAAAAAAAAKsIAAAAAAAAAAAAANYIAAAAAAAA2ggAAAAAAAAAAAAADgkAAAAAAAASCQAAAAAAAAAAAABGCQAAAAAAAEoJAAAAAAAAAAAAAA",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAJIFAAAAAAAAGgkAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					33,
+					2,
+					"left_delete",
+					null,
+					"AgAAAHwMAAAAAAAAfAwAAAAAAAB5CQAACmlmIF9fbmFtZV9fID09ICJfX21haW5fXyI6CiAgICBpbXBvcnQgc3lzCiAgICBpbXBvcnQganNvbgogICAgaW1wb3J0IHRyYWNlYmFjawoKICAgICMg0J3QsNGB0YLRgNCw0LjQstCw0LXQvCDQutC+0LTQuNGA0L7QstC60YMg0LTQu9GPINCy0LLQvtC00LAg0Lgg0LLRi9Cy0L7QtNCwLCDRh9GC0L7QsdGLINC90LUg0LHRi9C70L4g0L/RgNC+0LHQu9C10Lwg0YEg0LrQuNGA0LjQu9C70LjRhtC10LkKICAgIHN5cy5zdGRvdXQucmVjb25maWd1cmUoZW5jb2Rpbmc9InV0Zi04IikKICAgIHN5cy5zdGRpbi5yZWNvbmZpZ3VyZShlbmNvZGluZz0idXRmLTgiKSAKCiAgICB0cnk6CiAgICAgICAgIyDQmNCX0JzQldCd0JXQndCY0JU6INCn0LjRgtCw0LXQvCB1cDIg0LjQtyDQsNGA0LPRg9C80LXQvdGC0L7QsgogICAgICAgICMg0KLQsNC6INC60LDQuiBpbmZvINC80Ysg0YPQsdGA0LDQu9C4INC40Lcg0LDRgNCz0YPQvNC10L3RgtC+0LIg0LfQsNC/0YPRgdC60LAsIHVwMiDRgdC80LXRgdGC0LjQu9GB0Y8g0L3QsCDQv9C+0LfQuNGG0LjRjiBbMV0KICAgICAgICB1cDIgPSBzeXMuYXJndlsxXSBpZiBsZW4oc3lzLmFyZ3YpID4gMSBlbHNlIE5vbmUKCiAgICAgICAgIyDQmNCX0JzQldCd0JXQndCY0JU6INCn0LjRgtCw0LXQvCBpbmZvINC40Lcg0L/QvtGC0L7QutCwINCy0LLQvtC00LAgKHN0ZGluKSwg0LAg0L3QtSDQuNC3IHN5cy5hcmd2CiAgICAgICAgIyBqc29uLmxvYWQoc3lzLnN0ZGluKSDRgdGH0LjRgtCw0LXRgiDQstGB0ZEsINGH0YLQviDQvNGLINC/0LXRgNC10LTQsNC70Lgg0YfQtdGA0LXQtyBweS5zdGRpbi53cml0ZSgpCiAgICAgICAgaW5mbyA9IGpzb24ubG9hZChzeXMuc3RkaW4pCgogICAgICAgIHJlc3VsdCA9IE5vbmUgIyDQmNC90LjRhtC40LDQu9C40LfQuNGA0YPQtdC8IHJlc3VsdCDQvdCwINGB0LvRg9GH0LDQuSwg0LXRgdC70Lgg0L3QuCDQvtC00L3QviDRg9GB0LvQvtCy0LjQtSDQvdC1INGB0YDQsNCx0L7RgtCw0LXRggoKICAgICAgICBpZiBpbmZvWyJpZCJdID09ICJzZXNzaW9uLS1wYWNrYWdlLW9mLWRvY3VtZW50cyI6CiAgICAgICAgICAgIHJlc3VsdCA9IHNlc3Npb25fUGFja2FnZU9mRG9jdW1lbnRzKGluZm8sIHVwMikKICAgICAgICBlbGlmIGluZm9bImlkIl0gPT0gInNlc3Npb24tLWVtcHR5LXN0YXRlbWVudHMiOgogICAgICAgICAgICByZXN1bHQgPSBzZXNzaW9uX0VtcHR5U3RhcnQoaW5mbywgdXAyKQogICAgICAgIGVsaWYgaW5mb1siaWQiXSA9PSAic2Vzc2lvbi0tcmVwb3J0IjoKICAgICAgICAgICAgcmVzdWx0ID0gc2Vzc2lvbl9SZXBvcnRTdGFydChpbmZvLCB1cDIpCiAgICAgICAgZWxpZiBpbmZvWyJpZCJdID09ICJzZXNzaW9uLS1kZWJ0b3JzIjoKICAgICAgICAgICAgcmVzdWx0ID0gc2Vzc2lvbl9EZWJ0b3JzU3RhcnQoaW5mbywgdXAyKQogICAgICAgIGVsaWYgaW5mb1siaWQiXSA9PSAiaG91cnMtLWJhc2VkLW9uLXRoZS1maXJzdC1tb250aCI6CiAgICAgICAgICAgIHJlc3VsdCA9IGhvdXJzX0Jhc2VkT25UaGVGaXJzdE1vbnRoKGluZm8sIHVwMikKICAgICAgICBlbGlmIGluZm9bImlkIl0gPT0gImhvdXJzLS1zdW1tYXJ5LW9mLXRlYWNoZXJzIjoKICAgICAgICAgICAgcmVzdWx0ID0gaG91cnNfU3VtbWFyeU9mVGVhY2hlcnMoaW5mbywgdXAyKQogICAgICAgIGVsaWYgaW5mb1siaWQiXSA9PSAib3RoZXItLW90aGVyLS1zY3JlZW5zaG90LS10cmFuc2Zvcm0iOgogICAgICAgICAgICBwYXRoID0gaW5mb1sidGVtcFBhdGgiXQogICAgICAgICAgICBmaW5hbF9wYXRoID0gaW5mb1siZmluYWxQYXRoIl0KICAgICAgICAgICAgcmVzdWx0ID0gZXh0ZW5kX2ltYWdlKHBhdGgsIGZpbmFsX3BhdGgpCiAgICAgICAgZWxpZiBpbmZvWyJpZCJdID09ICJvdGhlci0tb3RoZXItLW51bS1kZW4iOgogICAgICAgICAgICByZXN1bHQgPSBvdGhlcl9OdW1EZW5TdGFydChpbmZvLCB1cDIpCgogICAgICAgICMg0JLRi9Cy0L7QtNC40Lwg0YDQtdC30YPQu9GM0YLQsNGCINCyIHN0ZG91dCwg0YfRgtC+0LHRiyBOb2RlLmpzINC80L7QsyDQtdCz0L4g0L/RgNC+0YfQuNGC0LDRgtGMCiAgICAgICAgcHJpbnQoanNvbi5kdW1wcyh7InN1Y2Nlc3MiOiByZXN1bHR9LCBlbnN1cmVfYXNjaWk9RmFsc2UpKQoKICAgIGV4Y2VwdCBFeGNlcHRpb24gYXMgZToKICAgICAgICAjINCb0L7QstC40Lwg0LvRjtCx0YvQtSDQvtGI0LjQsdC60Lgg0Lgg0L7RgtC/0YDQsNCy0LvRj9C10Lwg0LjRhSDQsiBOb2RlLmpzINCyINGE0L7RgNC80LDRgtC1IEpTT04KICAgICAgICBwcmludChqc29uLmR1bXBzKHsKICAgICAgICAgICAgInN1Y2Nlc3MiOiBGYWxzZSwKICAgICAgICAgICAgImVycm9yIjogc3RyKGUpLAogICAgICAgICAgICAidHJhY2ViYWNrIjogdHJhY2ViYWNrLmZvcm1hdF9leGMoKQogICAgICAgIH0sIGVuc3VyZV9hc2NpaT1GYWxzZSkpCnsMAAAAAAAAewwAAAAAAAABAAAACg",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAHwMAAAAAAAArRQAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					34,
+					1,
+					"insert",
+					{
+						"characters": "\n"
+					},
+					"AgAAAHsMAAAAAAAAfAwAAAAAAAAAAAAAfAwAAAAAAACIDAAAAAAAAAAAAAA",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAHsMAAAAAAAAewwAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					35,
+					3,
+					"left_delete",
+					null,
+					"AwAAAIQMAAAAAAAAhAwAAAAAAAAEAAAAICAgIIAMAAAAAAAAgAwAAAAAAAAEAAAAICAgIHwMAAAAAAAAfAwAAAAAAAAEAAAAICAgIA",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAIgMAAAAAAAAiAwAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					47,
+					1,
+					"paste",
+					null,
+					"AgAAAGICAAAAAAAAOAsAAAAAAAAAAAAAOAsAAAAAAAA4CwAAAAAAALgLAAB3aGlsZSBUcnVlOgogICAgICAgIHRyeToKICAgICAgICAgICAgIyDQp9C40YLQsNC10Lwg0YDQvtCy0L3QviDQvtC00L3RgyDRgdGC0YDQvtC60YMg0LjQtyDQv9C+0YLQvtC60LAg0LLQstC+0LTQsAogICAgICAgICAgICBsaW5lID0gc3lzLnN0ZGluLnJlYWRsaW5lKCkKCiAgICAgICAgICAgICMg0JvQkNCZ0KTQpdCQ0Jog0JTQm9CvINCW0JjQl9Cd0JXQndCd0J7Qk9CeINCm0JjQmtCb0JA6CiAgICAgICAgICAgICMg0JXRgdC70LggbGluZSDQv9GD0YHRgtCw0Y8sINC30L3QsNGH0LjRgiDQv9C+0YLQvtC6INC30LDQutGA0YvRgiAoRWxlY3Ryb24g0L/RgNC40LvQvtC20LXQvdC40LUg0LfQsNCy0LXRgNGI0LjQu9C+0YHRjCDQuNC70Lgg0YPQv9Cw0LvQvikuCiAgICAgICAgICAgICMg0JIg0Y3RgtC+0YIg0LzQvtC80LXQvdGCINC80Ysg0L/RgNC+0YHRgtC+INC/0YDQtdGA0YvQstCw0LXQvCDRhtC40LrQuywg0LggUHl0aG9uLdGB0LrRgNC40L/RgiDQt9Cw0LLQtdGA0YjQsNC10YLRgdGPLgogICAgICAgICAgICBpZiBub3QgbGluZToKICAgICAgICAgICAgICAgIGJyZWFrCgogICAgICAgICAgICBsaW5lID0gbGluZS5zdHJpcCgpCiAgICAgICAgICAgIGlmIG5vdCBsaW5lOgogICAgICAgICAgICAgICAgY29udGludWUgIyDQn9GA0L7Qv9GD0YHQutCw0LXQvCDQv9GD0YHRgtGL0LUg0YHRgtGA0L7QutC4LCDQtdGB0LvQuCDQvtC90Lgg0YHQu9GD0YfQsNC50L3QviDQv9C+0L/QsNC70LgKCiAgICAgICAgICAgICMg0J/QsNGA0YHQuNC8INC30LDQv9GA0L7RgQogICAgICAgICAgICBpbmZvID0ganNvbi5sb2FkcyhsaW5lKQogICAgICAgICAgICAKICAgICAgICAgICAgIyDQndCw0Lwg0L3Rg9C20LXQvSDRg9C90LjQutCw0LvRjNC90YvQuSBJRCDQt9Cw0L/RgNC+0YHQsCwg0YfRgtC+0LHRiyBKUyDQv9C+0L3Rj9C7LCDQvdCwINGH0YLQviDQvNGLINC+0YLQstC10YfQsNC10LwKICAgICAgICAgICAgcmVxX2lkID0gaW5mby5nZXQoInJlcV9pZCIpCiAgICAgICAgICAgIHJlc3VsdCA9IE5vbmUKCiAgICAgICAgICAgICMg0KLQstC+0Y8g0LvQvtCz0LjQutCwINC+0LHRgNCw0LHQvtGC0LrQuAogICAgICAgICAgICBpZiBpbmZvWyJpZCJdID09ICJzZXNzaW9uLS1wYWNrYWdlLW9mLWRvY3VtZW50cyI6CiAgICAgICAgICAgICAgICByZXN1bHQgPSBzZXNzaW9uX1BhY2thZ2VPZkRvY3VtZW50cyhpbmZvLCB1cDIpCiAgICAgICAgICAgIGVsaWYgaW5mb1siaWQiXSA9PSAic2Vzc2lvbi0tZW1wdHktc3RhdGVtZW50cyI6CiAgICAgICAgICAgICAgICByZXN1bHQgPSBzZXNzaW9uX0VtcHR5U3RhcnQoaW5mbywgdXAyKQogICAgICAgICAgICBlbGlmIGluZm9bImlkIl0gPT0gInNlc3Npb24tLXJlcG9ydCI6CiAgICAgICAgICAgICAgICByZXN1bHQgPSBzZXNzaW9uX1JlcG9ydFN0YXJ0KGluZm8sIHVwMikKICAgICAgICAgICAgZWxpZiBpbmZvWyJpZCJdID09ICJzZXNzaW9uLS1kZWJ0b3JzIjoKICAgICAgICAgICAgICAgIHJlc3VsdCA9IHNlc3Npb25fRGVidG9yc1N0YXJ0KGluZm8sIHVwMikKICAgICAgICAgICAgZWxpZiBpbmZvWyJpZCJdID09ICJob3Vycy0tYmFzZWQtb24tdGhlLWZpcnN0LW1vbnRoIjoKICAgICAgICAgICAgICAgIHJlc3VsdCA9IGhvdXJzX0Jhc2VkT25UaGVGaXJzdE1vbnRoKGluZm8sIHVwMikKICAgICAgICAgICAgZWxpZiBpbmZvWyJpZCJdID09ICJob3Vycy0tc3VtbWFyeS1vZi10ZWFjaGVycyI6CiAgICAgICAgICAgICAgICByZXN1bHQgPSBob3Vyc19TdW1tYXJ5T2ZUZWFjaGVycyhpbmZvLCB1cDIpCiAgICAgICAgICAgIGVsaWYgaW5mb1siaWQiXSA9PSAib3RoZXItLW90aGVyLS1zY3JlZW5zaG90LS10cmFuc2Zvcm0iOgogICAgICAgICAgICAgICAgcGF0aCA9IGluZm9bInRlbXBQYXRoIl0KICAgICAgICAgICAgICAgIGZpbmFsX3BhdGggPSBpbmZvWyJmaW5hbFBhdGgiXQogICAgICAgICAgICAgICAgcmVzdWx0ID0gZXh0ZW5kX2ltYWdlKHBhdGgsIGZpbmFsX3BhdGgpCiAgICAgICAgICAgIGVsaWYgaW5mb1siaWQiXSA9PSAib3RoZXItLW90aGVyLS1udW0tZGVuIjoKICAgICAgICAgICAgICAgIHJlc3VsdCA9IG90aGVyX051bURlblN0YXJ0KGluZm8sIHVwMikKCiAgICAgICAgICAgICMg0KTQvtGA0LzQuNGA0YPQtdC8INC+0YLQstC10YIsINC00L7QsdCw0LLQu9GP0Y8gcmVxX2lkINC+0LHRgNCw0YLQvdC+CiAgICAgICAgICAgIHJlc3BvbnNlX2RhdGEgPSB7InJlcV9pZCI6IHJlcV9pZCwgInN1Y2Nlc3MiOiByZXN1bHR9CiAgICAgICAgICAgIAogICAgICAgICAgICAjINCS0JDQltCd0J46INCS0YvQstC+0LTQuNC8IEpTT04g0YHRgtGA0L7Qs9C+INCyINC+0LTQvdGDINGB0YLRgNC+0LrRgyDQuCDQtNC10LvQsNC10LwgZmx1c2g9VHJ1ZSEKICAgICAgICAgICAgIyDQmNC90LDRh9C1IE5vZGUuanMg0LzQvtC20LXRgiDQvdC1INC/0L7Qu9GD0YfQuNGC0Ywg0LTQsNC90L3Ri9C1INGB0YDQsNC30YMuCiAgICAgICAgICAgIHByaW50KGpzb24uZHVtcHMocmVzcG9uc2VfZGF0YSwgZW5zdXJlX2FzY2lpPUZhbHNlKSwgZmx1c2g9VHJ1ZSkKCiAgICAgICAgZXhjZXB0IEV4Y2VwdGlvbiBhcyBlOgogICAgICAgICAgICAjINCe0YLQv9GA0LDQstC70Y/QtdC8INC+0YjQuNCx0LrRgywg0L3QtSDRgNC+0L3Rj9GPINGB0LXRgNCy0LXRgAogICAgICAgICAgICBlcnJvcl9kYXRhID0gewogICAgICAgICAgICAgICAgInJlcV9pZCI6IGluZm8uZ2V0KCJyZXFfaWQiKSBpZiAnaW5mbycgaW4gbG9jYWxzKCkgYW5kIGlzaW5zdGFuY2UoaW5mbywgZGljdCkgZWxzZSBOb25lLAogICAgICAgICAgICAgICAgInN1Y2Nlc3MiOiBGYWxzZSwKICAgICAgICAgICAgICAgICJlcnJvciI6IHN0cihlKSwKICAgICAgICAgICAgICAgICJ0cmFjZWJhY2siOiB0cmFjZWJhY2suZm9ybWF0X2V4YygpCiAgICAgICAgICAgIH0KICAgICAgICAgICAgcHJpbnQoanNvbi5kdW1wcyhlcnJvcl9kYXRhLCBlbnN1cmVfYXNjaWk9RmFsc2UpLCBmbHVzaD1UcnVlKQo",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAGICAAAAAAAAfAwAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					81,
+					1,
+					"left_delete",
+					null,
+					"AQAAAF0CAAAAAAAAXQIAAAAAAABUAAAACiAgICAjINCX0LDQv9GD0YHQutCw0LXQvCDQsdC10YHQutC+0L3QtdGH0L3Ri9C5INGG0LjQutC7INC/0YDQvtGB0LvRg9GI0LjQstCw0L3QuNGP",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAF0CAAAAAAAAjAIAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					126,
+					1,
+					"insert",
+					{
+						"characters": "\n\n"
+					},
+					"AgAAAP4AAAAAAAAA/wAAAAAAAAAAAAAA/wAAAAAAAAAAAQAAAAAAAAAAAAA",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAP4AAAAAAAAA/gAAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					128,
+					1,
+					"paste",
+					null,
+					"AQAAAP8AAAAAAAAAIAMAAAAAAAAAAAAA",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAP8AAAAAAAAA/wAAAAAAAAAAAAAAAAAAAA"
+				],
+				[
+					131,
+					1,
+					"insert",
+					{
+						"characters": "\n"
+					},
+					"AgAAAA4GAAAAAAAADwYAAAAAAAAAAAAADwYAAAAAAAAbBgAAAAAAAAAAAAA",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAA4GAAAAAAAADgYAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					132,
+					1,
+					"paste",
+					null,
+					"AQAAABsGAAAAAAAAqAYAAAAAAAAAAAAA",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAABsGAAAAAAAAGwYAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					135,
+					1,
+					"left_delete",
+					null,
+					"AQAAAKgGAAAAAAAAqAYAAAAAAAAvAAAACiAgICAgICAgICAgIGluZm8gPSByYXdfcmVxdWVzdC5nZXQoImluZm8iLCB7fSk",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAKgGAAAAAAAA1wYAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					148,
+					1,
+					"left_delete",
+					null,
+					"AQAAAEgFAAAAAAAASAUAAAAAAAABAAAAIA",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAEkFAAAAAAAASQUAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					37,
+					1,
+					"right_delete",
+					null,
+					"AQAAABEUAAAAAAAAERQAAAAAAAABAAAAUA",
+					"AQAAAAAAAAABAAAAERQAAAAAAAARFAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					38,
+					1,
+					"insert",
+					{
+						"characters": "_p"
+					},
+					"AgAAABEUAAAAAAAAEhQAAAAAAAAAAAAAEhQAAAAAAAATFAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAERQAAAAAAAARFAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					42,
+					1,
+					"left_delete",
+					null,
+					"AQAAAEEUAAAAAAAAQRQAAAAAAAABAAAAUA",
+					"AQAAAAAAAAABAAAAQhQAAAAAAABCFAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					43,
+					1,
+					"insert",
+					{
+						"characters": "_p"
+					},
+					"AgAAAEEUAAAAAAAAQhQAAAAAAAAAAAAAQhQAAAAAAABDFAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAQRQAAAAAAABBFAAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		},
+		{
+			"file": "src/scripts/python/other.py",
+			"settings":
+			{
+				"buffer_size": 10685,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+			]
+		},
+		{
+			"file": "src/scripts/utils.js",
+			"settings":
+			{
+				"buffer_size": 11477,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+				[
+					10,
+					1,
+					"paste",
+					null,
+					"AgAAAJQVAAAAAAAADiEAAAAAAAAAAAAADiEAAAAAAAAOIQAAAAAAAIwFAABleHBvcnQgYXN5bmMgZnVuY3Rpb24gc3RhcnRCYWNrZW5kRnVuYyhpbmZvKSB7CiAgcmV0dXJuIG5ldyBQcm9taXNlKChyZXNvbHZlLCByZWplY3QpID0+IHsKICAgIGNvbnN0IHB5ID0gc3Bhd24ocGF0aFN0YXJ0LCBbdXAyXSwgeyBjd2Q6ICIuLyIgfSk7CgogICAgLy8g0J7RgtC/0YDQsNCy0LvRj9C10LwgSlNPTiDRh9C10YDQtdC3INGB0YLQsNC90LTQsNGA0YLQvdGL0Lkg0L/QvtGC0L7QuiDQstCy0L7QtNCwIChzdGRpbikKICAgIC8vINCt0YLQviDQvtCx0YXQvtC00LjRgiDQvtCz0YDQsNC90LjRh9C10L3QuNC1INC90LAg0LTQu9C40L3RgyDQutC+0LzQsNC90LTQvdC+0Lkg0YHRgtGA0L7QutC4LgogICAgdHJ5IHsKICAgICAgICBweS5zdGRpbi53cml0ZShKU09OLnN0cmluZ2lmeShpbmZvKSk7CiAgICAgICAgcHkuc3RkaW4uZW5kKCk7IC8vINGB0L7QvtCx0YnQsNC10LwgUHl0aG9uLCDRh9GC0L4g0L/QtdGA0LXQtNCw0YfQsCDQtNCw0L3QvdGL0YUg0LfQsNCy0LXRgNGI0LXQvdCwCiAgICB9IGNhdGNoIChlcnIpIHsKICAgICAgICByZWplY3QobmV3IEVycm9yKGBGYWlsZWQgdG8gd3JpdGUgdG8gc3RkaW46ICR7ZXJyLm1lc3NhZ2V9YCkpOwogICAgICAgIHJldHVybjsKICAgIH0KCiAgICBsZXQgb3V0cHV0ID0gIiI7CiAgICAKICAgIC8vINCn0LjRgtCw0LXQvCDQvtGC0LLQtdGCINC+0YIgUHl0aG9uCiAgICBweS5zdGRvdXQub24oImRhdGEiLCAoZGF0YSkgPT4gKG91dHB1dCArPSBkYXRhLnRvU3RyaW5nKCkpKTsKICAgIAogICAgLy8g0KfQuNGC0LDQtdC8INC+0YjQuNCx0LrQuCAo0LXRgdC70LggcHJpbnQg0YHQtNC10LvQsNC9INCyIHN0ZGVycikKICAgIHB5LnN0ZGVyci5vbigiZGF0YSIsIChkYXRhKSA9PiBjb25zb2xlLmVycm9yKCJQeXRob24gRXJyb3I6IiwgZGF0YS50b1N0cmluZygpKSk7CiAgICAKICAgIHB5Lm9uKCJjbG9zZSIsIChjb2RlKSA9PiB7CiAgICAgIGlmIChjb2RlID09PSAwKSB7CiAgICAgICAgdHJ5IHsKICAgICAgICAgICAgLy8g0J/Ri9GC0LDQtdC80YHRjyDRgNCw0YHQv9Cw0YDRgdC40YLRjCDRgNC10LfRg9C70YzRgtCw0YIKICAgICAgICAgICAgcmVzb2x2ZShKU09OLnBhcnNlKG91dHB1dCkpOwogICAgICAgIH0gY2F0Y2ggKGUpIHsKICAgICAgICAgICAgLy8g0JXRgdC70LggUHl0aG9uINCy0LXRgNC90YPQuyDQvdC1IEpTT04gKNC90LDQv9GA0LjQvNC10YAsINC/0YDQvtGB0YLQviDRgtC10LrRgdGCINC+0YjQuNCx0LrQuCkKICAgICAgICAgICAgcmVqZWN0KG5ldyBFcnJvcihgSW52YWxpZCBKU09OIGZyb20gUHl0aG9uOiAke291dHB1dH1gKSk7CiAgICAgICAgfQogICAgICB9IGVsc2UgewogICAgICAgIHJlamVjdChuZXcgRXJyb3IoYFB5dGhvbiBleGl0ZWQgd2l0aCBjb2RlICR7Y29kZX1gKSk7CiAgICAgIH0KICAgIH0pOwogIH0pOwp9",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAEsaAAAAAAAAlBUAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					26,
+					1,
+					"left_delete",
+					null,
+					"AQAAAJwWAAAAAAAAnBYAAAAAAAADAAAAdXAy",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAJwWAAAAAAAAnxYAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					36,
+					1,
+					"paste",
+					null,
+					"AQAAAJkdAAAAAAAAqR0AAAAAAAAAAAAA",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAJkdAAAAAAAAmR0AAAAAAAAAAAAAAADwvw"
+				],
+				[
+					37,
+					1,
+					"insert",
+					{
+						"characters": "\n"
+					},
+					"AQAAAKkdAAAAAAAAqh0AAAAAAAAAAAAA",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAKkdAAAAAAAAqR0AAAAAAAAAAAAAAADwvw"
+				],
+				[
+					39,
+					1,
+					"insert_snippet",
+					{
+						"contents": "($0)"
+					},
+					"AQAAAKkdAAAAAAAAqx0AAAAAAAAAAAAA",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAKkdAAAAAAAAqR0AAAAAAAAAAAAAAADwvw"
+				],
+				[
+					50,
+					1,
+					"insert",
+					{
+						"characters": "\n"
+					},
+					"AQAAAKUAAAAAAAAApgAAAAAAAAAAAAAA",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAKUAAAAAAAAApQAAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					51,
+					1,
+					"paste",
+					null,
+					"AQAAAKYAAAAAAAAAxgAAAAAAAAAAAAAA",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAKYAAAAAAAAApgAAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					60,
+					1,
+					"paste",
+					null,
+					"AgAAAJwWAAAAAAAAbh0AAAAAAAAAAAAAbh0AAAAAAABuHQAAAAAAAD0IAABleHBvcnQgZnVuY3Rpb24gaW5pdFB5dGhvblNlcnZlcigpIHsKICAgIGlmIChweVByb2Nlc3MpIHJldHVybjsgLy8g0JfQsNGJ0LjRgtCwINC+0YIg0LTQstC+0LnQvdC+0LPQviDQt9Cw0L/Rg9GB0LrQsAoKICAgIC8vINCh0L/QsNCy0L3QuNC8INC/0YDQvtGG0LXRgdGBCiAgICBjb25zdCBwYXRoU3RhcnQgPSAiLi9zdGFydC5weSI7IC8vINCj0LrQsNC20Lgg0L/RgNCw0LLQuNC70YzQvdGL0Lkg0L/Rg9GC0YwKICAgIHB5UHJvY2VzcyA9IHNwYXduKCdweXRob24nLCBbcGF0aFN0YXJ0LCB1cDJdLCB7IGN3ZDogIi4vIiB9KTsKCiAgICAvLyDQndCw0YHRgtGA0LDQuNCy0LDQtdC8INC/0L7RgdGC0YDQvtGH0L3QvtC1INGH0YLQtdC90LjQtSDQuNC3IHN0ZG91dCDQn9C40YLQvtC90LAKICAgIGNvbnN0IHJsID0gcmVhZGxpbmUuY3JlYXRlSW50ZXJmYWNlKHsKICAgICAgICBpbnB1dDogcHlQcm9jZXNzLnN0ZG91dCwKICAgICAgICB0ZXJtaW5hbDogZmFsc2UKICAgIH0pOwoKICAgIC8vINCa0L7Qs9C00LAgUHl0aG9uINC/0YDQuNGB0YvQu9Cw0LXRgiDRgdGC0YDQvtC60YMg0YEg0YDQtdC30YPQu9GM0YLQsNGC0L7QvAogICAgcmwub24oJ2xpbmUnLCAobGluZSkgPT4gewogICAgICAgIHRyeSB7CiAgICAgICAgICAgIGNvbnN0IHJlc3BvbnNlID0gSlNPTi5wYXJzZShsaW5lKTsKICAgICAgICAgICAgY29uc3QgeyByZXFfaWQgfSA9IHJlc3BvbnNlOwoKICAgICAgICAgICAgLy8g0J3QsNGF0L7QtNC40Lwg0L3Rg9C20L3Ri9C5IFByb21pc2Ug0L/QviBJRCDQuCDQt9Cw0LLQtdGA0YjQsNC10Lwg0LXQs9C+CiAgICAgICAgICAgIGlmIChwZW5kaW5nUmVxdWVzdHMuaGFzKHJlcV9pZCkpIHsKICAgICAgICAgICAgICAgIGNvbnN0IHsgcmVzb2x2ZSwgcmVqZWN0IH0gPSBwZW5kaW5nUmVxdWVzdHMuZ2V0KHJlcV9pZCk7CiAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgIGlmIChyZXNwb25zZS5lcnJvcikgewogICAgICAgICAgICAgICAgICAgIHJlamVjdChuZXcgRXJyb3IoYFB5dGhvbiBFcnJvcjogJHtyZXNwb25zZS5lcnJvcn1gKSk7CiAgICAgICAgICAgICAgICB9IGVsc2UgewogICAgICAgICAgICAgICAgICAgIHJlc29sdmUocmVzcG9uc2Uuc3VjY2Vzcyk7CiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgIC8vINCj0LTQsNC70Y/QtdC8INCy0YvQv9C+0LvQvdC10L3QvdGL0Lkg0LfQsNC/0YDQvtGBINC40Lcg0L/QsNC80Y/RgtC4CiAgICAgICAgICAgICAgICBwZW5kaW5nUmVxdWVzdHMuZGVsZXRlKHJlcV9pZCk7CiAgICAgICAgICAgIH0KICAgICAgICB9IGNhdGNoIChlKSB7CiAgICAgICAgICAgIGNvbnNvbGUuZXJyb3IoIkZhaWxlZCB0byBwYXJzZSBQeXRob24gcmVzcG9uc2U6IiwgbGluZSk7CiAgICAgICAgfQogICAgfSk7CgogICAgLy8g0JvQvtCy0LjQvCDQvtCx0YvRh9C90YvQtSDQv9GA0LjQvdGC0Ysg0L7RiNC40LHQvtC6CiAgICBweVByb2Nlc3Muc3RkZXJyLm9uKCJkYXRhIiwgKGRhdGEpID0+IHsKICAgICAgICBjb25zb2xlLmVycm9yKCJQeXRob24gU3RkZXJyOiIsIGRhdGEudG9TdHJpbmcoKSk7CiAgICB9KTsKCiAgICAvLyDQntCx0YDQsNCx0L7RgtC60LAg0LfQsNC60YDRi9GC0LjRjyDQv9GA0L7RhtC10YHRgdCwCiAgICBweVByb2Nlc3Mub24oImNsb3NlIiwgKGNvZGUpID0+IHsKICAgICAgICBjb25zb2xlLmxvZyhgUHl0aG9uIHNlcnZlciBleGl0ZWQgd2l0aCBjb2RlICR7Y29kZX1gKTsKICAgICAgICBweVByb2Nlc3MgPSBudWxsOwogICAgICAgIAogICAgICAgIC8vINCV0YHQu9C4IFB5dGhvbiDRg9C/0LDQuywg0L3Rg9C20L3QviDQvtGC0LrQu9C+0L3QuNGC0Ywg0LLRgdC1INC30LDQstC40YHRiNC40LUg0LfQsNC/0YDQvtGB0YssINGH0YLQvtCx0YsgSlMg0L3QtSDQttC00LDQuyDQstC10YfQvdC+CiAgICAgICAgZm9yIChjb25zdCBbaWQsIHsgcmVqZWN0IH1dIG9mIHBlbmRpbmdSZXF1ZXN0cykgewogICAgICAgICAgICByZWplY3QobmV3IEVycm9yKCJQeXRob24gc2VydmVyIGNsb3NlZCB1bmV4cGVjdGVkbHkiKSk7CiAgICAgICAgfQogICAgICAgIHBlbmRpbmdSZXF1ZXN0cy5jbGVhcigpOwogICAgfSk7Cn0",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAJwWAAAAAAAAuR0AAAAAAAAAAAAAAADwvw"
+				],
+				[
+					76,
+					1,
+					"paste",
+					null,
+					"AgAAAJwWAAAAAAAAPxwAAAAAAAAAAAAAPxwAAAAAAAA/HAAAAAAAAIwHAABleHBvcnQgZnVuY3Rpb24gaW5pdFB5dGhvblNlcnZlcih1cDIpIHsKICAgIGlmIChweVByb2Nlc3MpIHJldHVybjsKCiAgICAvLyDQntC/0YDQtdC00LXQu9GP0LXQvCDQv9GD0YLRjCDQuiBleGUg0YTQsNC50LvRgyDQsiDQt9Cw0LLQuNGB0LjQvNC+0YHRgtC4INC+0YIg0YLQvtCz0L4sINC30LDQv9GD0YnQtdC90L4g0LvQuCDQv9GA0LjQu9C+0LbQtdC90LjQtSDQsiBkZXYt0YDQtdC20LjQvNC1INC40LvQuCDRg9C20LUg0YHQvtCx0YDQsNC90L4KICAgIGNvbnN0IGlzRGV2ID0gIWFwcC5pc1BhY2thZ2VkOwogICAgCiAgICAvLyDQo9C60LDQttC4INC30LTQtdGB0Ywg0L/RgNCw0LLQuNC70YzQvdGL0LUg0L/Rg9GC0Lgg0LTQviDRgtCy0L7QtdCz0L4gZXhlINGE0LDQudC70LAKICAgIGNvbnN0IGV4ZVBhdGggPSBpc0RldiAKICAgICAgICA/IHBhdGguam9pbihfX2Rpcm5hbWUsICdkaXN0JywgJ3N0YXJ0LmV4ZScpIC8vINCf0YPRgtGMINC/0YDQuCDRgNCw0LfRgNCw0LHQvtGC0LrQtSAo0LPQtNC1INC70LXQttC40YIgZXhlINC/0L7RgdC70LUgcHlpbnN0YWxsZXIpCiAgICAgICAgOiBwYXRoLmpvaW4ocHJvY2Vzcy5yZXNvdXJjZXNQYXRoLCAnc3RhcnQuZXhlJyk7IC8vINCf0YPRgtGMINCyINCz0L7RgtC+0LLQvtC8INC/0YDQuNC70L7QttC10L3QuNC4CgogICAgLy8g0JfQsNC/0YPRgdC60LDQtdC8INGB0LDQvCBleGUg0YTQsNC50LssINCwINC90LUgcHl0aG9uIQogICAgcHlQcm9jZXNzID0gc3Bhd24oZXhlUGF0aCwgW3VwMl0sIHsgY3dkOiBwYXRoLmRpcm5hbWUoZXhlUGF0aCkgfSk7CgogICAgY29uc3QgcmwgPSByZWFkbGluZS5jcmVhdGVJbnRlcmZhY2UoewogICAgICAgIGlucHV0OiBweVByb2Nlc3Muc3Rkb3V0LAogICAgICAgIHRlcm1pbmFsOiBmYWxzZQogICAgfSk7CgogICAgcmwub24oJ2xpbmUnLCAobGluZSkgPT4gewogICAgICAgIHRyeSB7CiAgICAgICAgICAgIGNvbnN0IHJlc3BvbnNlID0gSlNPTi5wYXJzZShsaW5lKTsKICAgICAgICAgICAgY29uc3QgeyByZXFfaWQgfSA9IHJlc3BvbnNlOwoKICAgICAgICAgICAgaWYgKHBlbmRpbmdSZXF1ZXN0cy5oYXMocmVxX2lkKSkgewogICAgICAgICAgICAgICAgY29uc3QgeyByZXNvbHZlLCByZWplY3QgfSA9IHBlbmRpbmdSZXF1ZXN0cy5nZXQocmVxX2lkKTsKICAgICAgICAgICAgICAgIGlmIChyZXNwb25zZS5lcnJvcikgewogICAgICAgICAgICAgICAgICAgIHJlamVjdChuZXcgRXJyb3IoYFB5dGhvbiBFcnJvcjogJHtyZXNwb25zZS5lcnJvcn1gKSk7CiAgICAgICAgICAgICAgICB9IGVsc2UgewogICAgICAgICAgICAgICAgICAgIHJlc29sdmUocmVzcG9uc2Uuc3VjY2Vzcyk7CiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBwZW5kaW5nUmVxdWVzdHMuZGVsZXRlKHJlcV9pZCk7CiAgICAgICAgICAgIH0KICAgICAgICB9IGNhdGNoIChlKSB7CiAgICAgICAgICAgIGNvbnNvbGUuZXJyb3IoIkZhaWxlZCB0byBwYXJzZSBQeXRob24gcmVzcG9uc2U6IiwgbGluZSk7CiAgICAgICAgfQogICAgfSk7CgogICAgcHlQcm9jZXNzLnN0ZGVyci5vbigiZGF0YSIsIChkYXRhKSA9PiBjb25zb2xlLmVycm9yKCJQeXRob24gU3RkZXJyOiIsIGRhdGEudG9TdHJpbmcoKSkpOwoKICAgIHB5UHJvY2Vzcy5vbigiY2xvc2UiLCAoY29kZSkgPT4gewogICAgICAgIGNvbnNvbGUubG9nKGBQeXRob24gc2VydmVyIGV4aXRlZCB3aXRoIGNvZGUgJHtjb2RlfWApOwogICAgICAgIHB5UHJvY2VzcyA9IG51bGw7CiAgICAgICAgZm9yIChjb25zdCBbaWQsIHsgcmVqZWN0IH1dIG9mIHBlbmRpbmdSZXF1ZXN0cykgewogICAgICAgICAgICByZWplY3QobmV3IEVycm9yKCJQeXRob24gc2VydmVyIGNsb3NlZCB1bmV4cGVjdGVkbHkiKSk7CiAgICAgICAgfQogICAgICAgIHBlbmRpbmdSZXF1ZXN0cy5jbGVhcigpOwogICAgfSk7Cn0",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAG4dAAAAAAAAnBYAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					89,
+					1,
+					"left_delete",
+					null,
+					"AQAAAL0WAAAAAAAAvRYAAAAAAAAOAAAAcGF0aFN0YXJ0LCB1cDI",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAL0WAAAAAAAAyxYAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					94,
+					1,
+					"paste",
+					null,
+					"AgAAAG4cAAAAAAAAAyAAAAAAAAAAAAAAAyAAAAAAAAADIAAAAAAAAMwDAABleHBvcnQgYXN5bmMgZnVuY3Rpb24gc3RhcnRCYWNrZW5kRnVuYyhpbmZvKSB7CiAgICBpZiAoIXB5UHJvY2VzcykgewogICAgICAgIHRocm93IG5ldyBFcnJvcigiUHl0aG9uIHNlcnZlciBpcyBub3QgcnVubmluZy4gQ2FsbCBpbml0UHl0aG9uU2VydmVyIGZpcnN0LiIpOwogICAgfQoKICAgIHJldHVybiBuZXcgUHJvbWlzZSgocmVzb2x2ZSwgcmVqZWN0KSA9PiB7CiAgICAgICAgLy8g0JPQtdC90LXRgNC40YDRg9C10Lwg0YPQvdC40LrQsNC70YzQvdGL0LkgSUQg0LTQu9GPINGN0YLQvtCz0L4g0LfQsNC/0YDQvtGB0LAKICAgICAgICBjb25zdCByZXFfaWQgPSArK3JlcXVlc3RDb3VudGVyOwogICAgICAgIGluZm8ucmVxX2lkID0gcmVxX2lkOwoKICAgICAgICAvLyDQodC+0YXRgNCw0L3Rj9C10Lwg0YTRg9C90LrRhtC40LggcmVzb2x2ZS9yZWplY3QsINGH0YLQvtCx0Ysg0LLRi9C30LLQsNGC0Ywg0LjRhSwg0LrQvtCz0LTQsCDQv9GA0LjQtNC10YIg0L7RgtCy0LXRggogICAgICAgIHBlbmRpbmdSZXF1ZXN0cy5zZXQocmVxX2lkLCB7IHJlc29sdmUsIHJlamVjdCB9KTsKCiAgICAgICAgLy8g0J7RgtC/0YDQsNCy0LvRj9C10Lwg0LTQsNC90L3Ri9C1INCyIFB5dGhvbiDQsiDQstC40LTQtSDQvtC00L3QvtC5INGB0YLRgNC+0LrQuCDRgSDRgdC40LzQstC+0LvQvtC8INC/0LXRgNC10L3QvtGB0LAgKFxuKQogICAgICAgIGNvbnN0IHBheWxvYWQgPSBKU09OLnN0cmluZ2lmeShpbmZvKSArICJcbiI7CiAgICAgICAgCiAgICAgICAgdHJ5IHsKICAgICAgICAgICAgcHlQcm9jZXNzLnN0ZGluLndyaXRlKHBheWxvYWQpOwogICAgICAgIH0gY2F0Y2ggKGVycikgewogICAgICAgICAgICBwZW5kaW5nUmVxdWVzdHMuZGVsZXRlKHJlcV9pZCk7CiAgICAgICAgICAgIHJlamVjdChuZXcgRXJyb3IoYEZhaWxlZCB0byB3cml0ZSB0byBzdGRpbjogJHtlcnIubWVzc2FnZX1gKSk7CiAgICAgICAgfQogICAgfSk7Cn0",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAALcfAAAAAAAAbhwAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					153,
+					1,
+					"paste",
+					null,
+					"AgAAAEYcAAAAAAAAKiQAAAAAAAAAAAAAKiQAAAAAAAAqJAAAAAAAAFkEAAAvLyDQmNC30LzQtdC90LXQvdC90LDRjyDRhNGD0L3QutGG0LjRjyDQvtGC0L/RgNCw0LLQutC4INC30LDQv9GA0L7RgdC+0LIKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHN0YXJ0QmFja2VuZEZ1bmMoaW5mbykgewogICAgaWYgKCFweVByb2Nlc3MpIHsKICAgICAgICB0aHJvdyBuZXcgRXJyb3IoIlB5dGhvbiBzZXJ2ZXIgaXMgbm90IHJ1bm5pbmcuIENhbGwgaW5pdFB5dGhvblNlcnZlciBmaXJzdC4iKTsKICAgIH0KCiAgICByZXR1cm4gbmV3IFByb21pc2UoKHJlc29sdmUsIHJlamVjdCkgPT4gewogICAgICAgIC8vINCT0LXQvdC10YDQuNGA0YPQtdC8INGD0L3QuNC60LDQu9GM0L3Ri9C5IElECiAgICAgICAgY29uc3QgcmVxX2lkID0gKytyZXF1ZXN0Q291bnRlcjsKCiAgICAgICAgLy8g0KHQvtGF0YDQsNC90Y/QtdC8INGE0YPQvdC60YbQuNC4IHJlc29sdmUvcmVqZWN0CiAgICAgICAgcGVuZGluZ1JlcXVlc3RzLnNldChyZXFfaWQsIHsgcmVzb2x2ZSwgcmVqZWN0IH0pOwoKICAgICAgICAvLyDQmNCX0JzQldCd0JXQndCY0JUg0JfQlNCV0KHQrDog0J7QsdC+0YDQsNGH0LjQstCw0LXQvCDQt9Cw0L/RgNC+0YEg0LIg0LrQvtC90LLQtdGA0YIhCiAgICAgICAgLy8g0J7RgNC40LPQuNC90LDQu9GM0L3Ri9C5IGluZm8g0L7RgdGC0LDQtdGC0YHRjyDQvdC10YLRgNC+0L3Rg9GC0YvQvC4KICAgICAgICBjb25zdCBwYXlsb2FkT2JqID0gewogICAgICAgICAgICByZXFfaWQ6IHJlcV9pZCwKICAgICAgICAgICAgaW5mbzogaW5mbwogICAgICAgIH07CgogICAgICAgIC8vINCe0YLQv9GA0LDQstC70Y/QtdC8INC60L7QvdCy0LXRgNGCINCyIFB5dGhvbgogICAgICAgIGNvbnN0IHBheWxvYWQgPSBKU09OLnN0cmluZ2lmeShwYXlsb2FkT2JqKSArICJcbiI7CiAgICAgICAgCiAgICAgICAgdHJ5IHsKICAgICAgICAgICAgcHlQcm9jZXNzLnN0ZGluLndyaXRlKHBheWxvYWQpOwogICAgICAgIH0gY2F0Y2ggKGVycikgewogICAgICAgICAgICBwZW5kaW5nUmVxdWVzdHMuZGVsZXRlKHJlcV9pZCk7CiAgICAgICAgICAgIHJlamVjdChuZXcgRXJyb3IoYEZhaWxlZCB0byB3cml0ZSB0byBzdGRpbjogJHtlcnIubWVzc2FnZX1gKSk7CiAgICAgICAgfQogICAgfSk7Cn0",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAMgAAAAAAAARhwAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					156,
+					1,
+					"left_delete",
+					null,
+					"AQAAABUfAAAAAAAAFR8AAAAAAABBAAAACi8vIC0tLSDQmNCX0JzQldCd0JXQndCd0JDQryDQpNCj0J3QmtCm0JjQryBzdGFydEJhY2tlbmRGdW5jIC0tLQo",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAABUfAAAAAAAARR8AAAAAAAAAAAAAAADwvw"
+				],
+				[
+					159,
+					1,
+					"left_delete",
+					null,
+					"AQAAAEwWAAAAAAAATBYAAAAAAAB/AAAACi8vINCt0YLRgyDRhNGD0L3QutGG0LjRjiDQvdGD0LbQvdC+INCy0YvQt9Cy0LDRgtGMINCe0JTQmNCdINCg0JDQlyDQv9GA0Lgg0LfQsNC/0YPRgdC60LUgRWxlY3Ryb24gKNC90LDQv9GA0LjQvNC10YAsINCyIHJlYWR5KQ",
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAEwWAAAAAAAAmxYAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					37,
+					1,
+					"paste",
+					null,
+					"AQAAAOobAAAAAAAAOBwAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAA6hsAAAAAAADqGwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					45,
+					1,
+					"left_delete",
+					null,
+					"AQAAAOobAAAAAAAA6hsAAAAAAABpAAAACiAgICAgICAgICAgICAgICBjb25zb2xlLndhcm4oItCf0L7Qu9GD0YfQtdC9INC+0YLQstC10YIg0LTQu9GPINC90LXQuNC30LLQtdGB0YLQvdC+0LPQviByZXFJZDoiLCByZXFJZCk7",
+					"AQAAAAAAAAABAAAA6hsAAAAAAAA4HAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					48,
+					1,
+					"insert",
+					{
+						"characters": ","
+					},
+					"AQAAAOgbAAAAAAAA6RsAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAA6BsAAAAAAADoGwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					49,
+					1,
+					"insert",
+					{
+						"characters": " "
+					},
+					"AQAAAOkbAAAAAAAA6hsAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAA6RsAAAAAAADpGwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					50,
+					1,
+					"insert_snippet",
+					{
+						"contents": "\"$0\""
+					},
+					"AQAAAOobAAAAAAAA7BsAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAA6hsAAAAAAADqGwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					51,
+					1,
+					"insert",
+					{
+						"characters": "\\n"
+					},
+					"AgAAAOsbAAAAAAAA7BsAAAAAAAAAAAAA7BsAAAAAAADtGwAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAA6xsAAAAAAADrGwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					53,
+					1,
+					"insert",
+					{
+						"characters": ","
+					},
+					"AQAAAO4bAAAAAAAA7xsAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAA7hsAAAAAAADuGwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					54,
+					1,
+					"afn_delete_prefixed_slash",
+					null,
+					"AQAAAOsbAAAAAAAA6xsAAAAAAAABAAAAXA",
+					"AQAAAAAAAAABAAAA7xsAAAAAAADvGwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					55,
+					1,
+					"insert",
+					{
+						"characters": " "
+					},
+					"AQAAAO4bAAAAAAAA7xsAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAA7hsAAAAAAADuGwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					56,
+					1,
+					"paste",
+					null,
+					"AQAAAO8bAAAAAAAA9xsAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAA7xsAAAAAAADvGwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					59,
+					1,
+					"insert",
+					{
+						"characters": "\\"
+					},
+					"AQAAAOsbAAAAAAAA7BsAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAA6xsAAAAAAADrGwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					63,
+					1,
+					"left_delete",
+					null,
+					"AQAAAO8bAAAAAAAA7xsAAAAAAAABAAAAIA",
+					"AQAAAAAAAAABAAAA8BsAAAAAAADwGwAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		}
+	],
+	"build_system": "Packages/Python/Python.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				"Syntax Check"
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"minim",
+				"View: Toggle Minimap"
+			],
+			[
+				"termin",
+				"Terminal (panel)"
+			],
+			[
+				"Package Control: md",
+				"Package Control: Enable Debug Mode"
+			],
+			[
+				"ins",
+				"Install Package Control"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/Мои документы/JavaScript/Sonata",
+		"/D/Мои документы/JavaScript/Sonata/src",
+		"/D/Мои документы/JavaScript/Sonata/src/components",
+		"/D/Мои документы/JavaScript/Sonata/src/components/hours",
+		"/D/Мои документы/JavaScript/Sonata/src/components/other",
+		"/D/Мои документы/JavaScript/Sonata/src/components/session",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/hours",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/other",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/python",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/session"
+	],
+	"file_history":
+	[
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/session.py",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/other.py",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/hours.py",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/utils.py",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/test.py",
+		"/D/Мои документы/JavaScript/Sonata/package.json",
+		"/D/Мои документы/JavaScript/Sonata/src/components/session/package-of-documents.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/session/package-of-documents-15.json",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/session/package-of-documents-14.json",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/session/package-of-documents.js",
+		"/D/Мои документы/JavaScript/Sonata/src/components/session/report.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/components/Workspace.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/components/ProgramMenu.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/components/FileInput.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/components/FileOutput.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/components/ExampleWindow.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/components/hours/based-on-the-first-month.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/components/SectionButton.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/start.py",
+		"/D/Мои документы/JavaScript/Sonata/src/components/other/other.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/other/other.js",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/utils.js",
+		"/D/Мои документы/JavaScript/Sonata/src/components/hours/summary-of-teachers.svelte",
+		"/D/Мои документы/JavaScript/Sonata/preload.cjs",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/hours/based-on-the-first-month.json",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/hours/summary-of-teachers.js",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/starter.js",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/hours/based-on-the-first-month.js",
+		"/D/Мои документы/JavaScript/Sonata/src/components/session/empty-statements.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/session/empty-statements.json",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/session/empty-statements.js",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/session/test.json",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/auxiliary.py",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/start.py",
+		"/D/Мои документы/JavaScript/Sonata/main.cjs",
+		"/D/Мои документы/JavaScript/Sonata/main.js",
+		"/D/Мои документы/JavaScript/Sonata/src/App.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/components/ErrorWindow.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/Входные данные.json",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/other/other--other--num-den.json",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/test.py",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/file-actions.js",
+		"/D/Мои документы/JavaScript/Sonata/src/components/other/templates.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/hours/Входные данные.json",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/test.bat",
+		"/D/Мои документы/JavaScript/Sonata/src/components/TitleBar.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/session/package-of-documents (15 предметов).json",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/session/package-of-documents (14 предметов).json",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/session/package-of-documents.json",
+		"/D/Мои документы/JavaScript/Sonata/dist/win-unpacked/resources/app/node_modules/jszip/dist/jszip.js",
+		"/D/Мои документы/JavaScript/Sonata/vite.config.js",
+		"/D/Мои документы/ПОЛИТЕХ/5 семестр/Інтелектуальний аналіз даних -/ЛР 7 -/Lab7_ukr_part_1.ipynb",
+		"/D/Мои документы/JavaScript/Sonata/src/main.js",
+		"/D/Мои документы/JavaScript/Sonata/src/lib/styles.json",
+		"/D/Мои документы/JavaScript/Sonata/src/components/AccountActionButtons.svelte",
+		"/C/Users/Maxim/AppData/Roaming/Sublime Text/Packages/User/Default.sublime-commands",
+		"/C/Users/Maxim/AppData/Roaming/Sublime Text/Packages/Terminus/Default.sublime-commands"
+	],
+	"find":
+	{
+		"height": 22.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"teacherName",
+			"subjectName",
+			"subject_name",
+			"studentRow",
+			"student_row",
+			"subjectStep",
+			"subject_step",
+			"debrostStep",
+			"debrost_step",
+			"debrostRow",
+			"debrost_row",
+			"debrostSheet",
+			"debrost_sheet",
+			"docPath",
+			"doc_path",
+			"socialScholarship",
+			"social_scholarship",
+			"generalAmount",
+			"general_amount",
+			"parentDir",
+			"parent_dir",
+			"specCode",
+			"spec_code",
+			"subjectList",
+			"subject_list",
+			"teacherStatements",
+			"teacher_statements",
+			"specsText",
+			"specs_text",
+			"educationalProgramsText",
+			"educational_programs_text",
+			"lineSize",
+			"line_size",
+			"letterSizes",
+			"letter_sizes",
+			"mergedCells",
+			"merged_cells",
+			"workbookPath",
+			"workbook_path",
+			"workbookP_pth",
+			"docExplanationPath",
+			"doc_explanation_path",
+			"pathToSave",
+			"path_to_save",
+			"docSubmissionPath",
+			"doc_submission_path",
+			"docWebSitePath",
+			"doc_website_path",
+			"docPetitionPath",
+			"doc_petition_path",
+			"explanationText",
+			"explanation_text",
+			"sameScoreTextPart2",
+			"sameScoreTextPart1",
+			"same_score_text_part_1",
+			"sameScoreIndex",
+			"same_score_index",
+			"sameScore",
+			"same_score",
+			"submissionText",
+			"submission_text",
+			"docExplanation",
+			"doc_explanation",
+			"docSubmission",
+			"doc_submission",
+			"kurator2",
+			"kurator1",
+			"semesterDateEnd1",
+			"semesterDateStart1",
+			"semesterNumber1",
+			"kurator12",
+			"kurator11",
+			"speciality1",
+			"groupCode1",
+			"semesterDateEnd3",
+			"semesterDateStart3",
+			"years3",
+			"semesterNumber3",
+			"kurator32",
+			"kurator31",
+			"speciality3",
+			"groupCode3",
+			"studentName",
+			"student_name",
+			"semesterNumber",
+			"semester_number",
+			"semesterDateEnd2",
+			"semester_date_end_2",
+			"semesterDateStart2",
+			"semester_date_start_2",
+			"years2",
+			"years_2",
+			"semesterNumber2",
+			"semester_number_2",
+			"semesterNumberWord",
+			"semester_number_word",
+			"kurator22",
+			"kuratorGen",
+			"kurator_gen",
+			"kurator21",
+			"kurator_21",
+			"speciality2",
+			"speciality_2",
+			"groupCode2",
+			"group_code_2",
+			"groupCode",
+			"group_code",
+			"docWebSite",
+			"doc_website",
+			"docPetition",
+			"doc_petition",
+			"doc_etition",
+			"socialScholarshipList",
+			"social_scholarship_list",
+			"increasedScholarshipList",
+			"increased_scholarship_list",
+			"semesterEnd",
+			"semester_end",
+			"semesterStart",
+			"semester_start",
+			"specialityName",
+			"speciality_name",
+			"specialityCode",
+			"speciality_code",
+			"semesterDatesEnd",
+			"semester_dates_end",
+			"semesterDatesStart",
+			"semester_dates_start"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"teacher_name",
+			"subject_name",
+			"student_row",
+			"subject_step",
+			"debrost_step",
+			"debrost_row",
+			"debrost_sheet",
+			"doc_path",
+			"social_scholarship",
+			"general_amount",
+			"parent_dir",
+			"spec_code",
+			"subject_list",
+			"teacher_statements",
+			"specs_text",
+			"educational_programs_text",
+			"line_size",
+			"letter_sizes",
+			"merged_cells",
+			"workbook_path",
+			"doc_explanation_path",
+			"path_to_save",
+			"doc_submission_path",
+			"doc_website_path",
+			"doc_petition_path",
+			"explanation_text",
+			"same_score_text_part_2",
+			"same_score_text_part_1",
+			"same_score_index",
+			"same_score",
+			"submission_text",
+			"doc_explanation",
+			"doc_submission",
+			"kurator_2",
+			"kurator_1",
+			"semester_date_end_1",
+			"semester_date_start_1",
+			"semester_number_1",
+			"kurator_12",
+			"kurator_11",
+			"speciality_1",
+			"group_code_1",
+			"semester_date_end_3",
+			"semester_date_start_3",
+			"years_3",
+			"semesterNumber_3",
+			"kurator_32",
+			"kurator_31",
+			"speciality_3",
+			"group_code_3",
+			"student_name",
+			"semester_number",
+			"semester_date_end_2",
+			"semester_date_start_2",
+			"years_2",
+			"semester_number_2",
+			"semester_number_word",
+			"kurator_22",
+			"kurator_gen",
+			"kurator_21",
+			"speciality_2",
+			"group_code_2",
+			"group_code",
+			"doc_website",
+			"doc_petition",
+			"social_scholarship_list",
+			"increased_scholarship_list",
+			"semester_end",
+			"semester_start",
+			"speciality_name",
+			"speciality_code",
+			"semester_dates_end",
+			"semester_dates_start",
+			"_semester_end_month",
+			"_semester_start_month",
+			"_semester_end_split",
+			"_semester_start_split",
+			"sorted_list",
+			"kurator_nom",
+			"social_status",
+			"app_path",
+			"file_path",
+			"avg_grade",
+			"scholarship_number",
+			"workbook_path",
+			"start_weekday",
+			"semester_2_start",
+			"sem_1_weekday_idx",
+			"week_num",
+			"col_num",
+			"semester_1_end",
+			"semester_1_start",
+			"path_to_save",
+			"file_path",
+			"app_path",
+			"teachers_list",
+			"hours_per_subject",
+			"file_path",
+			"group_name",
+			"start_week_day",
+			"end_day",
+			"start_day",
+			"cell_C8",
+			"table_index",
+			"new_text",
+			"old_text",
+			"None",
+			"True",
+			"False",
+			"up2",
+			"pathStart",
+			"    ",
+			"\t",
+			"False",
+			"True",
+			"False",
+			"True",
+			"get_column_letter(i + 6)",
+			"False",
+			"True"
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": true,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/scripts/python/start.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6013,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5144,
+								5144
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 546.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/scripts/python/other.py",
+					"selected": true,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10685,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1366,
+								1366
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 39.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "src/scripts/utils.js",
+					"selected": true,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11477,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6705,
+								6705
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 80.0,
+						"translation.y": 1927.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.Terminus":
+	{
+		"height": 121.0
+	},
+	"output.exec":
+	{
+		"height": 96.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "workspace.sublime-project",
+	"replace":
+	{
+		"height": 40.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 1,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 257.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

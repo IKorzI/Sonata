@@ -1,0 +1,11 @@
+{
+  "watch": [
+    "main.js",
+    "preload.js",
+    "restart.flag",
+    "src/main.js",
+    "src/scripts"
+  ],
+  "ext": "flag,js,json",
+  "exec": "set NODE_ENV=development && electron ."
+}

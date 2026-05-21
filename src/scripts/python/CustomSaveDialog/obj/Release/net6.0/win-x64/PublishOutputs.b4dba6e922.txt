@@ -1,0 +1,2 @@
+C:\Users\Maxim\Desktop\Новая папка (2)\CustomSaveDialog\bin\Release\net6.0\win-x64\publish\CustomSaveDialog.pdb
+C:\Users\Maxim\Desktop\Новая папка (2)\CustomSaveDialog\bin\Release\net6.0\win-x64\publish\CustomSaveDialog.exe

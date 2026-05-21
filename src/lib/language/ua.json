@@ -1,0 +1,18 @@
+{
+  "lng": "ua",
+  
+  "playerConnect.header": "Налаштування підключення",
+  "playerConnect.username": "Нік гравця",
+  "playerConnect.adress": "IP сервера",
+  "playerConnect.version": "Версія майнкрафт",
+  "playerConnect.save": "Зберегти",
+
+  "playerControl.click.header": "Клікати",
+  "playerControl.hold.header": "Затиснути",
+  "playerControl.lmb": "ЛКМ",
+  "playerControl.rmb": "ПКМ",
+  "playerControl.shift": "Шифт",
+
+  "playerControl.settingsWindow.header": "Налаштування",
+  "playerControl.settingsWindow.intervalHeader": "Інтервал (мс) між кліками"
+}

@@ -1,0 +1,9 @@
+ПКМ Excel
+
+Sub Reset_All_Bars()
+Dim cmbComBar As CommandBar
+On Error Resume Next
+For Each cmbComBar In CommandBars
+cmbComBar.Reset: cmbComBar.Enabled = True ': cmbComBar.Visible = True
+Next cmbComBar
+End Sub
