@@ -1,5 +1,5 @@
 <script>
-  import { selectedSection, clearInformation, saveInformation, savedInformation, error } from '../../lib/store.js'
+  import { selectedSection, clearInformation, saveInformation, savedInformation, message } from '../../lib/store.js'
   import FileInput from '../FileInput.svelte';
   import { tick } from 'svelte';
 
@@ -45,7 +45,7 @@
 
   let this_
   let uploadedFile = null;
-  let information = {semesterEnd: null};
+  let data = {semesterEnd: null};
   let eSemesterEnd;
   let subjectsAndHours = [];
 
@@ -78,14 +78,14 @@
   function clearAll() {
     uploadedFile = null;
     subjectsAndHours = [];
-    information = {semesterEnd: null};
+    data = {semesterEnd: null};
   }
 
   async function saveAll() {
     const semesterEndDate = eSemesterEnd.value
 
     let endInformation = {
-      ...information,
+      ...data,
       semesterEndDate: semesterEndDate,
       id: thisId,
       filePath: uploadedFile.path,
@@ -101,9 +101,9 @@
     if (!window.electron) return;
     if (detail.id === 'hours--based-on-the-first-month--hours') {
       uploadedFile = detail.file;
-      information = await window.electron.hoursBasedGetInformation(uploadedFile.path);
-      console.log(information);
-      const parts = information.semesterStartDate.split(".");
+      data = await window.electron.hoursBasedGetInformation(uploadedFile.path);
+      console.log(data);
+      const parts = data.semesterStartDate.split(".");
       const month = parseInt(parts[1], 10);
       let semesterNumber;
       if (month > 7) {
@@ -112,7 +112,7 @@
         semesterNumber = 2;
       }
       subjectsAndHours = [];
-      const subjects = information.groups[0].subjects;
+      const subjects = data.groups[0].subjects;
       const notFoundSubjects = [];
       for (const subject of subjects) {
         const hours = hoursPerSubject[semesterNumber - 1][subject.subjectName];
@@ -125,8 +125,8 @@
       }
       
       if (notFoundSubjects.length > 0) {
-        const message = `У нормах годин не були знайдені наступні предмети і вони потребують особистого заповнення:\n${notFoundSubjects.join(', ')}`;
-        error.set({type: 'warning', text: message});
+        const messageText = `У нормах годин не були знайдені наступні предмети і вони потребують особистого заповнення:\n${notFoundSubjects.join(', ')}`;
+        message.set({type: 'warning', text: messageText});
       }
     }
   }
@@ -175,7 +175,7 @@
 
   <div class="semester-end">
     <div>Крайня дата навчання у семестрі</div>
-    <input type="text" bind:this={eSemesterEnd} value="{information.semesterEndDate ? `${information.semesterEndDate}`: ""}" class:unavailable={uploadedFile === null}/>
+    <input type="text" bind:this={eSemesterEnd} value="{data.semesterEndDate ? `${data.semesterEndDate}`: ""}" class:unavailable={uploadedFile === null}/>
   </div>
 
   <div class="hours-per-subject">

@@ -8,7 +8,7 @@
 
   let this_
   let uploadedFile = null;
-  let information = null
+  let data = null
 
   $: if ($selectedSection) {
     if (this_) {
@@ -42,7 +42,7 @@
 
   async function saveAll() {
     let endInformation = {
-      ...information,
+      ...data,
       id: thisId,
       filePath: uploadedFile.path
     }
@@ -56,8 +56,8 @@
     if (!window.electron) return;
     if (detail.id === 'hours--summary-of-teachers--hours') {
       uploadedFile = detail.file;
-      information = await window.electron.hoursSummaryGetInformation(uploadedFile.path);
-      console.log(information);
+      data = await window.electron.hoursSummaryGetInformation(uploadedFile.path);
+      console.log(data);
     }
   }
 

@@ -1,5 +1,5 @@
 <script>
-  import { selectedSection, clearInformation, saveInformation, savedInformation, error } from '../../lib/store.js'
+  import { selectedSection, clearInformation, saveInformation, savedInformation, message } from '../../lib/store.js'
   import FileInput from '../FileInput.svelte';
 
   // ========== ЗАПОЛНИТЬ ==========
@@ -55,14 +55,14 @@
     if (!window.electron) return;
     if (detail.id === 'session--report--statements') {
       const uploadedFile = detail.file;
-      const information = await window.electron.sessionReportGetInformation(uploadedFile.path);
+      const data = await window.electron.sessionReportGetInformation(uploadedFile.path);
       for (const group of loadedGroups) {
-        if (group.groupCode === information.groupCode) {
-          error.set({type: 'error', text: `Група ${group.groupCode} вже завантажена.`});
+        if (group.groupCode === data.groupCode) {
+          message.set({type: 'error', text: `Група ${group.groupCode} вже завантажена.`});
           return;
         }
       }
-      loadedGroups = [...loadedGroups, {...information, filePath: uploadedFile.path}];
+      loadedGroups = [...loadedGroups, {...data, filePath: uploadedFile.path}];
       console.log(loadedGroups);
     }
   }

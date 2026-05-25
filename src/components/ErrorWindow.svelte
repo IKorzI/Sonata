@@ -1,29 +1,29 @@
 <script>
-  import { error } from '../lib/store.js'
+  import { message } from '../lib/store.js'
 
   let errorText = '';
   let errorType = '';
-  $: if ($error) {
-    if ($error.text === '') {
+  $: if ($message) {
+    if ($message.text === '') {
       setTimeout(() => {
         errorText = '';
         errorType = '';
       }, 400);
     } else {
-      errorText = $error.text;
-      errorType = $error.type === 'warning' ? 'Попередження' : 'Помилка';
+      errorText = $message.text;
+      errorType = $message.type === 'warning' ? 'Попередження' : 'Помилка';
     }
   }
 
   function handlerClickOK() {
-    error.set({type: '', text: ''});
+    message.set({type: '', text: ''});
   }
 
 </script>
 
-<div class="error-area" class:showed={$error.text}>
+<div class="error-area" class:showed={$message.text}>
 
-  <div class="error-window" class:showed={$error.text}>
+  <div class="error-window" class:showed={$message.text}>
     <div class="title">{errorType}</div>
     <div class="text-area">{errorText}</div>
     <button class="ok" on:click={handlerClickOK}>OK</button>

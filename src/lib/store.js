@@ -7,7 +7,7 @@ export const hide = writable(false);
 export const clearInformation = writable();
 export const saveInformation = writable();
 export const savedInformation = writable({});
-export const error = writable({type: '', text: ''});
+export const message = writable({type: '', text: ''});
 
 export const transition = writable('0s');
 export { themeSwap } from './theme.js';

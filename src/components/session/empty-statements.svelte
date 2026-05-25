@@ -41,15 +41,8 @@
   }
 
   function clearAll() {
-    information = {
-      "groups": {},
-      "semesterNumber": 0,
-      "semesterRoman": '',
-      "years": '',
-      "year": '',
-      "filePath": null,
-      "id": thisId
-    };
+    contingentData = null;
+    hoursData = null;
     uploadedFileHours = null;
     uploadedFileContingent = null;
   }

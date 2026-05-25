@@ -13,7 +13,7 @@
     'Дитина-інвалід',
     'Багатодітна малозабезпечена родина'
   ];
-  let information = {subgroups: [], kurator: null, percentage: null, semesterStart: null, semesterEnd: null};
+  let data = {subgroups: [], kurator: null, percentage: null, semesterStart: null, semesterEnd: null};
   let studentNamesByCode = {};
   let socialyList = [];
   let increasedList = [];
@@ -56,7 +56,7 @@
   }
 
   function clearAll() {
-    information = {subgroups: [], kurator: null, percentage: null, semesterStart: null, semesterEnd: null};
+    data = {subgroups: [], kurator: null, percentage: null, semesterStart: null, semesterEnd: null};
     increasedList = [];
     socialyList = [];
     list = [];
@@ -72,7 +72,7 @@
     }
 
     let endInformation = {
-      ...information,
+      ...data,
       id: thisId,
       filePath: uploadedFile.path,
       socialyList: socialyList,
@@ -176,10 +176,10 @@
     if (!window.electron) return;
     if (detail.id === 'session--package-of-documents--statements') {
       uploadedFile = detail.file;
-      information = await window.electron.sessionPackageGetInformation(uploadedFile.path);
+      data = await window.electron.sessionPackageGetInformation(uploadedFile.path);
 
       // Получение списка имён студентов по коду специальности
-      studentNamesByCode = information.subgroups.reduce((acc, specialty, index) => {
+      studentNamesByCode = data.subgroups.reduce((acc, specialty, index) => {
         acc[specialty.specialityCode] = {
           specialityIndex: index,
           students: specialty.students.map(s => s.studentName)
@@ -187,7 +187,7 @@
         return acc;
       }, {});
     }
-    console.log(information);
+    console.log(data);
   }
 
   function handleFileRemove(detail) {
@@ -414,18 +414,18 @@
 
   <div class="percentage-of-scholarship">
     <div>% бюджета на стипендию</div>
-    <input type="text" bind:this={ePercentage} value="{information.percentage}" class:unavailable={uploadedFile === null}/>
+    <input type="text" bind:this={ePercentage} value="{data.percentage}" class:unavailable={uploadedFile === null}/>
   </div>
 
   <div class="data-block" id="semester-dates">
     <div class="label">Дати призначення стипендії</div>
     <div class="row" id="start">
       <div>Початкова дата</div>
-      <input type="text" bind:this={eSemesterStart} value="{information.semesterStart}" class:unavailable={uploadedFile === null}/>
+      <input type="text" bind:this={eSemesterStart} value="{data.semesterStart}" class:unavailable={uploadedFile === null}/>
     </div>
     <div class="row" id="end">
       <div>Крайня дата</div>
-      <input type="text" bind:this={eSemesterEnd} value="{information.semesterEnd}" class:unavailable={uploadedFile === null}/>
+      <input type="text" bind:this={eSemesterEnd} value="{data.semesterEnd}" class:unavailable={uploadedFile === null}/>
     </div>
   </div>
 
@@ -433,7 +433,7 @@
     <div class="label">Ім'я та прізвище класного керівника</div>
     <div class="row" id="nominative">
       <div>Називний відмінок</div>
-      <input type="text" bind:this={eKuratorNom} value="{information.kurator}" class:unavailable={uploadedFile === null}/>
+      <input type="text" bind:this={eKuratorNom} value="{data.kurator}" class:unavailable={uploadedFile === null}/>
     </div>
     <div class="row" id="genitive">
       <div>Родовий відмінок</div>

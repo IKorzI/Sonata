@@ -1,5 +1,5 @@
 <script>
-  import { selectedSection, clearInformation, saveInformation, savedInformation, error } from '../lib/store.js'
+  import { selectedSection, clearInformation, saveInformation, savedInformation, message } from '../lib/store.js'
 
   import SessionPackageOfDocuments from './session/package-of-documents.svelte';
   import SessionEmptyStatements from './session/empty-statements.svelte';
@@ -60,30 +60,30 @@
     console.log(result)
     
     if (result.success === true && (result.files?.length > 0 || result.customText)) {
-      let message = "";
+      let messageText = "";
       if (result.files.length > 0) {
-        message = "Файл або декілька файлів відкриті та заблоковані для редагування.\nТакі файли були збережені з цими назвами:";
+        messageText = "Файл або декілька файлів відкриті та заблоковані для редагування.\nТакі файли були збережені з цими назвами:";
         result.files.forEach(file => {
-          message += `\n  – ${file}`;
+          messageText += `\n  – ${file}`;
         });
       }
       if (result.customText) {
-        if (!message) {
-          message = result.customText;
+        if (!messageText) {
+          messageText = result.customText;
         } else {
-          message = `${message}\n${result.customText}`;
+          messageText = `${messageText}\n${result.customText}`;
         }
       }
-      error.set({type: 'warning', text: message});
+      message.set({type: 'warning', text: messageText});
     } else if (result.success === true && result.notFoundSubjects?.length > 0) {
-      let message = "";
+      let messageText = "";
       if (result.notFoundSubjects.length > 0) {
-        message = "Наступні предмети не були знайдені і норми годин були залишені порожніми:";
+        messageText = "Наступні предмети не були знайдені і норми годин були залишені порожніми:";
         result.notFoundSubjects.forEach(group => {
-          message += `\n  – ${group.group}: ${group.subjects.join(", ")}`;
+          messageText += `\n  – ${group.group}: ${group.subjects.join(", ")}`;
         });
       }
-      error.set({type: 'warning', text: message});
+      message.set({type: 'warning', text: messageText});
     }
 
     isComleting = true
