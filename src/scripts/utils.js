@@ -220,7 +220,7 @@ function camelizeKeys(data) {
     return data;
 }
 
-export async function startBackendFunc(info) {
+export async function startBackendFunc(data) {
     if (!pyProcess) {
         throw new Error("Python server is not running. Call initPythonServer first.");
     }
@@ -240,10 +240,10 @@ export async function startBackendFunc(info) {
         pendingRequests.set(reqId, { resolve: customResolve, reject });
 
         // Оборачиваем запрос в конверт!
-        // Оригинальный info остается нетронутым.
+        // Оригинальный data остается нетронутым.
         const payloadObj = {
             reqId: reqId,
-            info: info
+            data: data
         };
 
         // Отправляем конверт в Python
@@ -317,6 +317,6 @@ ipcMain.handle('check-file-access', async (event, filePath) => {
   }
 });
 
-ipcMain.handle('startBackendFunc', async (event, info) => {
-  return startBackendFunc(info);
+ipcMain.handle('startBackendFunc', async (event, data) => {
+  return startBackendFunc(data);
 });

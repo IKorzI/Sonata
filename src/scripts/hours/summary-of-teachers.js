@@ -81,8 +81,8 @@ async function getInfo(filePath) {
   };
 }
 
-function dataSupplement(info) {
-  const groupsArray = info.groups; // Теперь изначально получаем массив
+function dataSupplement(data) {
+  const groupsArray = data.groups; // Теперь изначально получаем массив
   const teachersMap = {};
 
   // 1. Собираем данные по учителям
@@ -128,15 +128,15 @@ function dataSupplement(info) {
     return a.teacherName.localeCompare(b.teacherName, 'uk');
   });
 
-  info.teachersList = teachersList;
+  data.teachersList = teachersList;
   // Шаг с преобразованием groups из объекта в массив удален, так как он выполняется в getInfo
 
-  return info;
+  return data;
 }
 
 ipcMain.handle('hoursSummaryGetInformation', async (event, path) => {
   return getInfo(path);
 });
-ipcMain.handle('hoursSummaryDataSupplement', async (event, info) => {
-  return dataSupplement(info);
+ipcMain.handle('hoursSummaryDataSupplement', async (event, data) => {
+  return dataSupplement(data);
 });

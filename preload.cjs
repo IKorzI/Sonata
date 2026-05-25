@@ -13,16 +13,16 @@ contextBridge.exposeInMainWorld('electron', {
   findFileWithExtension: (dir, baseName) => ipcRenderer.invoke('findFileWithExtension', dir, baseName),
 
   sessionPackageGetInformation: (path) => ipcRenderer.invoke('sessionPackageGetInformation', path),
-  sessionPackageDataSupplement: (info) => ipcRenderer.invoke('sessionPackageDataSupplement', info),
+  sessionPackageDataSupplement: (data) => ipcRenderer.invoke('sessionPackageDataSupplement', data),
 
   sessionEmptyGetInformation: (path, type) => ipcRenderer.invoke('sessionEmptyGetInformation', path, type),
-  sessionEmptyDataSupplement: (info) => ipcRenderer.invoke('sessionEmptyDataSupplement', info),
+  sessionEmptyDataSupplement: (data) => ipcRenderer.invoke('sessionEmptyDataSupplement', data),
 
   sessionReportGetInformation: (path) => ipcRenderer.invoke('sessionReportGetInformation', path),
-  sessionReportDataSupplement: (info) => ipcRenderer.invoke('sessionReportDataSupplement', info),
+  sessionReportDataSupplement: (data) => ipcRenderer.invoke('sessionReportDataSupplement', data),
 
   sessionDebtorsGetInformation: (path) => ipcRenderer.invoke('sessionDebtorsGetInformation', path),
-  sessionDebtorsDataSupplement: (info) => ipcRenderer.invoke('sessionDebtorsDataSupplement', info),
+  sessionDebtorsDataSupplement: (data) => ipcRenderer.invoke('sessionDebtorsDataSupplement', data),
 
   hoursBasedGetInformation: (path) => ipcRenderer.invoke('hoursBasedGetInformation', path),
   hoursBasedDataSupplement: (data) => ipcRenderer.invoke('hoursBasedDataSupplement', data),
@@ -30,11 +30,11 @@ contextBridge.exposeInMainWorld('electron', {
   hoursSummaryGetInformation: (path) => ipcRenderer.invoke('hoursSummaryGetInformation', path),
   hoursSummaryDataSupplement: (data) => ipcRenderer.invoke('hoursSummaryDataSupplement', data),
 
-  startBackendFunc: (info) => ipcRenderer.invoke('startBackendFunc', info),
+  startBackendFunc: (data) => ipcRenderer.invoke('startBackendFunc', data),
 
   screenshotMode: flag => ipcRenderer.invoke('screenshotMode', flag),
   onExcelHtml: callback => ipcRenderer.on("excel-html", (event, html) => callback(html)),
   sendToMain: (channel, data) => ipcRenderer.send(channel, data),
-  otherNumDenStart: (info) => ipcRenderer.invoke('otherNumDenStart', info)
+  otherNumDenStart: (data) => ipcRenderer.invoke('otherNumDenStart', data)
 });
 

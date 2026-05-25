@@ -228,6 +228,6 @@ function dataSupplement(data) {
 ipcMain.handle('sessionEmptyGetInformation', async (event, path, type) => {
   return getInfo(path, type);
 });
-ipcMain.handle('sessionEmptyDataSupplement', async (event, info) => {
-  return dataSupplement(info);
+ipcMain.handle('sessionEmptyDataSupplement', async (event, data) => {
+  return dataSupplement(data);
 });

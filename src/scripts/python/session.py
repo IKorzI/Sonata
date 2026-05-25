@@ -907,7 +907,7 @@ def filling_out_the_empty_teacher_statement(sheet: Worksheet, semester: str, yea
     else:
         sheet.print_area = f"C3:L{20 + studLen + 2 + 22}"
 
-def filling_out_the_empty_sheet(sheet: Worksheet, cells: list, students: list, subject_len: int, gen_er: int, percentage: int):
+def filling_out_the_empty_sheet(sheet: Worksheet, cells: list, students: list, subject_len: int, last_student_row: int, percentage: int):
 
     student_len = len(students)                      # Количество студентов
 
@@ -999,11 +999,11 @@ def filling_out_the_empty_sheet(sheet: Worksheet, cells: list, students: list, s
     sheet.cell(row=7, column=3).value = cells.C7
     if subject_len >= 14:
         kurator_col_letter = get_column_letter(16)
-        sheet.cell(row=end_row + 7, column=16).value = f"='Зведена загальна'!{kurator_col_letter}{gen_er + 7}"
+        sheet.cell(row=end_row + 7, column=16).value = f"='Зведена загальна'!{kurator_col_letter}{last_student_row + 7}"
         sheet.cell(row=end_row + 9, column=16).value = f'Маргарита БРІТІКОВА'
     else:
         kurator_col_letter = get_column_letter(21 - delete_col_count)
-        sheet.cell(row=end_row + 7, column=21 - delete_col_count).value = f"='Зведена загальна'!{kurator_col_letter}{gen_er + 7}"
+        sheet.cell(row=end_row + 7, column=21 - delete_col_count).value = f"='Зведена загальна'!{kurator_col_letter}{last_student_row + 7}"
         sheet.cell(row=end_row + 9, column=21 - delete_col_count).value = f'Маргарита БРІТІКОВА'
 
     # --- Названия предметов ---
@@ -1207,7 +1207,8 @@ def session_EmptyCreate(info, app_path, path_to_save, semester):
             }
             sheet = statements[f"ЛЗ{subgroup_index + 1}"]
             sheet.title = f"Зведена {subgroup.speciality_code}"
-            filling_out_the_empty_sheet(sheet, cells, subgroup.student_IDs, subject_len, 9 + len(group.students), info.percentage)
+            last_student_row = 9 + len(group.students)
+            filling_out_the_empty_sheet(sheet, cells, subgroup.student_IDs, subject_len, last_student_row, info.percentage)
 
         # === Ведомости преподавателей ===
         sheet = teacher_statements[f"Л{group_index + 1}"]

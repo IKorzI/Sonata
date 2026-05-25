@@ -91,16 +91,16 @@ async function getInfo(filePath, type) {
   return answer;
 }
 
-function dataSupplement(info) {
-  info.groups.forEach(group => {
+function dataSupplement(data) {
+  data.groups.forEach(group => {
     delete group.filePath;
   });
-  return info
+  return data
 }
 
 ipcMain.handle('sessionReportGetInformation', async (event, path, type) => {
   return getInfo(path, type);
 });
-ipcMain.handle('sessionReportDataSupplement', async (event, info) => {
-  return dataSupplement(info);
+ipcMain.handle('sessionReportDataSupplement', async (event, data) => {
+  return dataSupplement(data);
 });

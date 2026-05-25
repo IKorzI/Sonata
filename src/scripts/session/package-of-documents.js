@@ -118,18 +118,18 @@ async function getInfo(filePath) {
   };
 }
 
-function dataSupplement(info) {
-  const subgroups = info.subgroups;
+function dataSupplement(data) {
+  const subgroups = data.subgroups;
   
   // 1. Присвоение статусов по изначальным индексам (теперь используем specialityIndex)
-  for (const item of (info.socialyList || [])) {
+  for (const item of (data.socialyList || [])) {
     const { specialityIndex, studentIndex, status } = item;
     if (subgroups[specialityIndex] && subgroups[specialityIndex].students[studentIndex]) {
       subgroups[specialityIndex].students[studentIndex].socialStatus = status;
     }
   }
   
-  for (const item of (info.increasedList || [])) {
+  for (const item of (data.increasedList || [])) {
     const { specialityIndex, studentIndex } = item;
     if (subgroups[specialityIndex] && subgroups[specialityIndex].students[studentIndex]) {
       subgroups[specialityIndex].students[studentIndex].increased = true;
@@ -250,16 +250,16 @@ function dataSupplement(info) {
   }
   
   // Очистка глобальных свойств
-  delete info.socialyList;
-  delete info.increasedList;
-  delete info.kurator;
+  delete data.socialyList;
+  delete data.increasedList;
+  delete data.kurator;
   
-  return info;
+  return data;
 }
 
 ipcMain.handle('sessionPackageGetInformation', async (event, path) => {
   return getInfo(path);
 });
-ipcMain.handle('sessionPackageDataSupplement', async (event, info) => {
-  return dataSupplement(info);
+ipcMain.handle('sessionPackageDataSupplement', async (event, data) => {
+  return dataSupplement(data);
 });
