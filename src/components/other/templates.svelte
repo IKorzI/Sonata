@@ -23,9 +23,9 @@
 
 <div class="gui" id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
 
-  <FileOutput eId='session--package-of-documents--statements' type='excel'/>
-  <FileOutput eId='session--empty-statements--hours' type='excel'/>
-  <FileOutput eId='session--empty-statements--contingent' type='excel'/>
+  <FileOutput eId='statements' type='excel'/>
+  <FileOutput eId='hours' type='excel'/>
+  <FileOutput eId='contingent' type='excel'/>
 
 </div>
 

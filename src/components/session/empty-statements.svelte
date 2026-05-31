@@ -1,10 +1,13 @@
 <script>
   import FileInput from '../FileInput.svelte';
-  import { selectedSection, clearInformation, saveInformation, savedInformation } from '../../lib/store.js'
+  import { selectedSection, clearInformation, saveInformation, savedInformation, lng } from '../../lib/store.js'
 
   // ========== ЗАПОЛНИТЬ ==========
   let thisId = 'session--empty-statements';
   // ===============================
+
+  let _lng = {};
+  lng.subscribe(value => (_lng = value));
 
   let this_
   let uploadedFileHours = null;
@@ -101,7 +104,7 @@
   />
 
   <div class="percentage-of-scholarship">
-    <div>% бюджета на стипендию</div>
+    <div>{_lng.emptyStatements.percentage}</div>
     <input type="text" bind:this={ePercentage} value="40"/>
   </div>
 

@@ -30,6 +30,7 @@
   --ExampleArea-window-background-color: {_styles.ExampleArea.window.background.color};
   --ExampleArea-window-download-background-image: {_styles.ExampleArea.window.download.background.image};
   --ExampleArea-window-scaleUp-background-image: {_styles.ExampleArea.window.scaleUp.background.image};
+  --ExampleArea-window-scaleByWidth-background-image: {_styles.ExampleArea.window.scaleByWidth.background.image};
   --ExampleArea-window-scaleDown-background-image: {_styles.ExampleArea.window.scaleDown.background.image};
   --ExampleArea-window-button-background-color: {_styles.ExampleArea.window.button.background.color};
   --ExampleArea-window-button-hover-background-color: {_styles.ExampleArea.window.button.hover.background.color};
@@ -116,6 +117,7 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% 100%;
+    white-space: pre-line;
   }
 
   :global(.program img, .program .img) {

@@ -1,20 +1,31 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
-  import { whatDocument } from '../lib/store.js'
+  import { whatDocument, lng } from '../lib/store.js'
   export let type;
   export let eId;
 
-  const label = {
-    "session--package-of-documents--statements": "Зведені відомості",
-    "session--empty-statements--hours": "Години по групах за місяць",
-    "session--empty-statements--contingent": "Контингент",
+  let _lng = {};
+  lng.subscribe(value => (_lng = value));
 
-    "hours--based-on-the-first-month--hours": "Години по групах за перший місяць семестра",
-    "hours--summary-of-teachers--hours": "Години по групах"
+  $: label = {
+    "statements": _lng.fileOutput.label.statements,
+    "hours": _lng.fileOutput.label.hours,
+    "contingent": _lng.fileOutput.label.contingent,
   }
 
-  const names = {
-    "session--package-of-documents--statements": "Відомості"
+  $: names = {
+    "statements": {
+      fileNameToSave: _lng.fileOutput.names.statements,
+      filePathToSave: "statements",
+    },
+    "hours": {
+      fileNameToSave: _lng.fileOutput.names.hours,
+      filePathToSave: "hours",
+    },
+    "contingent": {
+      fileNameToSave: _lng.fileOutput.names.contingent,
+      filePathToSave: "contingent",
+    },
   }
 
   let eArea;
@@ -28,29 +39,29 @@
   async function handleDownload() {
     if (!window.electron) return;
 
-    const baseName = eId;
+    const baseName = names[eId].filePathToSave;
     const basePath = 'examples/save/';
 
-    // ✅ Получаем расширение от Electron (поиск файла с этим базовым именем в папке examples)
+    // Получаем расширение от Electron (поиск файла с этим базовым именем в папке examples)
     const fileInfo = await window.electron.findFileWithExtension(basePath, baseName);
     if (!fileInfo) {
-      alert('Файл не найден.');
+      alert('File not found.');
       return;
     }
 
     const { fullPath, extension } = fileInfo;
 
-    const fileName = names[baseName]
+    const fileName = names[eId].fileNameToSave
 
-    // ✅ Открываем диалог сохранения
+    // Открываем диалог сохранения
     const targetPath = await window.electron.saveDialog(fileName, extension);
     if (!targetPath) return;
 
-    // ✅ Копируем файл
+    // Копируем файл
     const result = await window.electron.saveFile(fullPath, targetPath);
 
     if (!result.success) {
-      alert('Ошибка при сохранении файла: ' + result.error);
+      alert('Error saving file: ' + result.error);
     }
   }
 
@@ -98,7 +109,7 @@
     on:click={handleDownload}
     bind:this={eArea}
   >
-    <div class="text">Натисніть для збереження файлу</div>
+    <div class="text">{_lng.fileOutput.area.text}</div>
     <div class="img" style:background-image={`url(${backgroundImageUrl})`}></div>
     <div class="what" on:click|stopPropagation={handleWhat}></div>
   </div>

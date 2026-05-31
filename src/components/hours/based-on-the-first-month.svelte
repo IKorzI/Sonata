@@ -1,11 +1,14 @@
 <script>
-  import { selectedSection, clearInformation, saveInformation, savedInformation, message } from '../../lib/store.js'
+  import { selectedSection, clearInformation, saveInformation, savedInformation, message, lng } from '../../lib/store.js'
   import FileInput from '../FileInput.svelte';
   import { tick } from 'svelte';
-
+  
   // ========== ЗАПОЛНИТЬ ==========
   let thisId = 'hours--based-on-the-first-month';
   // ===============================
+
+  let _lng = {};
+  lng.subscribe(value => (_lng = value));
 
   const hoursPerSubject = [
     {
@@ -125,7 +128,7 @@
       }
       
       if (notFoundSubjects.length > 0) {
-        const messageText = `У нормах годин не були знайдені наступні предмети і вони потребують особистого заповнення:\n${notFoundSubjects.join(', ')}`;
+        const messageText = `${_lng.basedOnTheFirstMonth.messageText}\n${notFoundSubjects.join(', ')}`;
         message.set({type: 'warning', text: messageText});
       }
     }
@@ -174,12 +177,12 @@
   />
 
   <div class="semester-end">
-    <div>Крайня дата навчання у семестрі</div>
+    <div>{_lng.basedOnTheFirstMonth.semesterEnd}</div>
     <input type="text" bind:this={eSemesterEnd} value="{data.semesterEndDate ? `${data.semesterEndDate}`: ""}" class:unavailable={uploadedFile === null}/>
   </div>
 
   <div class="hours-per-subject">
-    <div class="label">Години по предметах</div>
+    <div class="label">{_lng.basedOnTheFirstMonth.hoursPerSubject}</div>
     <div class="list">
       {#each subjectsAndHours as subject, subjectIndex}
         <div class="row" id={subject.subjectName}>

@@ -1,18 +1,17 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import FileInput from '../FileInput.svelte';
-  import { selectedSection, clearInformation, saveInformation, savedInformation } from '../../lib/store.js'
+  import { selectedSection, clearInformation, saveInformation, savedInformation, lng } from '../../lib/store.js'
 
   // ========== ЗАПОЛНИТЬ ==========
   let thisId = 'session--package-of-documents';
   // ===============================
-  const statusesList = [
-    'Внутрішньо переміщена особа',
-    'Дитина учасника бойових дій',
-    'Дитина, позбавлена батьківського піклування',
-    'Дитина-інвалід',
-    'Багатодітна малозабезпечена родина'
-  ];
+
+  let _lng = {};
+  lng.subscribe(value => (_lng = value));
+
+  $: statusesList = _lng.packageOfDocuments.socialScholarship.statusesList;
+
   let data = {subgroups: [], kurator: null, percentage: null, semesterStart: null, semesterEnd: null};
   let studentNamesByCode = {};
   let socialyList = [];
@@ -372,8 +371,8 @@
 
   <div class="social-scholarship">
     <div class="choice-mark"/>
-    <div class="label1" on:click={() => handleLabelClick("label1")}>Соціальні статуси студентів</div>
-    <div class="label2" on:click={() => handleLabelClick("label2")}>Студенти на підвищену стипендію</div>
+    <div class="label1" on:click={() => handleLabelClick("label1")}>{_lng.packageOfDocuments.socialScholarship.label1}</div>
+    <div class="label2" on:click={() => handleLabelClick("label2")}>{_lng.packageOfDocuments.socialScholarship.label2}</div>
     <div class="list" bind:this={eList}>
       {#each list as item, index}
         <div class="row" id={"row-" + index} class:unavailable={uploadedFile === null}
@@ -381,10 +380,10 @@
         >
           <div class="remove" on:click={() => handleRemoveRow(index)}>✕</div> 
           <div class="student" on:click={() => handleOpenStudentsList(index)}>
-            {item.studentName ? item.studentName : "Оберіть студента"}
+            {item.studentName ? item.studentName : _lng.packageOfDocuments.list.student}
           </div>
           <input class="status" type="text" readonly 
-            value={currentList === 'socialy' ? item.status ? item.status : "Оберіть статус" : ""}
+            value={currentList === 'socialy' ? item.status ? item.status : _lng.packageOfDocuments.list.socialy : ""}
             on:click={() => handleOpenStatusesList(index)} on:mouseenter={() => handleStatusEnter(index)} on:mouseleave={() => handleStatusLeave(index)}/>
           <div class="edit-status" on:click={() => handleEditStatusClick(index)} on:mouseenter={() => handleEditStatusEnter(index)} on:mouseleave={() => handleEditStatusLeave(index)}></div>
         </div>
@@ -413,30 +412,30 @@
   </div>
 
   <div class="percentage-of-scholarship">
-    <div>% бюджета на стипендию</div>
+    <div>{_lng.packageOfDocuments.percentageOfScholarship}</div>
     <input type="text" bind:this={ePercentage} value="{data.percentage}" class:unavailable={uploadedFile === null}/>
   </div>
 
   <div class="data-block" id="semester-dates">
-    <div class="label">Дати призначення стипендії</div>
+    <div class="label">{_lng.packageOfDocuments.semesterDates.label}</div>
     <div class="row" id="start">
-      <div>Початкова дата</div>
+      <div>{_lng.packageOfDocuments.semesterDates.start}</div>
       <input type="text" bind:this={eSemesterStart} value="{data.semesterStart}" class:unavailable={uploadedFile === null}/>
     </div>
     <div class="row" id="end">
-      <div>Крайня дата</div>
+      <div>{_lng.packageOfDocuments.semesterDates.end}</div>
       <input type="text" bind:this={eSemesterEnd} value="{data.semesterEnd}" class:unavailable={uploadedFile === null}/>
     </div>
   </div>
 
   <div class="data-block" id="class-teacher-name">
-    <div class="label">Ім'я та прізвище класного керівника</div>
+    <div class="label">{_lng.packageOfDocuments.classTeacherName.label}</div>
     <div class="row" id="nominative">
-      <div>Називний відмінок</div>
+      <div>{_lng.packageOfDocuments.classTeacherName.nominative}</div>
       <input type="text" bind:this={eKuratorNom} value="{data.kurator}" class:unavailable={uploadedFile === null}/>
     </div>
     <div class="row" id="genitive">
-      <div>Родовий відмінок</div>
+      <div>{_lng.packageOfDocuments.classTeacherName.genitive}</div>
       <input type="text" bind:this={eKuratorGen} class:unavailable={uploadedFile === null}/>
     </div>
   </div>

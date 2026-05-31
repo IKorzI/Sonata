@@ -46,8 +46,7 @@ def filling_out_the_summary_sheet(sheet: Worksheet, students: list, cells: list,
     # ПОДГОТОВКА ЛИСТА ПЕРЕД ЗАПОЛНЕНИЕМ
 
     # --- Удаление строк ---
-    for _ in range(delete_row_count):
-        sheet.delete_rows(delete_row_start)
+    sheet.delete_rows(delete_row_start, amount=delete_row_count)
     for row in range(delete_row_start + 11, delete_row_start + 11 + delete_row_count):
         sheet.row_dimensions[row].hidden = True
         
@@ -56,8 +55,7 @@ def filling_out_the_summary_sheet(sheet: Worksheet, students: list, cells: list,
         sheet.unmerge_cells(start_row=row, start_column=3, end_row=row, end_column=26)
     sheet.unmerge_cells(start_row=8, start_column=6, end_row=8, end_column=25)
     sheet.unmerge_cells(start_row=8, start_column=26, end_row=9, end_column=26)
-    for _ in range(delete_col_count):
-        sheet.delete_cols(9)
+    sheet.delete_cols(idx=9, amount=delete_col_count)
     for col in range(delete_col_start + 3, delete_col_start + 3 + delete_col_count):
         dims[get_column_letter(col)].hidden = True
     for row in [3, 4, 5, 6, 7]:
@@ -69,7 +67,7 @@ def filling_out_the_summary_sheet(sheet: Worksheet, students: list, cells: list,
     dims[get_column_letter(delete_col_start + 2)].width = 2.7
         
     # --- Установка области печати ---
-    col_letter = get_column_letter(end_col)
+    col_letter = get_column_letter(end_col + 1)
     sheet.print_area = f"C3:{col_letter}{end_row + 9}"
 
     # --- Возвращение формул ---
@@ -165,8 +163,7 @@ def filling_out_the_rating_sheet(sheet: Worksheet, s_title: str, scholarship_num
     # ПОДГОТОВКА ЛИСТА ПЕРЕД ЗАПОЛНЕНИЕМ
 
     # --- Удаление строк ---
-    for _ in range(delete_row_count):
-        sheet.delete_rows(delete_row_start)
+    sheet.delete_rows(delete_row_start, amount=delete_row_count)
     for row in range(delete_row_start + 6, delete_row_start + 6 + delete_row_count):
         sheet.row_dimensions[row].hidden = True
         
@@ -176,8 +173,7 @@ def filling_out_the_rating_sheet(sheet: Worksheet, s_title: str, scholarship_num
     sheet.unmerge_cells(start_row=8, start_column=6, end_row=8, end_column=25)
     sheet.unmerge_cells(start_row=8, start_column=26, end_row=9, end_column=26)
     sheet.unmerge_cells(start_row=8, start_column=27, end_row=9, end_column=27)
-    for _ in range(delete_col_count):
-        sheet.delete_cols(9)
+    sheet.delete_cols(idx=9, amount=delete_col_count)
     for col in range(delete_col_start + 4, delete_col_start + 4 + delete_col_count):
         dims[get_column_letter(col)].hidden = True
     for row in [3, 4, 5, 6, 7]:
@@ -191,8 +187,8 @@ def filling_out_the_rating_sheet(sheet: Worksheet, s_title: str, scholarship_num
     dims[get_column_letter(delete_col_start + 3)].width = 2.7
         
     # --- Установка области печати ---
-    col_letter = get_column_letter(end_col)
-    sheet.print_area = f"C3:{col_letter}{end_row + 9}"
+    col_letter = get_column_letter(end_col + 2)
+    sheet.print_area = f"C3:{col_letter}{end_row + 4}"
 
     # --- Возвращение формул ---
     for row in range(10, end_row + 1):
@@ -669,8 +665,8 @@ def filling_out_the_empty_teacher_statement(sheet: Worksheet, semester: str, yea
         return [line + padding for line in lines]
 
     # Собираем списки строк, которые нужно отформатировать
-    spec_strings = [f'{subgroup["specialityCode"]} {subgroup["specialityName"]}' for subgroup in subgroups]
-    edu_strings = [EDUCATIONAL_PROGRAMS[subgroup["specialityCode"]] for subgroup in subgroups if EDUCATIONAL_PROGRAMS.get(subgroup["specialityCode"], "")]
+    spec_strings = [f'{subgroup["speciality_code"]} {subgroup["speciality_name"]}' for subgroup in subgroups]
+    edu_strings = [EDUCATIONAL_PROGRAMS[subgroup["speciality_code"]] for subgroup in subgroups if EDUCATIONAL_PROGRAMS.get(subgroup["speciality_code"], "")]
 
     # Обрабатываем их через функцию
     specs_text = append_to_lines(spec_strings, max_specs_width)
@@ -695,11 +691,10 @@ def filling_out_the_empty_teacher_statement(sheet: Worksheet, semester: str, yea
     for cell_range in to_unmerge:
         sheet.unmerge_cells(str(cell_range))
     
-    for _ in range(delete_count):
-        sheet.delete_rows(start)
+    sheet.delete_rows(start, amount=delete_count)
 
     for row in range(start + 25 + 1, start + 25 + 1 + delete_count):
-        sheet.row_dimensions[row].height = 0
+        sheet.row_dimensions[row].hidden = True
 
     target_range = f'C{start + 1}:L{start + 1 + 22}'
     min_col, min_row, max_col, max_row = range_boundaries(target_range)
@@ -833,7 +828,7 @@ def filling_out_the_empty_teacher_statement(sheet: Worksheet, semester: str, yea
     )
 
     for i, el in enumerate(students):
-        sheet.cell(row=i + 21, column=3).value = el["name"]
+        sheet.cell(row=i + 21, column=4).value = el["student_name"]
     
     sheet.cell(row=start + 2, column=9).value = 'ВСЬОГО\r\nОЦІНОК'
     sheet.cell(row=start + 2, column=11).value = f"Державний\r\nнорматив ***"
@@ -921,8 +916,7 @@ def filling_out_the_empty_sheet(sheet: Worksheet, cells: list, students: list, s
     # ПОДГОТОВКА ЛИСТА ПЕРЕД ЗАПОЛНЕНИЕМ
 
     # --- Удаление строк ---
-    for _ in range(delete_row_count):
-        sheet.delete_rows(delete_row_start)
+    sheet.delete_rows(delete_row_start, amount=delete_row_count)
     for row in range(delete_row_start + 11, delete_row_start + 11 + delete_row_count):
         sheet.row_dimensions[row].hidden = True
 
@@ -931,8 +925,7 @@ def filling_out_the_empty_sheet(sheet: Worksheet, cells: list, students: list, s
         sheet.unmerge_cells(start_row=row, start_column=3, end_row=row, end_column=26)
     sheet.unmerge_cells(start_row=8, start_column=6, end_row=8, end_column=25)
     sheet.unmerge_cells(start_row=8, start_column=26, end_row=9, end_column=26)
-    for _ in range(delete_col_count):
-        sheet.delete_cols(9)
+    sheet.delete_cols(idx=9, amount=delete_col_count)
     for col in range(delete_col_start + 3, delete_col_start + 3 + delete_col_count):
         dims[get_column_letter(col)].hidden = True
     for row in [3, 4, 5, 6, 7]:
@@ -1038,8 +1031,7 @@ def filling_out_the_general_empty_sheet(sheet: Worksheet, students: list, subjec
     # ПОДГОТОВКА ЛИСТА ПЕРЕД ЗАПОЛНЕНИЕМ
 
     # --- Удаление строк ---
-    for _ in range(delete_row_count):
-        sheet.delete_rows(delete_row_start)
+    sheet.delete_rows(delete_row_start, amount=delete_row_count)
     for row in range(delete_row_start + 11, delete_row_start + 11 + delete_row_count):
         sheet.row_dimensions[row].hidden = True
 
@@ -1047,8 +1039,7 @@ def filling_out_the_general_empty_sheet(sheet: Worksheet, students: list, subjec
     sheet.unmerge_cells(start_row=3, start_column=3, end_row=7, end_column=26)
     sheet.unmerge_cells(start_row=8, start_column=6, end_row=8, end_column=25)
     sheet.unmerge_cells(start_row=8, start_column=26, end_row=9, end_column=26)
-    for _ in range(delete_col_count):
-        sheet.delete_cols(9)
+    sheet.delete_cols(idx=9, amount=delete_col_count)
     for col in range(delete_col_start + 3, delete_col_start + 3 + delete_col_count):
         dims[get_column_letter(col)].hidden = True
     sheet.merge_cells(start_row=3, start_column=3, end_row=7, end_column=delete_col_start)
@@ -1117,7 +1108,7 @@ def filling_out_the_general_empty_sheet(sheet: Worksheet, students: list, subjec
     # --- Имена студентов ---
     for i, student in enumerate(students):
         sheet.cell(row=i + 10, column=3).value = student["bc"]
-        sheet.cell(row=i + 10, column=5).value = student["name"]
+        sheet.cell(row=i + 10, column=5).value = student["student_name"]
 
 def filling_out_the_journal_sheet(sheet: Worksheet, subjects: list, start_index: int, group_name: str):
 
@@ -1131,14 +1122,13 @@ def filling_out_the_journal_sheet(sheet: Worksheet, subjects: list, start_index:
     # ПОДГОТОВКА ЛИСТА ПЕРЕД ЗАПОЛНЕНИЕМ
 
     # --- Удаление строк ---
-    for _ in range(delete_row_count):
-        sheet.delete_rows(delete_row_start)
+    sheet.delete_rows(delete_row_start, amount=delete_row_count)
     for row in range(delete_row_start + 2, delete_row_start + 3 + delete_row_count):
         sheet.row_dimensions[row].hidden = True
 
     # --- Установка области печати ---
     col_letter = get_column_letter(10)
-    sheet.print_area = f"C3:{col_letter}{end_row + 9}"
+    sheet.print_area = f"C3:{col_letter}{end_row}"
 
     # =============================================================================================================
     # ЗАПОЛНЕНИЕ ЛИСТА
@@ -1172,7 +1162,7 @@ def session_EmptyCreate(info, app_path, path_to_save, semester):
     else:
         text = f'{semester} семестр'
     sheet.cell(row=9, column=3).value = text
-    sheet.cell(row=11, column=3).value = f'{info.years} н.р.'
+    sheet.cell(row=11, column=3).value = f'{info["years"]} н.р.'
 
     # === Проход по каждой группе ===
     group_index = -1
@@ -1209,7 +1199,7 @@ def session_EmptyCreate(info, app_path, path_to_save, semester):
         sheet.title = f"{group_code}"
         subgroups = []
         for subgroup in group["subgroups"]:
-            subgroups.append({'code': subgroup["speciality_code"], 'name': subgroup["speciality_name"]})
+            subgroups.append({'speciality_code': subgroup["speciality_code"], 'speciality_name': subgroup["speciality_name"]})
         filling_out_the_empty_teacher_statement(sheet, semester, info["year"], group["students"], subgroups)
 
         # === Сохранение ведомости по группе ===
@@ -1251,7 +1241,7 @@ def session_EmptyStart(info, app_path):
         for subgroup in group["subgroups"]:
             if subgroup["speciality_code"] in SUBJECT_WITH_2_PROGRAMS:
                 if answer["customText"] == "":
-                    answer["customText"] = f"У групах є спеціальності з декількома ОПП.\nУ відомості для викладачів у такі спеціальності було записано наступні ОПП:"
+                    answer["customText"] = f"python.session.emptyStart.customText"
                     answer["customText"] = f'{answer["customText"]}\n  [{group["group_code"]}] {subgroup["speciality_code"]}: {EDUCATIONAL_PROGRAMS[subgroup["speciality_code"]]}'
 
     if info["semester_number"] == 1:
@@ -1390,6 +1380,8 @@ def session_DebtorsStart(info, app_path):
             debrost_sheet.row_dimensions[row].hidden = True
         debrost_sheet.row_dimensions[delete_row_start].height = 14.1
         debrost_sheet.row_dimensions[delete_row_start + 1].height = 14.1
+        
+        debrost_sheet.print_area = f"C3:H{delete_row_start - 1}"
 
     for i in range(1, 21):
         if f"Л{i}" in debtors.sheetnames:

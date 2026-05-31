@@ -115,8 +115,8 @@ function dataSupplement(data) {
     }
   }
 
-  // 2. Преобразуем объект в требуемый массив teachersList
-  const teachersList = Object.keys(teachersMap).map(teacherName => {
+  // 2. Преобразуем объект в требуемый массив teachers
+  const teachers = Object.keys(teachersMap).map(teacherName => {
     return {
       teacherName: teacherName,
       groups: teachersMap[teacherName]
@@ -124,11 +124,11 @@ function dataSupplement(data) {
   });
 
   // 3. Сортируем список учителей по украинскому алфавиту
-  teachersList.sort((a, b) => {
+  teachers.sort((a, b) => {
     return a.teacherName.localeCompare(b.teacherName, 'uk');
   });
 
-  data.teachersList = teachersList;
+  data.teachers = teachers;
   // Шаг с преобразованием groups из объекта в массив удален, так как он выполняется в getInfo
 
   return data;

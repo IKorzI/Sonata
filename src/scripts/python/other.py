@@ -138,12 +138,12 @@ def get_calendar_schedule(start_str, end_str, align_weekday=None):
 
 def other_NumDenStart(info, app_path):
     answer = {"success": True, "files": []}
-    path_to_save = os.path.dirname(info.file_path)
+    path_to_save = os.path.dirname(info["file_path"])
     os.makedirs(path_to_save, exist_ok=True) 
     path = f"{app_path}/public/examples/work/"
     days_of_week = ["ПН", "ВТ", "СР", "ЧТ", "ПТ"] # Исправил опечатку "ВВ" -> "ВТ"
 
-    workbook = load_workbook(f"{path}/other--other--num-den.xlsx")
+    workbook = load_workbook(f"{path}/num-den.xlsx")
     gray_fill = PatternFill(start_color="BFBFBF", end_color="BFBFBF", fill_type="solid")
 
     # ==========================
@@ -152,17 +152,17 @@ def other_NumDenStart(info, app_path):
     sheet = workbook["I семестр"]
     
     # Считаем первый семестр как обычно
-    result1 = get_calendar_schedule(info.semester_1_start, info.semester_1_end)
+    result1 = get_calendar_schedule(info["semester_1_start"], info["semester_1_end"])
     
     # Запоминаем weekday index (0..4) первого дня первого семестра для синхронизации
     # result1.first_day возвращает 1..5, нам нужно 0..4 для расчетов
-    sem_1_weekday_idx = result1.first_day - 1
+    sem_1_weekday_idx = result1["first_day"] - 1
 
     col_num = 5
-    for i in range(result1.first_day, 5 + 1):
+    for i in range(result1["first_day"], 5 + 1):
         sheet.cell(row=4, column=col_num).value = days_of_week[i - 1]
         col_num += 1
-    for i in range(1, result1.first_day):
+    for i in range(1, result1["first_day"]):
         sheet.cell(row=4, column=col_num).value = days_of_week[i - 1]
         col_num += 1
 
@@ -170,7 +170,7 @@ def other_NumDenStart(info, app_path):
     step = 0
     dels = 0
     
-    for month_num, calendar in result1.calendar.items():
+    for month_num, calendar in result1["calendar"].items():
         row = 5 + 7 * step - dels
         sheet.merge_cells(start_row=row, start_column=3, end_row=row, end_column=9)
         # Убедитесь, что monthNamesCapital доступен
@@ -212,21 +212,21 @@ def other_NumDenStart(info, app_path):
     # ПЕРЕДАЕМ align_weekday!
     # Это заставит функцию добавить пустые ячейки (None) в начало, 
     # чтобы дни встали под теми же заголовками, что и в 1 семестре.
-    result2 = get_calendar_schedule(info.semester_2_start, info.semester_2_end, align_weekday=sem_1_weekday_idx)
+    result2 = get_calendar_schedule(info["semester_2_start"], info["semester_2_end"], align_weekday=sem_1_weekday_idx)
 
     # ВАЖНО: Заголовки дней недели рисуем по result1.first_day, а не result2!
     # Мы хотим, чтобы структура колонок была идентичной первому семестру.
     col_num = 5
-    for i in range(result1.first_day, 5 + 1):
+    for i in range(result1["first_day"], 5 + 1):
         sheet.cell(row=4, column=col_num).value = days_of_week[i - 1]
         col_num += 1
-    for i in range(1, result1.first_day):
+    for i in range(1, result1["first_day"]):
         sheet.cell(row=4, column=col_num).value = days_of_week[i - 1]
         col_num += 1
 
     # Логика расчета четности недель
-    s1_date = datetime.strptime(info.semester_1_start, "%d.%m.%Y")
-    s2_date = datetime.strptime(info.semester_2_start, "%d.%m.%Y")
+    s1_date = datetime.strptime(info["semester_1_start"], "%d.%m.%Y")
+    s2_date = datetime.strptime(info["semester_2_start"], "%d.%m.%Y")
 
     monday_sem1 = s1_date - timedelta(days=s1_date.weekday())
     monday_sem2 = s2_date - timedelta(days=s2_date.weekday())
@@ -239,7 +239,7 @@ def other_NumDenStart(info, app_path):
     step = 0
     dels = 0
     
-    for month_num, calendar in result2.calendar.items():
+    for month_num, calendar in result2["calendar"].items():
         row = 5 + 7 * step - dels
         sheet.merge_cells(start_row=row, start_column=3, end_row=row, end_column=9)
         sheet.cell(row=row, column=3).value = MONTH_NAMES_CAPITAL[month_num]
@@ -276,7 +276,7 @@ def other_NumDenStart(info, app_path):
     for row in range(49 - dels, 49):
         sheet.row_dimensions[row].hidden = True
 
-    workbook_path = save_file(workbook, info.file_path) # Функция должна быть определена где-то еще
+    workbook_path = save_file(workbook, info["file_path"]) # Функция должна быть определена где-то еще
     if workbook_path != True:
         answer.files.append(workbook_path)
 

@@ -1,13 +1,17 @@
 <script>
   import { onMount } from 'svelte';
-  import { savedInformation, selectedSection } from '../../lib/store.js'
+  import { whatDocument, selectedSection, lng } from '../../lib/store.js'
 
   // ========== ЗАПОЛНИТЬ ==========
   let thisId = 'other--other';
   // ===============================
 
+  let _lng = {};
+  lng.subscribe(value => (_lng = value));
+  
   let this_, isScreenshotMode = false
   let eSemester1Start, eSemester1End, eSemester2Start, eSemester2End
+  let elComplete, isProcessing = false, isComleting = false;
 
   $: if ($selectedSection) {
     if (this_) {
@@ -44,47 +48,97 @@
     eSemester2End.value    = semNum === 1  ?  `30.06.${year + 1}`  :  `30.06.${year}`
   });
 
+  function completeAnimation() {
+    elComplete.style.transition = 'clip-path 0s';
+    elComplete.style.clipPath = 'inset(0 100% 0 0)';
+    setTimeout(() => {
+      elComplete.style.transition = 'clip-path 0.4s ease-in-out';
+      elComplete.style.zIndex = '1';
+      elComplete.style.display = 'block';
+      setTimeout(() => {
+        elComplete.style.clipPath = 'inset(0 0 0 0)';
+      }, 50);
+    }, 50);
+    setTimeout(() => {
+      elComplete.style.zIndex = '-1';
+      elComplete.style.display = 'none';
+      setTimeout(() => {
+        elComplete.style.transition = '';
+        isComleting = false;
+      }, 50);
+    }, 1100);
+  }
+
   async function numDenStart() {
-    const targetPath = await window.electron.saveDialog("Чисельник Знаменник", ".xlsx");
+    const targetPath = await window.electron.saveDialog(_lng.other.numDen.saveName, ".xlsx");
     if (!targetPath) return;
-    savedInformation.set({
+
+    if (isProcessing) return;
+    isProcessing = true;
+
+    const data = {
       id: `${thisId}--num-den`,
       semester1Start: eSemester1Start.value,
       semester1End: eSemester1End.value,
       semester2Start: eSemester2Start.value,
       semester2End: eSemester2End.value,
       filePath: targetPath
-    });
+    };
+
+    let result = await window.electron.startBackendFunc(data);
+    console.log(result)
+
+    isComleting = true
+    isProcessing = false;
+    completeAnimation()
+  }
+
+  function handleWhat() {
+    whatDocument.set(`${thisId}--num-den`)
   }
 
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+
 <div class="gui" id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
 
   <div class="block" id="screenshot-mode">
-    <div class="label">Режим скріншота</div>
-    <button class={`screenshot-mode ${isScreenshotMode ? 'active' : ''}`} on:click={() => screenshotMode()}>Режим скріншота</button>
+    <div class="label">{_lng.other.screenshotMode}</div>
+    <button class={`screenshot-mode ${isScreenshotMode ? 'active' : ''}`} on:click={() => screenshotMode()}>{_lng.other.screenshotMode}</button>
   </div>
   
   <div class="block" id="num-den">
-    <div class="label">Чисельник/знаменник</div>
+    <div class="label">{_lng.other.numDen.title}</div>
     <div class="input-block" id="start1">
-      <div>Початок семестра 1</div>
+      <div>{_lng.other.numDen.start1}</div>
       <input type="text" bind:this={eSemester1Start}/>
     </div>
     <div class="input-block" id="end1">
-      <div>Кінець семестра 1</div>
+      <div>{_lng.other.numDen.end1}</div>
       <input type="text" bind:this={eSemester1End}/>
     </div>
     <div class="input-block" id="start2">
-      <div>Початок семестра 2</div>
+      <div>{_lng.other.numDen.start2}</div>
       <input type="text" bind:this={eSemester2Start}/>
     </div>
     <div class="input-block" id="end2">
-      <div>Кінець семестра 2</div>
+      <div>{_lng.other.numDen.end2}</div>
       <input type="text" bind:this={eSemester2End}/>
     </div>
-    <button class="start" on:click={() => numDenStart()}>Старт</button>
+    <button class="start" on:click={() => numDenStart()}>
+      {#if isProcessing === false && isComleting === false}
+        {_lng.other.start}
+      {/if}
+      <div class="process" style="
+        z-index: {isProcessing === true ? '1' : '-1'};
+        display: {isProcessing === true ? 'block' : 'none'};
+      "></div>
+      <div class="complete" bind:this={elComplete}></div>
+    </button>
+    <div class="what" on:click={() => handleWhat()}></div>
   </div>
 
 </div>
@@ -143,6 +197,71 @@
   :global(.screenshot-mode.active) {
     background-color: rgba(0, 255, 120, 0.4);
     border-color: rgb(0, 159, 14);
+  }
+
+  .what {
+    position: absolute;
+    top: 186px;
+    right: 250px;
+    width: 30px;
+    height: 30px;
+    background-image: var(--inputFile-what-background-image);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  :global(.file-input .what.loaded) {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  .what:hover {
+    background-color: var(--button-hover-background-color);
+  }
+  .what:active {
+    background-color: var(--button-active-background-color);
+  }
+
+  .start {
+    position: relative;
+  }
+  
+  .process {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 25px;
+    width: 25px;
+    background-image: var(--startProcess-background-image);
+    z-index: -1;
+    display: none;
+    animation: spin 2s linear infinite;
+  }
+
+  .complete {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 25px;
+    width: 25px;
+    background-image: url('../done.png');
+    z-index: -1;
+    display: none;
+  }
+
+  /* Анимация вращения */
+  @keyframes spin {
+    from {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+  }
+
+  .hidden {
+    display: none;
+    z-index: -1;
   }
 
 </style> 

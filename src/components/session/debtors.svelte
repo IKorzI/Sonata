@@ -1,11 +1,14 @@
 <script>
-  import { selectedSection, clearInformation, saveInformation, savedInformation, message } from '../../lib/store.js'
+  import { selectedSection, clearInformation, saveInformation, savedInformation, message, lng } from '../../lib/store.js'
   import FileInput from '../FileInput.svelte';
 
   // ========== ЗАПОЛНИТЬ ==========
   let thisId = 'session--debtors';
   // ===============================
 
+  let _lng = {};
+  lng.subscribe(value => (_lng = value));
+  
   let this_
   let loadedGroups = [];
 
@@ -58,7 +61,7 @@
       const data = await window.electron.sessionDebtorsGetInformation(uploadedFile.path);
       for (const group of loadedGroups) {
         if (group.groupCode === data.groupCode) {
-          message.set({type: 'error', text: `Група ${group.groupCode} вже завантажена.`});
+          message.set({type: 'error', text: `${_lng.debtors.messageText.part1} ${group.groupCode} ${_lng.debtors.messageText.part2}`});
           return;
         }
       }
@@ -89,7 +92,7 @@
   />
 
   <div class="loaded-groups">
-    <div class="label">Завантажені групи</div>
+    <div class="label">{_lng.debtors.loadedGroups}</div>
     <div class="list">
       {#each loadedGroups as group}
         <div class="row" id={group.groupCode}>

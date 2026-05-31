@@ -1,7 +1,11 @@
 <script>
   import { onMount } from 'svelte';
-  import { selectedSection } from '../lib/store.js'
+  import { selectedSection, lng } from '../lib/store.js'
   import SectionButton from './SectionButton.svelte';
+
+  let _lng = {};
+  lng.subscribe(value => (_lng = value));
+
   let choiceMark;
   selectedSection.set('');
 
@@ -42,28 +46,28 @@
 
     <div class="group-of-sections" id="session">
       <div class="line-with-text">
-        <span class="section-title">Сесія</span>
+        <span class="section-title">{_lng.programMenu.session.sectionTitle}</span>
       </div>
-      <SectionButton on:sectionclick={selectSection} id="package-of-documents" text="Пакет документів" />
-      <SectionButton on:sectionclick={selectSection} id="empty-statements" text="Порожні відомості" />
-      <SectionButton on:sectionclick={selectSection} id="report" text="Звіт за семестр" />
-      <SectionButton on:sectionclick={selectSection} id="debtors" text="Боржники" />
+      <SectionButton on:sectionclick={selectSection} id="package-of-documents" text={_lng.programMenu.session.packageOfDocuments} />
+      <SectionButton on:sectionclick={selectSection} id="empty-statements" text={_lng.programMenu.session.emptyStatements} />
+      <SectionButton on:sectionclick={selectSection} id="report" text={_lng.programMenu.session.report} />
+      <SectionButton on:sectionclick={selectSection} id="debtors" text={_lng.programMenu.session.debtors} />
     </div>
 
     <div class="group-of-sections" id="hours">
       <div class="line-with-text">
-        <span class="section-title">Години</span>
+        <span class="section-title">{_lng.programMenu.hours.sectionTitle}</span>
       </div>
-      <SectionButton on:sectionclick={selectSection} id="based-on-the-first-month" text="На основі І-го місяця" />
-      <SectionButton on:sectionclick={selectSection} id="summary-of-teachers" text="По викладачам" />
+      <SectionButton on:sectionclick={selectSection} id="based-on-the-first-month" text={_lng.programMenu.hours.basedOnTheFirstMonth} />
+      <SectionButton on:sectionclick={selectSection} id="summary-of-teachers" text={_lng.programMenu.hours.summaryOfTeachers} />
     </div>
 
     <div class="group-of-sections" id="other">
       <div class="line-with-text">
-        <span class="section-title">Інше</span>
+        <span class="section-title">{_lng.programMenu.other.sectionTitle}</span>
       </div>
-      <SectionButton on:sectionclick={selectSection} id="templates" text="Шаблони документів" />
-      <SectionButton on:sectionclick={selectSection} id="other" text="Інше"/>
+      <SectionButton on:sectionclick={selectSection} id="templates" text={_lng.programMenu.other.templates} />
+      <SectionButton on:sectionclick={selectSection} id="other" text={_lng.programMenu.other.other} />
     </div>
 
   </div>

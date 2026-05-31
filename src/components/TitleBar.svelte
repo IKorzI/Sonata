@@ -1,5 +1,26 @@
 <script>
-  import { transition, themeSwap, hide } from '../lib/store.js'
+  import { onMount } from 'svelte';
+  import { availableLngs, changeLanguage, lng, transition, themeSwap, hide } from '../lib/store.js'
+  let _lng = {};
+  lng.subscribe(value => (_lng = value));
+  
+  onMount(() => {
+    const languageList = document.querySelector('.title-bar .language-list');
+    availableLngs.forEach((lng, index) => {
+      const li = document.createElement('li');
+      li.textContent = lng;
+      if (index === availableLngs.length - 1) {
+        li.className = "last";
+      }
+      li.addEventListener('click', function (event) {
+        changeLanguage(event.target.textContent)
+        languageList.style.opacity = '';
+        languageList.style.zIndex = '';
+      })
+      languageList.appendChild(li);
+    });
+  });
+
   let isProcess = false;
 
   function handleMinimize() {
@@ -46,10 +67,20 @@
       isProcess = false;
     }, 200);
   }
+
+  function showLngList() {
+    const languageList = document.querySelector('.title-bar .language-list');
+    setTimeout(() => {
+      languageList.style.opacity = '1'
+      languageList.style.zIndex = '999';
+    }, 10)
+  }
 </script>
 
 <div class="title-bar">
   <div class="program-icon"></div>
+  <button class="language" on:click={showLngList}>{_lng.lng}</button>
+  <ul class="language-list"></ul>
   <div class="program-name">Sonata</div>
   <button class="theme-swap" on:click={handleThemeSwap}></button>
   <button class="minimize" on:click={handleMinimize}>—</button>
@@ -64,7 +95,7 @@
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     display: grid;
-    grid-template-columns: 25px 1fr 25px 25px 25px;
+    grid-template-columns: 25px 25px 1fr 25px 25px 25px;
     background-color: var(--background-color);
     border-radius: 0px;
   }
@@ -85,6 +116,28 @@
   .program-icon {
     border-top-left-radius: 7.5px;
     background-image: url('../icon.png');
+  }
+
+  /*
+    ".title-bar .language", потому что просто ".language" слабее чем ".title-bar > *:not(.language-list)",
+    а в нём прописан стиль "font-weight: bold" и чтобы его перебить нужно сделать стиль более
+    специфичным, а для этого нужно добавить ".title-bar"
+  */
+  .title-bar .language {
+    font-weight: normal;
+  }
+
+  .language-list {
+    position: absolute;
+    height: 85px;
+    top: 26px;
+    left: 25px;
+    opacity: 0;
+    z-index: -1;
+  }
+
+  :global(.language-list li) {
+    cursor: pointer;
   }
 
   .program-name {

@@ -2280,7 +2280,7 @@
     },
     "id": "hours--summary-of-teachers",
     "filePath": "D:\\Мои документы\\JavaScript\\Sonata\\test\\1\\hours14.xlsx",
-    "teachersList": [
+    "teachers": [
         {
             "teacherName": "Андрльє І.О.",
             "groups": [

@@ -55,14 +55,14 @@ pyProcess.on('close', (code) => {
 // Приводим данные к массиву, чтобы было удобно гонять сразу пачку тестов
 const requests = Array.isArray(testData) ? testData : [testData];
 
-requests.forEach((infoObj, index) => {
+requests.forEach((data, index) => {
     const reqId = index + 1;
     
     // Оборачиваем в конверт
     const payloadObj = {
         reqId: reqId,
         isTest: true,
-        info: infoObj
+        data: data
     };
     
     const payload = JSON.stringify(payloadObj) + '\n';

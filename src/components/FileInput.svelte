@@ -1,23 +1,26 @@
 <script>
-  import { onMount, onDestroy } from 'svelte';
-  import { createEventDispatcher } from 'svelte';
-  import { whatDocument, clearInformation } from '../lib/store.js'
+  import { createEventDispatcher, onMount, onDestroy } from 'svelte';
+  import { whatDocument, clearInformation, lng } from '../lib/store.js'
   const dispatch = createEventDispatcher();
   export let extensions;
   export let type;
   export let eId;
+  
+  let _lng = {};
+  lng.subscribe(value => (_lng = value));
+
   let file = null;
   let fileInputEl;
   let fileName = ''; // Добавляем переменную для имени файла
-  const label = {
-    "session--package-of-documents--statements": "Зведені відомості",
-    "session--empty-statements--hours": "Години по групах за місяць",
-    "session--empty-statements--contingent": "Контингент",
-    "session--report--statements": "Зведена відомість групи",
-    "session--debtors--statements": "Зведена відомість групи",
+  $: label = {
+    "session--package-of-documents--statements": _lng.fileInput.label.session.packageOfDocuments.statements,
+    "session--empty-statements--hours": _lng.fileInput.label.session.emptyStatements.hours,
+    "session--empty-statements--contingent": _lng.fileInput.label.session.emptyStatements.contingent,
+    "session--report--statements": _lng.fileInput.label.session.report.statements,
+    "session--debtors--statements": _lng.fileInput.label.session.debtors.statements,
 
-    "hours--based-on-the-first-month--hours": "Години по групах за перший місяць семестра",
-    "hours--summary-of-teachers--hours": "Години по групах за місяць"
+    "hours--based-on-the-first-month--hours": _lng.fileInput.label.hours.basedOnTheFirstMonth.hours,
+    "hours--summary-of-teachers--hours": _lng.fileInput.label.hours.summaryOfTeachers.hours
   }
 
   let eArea, eText, eName, eExtensions, eDelete, eWhat;
@@ -47,7 +50,7 @@
       file = inputFile;
       fileName = file.name; // Устанавливаем имя файла при дропе
     }
-    dispatch('fileSelected', { id: eId, file: inputFile }); // 🔹 отправка файла родителю
+    dispatch('fileSelected', { id: eId, file: inputFile }); // отправка файла родителю
   }
 
   function fileDelete() {
@@ -274,7 +277,7 @@
     on:dragover={handleDragOver}
     on:drop={handleDrop}
   >
-    <div class="text" bind:this={eText}>Оберіть файл</div>
+    <div class="text" bind:this={eText}>{_lng.fileInput.area.text}</div>
     <div class="name" bind:this={eName}>{truncatedFileName}</div>
     <div class="extensions" bind:this={eExtensions}>{extensions.join(', ')}</div>
     <div class="img" class:loaded={file !== null} style:background-image={`url(${backgroundImageUrl})`}></div>

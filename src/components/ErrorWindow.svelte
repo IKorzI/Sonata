@@ -1,6 +1,9 @@
 <script>
-  import { message } from '../lib/store.js'
+  import { message, lng } from '../lib/store.js'
 
+  let _lng = {};
+  lng.subscribe(value => (_lng = value));
+  
   let errorText = '';
   let errorType = '';
   $: if ($message) {
@@ -11,7 +14,7 @@
       }, 400);
     } else {
       errorText = $message.text;
-      errorType = $message.type === 'warning' ? 'Попередження' : 'Помилка';
+      errorType = $message.type === 'warning' ? _lng.errorWindow.errorWindow.title.warning : _lng.errorWindow.errorWindow.title.error;
     }
   }
 

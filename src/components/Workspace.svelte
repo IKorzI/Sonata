@@ -1,17 +1,19 @@
 <script>
-  import { selectedSection, clearInformation, saveInformation, savedInformation, message, whatDocument } from '../lib/store.js'
+  import { selectedSection, clearInformation, saveInformation, savedInformation, message, whatDocument, lng } from '../lib/store.js'
 
   import SessionPackageOfDocuments from './session/package-of-documents.svelte';
   import SessionEmptyStatements from './session/empty-statements.svelte';
   import SessionReport from './session/report.svelte';
   import SessionDebtors from './session/debtors.svelte';
 
-
   import HoursBasedOnTheFirstMonth from './hours/based-on-the-first-month.svelte';
   import HoursSummaryOfTeachers from './hours/summary-of-teachers.svelte';
 
   import OtherTemplates from './other/templates.svelte';
   import OtherOther from './other/other.svelte';
+
+  let _lng = {};
+  lng.subscribe(value => (_lng = value));
 
   $: if($savedInformation) {
     //console.log($savedInformation)
@@ -53,32 +55,54 @@
     }, 1100);
   }
 
+  // Вспомогательная функция для получения значения из объекта по пути "key1.key2.key3"
+  function getValueByPath(obj, path) {
+    return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+  }
+
   async function start() {
     if (isProcessing || $savedInformation?.id === undefined) return;
     isProcessing = true;
     let result = await window.electron.startBackendFunc($savedInformation);
-    console.log(result)
+    console.log(result);
     
     if (result.success === true && (result.files?.length > 0 || result.customText)) {
       let messageText = "";
       if (result.files.length > 0) {
-        messageText = "Файл або декілька файлів відкриті та заблоковані для редагування.\nТакі файли були збережені з цими назвами:";
+        messageText = _lng.workspace.message1Text;
         result.files.forEach(file => {
           messageText += `\n  – ${file}`;
         });
       }
+      
       if (result.customText) {
+        // 1. Записываем во временную переменную
+        let processedCustomText = result.customText;
+        
+        // 2. Регулярное выражение ищет любые подстроки, похожие на ключи (буквы, цифры, точки, подчеркивания)
+        // Если ключи в вашем тексте обернуты в какие-то символы (например, {{key}}), регулярку стоит подправить
+        const keyRegex = /[a-zA-Z0-9_\.]+/g; 
+        
+        processedCustomText = processedCustomText.replace(keyRegex, (match) => {
+          // Проверяем, существует ли такой путь в объекте _lng
+          const translation = getValueByPath(_lng, match);
+          // Если перевод найден и это строка/число, заменяем. Иначе оставляем как было.
+          return (translation && typeof translation !== 'object') ? translation : match;
+        });
+
+        // 3. Добавляем уже обработанный текст к основному сообщению
         if (!messageText) {
-          messageText = result.customText;
+          messageText = processedCustomText;
         } else {
-          messageText = `${messageText}\n${result.customText}`;
+          messageText = `${messageText}\n${processedCustomText}`;
         }
       }
+      
       message.set({type: 'warning', text: messageText});
     } else if (result.success === true && result.notFoundSubjects?.length > 0) {
       let messageText = "";
       if (result.notFoundSubjects.length > 0) {
-        messageText = "Наступні предмети не були знайдені і норми годин були залишені порожніми:";
+        messageText = _lng.workspace.message2Text;
         result.notFoundSubjects.forEach(group => {
           messageText += `\n  – ${group.group}: ${group.subjects.join(", ")}`;
         });
@@ -86,9 +110,9 @@
       message.set({type: 'warning', text: messageText});
     }
 
-    isComleting = true
+    isComleting = true; // Обратите внимание на возможную опечатку в вашем коде (isCompleting?)
     isProcessing = false;
-    completeAnimation()
+    completeAnimation();
   }
 
   function example() {
@@ -108,11 +132,11 @@
 
 <div class="workspace">
 
-  <button class="example" class:hidden={!isVisible} on:click={() => example()}>Приклад отримуваного документу</button>
-  <button class="clear" class:hidden={!isVisible} on:click={() => clear()}>Очистити</button>
+  <button class="example" class:hidden={!isVisible} on:click={() => example()}>{_lng.workspace.example}</button>
+  <button class="clear" class:hidden={!isVisible} on:click={() => clear()}>{_lng.workspace.clear}</button>
   <button class="start" class:hidden={!isVisible} on:click={() => save()}>
     {#if isProcessing === false && isComleting === false}
-      Старт
+      {_lng.workspace.start}
     {/if}
     <div class="process" style="
       z-index: {isProcessing === true ? '1' : '-1'};
@@ -156,7 +180,7 @@
   }
 
   .example {
-    width: 280px;
+    width: 300px;
     right: 260px;
     z-index: 1;
   }

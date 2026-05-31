@@ -1,0 +1,14 @@
+D:\Мои документы\JavaScript\Sonata\src\scripts\python\CustomSaveDialog\bin\Debug\net462\CustomSaveDialog.exe.config
+D:\Мои документы\JavaScript\Sonata\src\scripts\python\CustomSaveDialog\bin\Debug\net462\CustomSaveDialog.exe
+D:\Мои документы\JavaScript\Sonata\src\scripts\python\CustomSaveDialog\bin\Debug\net462\CustomSaveDialog.pdb
+D:\Мои документы\JavaScript\Sonata\src\scripts\python\CustomSaveDialog\bin\Debug\net462\Microsoft.WindowsAPICodePack.dll
+D:\Мои документы\JavaScript\Sonata\src\scripts\python\CustomSaveDialog\bin\Debug\net462\Microsoft.WindowsAPICodePack.Shell.dll
+D:\Мои документы\JavaScript\Sonata\src\scripts\python\CustomSaveDialog\obj\Debug\net462\CustomSaveDialog.csproj.AssemblyReference.cache
+D:\Мои документы\JavaScript\Sonata\src\scripts\python\CustomSaveDialog\obj\Debug\net462\CustomSaveDialog.GeneratedMSBuildEditorConfig.editorconfig
+D:\Мои документы\JavaScript\Sonata\src\scripts\python\CustomSaveDialog\obj\Debug\net462\CustomSaveDialog.AssemblyInfoInputs.cache
+D:\Мои документы\JavaScript\Sonata\src\scripts\python\CustomSaveDialog\obj\Debug\net462\CustomSaveDialog.AssemblyInfo.cs
+D:\Мои документы\JavaScript\Sonata\src\scripts\python\CustomSaveDialog\obj\Debug\net462\CustomSaveDialog.csproj.CoreCompileInputs.cache
+D:\Мои документы\JavaScript\Sonata\src\scripts\python\CustomSaveDialog\obj\Debug\net462\CustomSaveDialog.sourcelink.json
+D:\Мои документы\JavaScript\Sonata\src\scripts\python\CustomSaveDialog\obj\Debug\net462\CustomSa.03403B60.Up2Date
+D:\Мои документы\JavaScript\Sonata\src\scripts\python\CustomSaveDialog\obj\Debug\net462\CustomSaveDialog.exe
+D:\Мои документы\JavaScript\Sonata\src\scripts\python\CustomSaveDialog\obj\Debug\net462\CustomSaveDialog.pdb
