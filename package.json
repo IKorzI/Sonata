@@ -14,7 +14,7 @@
     "python:test": "src\\scripts\\python\\test.bat",
     "vite:build": "vite build",
     "electron:build": "electron-builder --config.forceCodeSigning=false --config.generateUpdatesFilesForAllChannels=false",
-    "app:build": "npm run electron:build && npm run vite:build",
+    "app:build": "npm run py:build && npm run electron:build && npm run vite:build",
     "vite:preview": "vite preview"
   },
   "dependencies": {
