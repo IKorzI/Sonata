@@ -1,5 +1,5 @@
 <script>
-  import { selectedSection, clearInformation, saveInformation, savedInformation, message } from '../lib/store.js'
+  import { selectedSection, clearInformation, saveInformation, savedInformation, message, whatDocument } from '../lib/store.js'
 
   import SessionPackageOfDocuments from './session/package-of-documents.svelte';
   import SessionEmptyStatements from './session/empty-statements.svelte';
@@ -91,6 +91,10 @@
     completeAnimation()
   }
 
+  function example() {
+    whatDocument.set($selectedSection)
+  }
+
   function clear() {
     clearInformation.set($selectedSection)
   }
@@ -104,6 +108,7 @@
 
 <div class="workspace">
 
+  <button class="example" class:hidden={!isVisible} on:click={() => example()}>Приклад отримуваного документу</button>
   <button class="clear" class:hidden={!isVisible} on:click={() => clear()}>Очистити</button>
   <button class="start" class:hidden={!isVisible} on:click={() => save()}>
     {#if isProcessing === false && isComleting === false}
@@ -150,6 +155,11 @@
     border-width: 2px;
   }
 
+  .example {
+    width: 280px;
+    right: 260px;
+    z-index: 1;
+  }
   .clear {
     right: 140px;
     z-index: 1;

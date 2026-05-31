@@ -7,7 +7,7 @@ from session import session_PackageOfDocuments, session_EmptyStart, session_Repo
 from hours import hours_BasedOnTheFirstMonth, hours_SummaryOfTeachers
 from other import extend_image, other_NumDenStart
 
-def test_save_info(info):
+def test_save_info(data):
     # Определяем путь: берем папку, где лежит сам скрипт, и добавляем имя файла
     file_path = os.path.join(os.path.dirname(__file__), 'data.json')
 
@@ -16,7 +16,7 @@ def test_save_info(info):
         with open(file_path, 'w', encoding='utf-8') as f:
             # indent=4 делает файл читаемым для человека
             # ensure_ascii=False позволяет сохранять кириллицу корректно
-            json.dump(info, f, indent=4, ensure_ascii=False)
+            json.dump(data, f, indent=4, ensure_ascii=False)
         
         print(f"Файл успешно сохранен по адресу: {file_path}")
     except Exception as e:
@@ -112,36 +112,36 @@ if __name__ == "__main__":
             raw_request = json.loads(line)
             request = decamelize_dict(raw_request)
             
-            # Достаем ID, флаг теста и чистый info
+            # Достаем ID, флаг теста и чистый data
             req_id = request.get("req_id")
             is_test = request.get("is_test", False)
-            info = request.get("info", {})
+            data = request.get("data", {})
             
-            # Сохраняем info в файл для отладки только если получен флаг isTest
+            # Сохраняем data в файл для отладки только если получен флаг isTest
             if is_test:
-                test_save_info(info)
+                test_save_info(data)
 
             result = None
 
-            # Дальше всё работает с чистым info, как и раньше
-            if info.id == "session--package-of-documents":
-                result = session_PackageOfDocuments(info, up2)
-            elif info.id == "session--empty-statements":
-                result = session_EmptyStart(info, up2)
-            elif info.id == "session--report":
-                result = session_ReportStart(info, up2)
-            elif info.id == "session--debtors":
-                result = session_DebtorsStart(info, up2)
-            elif info.id == "hours--based-on-the-first-month":
-                result = hours_BasedOnTheFirstMonth(info, up2)
-            elif info.id == "hours--summary-of-teachers":
-                result = hours_SummaryOfTeachers(info, up2)
-            elif info.id == "other--other--screenshot--transform":
-                path = info.temp_path
-                final_path = info.final_path
+            # Дальше всё работает с чистым data, как и раньше
+            if data["id"] == "session--package-of-documents":
+                result = session_PackageOfDocuments(data, up2)
+            elif data["id"] == "session--empty-statements":
+                result = session_EmptyStart(data, up2)
+            elif data["id"] == "session--report":
+                result = session_ReportStart(data, up2)
+            elif data["id"] == "session--debtors":
+                result = session_DebtorsStart(data, up2)
+            elif data["id"] == "hours--based-on-the-first-month":
+                result = hours_BasedOnTheFirstMonth(data, up2)
+            elif data["id"] == "hours--summary-of-teachers":
+                result = hours_SummaryOfTeachers(data, up2)
+            elif data["id"] == "other--other--screenshot--transform":
+                path = data["temp_path"]
+                final_path = data["final_path"]
                 result = extend_image(path, final_path)
-            elif info.id == "other--other--num-den":
-                result = other_NumDenStart(info, up2)
+            elif data["id"] == "other--other--num-den":
+                result = other_NumDenStart(data, up2)
 
             # Отправляем ответ, прикрепляя req_id
             response_data = {"req_id": req_id, "result": result}

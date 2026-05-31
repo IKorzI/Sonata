@@ -114,9 +114,9 @@ def filling_out_the_summary_sheet(sheet: Worksheet, students: list, cells: list,
     # ЗАПОЛНЕНИЕ ЛИСТА
 
     # --- Фиксированные значения ---
-    sheet.cell(row=5, column=3).value = cells.C5
-    sheet.cell(row=6, column=3).value = cells.C6
-    sheet.cell(row=7, column=3).value = cells.C7
+    sheet.cell(row=5, column=3).value = cells["C5"]
+    sheet.cell(row=6, column=3).value = cells["C6"]
+    sheet.cell(row=7, column=3).value = cells["C7"]
     sheet.cell(row=end_row + 8, column=6).value = social_len
     if subject_len >= 14:
         sheet.cell(row=end_row + 7, column=16).value = kurator
@@ -126,14 +126,14 @@ def filling_out_the_summary_sheet(sheet: Worksheet, students: list, cells: list,
         sheet.cell(row=end_row + 9, column=21 - delete_col_count).value = f'Маргарита БРІТІКОВА'
 
     # --- Названия предметов ---
-    for i, subj in enumerate(subjects):
-        sheet.cell(row=9, column=i + 6).value = f'{subj.subject_name}\n{subj.teacher_name}'
+    for i, subject in enumerate(subjects):
+        sheet.cell(row=9, column=i + 6).value = f'{subject["subject_name"]}\n{subject["teacher_name"]}'
     
     # --- Имена студентов и их оценки ---
     for i, student in enumerate(students):
-        sheet.cell(row=i + 10, column=3).value = student.bc
-        sheet.cell(row=i + 10, column=5).value = student.student_name
-        for j, grade in enumerate(student.grades):
+        sheet.cell(row=i + 10, column=3).value = student["bc"]
+        sheet.cell(row=i + 10, column=5).value = student["student_name"]
+        for j, grade in enumerate(student["grades"]):
             sheet.cell(row=i + 10, column=j + 6).value = grade
 
 def filling_out_the_rating_sheet(sheet: Worksheet, s_title: str, scholarship_number: int, students: list, sorted_list: list, subjects: list):
@@ -147,7 +147,7 @@ def filling_out_the_rating_sheet(sheet: Worksheet, s_title: str, scholarship_num
         subjects (list): Список предметов.
     """
 
-    student_len = sum(1 for s in students if s.bc == "Б" and s.avg_grade not in ("-", " - ")) # Количество студентов
+    student_len = sum(1 for s in students if s["bc"] == "Б" and s["avg_grade"] not in ("-", " - ")) # Количество студентов
     subject_len = len(subjects) # Количество предметов
 
     delete_row_start = 9 + student_len + 1           # Начало удаления строк
@@ -251,11 +251,11 @@ def filling_out_the_rating_sheet(sheet: Worksheet, s_title: str, scholarship_num
             sheet.cell(row=i + 10, column=3 + j).fill = FILL_GRAY
 
 def session_PackageOfDocuments(info, app_path):
-    path_to_save = Path(info.file_path).parent
+    path_to_save = Path(info["file_path"]).parent
     # col_letter = get_column_letter(len(subjects) + 6)
 
     answer = {"success": True, "files": []}
-    directory_to_save = os.path.dirname(info.file_path)
+    directory_to_save = os.path.dirname(info["file_path"])
     os.makedirs(directory_to_save, exist_ok=True)
     path = f"{app_path}/public/examples/work"
 
@@ -264,32 +264,32 @@ def session_PackageOfDocuments(info, app_path):
 
     statements = load_workbook(f"{path}/statements.xlsx")
     step = 0
-    for subgroup in info.subgroups:
+    for subgroup in info["subgroups"]:
         step += 1
         
-        speciality_code = subgroup.speciality_code
-        speciality_name = subgroup.speciality_name
+        speciality_code = subgroup["speciality_code"]
+        speciality_name = subgroup["speciality_name"]
 
-        socialy_len = sum(1 for student in subgroup.students if student.get("social_status"))
+        socialy_len = sum(1 for student in subgroup["students"] if student.get("social_status"))
 
         # === Сводная ведомость ===
         s_sheet = statements[f"ЛЗ{step}"]
         s_sheet.title = f"Зведена {speciality_code}"
-        filling_out_the_summary_sheet(s_sheet, subgroup.students, subgroup.cells, socialy_len, info.subjects, info.kurator_nom, info.percentage)
+        filling_out_the_summary_sheet(s_sheet, subgroup["students"], subgroup["cells"], socialy_len, info["subjects"], info["kurator_nom"], info["percentage"])
         
         # Если нет стипендии - пропуск группы
-        if subgroup.scholarship_number == 0:
+        if subgroup["scholarship_number"] == 0:
             continue
 
         # === Рейтинговая ведомость ===
         r_sheet = statements[f"ЛР{step}"]
         r_sheet.title = f"Рейтингова {speciality_code}"
-        filling_out_the_rating_sheet(r_sheet, s_sheet.title, subgroup.scholarship_number, subgroup.students, subgroup.sorted_list, info.subjects)
+        filling_out_the_rating_sheet(r_sheet, s_sheet.title, subgroup["scholarship_number"], subgroup["students"], subgroup["sorted_list"], info["subjects"])
 
         # === Переменные ===
         # Даты семестра
-        _semester_start_split = info.semester_start.split(".")
-        _semester_end_split = info.semester_end.split(".")
+        _semester_start_split = info["semester_start"].split(".")
+        _semester_end_split = info["semester_end"].split(".")
         _semester_start_month = MONTH_NAMES_GEN[int(_semester_start_split[1]) - 1]
         _semester_end_month = MONTH_NAMES_GEN[int(_semester_end_split[1]) - 1]
         semester_dates_start = f'«{_semester_start_split[0]}» {_semester_start_month} {_semester_start_split[2]} р.'
@@ -297,9 +297,9 @@ def session_PackageOfDocuments(info, app_path):
 
         # === Определение страниц для удаления ===
         # Если нет повышенной стипендии
-        del_increased = len(subgroup.increased_scholarship_list) == 0
+        del_increased = len(subgroup["increased_scholarship_list"]) == 0
         # Если нет социальной стипендии
-        del_social = len(subgroup.social_scholarship_list) == 0
+        del_social = len(subgroup["social_scholarship_list"]) == 0
 
         # === Удаление страниц ===
         doc_petition = Document(f"{path}/petition.docx")
@@ -317,101 +317,101 @@ def session_PackageOfDocuments(info, app_path):
 
         # === Заполнение страниц всех документов ===
         # Стипендия
-        doc_petition = replace_text(doc_petition, "group_code_2", info.group_code)
+        doc_petition = replace_text(doc_petition, "group_code_2", info["group_code"])
         doc_petition = replace_text(doc_petition, "speciality_2", f'{speciality_code} {speciality_name}')
-        doc_petition = replace_text(doc_petition, "kurator_21", info.kurator_gen)
-        doc_petition = replace_text(doc_petition, "kurator_22", info.kurator_nom)
-        doc_petition = replace_text(doc_petition, "semester_number_2", info.semester_number_word)
-        doc_petition = replace_text(doc_petition, "years_2", info.years)
+        doc_petition = replace_text(doc_petition, "kurator_21", info["kurator_gen"])
+        doc_petition = replace_text(doc_petition, "kurator_22", info["kurator_nom"])
+        doc_petition = replace_text(doc_petition, "semester_number_2", info["semester_number_word"])
+        doc_petition = replace_text(doc_petition, "years_2", info["years"])
         doc_petition = replace_text(doc_petition, "semester_date_start_2", semester_dates_start)
         doc_petition = replace_text(doc_petition, "semester_date_end_2", semester_dates_end)
-        doc_website = replace_text(doc_website, "semester_number", info.semester_number)
-        doc_website = replace_text(doc_website, "years", info.years)
+        doc_website = replace_text(doc_website, "semester_number", info["semester_number"])
+        doc_website = replace_text(doc_website, "years", info["years"])
         doc_website = replace_text(doc_website, "speciality", f'{speciality_code} {speciality_name}')
-        doc_website = replace_text(doc_website, "group_code", info.group_code)
-        doc_website = replace_text(doc_website, "kurator", info.kurator_nom)
-        for i in range(subgroup.scholarship_number):
-            index = subgroup.sorted_list[i]
-            student = subgroup.students[index]
-            student_name = student.student_name
-            avg = f"{float(student.avg_grade):.2f}".replace(".", ",")
-            increased = '+' if not del_increased and student.increased else ''
+        doc_website = replace_text(doc_website, "group_code", info["group_code"])
+        doc_website = replace_text(doc_website, "kurator", info["kurator_nom"])
+        for i in range(subgroup["scholarship_number"]):
+            index = subgroup["sorted_list"][i]
+            student = subgroup["students"][index]
+            student_name = student["student_name"]
+            avg = f"{float(student["avg_grade"]):.2f}".replace(".", ",")
+            increased = '+' if not del_increased and student["increased"] else ''
             doc_petition = insert_row(doc_petition, table_index_scholarship, [student_name, avg, increased], insert=i > 0)
             doc_website = insert_row(doc_website, 0, [student_name, avg, increased], insert=i > 0, color=True)
         # дозаполнение таблицы для сайта
-        for i in range(subgroup.scholarship_number, len(subgroup.students)):
-            index = subgroup.sorted_list[i]
-            student = subgroup.students[index]
-            if student.bc != "Б" or student.avg_grade == " - " or student.avg_grade == "-":
+        for i in range(subgroup["scholarship_number"], len(subgroup["students"])):
+            index = subgroup["sorted_list"][i]
+            student = subgroup["students"][index]
+            if student["bc"] != "Б" or student["avg_grade"] == " - " or student["avg_grade"] == "-":
                 continue
-            student_name = student.student_name
-            avg = f"{float(student.avg_grade):.2f}".replace(".", ",")
+            student_name = student["student_name"]
+            avg = f"{float(student["avg_grade"]):.2f}".replace(".", ",")
             doc_website = insert_row(doc_website, 0, [student_name, avg, ""])
 
         # Социальная стипендия
         if not del_social:
-            doc_petition = replace_text(doc_petition, "group_code_3", info.group_code)
+            doc_petition = replace_text(doc_petition, "group_code_3", info["group_code"])
             doc_petition = replace_text(doc_petition, "speciality_3", f'{speciality_code} {speciality_name}')
-            doc_petition = replace_text(doc_petition, "kurator_31", info.kurator_gen)
-            doc_petition = replace_text(doc_petition, "kurator_32", info.kurator_nom)
-            doc_petition = replace_text(doc_petition, "semesterNumber_3", info.semester_number_word)
-            doc_petition = replace_text(doc_petition, "years_3", info.years)
+            doc_petition = replace_text(doc_petition, "kurator_31", info["kurator_gen"])
+            doc_petition = replace_text(doc_petition, "kurator_32", info["kurator_nom"])
+            doc_petition = replace_text(doc_petition, "semesterNumber_3", info["semester_number_word"])
+            doc_petition = replace_text(doc_petition, "years_3", info["years"])
             doc_petition = replace_text(doc_petition, "semester_date_start_3", semester_dates_start)
             doc_petition = replace_text(doc_petition, "semester_date_end_3", semester_dates_end)
-            for el_index, i in enumerate(subgroup.social_scholarship_list):
-                index = subgroup.sorted_list[i]
-                student = subgroup.students[index]
-                student_name = student.student_name
-                avg = f"{float(student.avg_grade):.2f}".replace(".", ",")
-                social_status = student.social_status
+            for el_index, i in enumerate(subgroup["social_scholarship_list"]):
+                index = subgroup["sorted_list"][i]
+                student = subgroup["students"][index]
+                student_name = student["student_name"]
+                avg = f"{float(student["avg_grade"]):.2f}".replace(".", ",")
+                social_status = student["social_status"]
                 doc_petition = insert_row(doc_petition, table_index_social, [student_name, avg, social_status], insert=el_index > 0)
 
         # Повышенная стипендия
         if not del_increased:
             doc_submission = Document(f"{path}/submission.docx")
-            doc_petition = replace_text(doc_petition, "group_code_1", info.group_code)
+            doc_petition = replace_text(doc_petition, "group_code_1", info["group_code"])
             doc_petition = replace_text(doc_petition, "speciality_1", f'{speciality_code} {speciality_name}')
-            doc_petition = replace_text(doc_petition, "kurator_11", info.kurator_gen)
-            doc_petition = replace_text(doc_petition, "kurator_12", info.kurator_nom)
-            doc_petition = replace_text(doc_petition, "semester_number_1", info.semester_number_word)
-            doc_petition = replace_text(doc_petition, "years1", info.years)
+            doc_petition = replace_text(doc_petition, "kurator_11", info["kurator_gen"])
+            doc_petition = replace_text(doc_petition, "kurator_12", info["kurator_nom"])
+            doc_petition = replace_text(doc_petition, "semester_number_1", info["semester_number_word"])
+            doc_petition = replace_text(doc_petition, "years1", info["years"])
             doc_petition = replace_text(doc_petition, "semester_date_start_1", semester_dates_start)
             doc_petition = replace_text(doc_petition, "semester_date_end_1", semester_dates_end)
-            doc_submission = replace_text(doc_submission, "group_code_1", info.group_code)
-            doc_submission = replace_text(doc_submission, "group_code_2", info.group_code)
+            doc_submission = replace_text(doc_submission, "group_code_1", info["group_code"])
+            doc_submission = replace_text(doc_submission, "group_code_2", info["group_code"])
             doc_submission = replace_text(doc_submission, "speciality", f'{speciality_code} {speciality_name}')
-            doc_submission = replace_text(doc_submission, "kurator_1", info.kurator_gen)
-            doc_submission = replace_text(doc_submission, "kurator_2", info.kurator_nom)
-            doc_submission = replace_text(doc_submission, "semester_number", info.semester_number_word)
-            doc_submission = replace_text(doc_submission, "years", info.years)
+            doc_submission = replace_text(doc_submission, "kurator_1", info["kurator_gen"])
+            doc_submission = replace_text(doc_submission, "kurator_2", info["kurator_nom"])
+            doc_submission = replace_text(doc_submission, "semester_number", info["semester_number_word"])
+            doc_submission = replace_text(doc_submission, "years", info["years"])
             submission_text = ''
-            for el_index, i in enumerate(subgroup.increased_scholarship_list):
-                student = subgroup.students[i]
-                student_name = student.student_name
-                avg = "-" if student.avg_grade == " - " or student.avg_grade == "-" else f"{float(student.avg_grade):.2f}".replace(".", ",")
+            for el_index, i in enumerate(subgroup["increased_scholarship_list"]):
+                student = subgroup["students"][i]
+                student_name = student["student_name"]
+                avg = "-" if student["avg_grade"] == " - " or student["avg_grade"] == "-" else f"{float(student["avg_grade"]):.2f}".replace(".", ",")
                 doc_petition = insert_row(doc_petition, table_index_increased, [student_name, avg, '+'], insert=el_index > 0)
                 submission_text = f'{short_name(student_name)} –' if el_index == 0 else f'{submission_text}\n{short_name(student_name)} –'
             doc_submission = explanation_insert(doc_submission, "submission", submission_text)
         
         # Одинаковые баллы
-        if len(subgroup.same_scores_list) > 0:
+        if len(subgroup["same_scores_list"]) > 0:
             doc_explanation = Document(f"{path}/explanation.docx")
-            doc_explanation = replace_text(doc_explanation, "group_code_1", info.group_code)
-            doc_explanation = replace_text(doc_explanation, "group_code_2", info.group_code)
+            doc_explanation = replace_text(doc_explanation, "group_code_1", info["group_code"])
+            doc_explanation = replace_text(doc_explanation, "group_code_2", info["group_code"])
             doc_explanation = replace_text(doc_explanation, "speciality", f'{speciality_code} {speciality_name}')
-            doc_explanation = replace_text(doc_explanation, "kurator_1", info.kurator_gen)
-            doc_explanation = replace_text(doc_explanation, "kurator_2", info.kurator_nom)
-            doc_explanation = replace_text(doc_explanation, "semester_number", info.semester_number_word)
-            doc_explanation = replace_text(doc_explanation, "years", info.years)
+            doc_explanation = replace_text(doc_explanation, "kurator_1", info["kurator_gen"])
+            doc_explanation = replace_text(doc_explanation, "kurator_2", info["kurator_nom"])
+            doc_explanation = replace_text(doc_explanation, "semester_number", info["semester_number_word"])
+            doc_explanation = replace_text(doc_explanation, "years", info["years"])
             explanation_text = ''
-            for same_score_index, same_score in enumerate(subgroup.same_scores_list):
-                index = subgroup.sorted_list[same_score[0]]
-                grade = subgroup.students[index].avg_grade
+            for same_score_index, same_score in enumerate(subgroup["same_scores_list"]):
+                index = subgroup["sorted_list"][same_score[0]]
+                grade = subgroup["students"][index]["avg_grade"]
                 same_score_text_part_1 = ''
                 same_score_text_part_2 = ''
                 for el_index, i in enumerate(same_score):
-                    index = subgroup.sorted_list[i]
-                    student_name = short_name(subgroup.students[index].student_name)
+                    index = subgroup["sorted_list"][i]
+                    student_name = short_name(subgroup["students"][index]["student_name"])
                     if el_index == 0:
                         same_score_text_part_1 = f'{student_name}'
                         same_score_text_part_2 = f'{student_name} завжди бере активну участь у житті групи та допомагає класному керівнику'
@@ -428,18 +428,18 @@ def session_PackageOfDocuments(info, app_path):
         # Сохранение документов
         doc_petition_path = save_file(doc_petition, f"{path_to_save}/Клопотання {speciality_code}.docx")
         if doc_petition_path != True:
-            answer.files.append(doc_petition_path)
+            answer["files"].append(doc_petition_path)
         doc_website_path = save_file(doc_website, f"{path_to_save}/Рейтинг на сайт {speciality_code}.docx")
         if doc_website_path != True:
-            answer.files.append(doc_website_path)
+            answer["files"].append(doc_website_path)
         if not del_increased:
             doc_submission_path = save_file(doc_submission, f"{path_to_save}/Подання {speciality_code}.docx")
             if doc_submission_path != True:
-                answer.files.append(doc_submission_path)
-        if len(subgroup.same_scores_list) > 0:
+                answer["files"].append(doc_submission_path)
+        if len(subgroup["same_scores_list"]) > 0:
             doc_explanation_path = save_file(doc_explanation, f"{path_to_save}/Пояснення {speciality_code}.docx")
             if doc_explanation_path != True:
-                answer.files.append(doc_explanation_path)
+                answer["files"].append(doc_explanation_path)
 
     statements.remove(statements["Л_Загальна"])
     for i in range(1, 11):
@@ -449,7 +449,7 @@ def session_PackageOfDocuments(info, app_path):
             statements.remove(statements[f"ЛР{i}"])
     workbook_path = save_file(statements, f"{path_to_save}/Відомості.xlsx")
     if workbook_path != True:
-        answer.files.append(workbook_path)
+        answer["files"].append(workbook_path)
 
     return answer
 
@@ -669,8 +669,8 @@ def filling_out_the_empty_teacher_statement(sheet: Worksheet, semester: str, yea
         return [line + padding for line in lines]
 
     # Собираем списки строк, которые нужно отформатировать
-    spec_strings = [f'{subgroup.specialityCode} {subgroup.specialityName}' for subgroup in subgroups]
-    edu_strings = [EDUCATIONAL_PROGRAMS[subgroup.specialityCode] for subgroup in subgroups if EDUCATIONAL_PROGRAMS.get(subgroup.specialityCode, "")]
+    spec_strings = [f'{subgroup["specialityCode"]} {subgroup["specialityName"]}' for subgroup in subgroups]
+    edu_strings = [EDUCATIONAL_PROGRAMS[subgroup["specialityCode"]] for subgroup in subgroups if EDUCATIONAL_PROGRAMS.get(subgroup["specialityCode"], "")]
 
     # Обрабатываем их через функцию
     specs_text = append_to_lines(spec_strings, max_specs_width)
@@ -799,41 +799,41 @@ def filling_out_the_empty_teacher_statement(sheet: Worksheet, semester: str, yea
     # =============================================================================================================
     # ЗАПОЛНЕНИЕ ЛИСТА
 
-    sheet.cell(row=10, column=3) = CellRichText(
+    sheet.cell(row=10, column=3).value = CellRichText(
         TextBlock(default_font, 'Курс '),
         TextBlock(underline_font, ' I '),
         TextBlock(default_font, '     Група '),
         TextBlock(underline_font, ' 25-1 ')
     )
 
-    sheet.cell(row=10, column=12) = CellRichText(
+    sheet.cell(row=10, column=12).value = CellRichText(
         TextBlock(default_font, 'Навчальний рік '),
         TextBlock(underline_font, ' 2025-2026 ')
     )
 
     if semester == "рік": 
-        sheet.cell(row=14, column=3) = CellRichText(
+        sheet.cell(row=14, column=3).value = CellRichText(
             TextBlock(default_font, 'за '),
             TextBlock(underline_font, f' рік ')
         )
     else:
-        sheet.cell(row=14, column=3) = CellRichText(
+        sheet.cell(row=14, column=3).value = CellRichText(
             TextBlock(default_font, 'за '),
             TextBlock(underline_font, f' {semester} '),
             TextBlock(default_font, ' навчальний семестр'),
         )
 
-    sheet.cell(row=15, column=3) = CellRichText(
+    sheet.cell(row=15, column=3).value = CellRichText(
         TextBlock(default_font, 'Форма семестрового контролю '),
         TextBlock(underline_bold_font, f' залік ')
     )
 
-    sheet.cell(row=15, column=12) = CellRichText(
+    sheet.cell(row=15, column=12).value = CellRichText(
         TextBlock(default_font, f'Дата «____» __________ {year}р.')
     )
 
     for i, el in enumerate(students):
-        sheet.cell(row=i + 21, column=3).value = el.name
+        sheet.cell(row=i + 21, column=3).value = el["name"]
     
     sheet.cell(row=start + 2, column=9).value = 'ВСЬОГО\r\nОЦІНОК'
     sheet.cell(row=start + 2, column=11).value = f"Державний\r\nнорматив ***"
@@ -850,48 +850,42 @@ def filling_out_the_empty_teacher_statement(sheet: Worksheet, semester: str, yea
     sheet.cell(row=start + 12, column=8).value = "Якісна успішність –        %"
 
     if len(specs_text) == 1:
-        rich_string = CellRichText(
+        sheet.cell(row=6, column=3).value = CellRichText(
             TextBlock(default_font, 'Спеціальність '),
             TextBlock(underline_font, specs_text[0])
         )
-        sheet.cell(row=6, column=3) = rich_string
         sheet.unmerge_cells(start_row=6, start_column=3, end_row=6, end_column=12)
         sheet.unmerge_cells(start_row=7, start_column=3, end_row=7, end_column=12)
         sheet.merge_cells(start_row=6, start_column=3, end_row=7, end_column=12)
         sheet.row_dimensions[6].height = 7.5
         sheet.row_dimensions[7].height = 7.5
     else:
-        rich_string = CellRichText(
+        sheet.cell(row=6, column=3).value = CellRichText(
             TextBlock(default_font, 'Спеціальність '),
             TextBlock(underline_font, specs_text[0])
         )
-        sheet.cell(row=6, column=3) = rich_string
-        rich_string = CellRichText(
+        sheet.cell(row=7, column=3).value = CellRichText(
             TextBlock(underline_font, specs_text[1])
         )
-        sheet.cell(row=7, column=3) = rich_string
 
     if len(educational_programs_text) == 1:
-        rich_string = CellRichText(
+        sheet.cell(row=8, column=3).value = CellRichText(
             TextBlock(default_font, 'Освітня програма '),
             TextBlock(underline_font, educational_programs_text[0])
         )
-        sheet.cell(row=8, column=3) = rich_string
         sheet.unmerge_cells(start_row=8, start_column=3, end_row=8, end_column=12)
         sheet.unmerge_cells(start_row=9, start_column=3, end_row=9, end_column=12)
         sheet.merge_cells(start_row=8, start_column=3, end_row=9, end_column=12)
         sheet.row_dimensions[8].height = 7.5
         sheet.row_dimensions[9].height = 7.5
     else:
-        rich_string = CellRichText(
+        sheet.cell(row=8, column=3).value = CellRichText(
             TextBlock(default_font, 'Освітня програма '),
             TextBlock(underline_font, educational_programs_text[0])
         )
-        sheet.cell(row=8, column=3) = rich_string
-        rich_string = CellRichText(
+        sheet.cell(row=9, column=3).value = CellRichText(
             TextBlock(underline_font, educational_programs_text[1])
         )
-        sheet.cell(row=9, column=3) = rich_string
     
     i = 0
     if len(specs_text) != 1:
@@ -994,9 +988,9 @@ def filling_out_the_empty_sheet(sheet: Worksheet, cells: list, students: list, s
     # ЗАПОЛНЕНИЕ ЛИСТА
 
     # --- Фиксированные значения ---
-    sheet.cell(row=5, column=3).value = cells.C5
-    sheet.cell(row=6, column=3).value = cells.C6
-    sheet.cell(row=7, column=3).value = cells.C7
+    sheet.cell(row=5, column=3).value = cells["C5"]
+    sheet.cell(row=6, column=3).value = cells["C6"]
+    sheet.cell(row=7, column=3).value = cells["C7"]
     if subject_len >= 14:
         kurator_col_letter = get_column_letter(16)
         sheet.cell(row=end_row + 7, column=16).value = f"='Зведена загальна'!{kurator_col_letter}{last_student_row + 7}"
@@ -1118,12 +1112,12 @@ def filling_out_the_general_empty_sheet(sheet: Worksheet, students: list, subjec
 
     # --- Названия предметов ---
     for i, subj in enumerate(subjects):
-        sheet.cell(row=9, column=i + 6).value = f'{subj.subject_name}\n{subj.teacher_name}'
+        sheet.cell(row=9, column=i + 6).value = f'{subj["subject_name"]}\n{subj["teacher_name"]}'
     
     # --- Имена студентов ---
     for i, student in enumerate(students):
-        sheet.cell(row=i + 10, column=3).value = student.bc
-        sheet.cell(row=i + 10, column=5).value = student.name
+        sheet.cell(row=i + 10, column=3).value = student["bc"]
+        sheet.cell(row=i + 10, column=5).value = student["name"]
 
 def filling_out_the_journal_sheet(sheet: Worksheet, subjects: list, start_index: int, group_name: str):
 
@@ -1156,8 +1150,8 @@ def filling_out_the_journal_sheet(sheet: Worksheet, subjects: list, start_index:
     for index, subject in enumerate(subjects):
         row = 5 + index
         sheet.cell(row=row, column=4).value = start_index + index
-        sheet.cell(row=row, column=6).value = subject.subject_name
-        sheet.cell(row=row, column=7).value = subject.teacher_name
+        sheet.cell(row=row, column=6).value = subject["subject_name"]
+        sheet.cell(row=row, column=7).value = subject["teacher_name"]
 
 
 def session_EmptyCreate(info, app_path, path_to_save, semester):
@@ -1182,42 +1176,42 @@ def session_EmptyCreate(info, app_path, path_to_save, semester):
 
     # === Проход по каждой группе ===
     group_index = -1
-    for group in info.groups:
+    for group in info["groups"]:
         group_index += 1
-        subject_len = len(group.subjects)
-        group_code = group.group_code
+        subject_len = len(group["subjects"])
+        group_code = group["group_code"]
 
         # === Журнал ===
         sheet = journal[f"Л{group_index + 1}"]
         sheet.title = group_code
-        filling_out_the_journal_sheet(sheet, group.subjects, group_index * subject_len + 1, group_code)
+        filling_out_the_journal_sheet(sheet, group["subjects"], group_index * subject_len + 1, group_code)
 
         # === Общая страница ведомости ===
         statements = load_workbook(f"{path}/statements.xlsx")
         sheet = statements[f"Л_Загальна"]
         sheet.title = "Зведена загальна"
-        filling_out_the_general_empty_sheet(sheet, group.students, group.subjects, group.kurator_nom, info.percentage)
+        filling_out_the_general_empty_sheet(sheet, group["students"], group["subjects"], group["kurator_nom"], info["percentage"])
 
         # === Заполнение страниц ведомости по специальностям ===
-        for subgroup_index, subgroup in enumerate(group.subgroups):
+        for subgroup_index, subgroup in enumerate(group["subgroups"]):
             cells = {
-                "C5": f"Успішності студентів спеціальності {subgroup.speciality_code} «{subgroup.speciality_name}»",
-                "C6": f'За {info.semester_roman} семестр {info.years} н.р.' if semester != "рік" else f'За рік {info.years} н.р.',
+                "C5": f"Успішності студентів спеціальності {subgroup['speciality_code']} «{subgroup['speciality_name']}»",
+                "C6": f'За {info["semester_roman"]} семестр {info["years"]} н.р.' if semester != "рік" else f'За рік {info["years"]} н.р.',
                 "C7": f'Група {group_code} курс I'
             }
             sheet = statements[f"ЛЗ{subgroup_index + 1}"]
-            sheet.title = f"Зведена {subgroup.speciality_code}"
-            last_student_row = 9 + len(group.students)
-            filling_out_the_empty_sheet(sheet, cells, subgroup.student_IDs, subject_len, last_student_row, info.percentage)
+            sheet.title = f"Зведена {subgroup['speciality_code']}"
+            last_student_row = 9 + len(group["students"])
+            filling_out_the_empty_sheet(sheet, cells, subgroup["student_IDs"], subject_len, last_student_row, info["percentage"])
 
         # === Ведомости преподавателей ===
         sheet = teacher_statements[f"Л{group_index + 1}"]
         sheet.title = f"{group_code}"
         subgroups = []
-        for subgroup in group.subgroups:
-            subgroups.append({'code': subgroup.speciality_code, 'name': subgroup.speciality_name})
-        filling_out_the_empty_teacher_statement(sheet, semester, info.year, group.students, subgroups)
-        
+        for subgroup in group["subgroups"]:
+            subgroups.append({'code': subgroup["speciality_code"], 'name': subgroup["speciality_name"]})
+        filling_out_the_empty_teacher_statement(sheet, semester, info["year"], group["students"], subgroups)
+
         # === Сохранение ведомости по группе ===
         pathToGroupSave = os.path.join(path_to_save, group_code)
         os.makedirs(pathToGroupSave, exist_ok=True)
@@ -1250,23 +1244,23 @@ def session_EmptyCreate(info, app_path, path_to_save, semester):
 
 def session_EmptyStart(info, app_path):
     answer = {"success": True, "files": [], "customText": ""}
-    parent_dir = Path(info.file_path).parent
+    parent_dir = Path(info["file_path"]).parent
     path_to_save = None
 
-    for group in info.groups:
-        for subgroup in group.subgroups:
-            if subgroup.speciality_code in SUBJECT_WITH_2_PROGRAMS:
-                if answer.customText == "":
-                    answer.customText = f"У групах є спеціальності з декількома ОПП.\nУ відомості для викладачів у такі спеціальності було записано наступні ОПП:"
-                answer.customText = f'{answer.customText}\n  [{group.group_code}] {subgroup.speciality_code}: {EDUCATIONAL_PROGRAMS[subgroup.speciality_code]}'
+    for group in info["groups"]:
+        for subgroup in group["subgroups"]:
+            if subgroup["speciality_code"] in SUBJECT_WITH_2_PROGRAMS:
+                if answer["customText"] == "":
+                    answer["customText"] = f"У групах є спеціальності з декількома ОПП.\nУ відомості для викладачів у такі спеціальності було записано наступні ОПП:"
+                    answer["customText"] = f'{answer["customText"]}\n  [{group["group_code"]}] {subgroup["speciality_code"]}: {EDUCATIONAL_PROGRAMS[subgroup["speciality_code"]]}'
 
-    if info.semester_number == 1:
+    if info["semester_number"] == 1:
         path_to_save = os.path.join(parent_dir, "I семестр")
         os.makedirs(path_to_save, exist_ok=True)
         files = session_EmptyCreate(info, app_path, path_to_save, "I")
         if files:
             for file in files:
-                answer.files.append(file)
+                answer["files"].append(file)
 
     else:
         path_to_save = os.path.join(parent_dir, "II семестр")
@@ -1274,23 +1268,23 @@ def session_EmptyStart(info, app_path):
         files = session_EmptyCreate(info, app_path, path_to_save, "II")
         if files:
             for file in files:
-                answer.files.append(file)
+                answer["files"].append(file)
 
         path_to_save = os.path.join(parent_dir, "рік")
         os.makedirs(path_to_save, exist_ok=True)
         files = session_EmptyCreate(info, app_path, path_to_save, "рік")
         if files:
             for file in files:
-                answer.files.append(file)
+                answer["files"].append(file)
 
     return answer
 
 
 def session_ReportStart(info, app_path):
-    path_to_save = Path(info.file_path).parent
+    path_to_save = Path(info["file_path"]).parent
 
     answer = {"success": True, "files": []}
-    directory_to_save = os.path.dirname(info.file_path)
+    directory_to_save = os.path.dirname(info["file_path"])
     os.makedirs(directory_to_save, exist_ok=True)
     path = f"{app_path}/public/examples/work"
 
@@ -1302,27 +1296,27 @@ def session_ReportStart(info, app_path):
     step = 0
     general_amount = 0
     # Заполнение строк данными по группам
-    for group in info.groups:
+    for group in info["groups"]:
         row = 6 + step
-        general_amount += group.amount
+        general_amount += group["amount"]
 
-        sheet.cell(row=row, column=2).value = group.group_code
+        sheet.cell(row=row, column=2).value = group["group_code"]
 
-        sheet.cell(row=row, column=4).value = group.budget
-        sheet.cell(row=row, column=5).value = group.kontrakt
+        sheet.cell(row=row, column=4).value = group["budget"]
+        sheet.cell(row=row, column=5).value = group["kontrakt"]
 
-        sheet.cell(row=row, column=6).value = group.scholarship
-        sheet.cell(row=row, column=7).value = group.social_scholarship
+        sheet.cell(row=row, column=6).value = group["scholarship"]
+        sheet.cell(row=row, column=7).value = group["social_scholarship"]
 
-        sheet.cell(row=row, column=8).value = group.amount
+        sheet.cell(row=row, column=8).value = group["amount"]
         sheet.cell(row=row, column=9).value = 0
 
-        sheet.cell(row=row, column=12).value = group.achievement.hight
-        sheet.cell(row=row, column=13).value = group.achievement.sufficient
-        sheet.cell(row=row, column=14).value = group.achievement.middle
-        sheet.cell(row=row, column=15).value = group.achievement.low
+        sheet.cell(row=row, column=12).value = group["achievement"]["hight"]
+        sheet.cell(row=row, column=13).value = group["achievement"]["sufficient"]
+        sheet.cell(row=row, column=14).value = group["achievement"]["middle"]
+        sheet.cell(row=row, column=15).value = group["achievement"]["low"]
 
-        sheet.cell(row=row, column=19).value = group.avg_grade
+        sheet.cell(row=row, column=19).value = group["avg_grade"]
 
         step += 1
 
@@ -1331,16 +1325,16 @@ def session_ReportStart(info, app_path):
     # Сохранение документа
     doc_path = save_file(report, f"{path_to_save}/ПЗСО.xlsx")
     if doc_path != True:
-        answer.files.append(doc_path)
+        answer["files"].append(doc_path)
 
     return answer
 
 
 def session_DebtorsStart(info, app_path):
-    path_to_save = Path(info.file_path).parent
+    path_to_save = Path(info["file_path"]).parent
 
     answer = {"success": True, "files": []}
-    directory_to_save = os.path.dirname(info.file_path)
+    directory_to_save = os.path.dirname(info["file_path"])
     os.makedirs(directory_to_save, exist_ok=True)
     path = f"{app_path}/public/examples/work"
     
@@ -1350,23 +1344,23 @@ def session_DebtorsStart(info, app_path):
     debtors = load_workbook(f"{path}/debtors.xlsx")
 
     step = 0
-    for group in info.groups:
+    for group in info["groups"]:
         step += 1
 
         debrost_sheet = debtors[f"Л{step}"]
-        debrost_sheet.title = group.group_code
-        debrost_sheet.cell(row=4, column=3).value = group.group_code
+        debrost_sheet.title = group["group_code"]
+        debrost_sheet.cell(row=4, column=3).value = group["group_code"]
 
         debrost_row = 5
         debrost_step = 1
-        for student in group.students:
+        for student in group["students"]:
             subject_step = 0
             student_row = 0
-            for grade in student.grades:
+            for grade in student["grades"]:
                 if student_row == 0:
                     debrost_sheet.cell(row=debrost_row, column=3).value = debrost_step
-                    debrost_sheet.cell(row=debrost_row, column=4).value = student.bc
-                    debrost_sheet.cell(row=debrost_row, column=5).value = student.student_name
+                    debrost_sheet.cell(row=debrost_row, column=4).value = student["bc"]
+                    debrost_sheet.cell(row=debrost_row, column=5).value = student["student_name"]
                     student_row = 1
                 elif student_row == 1:
                     debrost_sheet.merge_cells(start_row=debrost_row - 1, start_column=3, end_row=debrost_row, end_column=3)
@@ -1381,9 +1375,9 @@ def session_DebtorsStart(info, app_path):
                     debrost_sheet.merge_cells(start_row=debrost_row - student_row, start_column=4, end_row=debrost_row, end_column=4)
                     debrost_sheet.merge_cells(start_row=debrost_row - student_row, start_column=5, end_row=debrost_row, end_column=5)
                     student_row += 1
-                debrost_sheet.cell(row=debrost_row, column=6).value = grade.grade
-                debrost_sheet.cell(row=debrost_row, column=7).value = grade.subject_name
-                debrost_sheet.cell(row=debrost_row, column=8).value = grade.teacher_name
+                debrost_sheet.cell(row=debrost_row, column=6).value = grade["grade"]
+                debrost_sheet.cell(row=debrost_row, column=7).value = grade["subject_name"]
+                debrost_sheet.cell(row=debrost_row, column=8).value = grade["teacher_name"]
                 debrost_row += 1
                 subject_step += 1
             debrost_step += 1
@@ -1404,6 +1398,6 @@ def session_DebtorsStart(info, app_path):
     # Сохранение документа
     doc_path = save_file(debtors, f"{path_to_save}/Боржники.xlsx")
     if doc_path != True:
-        answer.files.append(doc_path)
+        answer["files"].append(doc_path)
 
     return answer

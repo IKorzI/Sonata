@@ -23,20 +23,133 @@
   let imageNaturalHeight = 0;
   
   const names = {
-    "hours--based-on-the-first-month--hours": ["hours", "Години"],
-    "hours--summary-of-teachers--hours": ["hours", "Години"],
-    "session--empty-statements--contingent": ["contingent", "Контингент"],
-    "session--empty-statements--hours": ["hours", "Години"],
-    "session--package-of-documents--statements": ["statements", "Відомості"],
-    "session--report--statements": ["statements", "Відомості"],
-    "session--debtors--statements": ["statements", "Відомості"]
+    "hours--based-on-the-first-month": {
+      fileNameToSave: "Години",
+      filePathToSave: "based-on-the-first-month",
+      filesToDisplay: [
+        {filePath: "based-on-the-first-month", displayName: "Години"}
+      ]
+    },
+    "hours--summary-of-teachers": {
+      fileNameToSave: "Години",
+      filePathToSave: "summary-of-teachers",
+      filesToDisplay: [
+        {filePath: "summary-of-teachers", displayName: "Години"}
+      ]
+    },
+    "session--empty-statements": {
+      fileNameToSave: "Відомості",
+      filePathToSave: "empty-statements",
+      filesToDisplay: [
+        {filePath: "empty-statements", displayName: "Відомості"}
+      ]
+    },
+    "session--package-of-documents": {
+      fileNameToSave: "Відомості",
+      filePathToSave: "package-of-documents",
+      filesToDisplay: [
+        {filePath: "package-of-documents--summary", displayName: "Зведена"},
+        {filePath: "package-of-documents--rating", displayName: "Рейтингова"},
+        {filePath: "package-of-documents--petition", displayName: "Клопотання"},
+        {filePath: "package-of-documents--submission", displayName: "Подання"},
+        {filePath: "package-of-documents--explanation", displayName: "Пояснення"},
+        {filePath: "package-of-documents--rating-on-website", displayName: "Рейтинг на сайт"},
+      ]
+    },
+    "session--report": {
+      fileNameToSave: "Звіт",
+      filePathToSave: "report",
+      filesToDisplay: [
+        {filePath: "report", displayName: "Звіт"}
+      ]
+    },
+    "session--debtors": {
+      fileNameToSave: "Боржники",
+      filePathToSave: "debtors",
+      filesToDisplay: [
+        {filePath: "debtors", displayName: "Боржники"}
+      ]
+    },
+
+    "hours--based-on-the-first-month--hours": {
+      fileNameToSave: "Години",
+      filePathToSave: "based-on-the-first-month",
+      filesToDisplay: [
+        {filePath: "hours", displayName: "Години"}
+      ]
+    },
+    "hours--summary-of-teachers--hours": {
+      fileNameToSave: "Години",
+      filePathToSave: "summary-of-teachers",
+      filesToDisplay: [
+        {filePath: "hours", displayName: "Години"}
+      ]
+    },
+    "session--empty-statements--contingent": {
+      fileNameToSave: "Контингент",
+      filePathToSave: "empty-statements",
+      filesToDisplay: [
+        {filePath: "contingent", displayName: "Контингент"}
+      ]
+    },
+    "session--empty-statements--hours": {
+      fileNameToSave: "Години",
+      filePathToSave: "empty-statements",
+      filesToDisplay: [
+        {filePath: "hours", displayName: "Години"}
+      ]
+    },
+    "session--package-of-documents--statements": {
+      fileNameToSave: "Відомості",
+      filePathToSave: "package-of-documents",
+      filesToDisplay: [
+        {filePath: "statements", displayName: "Відомості"}
+      ]
+    },
+    "session--report--statements": {
+      fileNameToSave: "Відомості",
+      filePathToSave: "report",
+      filesToDisplay: [
+        {filePath: "statements", displayName: "Відомості"}
+      ]
+    },
+    "session--debtors--statements": {
+      fileNameToSave: "Відомості",
+      filePathToSave: "debtors",
+      filesToDisplay: [
+        {filePath: "statements", displayName: "Відомості"}
+      ]
+    }
   }
 
-  // Получаем массив только уникальных имен файлов (hours, contingent, statements)
-  const uniqueImageNames = [...new Set(Object.values(names).map(v => v[0]))];
+  // Получаем массив уникальных имен файлов, проходя по всем массивам filesToDisplay
+  const uniqueImageNames = [...new Set(
+    Object.values(names).flatMap(doc => doc.filesToDisplay.map(file => file.filePath))
+  )];
+  console.log(uniqueImageNames)
 
-  // Реактивная переменная для текущего активного имени файла
-  $: activeImgName = $whatDocument && names[$whatDocument] ? names[$whatDocument][0] : null;
+  // Реактивная переменная для списка изображений текущего документа
+  $: currentImages = $whatDocument && names[$whatDocument] ? names[$whatDocument].filesToDisplay : [];
+
+  let activeImgName = null;
+  let prevDocument = null;
+
+  // Реактивно назначаем первое изображение активным при смене документа
+  $: {
+    if ($whatDocument !== prevDocument) {
+      if (currentImages.length > 0) {
+        activeImgName = currentImages[0].filePath;
+      } else {
+        activeImgName = null;
+      }
+      prevDocument = $whatDocument;
+    }
+  }
+
+  // Функция для переключения изображений кликом по кнопке
+  function switchImage(filePath) {
+    activeImgName = filePath;
+  }
 
   $: {
     if ($whatDocument) {
@@ -270,6 +383,20 @@
         bind:this={imgRefs[imgName]}
       />
     {/each}
+
+    {#if currentImages.length > 1}
+      <div class="nav-buttons-container" on:mousedown|stopPropagation>
+        {#each currentImages as imgInfo}
+          <button 
+            class="nav-button {imgInfo.filePath === activeImgName ? 'active' : ''}"
+            on:click|stopPropagation={() => switchImage(imgInfo.filePath)}
+          >
+            {imgInfo.displayName}
+          </button>
+        {/each}
+      </div>
+    {/if}
+
   </div>
 </div>
 
@@ -397,5 +524,43 @@
   .zoom-image.visible {
     opacity: 1;
     visibility: visible;
+  }
+
+  .nav-buttons-container {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: calc(100% - 70px);
+    display: flex;
+    box-sizing: border-box;
+    overflow-x: auto;
+  }
+
+  :global(.nav-buttons-container button:first-child) {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+
+  :global(.nav-buttons-container button:last-child) {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  .nav-button {
+    position: static; 
+    height: 25px;
+    width: auto;
+    padding: 0px 5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    background-color: var(--ExampleArea-window-button-background-color);
+  }
+
+  .nav-button:hover {
+    background-color: var(--ExampleArea-window-button-hover-background-color);
+  }
+
+  .nav-button.active {
+    background-color: #007bff;
   }
 </style>

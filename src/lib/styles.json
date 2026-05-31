@@ -24,6 +24,7 @@
     "ExampleArea.window.close.background.color": "rgb(231, 242, 248)",
     "ExampleArea.window.close.hover.background.color": "rgb(250, 76, 77)",
     "ExampleArea.window.close.active.background.color": "rgb(232, 145, 150)",
+    "ExampleArea.tabArea.background.color": "rgba(255, 255, 255, 0.5)",
 
     "ErrorArea.background.color": "rgba(255, 255, 255, 0.5)",
     "ErrorArea.window.background.color": "rgba(0, 0, 0, 0.2)",
@@ -76,6 +77,7 @@
     "ExampleArea.window.close.background.color": "rgb(36, 36, 36)",
     "ExampleArea.window.close.hover.background.color": "rgb(231, 54, 54)",
     "ExampleArea.window.close.active.background.color": "rgb(132, 33, 36)",
+    "ExampleArea.tabArea.background.color": "rgba(0, 0, 0, 0.5)",
 
     "ErrorArea.background.color": "rgba(0, 0, 0, 0.7)",
     "ErrorArea.window.background.color": "rgba(255, 255, 255, 0.2)",

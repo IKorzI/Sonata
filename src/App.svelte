@@ -37,6 +37,7 @@
   --ExampleArea-window-close-background-color: {_styles.ExampleArea.window.close.background.color};
   --ExampleArea-window-close-hover-background-color: {_styles.ExampleArea.window.close.hover.background.color};
   --ExampleArea-window-close-active-background-color: {_styles.ExampleArea.window.close.active.background.color};
+  --ExampleArea-tabArea-background-color: {_styles.ExampleArea.tabArea.background.color};
 
   --ErrorArea-background-color: {_styles.ErrorArea.background.color};
   --ErrorArea-window-background-color: {_styles.ErrorArea.window.background.color};
