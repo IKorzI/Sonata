@@ -1,9 +1,19 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import { availableLngs, changeLanguage, lng, transition, themeSwap, hide } from '../lib/store.js'
   let _lng = {};
   lng.subscribe(value => (_lng = value));
+  let languageListIsOpen = false;
   
+  function handleGlobalClick(event) {
+    if (!event.target.className.includes("language") && event.target.tagName !== 'LI' && languageListIsOpen) {
+      const languageList = document.querySelector('.title-bar .language-list');
+      languageList.style.opacity = '';
+      languageList.style.zIndex = '';
+      languageListIsOpen = false;
+    }
+  }
+
   onMount(() => {
     const languageList = document.querySelector('.title-bar .language-list');
     availableLngs.forEach((lng, index) => {
@@ -16,9 +26,16 @@
         changeLanguage(event.target.textContent)
         languageList.style.opacity = '';
         languageList.style.zIndex = '';
+        languageListIsOpen = false;
       })
       languageList.appendChild(li);
     });
+
+    window.addEventListener('click', handleGlobalClick);
+  });
+  
+  onDestroy(() => {
+    window.removeEventListener('click', handleGlobalClick);
   });
 
   let isProcess = false;
@@ -69,12 +86,19 @@
   }
 
   function showLngList() {
-    const languageList = document.querySelector('.title-bar .language-list');
-    setTimeout(() => {
-      languageList.style.opacity = '1'
+    if (!languageListIsOpen) {
+      const languageList = document.querySelector('.title-bar .language-list');
       languageList.style.zIndex = '999';
-    }, 10)
+      languageList.style.opacity = '1'
+      languageListIsOpen = true;
+    } else {
+      const languageList = document.querySelector('.title-bar .language-list');
+      languageList.style.opacity = '';
+      languageList.style.zIndex = '';
+      languageListIsOpen = false;
+    }
   }
+  
 </script>
 
 <div class="title-bar">
@@ -98,6 +122,7 @@
     grid-template-columns: 25px 25px 1fr 25px 25px 25px;
     background-color: var(--background-color);
     border-radius: 0px;
+    border-color: var(--border-color1);
   }
 
   .title-bar > *:not(.language-list) {
@@ -111,6 +136,12 @@
     background-color: transparent;
     border: none;
     border-radius: 0px;
+  }
+  button:hover {
+    background-color: var(--button-hover-background-color2);
+  }
+  button:active {
+    background-color: var(--button-active-background-color2);
   }
 
   .program-icon {

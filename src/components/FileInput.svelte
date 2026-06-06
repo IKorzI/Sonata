@@ -36,8 +36,13 @@
 
   let mouseCounter = 0;
   let dragCounter = 0;
+
   $: if ($clearInformation) {
-    if (file && eId.includes($clearInformation)) {
+    handleClearInformation($clearInformation);
+  }
+
+  function handleClearInformation(info) {
+    if (file && eId.includes(info)) {
       handleDelete();
       eArea.classList.remove('hovered');
       mouseCounter = 0
@@ -323,7 +328,7 @@
     border-color: green;
   }
   :global(.area.hovered) {
-    background-color: var(--button-background-color);
+    background-color: var(--button-background-color1);
   }
   :global(.area.unavailable) {
     pointer-events: none;
@@ -392,10 +397,10 @@
     opacity: 1;
   }
   .delete:hover {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-hover-background-color1);
   }
   .delete:active {
-    background-color: var(--button-active-background-color);
+    background-color: var(--button-active-background-color1);
   }
 
   .what {
@@ -411,10 +416,10 @@
     opacity: 0;
   }
   .what:hover {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-hover-background-color1);
   }
   .what:active {
-    background-color: var(--button-active-background-color);
+    background-color: var(--button-active-background-color1);
   }
 
 </style>

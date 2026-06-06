@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { whatDocument, selectedSection, lng } from '../../lib/store.js'
+  import { whatDocument, selectedSection, lng, message } from '../../lib/store.js'
 
   // ========== ЗАПОЛНИТЬ ==========
   let thisId = 'other--other';
@@ -16,7 +16,7 @@
   $: if ($selectedSection) {
     if (this_) {
       if ($selectedSection === thisId) {
-        this_.style.zIndex = null;
+        this_.style.zIndex = "1";
       } else if (this_.style.zIndex !== "-1") {
         setTimeout(() => {
           this_.style.zIndex = -1;
@@ -70,6 +70,16 @@
   }
 
   async function numDenStart() {
+    if (
+      eSemester1Start.value === '' ||
+      eSemester1End.value === '' ||
+      eSemester2Start.value === '' ||
+      eSemester2End.value === ''
+    ) {
+      message.set({type: 'error', text: _lng.other.numDen.notAllData});
+      return;
+    }
+    
     const targetPath = await window.electron.saveDialog(_lng.other.numDen.saveName, ".xlsx");
     if (!targetPath) return;
 
@@ -214,10 +224,10 @@
     opacity: 0;
   }
   .what:hover {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-hover-background-color1);
   }
   .what:active {
-    background-color: var(--button-active-background-color);
+    background-color: var(--button-active-background-color1);
   }
 
   .start {

@@ -1,11 +1,14 @@
 <script>
-  import { selectedSection, clearInformation, saveInformation, savedInformation } from '../../lib/store.js'
+  import { selectedSection, clearInformation, saveInformation, savedInformation, lng, message } from '../../lib/store.js'
   import FileInput from '../FileInput.svelte';
 
   // ========== ЗАПОЛНИТЬ ==========
   let thisId = 'hours--summary-of-teachers';
   // ===============================
 
+  let _lng = {};
+  lng.subscribe(value => (_lng = value));
+  
   let this_
   let uploadedFile = null;
   let data = null
@@ -13,7 +16,7 @@
   $: if ($selectedSection) {
     if (this_) {
       if ($selectedSection === thisId) {
-        this_.style.zIndex = null;
+        this_.style.zIndex = "1";
       } else if (this_.style.zIndex !== "-1") {
         setTimeout(() => {
           this_.style.zIndex = -1;
@@ -41,14 +44,21 @@
   }
 
   async function saveAll() {
+    if (uploadedFile === null) {
+      message.set({type: 'error', text: _lng.summaryOfTeachers.notAllData});
+      return;
+    }
+
     let endInformation = {
       ...data,
       id: thisId,
       filePath: uploadedFile.path
     }
+
     console.log(endInformation)
     endInformation = await window.electron.hoursSummaryDataSupplement(endInformation);
     console.log(endInformation)
+
     savedInformation.set(endInformation);
   }
 
@@ -58,6 +68,11 @@
       uploadedFile = detail.file;
       data = await window.electron.hoursSummaryGetInformation(uploadedFile.path);
       console.log(data);
+      if (!data) {
+        message.set({type: 'error', text: _lng.inputFile.error});
+        clearInformation.set(thisId)
+        return;
+      }
     }
   }
 

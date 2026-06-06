@@ -31,6 +31,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 5px;
+    background-color: var(--button-background-color2);
   }
 
   .section-icon {
@@ -39,4 +40,12 @@
     margin-left: 5px;
     margin-right: 5px;
   }
+
+  .section-button:hover {
+    background-color: var(--button-hover-background-color2);
+  }
+  .section-button:active {
+    background-color: var(--button-active-background-color2);
+  }
+
 </style>

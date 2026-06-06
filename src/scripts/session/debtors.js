@@ -118,7 +118,12 @@ function dataSupplement(data) {
 }
 
 ipcMain.handle('sessionDebtorsGetInformation', async (event, path, type) => {
-  return getInfo(path, type);
+  try {
+    return await getInfo(path);
+  } catch (error) {
+    console.error(error.message);
+    return false;
+  }
 });
 ipcMain.handle('sessionDebtorsDataSupplement', async (event, data) => {
   return dataSupplement(data);

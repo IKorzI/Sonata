@@ -48,12 +48,16 @@
 
   --background-color: {_styles.background.color};
   --background-reverse-color: {_styles.background.reverse.color};
-  --border-color: {_styles.border.color};
+  --border-color1: {_styles.border.color1};
+  --border-color2: {_styles.border.color2};
   --text-color: {_styles.text.color};
 
-  --button-background-color: {_styles.button.background.color};
-  --button-hover-background-color: {_styles.button.hover.background.color};
-  --button-active-background-color: {_styles.button.active.background.color};
+  --button-background-color1: {_styles.button.background.color1};
+  --button-background-color2: {_styles.button.background.color2};
+  --button-hover-background-color1: {_styles.button.hover.background.color1};
+  --button-hover-background-color2: {_styles.button.hover.background.color2};
+  --button-active-background-color1: {_styles.button.active.background.color1};
+  --button-active-background-color2: {_styles.button.active.background.color2};
 
   --input-placeholder-color: {_styles.input.placeholder.color};
   --input-background-color: {_styles.input.background.color};
@@ -95,11 +99,12 @@
     border-width: 2px;
     background-size: cover;
     background-image: var(--app-background-image);
+    border-color: var(--border-color1);
   }
   .program.hide {
     opacity: 0;
   }
-
+  
   :global(.program, .program *) {
     user-select: none;
     cursor: default;
@@ -107,7 +112,7 @@
     font-size: 17px;
     color: var(--text-color);
     transition: var(--transition);
-    border-color: var(--border-color);
+    border-color: var(--border-color1);
     border-width: 0px;
     border-style: solid;
     border-radius: 8px;
@@ -127,22 +132,23 @@
   :global(.program .gui) {
     position: absolute;
     transition: 0.2s;
+    z-index: -1;
     height: 100%;
     width: 100%;
   }
 
   :global(.program button) {
     cursor: pointer;
-    background-color: var(--button-background-color);
+    background-color: var(--button-background-color1);
   }
   :global(.program button:hover) {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-hover-background-color1);
   }
   :global(.program button.hovered) {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-hover-background-color1);
   }
   :global(.program button:active) {
-    background-color: var(--button-active-background-color);
+    background-color: var(--button-active-background-color1);
   }
   :global(.program button.unwork) {
     pointer-events: none;

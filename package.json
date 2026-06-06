@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "fs": "^0.0.1-security",
+    "shevchenko": "^3.2.2",
     "svelte": "^4.2.7",
     "web-streams-polyfill": "^4.2.0",
     "xlsx": "^0.18.5",

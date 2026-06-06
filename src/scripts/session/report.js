@@ -99,7 +99,12 @@ function dataSupplement(data) {
 }
 
 ipcMain.handle('sessionReportGetInformation', async (event, path, type) => {
-  return getInfo(path, type);
+  try {
+    return await getInfo(path);
+  } catch (error) {
+    console.error(error.message);
+    return false;
+  }
 });
 ipcMain.handle('sessionReportDataSupplement', async (event, data) => {
   return dataSupplement(data);

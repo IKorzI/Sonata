@@ -15,7 +15,7 @@
   $: if ($selectedSection) {
     if (this_) {
       if ($selectedSection === thisId) {
-        this_.style.zIndex = null;
+        this_.style.zIndex = "1";
       } else if (this_.style.zIndex !== "-1") {
         setTimeout(() => {
           this_.style.zIndex = -1;
@@ -43,14 +43,21 @@
   }
 
   async function saveAll() {
+    if (loadedGroups.length === 0) {
+      message.set({type: 'error', text: _lng.debtors.notAllData});
+      return;
+    }
+
     let endInformation = {
       id: thisId,
       filePath: loadedGroups[0].filePath,
       groups: loadedGroups,
     }
+
     console.log(endInformation)
     endInformation = await window.electron.sessionDebtorsDataSupplement(endInformation);
     console.log(endInformation)
+
     savedInformation.set(endInformation);
   }
 
@@ -59,6 +66,12 @@
     if (detail.id === 'session--debtors--statements') {
       const uploadedFile = detail.file;
       const data = await window.electron.sessionDebtorsGetInformation(uploadedFile.path);
+      console.log(data)
+      if (!data) {
+        message.set({type: 'error', text: _lng.inputFile.error});
+        clearInformation.set(thisId)
+        return;
+      }
       for (const group of loadedGroups) {
         if (group.groupCode === data.groupCode) {
           message.set({type: 'error', text: `${_lng.debtors.messageText.part1} ${group.groupCode} ${_lng.debtors.messageText.part2}`});
@@ -165,10 +178,10 @@
   }
 
   .list .row *:hover {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-hover-background-color1);
   }
   .list .row *:active {
-    background-color: var(--button-active-background-color);
+    background-color: var(--button-active-background-color1);
   }
 
   .list .remove {
@@ -176,10 +189,10 @@
     font-weight: bold;
   }
   .list .remove:hover {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-hover-background-color1);
   }
   .list .remove:active {
-    background-color: var(--button-active-background-color);
+    background-color: var(--button-active-background-color1);
   }
   
 </style> 

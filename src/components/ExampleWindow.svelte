@@ -57,7 +57,6 @@
 
   // 2. Получаем массив уникальных имен файлов железно 1 раз
   const uniqueImageNames = [...new Set(Object.values(FILE_STRUCTURE).flat())];
-  console.log(uniqueImageNames);
 
   // 3. Реактивный объект для рендера интерфейса с использованием $lng напрямую
   $: names = {
@@ -181,23 +180,34 @@
   let prevDocument = null;
   let showDownload = false;
   let downloadTimeout = null;
+  let imageTimeout = null; // таймер для задержки скрытия картинки
   
   // Реактивно назначаем первое изображение активным при смене документа
   $: {
     if ($whatDocument !== prevDocument) {
-      if (currentImages.length > 0) {
-        activeImgName = currentImages[0].filePath;
+      clearTimeout(imageTimeout); // Обязательно сбрасываем таймер, если пользователь быстро передумал
+
+      if ($whatDocument) {
+        // Окно открывается или меняется документ — показываем картинку сразу
+        if (currentImages.length > 0) {
+          activeImgName = currentImages[0].filePath;
+        } else {
+          activeImgName = null;
+        }
       } else {
-        activeImgName = null;
+        // Окно закрывается — убираем картинку с задержкой
+        imageTimeout = setTimeout(() => {
+          activeImgName = null;
+        }, 500);
       }
+      
       prevDocument = $whatDocument;
     }
 
     const isDownloadable = $whatDocument && names[$whatDocument] && names[$whatDocument].downloadable;
-    
     if (isDownloadable) {
       clearTimeout(downloadTimeout);
-      showDownload = true; // Показываем сразу
+      showDownload = true;
     } else {
       clearTimeout(downloadTimeout);
       downloadTimeout = setTimeout(() => {
@@ -421,7 +431,6 @@
 
     const baseName = names[$whatDocument].filePathToSave;
     const basePath = 'examples/save/';
-    console.log(basePath, baseName)
     const fileInfo = await window.electron.findFileWithExtension(basePath, baseName);
     if (!fileInfo) {
       alert('File not found');

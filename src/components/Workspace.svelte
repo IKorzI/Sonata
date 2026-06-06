@@ -182,15 +182,15 @@
   .example {
     width: 300px;
     right: 260px;
-    z-index: 1;
+    z-index: 2;
   }
   .clear {
     right: 140px;
-    z-index: 1;
+    z-index: 2;
   }
   .start {
     right: 20px;
-    z-index: 1;
+    z-index: 2;
   }
 
   .process {

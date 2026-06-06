@@ -104,6 +104,15 @@
   "exampleWindow.names.statements.fileNameToSave": "Statements",
   "exampleWindow.names.statements.displayName": "Statements",
 
-  "python.session.emptyStart.customText": "There are specialties in the groups with several OPPs.\nThe following OPPs were recorded in the information for teachers in such specialties:"
+  "python.session.emptyStart.customText": "There are specialties in the groups with several OPPs.\nThe following OPPs were recorded in the information for teachers in such specialties:",
+
+  "packageOfDocuments.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  file uploaded; \n  –  scholarship assignment dates entered; \n  –  class teacher's last name entered.",
+  "emptyStatements.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  files uploaded.",
+  "report.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  more than 1 groups uploaded.",
+  "debtors.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  more than 1 groups uploaded.",
+  "basedOnTheFirstMonth.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  file uploaded; \n  –  entered last date of study in the semester.",
+  "summaryOfTeachers.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  file is uploaded.",
+  "other.numDen.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  all semester start and end dates are entered.",
+  "inputFile.error": "Error while retrieving information from file. Check the correctness of the selected file."
 
 }

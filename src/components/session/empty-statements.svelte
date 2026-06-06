@@ -1,6 +1,6 @@
 <script>
   import FileInput from '../FileInput.svelte';
-  import { selectedSection, clearInformation, saveInformation, savedInformation, lng } from '../../lib/store.js'
+  import { selectedSection, clearInformation, saveInformation, savedInformation, lng, message } from '../../lib/store.js'
 
   // ========== ЗАПОЛНИТЬ ==========
   let thisId = 'session--empty-statements';
@@ -20,7 +20,7 @@
   $: if ($selectedSection) {
     if (this_) {
       if ($selectedSection === thisId) {
-        this_.style.zIndex = null;
+        this_.style.zIndex = "1";
       } else if (this_.style.zIndex !== "-1") {
         setTimeout(() => {
           this_.style.zIndex = -1;
@@ -51,6 +51,11 @@
   }
 
   async function saveAll() {
+    if (contingentData === null || hoursData === null || uploadedFileHours === null || uploadedFileContingent === null) {
+      message.set({type: 'error', text: _lng.emptyStatements.notAllData});
+      return;
+    }
+    
     const targetPath = await window.electron.saveDialog("Зберегти", ".txt");
     if (!targetPath) return;
 
@@ -61,20 +66,46 @@
       hoursData: hoursData,
       contingentData: contingentData
     }
+
     console.log(endInformation)
     endInformation = await window.electron.sessionEmptyDataSupplement(endInformation);
     console.log(endInformation)
+
     savedInformation.set(endInformation);
   }
 
+  let dddd = false
   async function handleFileInputChange(detail) {
     if (!window.electron) return;
     if (detail.id === 'session--empty-statements--hours') {
       uploadedFileHours = detail.file;
       hoursData = await window.electron.sessionEmptyGetInformation(uploadedFileHours.path, "hours");
+      console.log(hoursData)
+      if (!hoursData) {
+        message.set({type: 'error', text: _lng.inputFile.error});
+        uploadedFileHours = null;
+        hoursData = null;
+        clearInformation.set("session--empty-statements--hours")
+        setTimeout(() => {
+          clearInformation.set(null)
+        }, 50)
+        return;
+      }
     } else if (detail.id === 'session--empty-statements--contingent') {
       uploadedFileContingent = detail.file;
       contingentData = await window.electron.sessionEmptyGetInformation(uploadedFileContingent.path, "contingent");
+      console.log(contingentData)
+      if (!contingentData) {
+        message.set({type: 'error', text: _lng.inputFile.error});
+        uploadedFileContingent = null;
+        contingentData = null;
+        clearInformation.set("session--empty-statements--contingent")
+        setTimeout(() => {
+          clearInformation.set(null)
+        }, 50)
+        dddd = true
+        return;
+      }
     }
   }
 

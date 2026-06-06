@@ -108,14 +108,14 @@
   }
   /* Ползунок */
   .text-area::-webkit-scrollbar-thumb {
-    background-color: var(--button-background-color);
+    background-color: var(--button-background-color1);
     border-radius: 4px;
     border: 2px solid transparent;
     background-clip: content-box;
   }
   /* При наведении */
   .text-area::-webkit-scrollbar-thumb:hover {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-hover-background-color1);
   }
 
 </style>

@@ -986,11 +986,11 @@ def filling_out_the_empty_sheet(sheet: Worksheet, cells: list, students: list, s
     sheet.cell(row=7, column=3).value = cells["C7"]
     if subject_len >= 14:
         kurator_col_letter = get_column_letter(16)
-        sheet.cell(row=end_row + 7, column=16).value = f"='Зведена загальна'!{kurator_col_letter}{last_student_row + 7}"
+        sheet.cell(row=end_row + 7, column=16).value = f"='Загальна'!{kurator_col_letter}{last_student_row + 7}"
         sheet.cell(row=end_row + 9, column=16).value = f'Маргарита БРІТІКОВА'
     else:
         kurator_col_letter = get_column_letter(21 - delete_col_count)
-        sheet.cell(row=end_row + 7, column=21 - delete_col_count).value = f"='Зведена загальна'!{kurator_col_letter}{last_student_row + 7}"
+        sheet.cell(row=end_row + 7, column=21 - delete_col_count).value = f"='Загальна'!{kurator_col_letter}{last_student_row + 7}"
         sheet.cell(row=end_row + 9, column=21 - delete_col_count).value = f'Маргарита БРІТІКОВА'
 
     # --- Названия предметов ---
@@ -998,17 +998,17 @@ def filling_out_the_empty_sheet(sheet: Worksheet, cells: list, students: list, s
     end_col = 6 + subject_len
     for col in range(start_col, end_col):
         fcol_letter = get_column_letter(col)
-        sheet.cell(row=9, column=col).value = f"='Зведена загальна'!{fcol_letter}9"
+        sheet.cell(row=9, column=col).value = f"='Загальна'!{fcol_letter}9"
     
     # --- Студенты и их оценки ---
     for el_index, student_index in enumerate(students):
         row = el_index + 10
         frow = student_index + 10
-        sheet.cell(row=row, column=3).value = f"='Зведена загальна'!C{frow}"
-        sheet.cell(row=row, column=5).value = f"='Зведена загальна'!E{frow}"
+        sheet.cell(row=row, column=3).value = f"='Загальна'!C{frow}"
+        sheet.cell(row=row, column=5).value = f"='Загальна'!E{frow}"
         for col in range(start_col, end_col):
             fcol_letter = get_column_letter(col)
-            sheet.cell(row=row, column=col).value = f"='Зведена загальна'!{fcol_letter}{frow}"
+            sheet.cell(row=row, column=col).value = f"='Загальна'!{fcol_letter}{frow}"
 
 def filling_out_the_general_empty_sheet(sheet: Worksheet, students: list, subjects: list, kurator: str, percentage: int):
 
@@ -1179,7 +1179,7 @@ def session_EmptyCreate(info, app_path, path_to_save, semester):
         # === Общая страница ведомости ===
         statements = load_workbook(f"{path}/statements.xlsx")
         sheet = statements[f"Л_Загальна"]
-        sheet.title = "Зведена загальна"
+        sheet.title = "Загальна"
         filling_out_the_general_empty_sheet(sheet, group["students"], group["subjects"], group["kurator_nom"], info["percentage"])
 
         # === Заполнение страниц ведомости по специальностям ===

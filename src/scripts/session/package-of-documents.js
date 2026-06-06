@@ -1,6 +1,44 @@
 import { ipcMain } from "electron";
 import XlsxPopulate from "xlsx-populate";
 import { findCell } from "../utils.js";
+import shevchenko from "shevchenko";
+
+async function convertToGenitive(fullNameString) {
+  try {
+    // 1. Разбиваем строку по пробелам и убираем лишние пробелы
+    const parts = fullNameString.trim().split(/\s+/);
+    
+    if (parts.length < 2) {
+      // Теперь эта ошибка не уронит приложение, а сразу перенаправит в блок catch
+      throw new Error('Строка должна содержать как минимум имя и фамилию');
+    }
+
+    const givenName = parts[0];
+    const familyName = parts[1];
+
+    // 2. Получаем пол (с защитой от падения самого метода detectGender)
+    const detectedGender = await shevchenko.detectGender({ givenName });
+    const gender = detectedGender || 'masculine'; 
+
+    // 3. Формируем объект для склонения
+    const person = {
+      gender,
+      givenName,
+      familyName
+    };
+
+    // Склоняем в родительный падеж
+    const declined = await shevchenko.inGenitive(person);
+
+    // Возвращаем склеенную строку в том же порядке, что и на входе
+    return `${declined.givenName} ${declined.familyName}`;
+    
+  } catch (error) {
+    // Если что-то пошло не так (неверный формат, сбой библиотеки shevchenko и т.д.),
+    // глушим ошибку и возвращаем пустую строку
+    return '';
+  }
+}
 
 async function getInfo(filePath) {
   let findedCell;
@@ -49,7 +87,8 @@ async function getInfo(filePath) {
   findedCell = findCell(sheet, "Класний керівник", "right", {row: findedCell.row + 6, column: 7});
   // первая непустая ячейка справа от "Класний керівник"
   findedCell = findCell(sheet, true, "right", {row: findedCell.row, column: findedCell.column + 1});
-  const kurator = sheet.cell(findedCell.row, findedCell.column).value();
+  const kuratorNom = sheet.cell(findedCell.row, findedCell.column).value();
+  const kuratorGen = await convertToGenitive(kuratorNom);
 
   // Итерируем по отфильтрованным листам
   const subgroups = [];
@@ -107,7 +146,8 @@ async function getInfo(filePath) {
   return {
     groupCode: groupCode,
     subgroups: subgroups,
-    kurator: kurator,
+    kuratorNom: kuratorNom,
+    kuratorGen: kuratorGen,
     years: years,
     semesterNumber: semesterNumberRoman,
     semesterNumberWord: semesterNumberWord,
@@ -258,7 +298,12 @@ function dataSupplement(data) {
 }
 
 ipcMain.handle('sessionPackageGetInformation', async (event, path) => {
-  return getInfo(path);
+  try {
+    return await getInfo(path);
+  } catch (error) {
+    console.error(error.message);
+    return false;
+  }
 });
 ipcMain.handle('sessionPackageDataSupplement', async (event, data) => {
   return dataSupplement(data);

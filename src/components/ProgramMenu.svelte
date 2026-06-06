@@ -6,7 +6,7 @@
   let _lng = {};
   lng.subscribe(value => (_lng = value));
 
-  let choiceMark;
+  let choiceMark, choiseMarkIsVisible = false;
   selectedSection.set('');
 
   function selectSection(event) {
@@ -17,18 +17,29 @@
   }
 
   function moveChoiceMark(button) {
-    if (parseInt(choiceMark.style.top) < button.offsetTop) {
-      choiceMark.style.height = (button.offsetTop + 18 - parseInt(choiceMark.style.top)) + 'px';
-      setTimeout(() => {
-        choiceMark.style.top = button.offsetTop - 3 + 'px';
-        choiceMark.style.height = '21px';
-      }, 200);
-    } else if (parseInt(choiceMark.style.top) > button.offsetTop) {
-      choiceMark.style.height = (parseInt(choiceMark.style.top) - button.offsetTop + 24) + 'px';
+    if (!choiseMarkIsVisible) {
       choiceMark.style.top = button.offsetTop - 3 + 'px';
+      choiceMark.style.height = '21px';
+      choiceMark.style.zIndex = '1';
       setTimeout(() => {
-        choiceMark.style.height = '21px';
-      }, 200);
+        choiceMark.style.transition = '0.2s';
+        choiceMark.style.opacity = '1';
+      }, 10);
+      choiseMarkIsVisible = true;
+    } else {
+      if (parseInt(choiceMark.style.top) < button.offsetTop) {
+        choiceMark.style.height = (button.offsetTop + 18 - parseInt(choiceMark.style.top)) + 'px';
+        setTimeout(() => {
+          choiceMark.style.top = button.offsetTop - 3 + 'px';
+          choiceMark.style.height = '21px';
+        }, 200);
+      } else if (parseInt(choiceMark.style.top) > button.offsetTop) {
+        choiceMark.style.height = (parseInt(choiceMark.style.top) - button.offsetTop + 24) + 'px';
+        choiceMark.style.top = button.offsetTop - 3 + 'px';
+        setTimeout(() => {
+          choiceMark.style.height = '21px';
+        }, 200);
+      }
     }
   }
 
@@ -40,7 +51,7 @@
 </script>
 
 <div class="program-menu" >
-  <div class="choice-mark" class:hidden={$selectedSection === ''}/>
+  <div class="choice-mark"/>
 
   <div class="section-list">
 
@@ -83,7 +94,8 @@
     margin-top: 5px;
     border-radius: 10px;
     background-color: var(--choiceMark-color);
-    transition: 0.2s;
+    transition: 0s;
+    opacity: 0;
   }
 
   .line-with-text {
@@ -130,10 +142,6 @@
 
   .group-of-sections {
     width: 100%;
-  }
-
-  .hidden {
-    opacity: 0;
   }
 
 </style>

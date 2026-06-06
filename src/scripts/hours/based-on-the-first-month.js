@@ -301,7 +301,12 @@ function dataSupplement(data) {
 }
 
 ipcMain.handle('hoursBasedGetInformation', async (event, path) => {
-  return getInfo(path);
+  try {
+    return await getInfo(path);
+  } catch (error) {
+    console.error(error.message);
+    return false;
+  }
 });
 ipcMain.handle('hoursBasedDataSupplement', async (event, data) => {
   return dataSupplement(data);

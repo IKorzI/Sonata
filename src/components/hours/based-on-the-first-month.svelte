@@ -55,7 +55,7 @@
   $: if ($selectedSection) {
     if (this_) {
       if ($selectedSection === thisId) {
-        this_.style.zIndex = null;
+        this_.style.zIndex = "1";
       } else if (this_.style.zIndex !== "-1") {
         setTimeout(() => {
           this_.style.zIndex = -1;
@@ -85,18 +85,23 @@
   }
 
   async function saveAll() {
-    const semesterEndDate = eSemesterEnd.value
+    if (uploadedFile === null || eSemesterEnd.value === "" || subjectsAndHours.length === 0) {
+      message.set({type: 'error', text: _lng.basedOnTheFirstMonth.notAllData});
+      return;
+    }
 
     let endInformation = {
       ...data,
-      semesterEndDate: semesterEndDate,
+      semesterEndDate: eSemesterEnd.value,
       id: thisId,
       filePath: uploadedFile.path,
       hoursPerSubject: subjectsAndHours
     }
+
     console.log(endInformation)
     endInformation = await window.electron.hoursBasedDataSupplement(endInformation);
     console.log(endInformation)
+    
     savedInformation.set(endInformation);
   }
 
@@ -106,6 +111,11 @@
       uploadedFile = detail.file;
       data = await window.electron.hoursBasedGetInformation(uploadedFile.path);
       console.log(data);
+      if (!data) {
+        message.set({type: 'error', text: _lng.inputFile.error});
+        clearInformation.set(thisId)
+        return;
+      }
       const parts = data.semesterStartDate.split(".");
       const month = parseInt(parts[1], 10);
       let semesterNumber;
@@ -266,10 +276,10 @@
     padding: 0px 5px 0px 5px;
   }
   .list .subject:hover {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-hover-background-color1);
   }
   .list .subject:active {
-    background-color: var(--button-active-background-color);
+    background-color: var(--button-active-background-color1);
   }
 
   .list .hoursCount {
@@ -278,10 +288,10 @@
     border-width: 0px;
   }
   .list .hoursCount:hover {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-hover-background-color1);
   }
   .list .hoursCount:active {
-    background-color: var(--button-active-background-color);
+    background-color: var(--button-active-background-color1);
   }
   .list .hoursCount:focus {
     background-color: transparent;

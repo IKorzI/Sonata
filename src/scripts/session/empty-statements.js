@@ -191,9 +191,9 @@ async function getInfoHours(filePath) {
 
 async function getInfo(filePath, type) {
   if (type === 'contingent') {
-    return getInfoContingent(filePath);
+    return await getInfoContingent(filePath);
   } else {
-    return getInfoHours(filePath);
+    return await getInfoHours(filePath);
   }
 }
 
@@ -226,7 +226,12 @@ function dataSupplement(data) {
 }
 
 ipcMain.handle('sessionEmptyGetInformation', async (event, path, type) => {
-  return getInfo(path, type);
+  try {
+    return await getInfo(path, type);
+  } catch (error) {
+    console.error(error.message);
+    return false;
+  }
 });
 ipcMain.handle('sessionEmptyDataSupplement', async (event, data) => {
   return dataSupplement(data);

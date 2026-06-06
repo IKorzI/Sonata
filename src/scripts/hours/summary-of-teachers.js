@@ -135,7 +135,12 @@ function dataSupplement(data) {
 }
 
 ipcMain.handle('hoursSummaryGetInformation', async (event, path) => {
-  return getInfo(path);
+  try {
+    return await getInfo(path);
+  } catch (error) {
+    console.error(error.message);
+    return false;
+  }
 });
 ipcMain.handle('hoursSummaryDataSupplement', async (event, data) => {
   return dataSupplement(data);

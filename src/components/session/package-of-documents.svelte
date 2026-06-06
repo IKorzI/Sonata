@@ -1,7 +1,7 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import FileInput from '../FileInput.svelte';
-  import { selectedSection, clearInformation, saveInformation, savedInformation, lng } from '../../lib/store.js'
+  import { selectedSection, clearInformation, saveInformation, savedInformation, lng, message } from '../../lib/store.js'
 
   // ========== ЗАПОЛНИТЬ ==========
   let thisId = 'session--package-of-documents';
@@ -12,7 +12,7 @@
 
   $: statusesList = _lng.packageOfDocuments.socialScholarship.statusesList;
 
-  let data = {subgroups: [], kurator: null, percentage: null, semesterStart: null, semesterEnd: null};
+  let data = {subgroups: [], kuratorNom: null, kuratorGen: null, percentage: null, semesterStart: null, semesterEnd: null};
   let studentNamesByCode = {};
   let socialyList = [];
   let increasedList = [];
@@ -31,7 +31,7 @@
   $: if ($selectedSection) {
     if (this_) {
       if ($selectedSection === thisId) {
-        this_.style.zIndex = null;
+        this_.style.zIndex = "1";
       } else if (this_.style.zIndex !== "-1") {
         setTimeout(() => {
           this_.style.zIndex = -1;
@@ -55,7 +55,7 @@
   }
 
   function clearAll() {
-    data = {subgroups: [], kurator: null, percentage: null, semesterStart: null, semesterEnd: null};
+    data = {subgroups: [], kuratorNom: null, kuratorGen: null, percentage: null, semesterStart: null, semesterEnd: null};
     increasedList = [];
     socialyList = [];
     list = [];
@@ -64,6 +64,19 @@
   }
 
   async function saveAll() {
+    if (
+      data.subgroups.length === 0 ||
+      data.percentage === null ||
+      uploadedFile === null ||
+      eKuratorNom.value === '' ||
+      eKuratorGen.value === '' ||
+      eSemesterStart.value === '' ||
+      eSemesterEnd.value === ''
+    ) {
+      message.set({type: 'error', text: _lng.packageOfDocuments.notAllData});
+      return;
+    }
+
     if (currentList === 'socialy') {
       socialyList = list;
     } else if (currentList === 'increased') {
@@ -81,9 +94,11 @@
       semesterStart: eSemesterStart.value,
       semesterEnd: eSemesterEnd.value
     }
+
     console.log(endInformation)
     endInformation = await window.electron.sessionPackageDataSupplement(endInformation);
     console.log(endInformation)
+
     savedInformation.set(endInformation);
   }
 
@@ -176,6 +191,12 @@
     if (detail.id === 'session--package-of-documents--statements') {
       uploadedFile = detail.file;
       data = await window.electron.sessionPackageGetInformation(uploadedFile.path);
+      console.log(data)
+      if (!data) {
+        message.set({type: 'error', text: _lng.inputFile.error});
+        clearInformation.set(thisId)
+        return;
+      }
 
       // Получение списка имён студентов по коду специальности
       studentNamesByCode = data.subgroups.reduce((acc, specialty, index) => {
@@ -413,18 +434,18 @@
 
   <div class="percentage-of-scholarship">
     <div>{_lng.packageOfDocuments.percentageOfScholarship}</div>
-    <input type="text" bind:this={ePercentage} value="{data.percentage}" class:unavailable={uploadedFile === null}/>
+    <input type="text" bind:this={ePercentage} value={data.percentage} class:unavailable={uploadedFile === null}/>
   </div>
 
   <div class="data-block" id="semester-dates">
     <div class="label">{_lng.packageOfDocuments.semesterDates.label}</div>
     <div class="row" id="start">
       <div>{_lng.packageOfDocuments.semesterDates.start}</div>
-      <input type="text" bind:this={eSemesterStart} value="{data.semesterStart}" class:unavailable={uploadedFile === null}/>
+      <input type="text" bind:this={eSemesterStart} value={data.semesterStart} class:unavailable={uploadedFile === null}/>
     </div>
     <div class="row" id="end">
       <div>{_lng.packageOfDocuments.semesterDates.end}</div>
-      <input type="text" bind:this={eSemesterEnd} value="{data.semesterEnd}" class:unavailable={uploadedFile === null}/>
+      <input type="text" bind:this={eSemesterEnd} value={data.semesterEnd} class:unavailable={uploadedFile === null}/>
     </div>
   </div>
 
@@ -432,11 +453,11 @@
     <div class="label">{_lng.packageOfDocuments.classTeacherName.label}</div>
     <div class="row" id="nominative">
       <div>{_lng.packageOfDocuments.classTeacherName.nominative}</div>
-      <input type="text" bind:this={eKuratorNom} value="{data.kurator}" class:unavailable={uploadedFile === null}/>
+      <input type="text" bind:this={eKuratorNom} value={data.kuratorNom} class:unavailable={uploadedFile === null}/>
     </div>
     <div class="row" id="genitive">
       <div>{_lng.packageOfDocuments.classTeacherName.genitive}</div>
-      <input type="text" bind:this={eKuratorGen} class:unavailable={uploadedFile === null}/>
+      <input type="text" bind:this={eKuratorGen} value={data.kuratorGen} class:unavailable={uploadedFile === null}/>
     </div>
   </div>
 
@@ -528,20 +549,20 @@
     font-weight: bold;
   }
   .list .remove:hover {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-hover-background-color1);
   }
   .list .remove:active {
-    background-color: var(--button-active-background-color);
+    background-color: var(--button-active-background-color1);
   }
   
   .list .student {
     padding: 0px 5px 0px 5px;
   }
   .list .student:hover {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-hover-background-color1);
   }
   .list .student:active {
-    background-color: var(--button-active-background-color);
+    background-color: var(--button-active-background-color1);
   }
   
   .list .status {
@@ -550,10 +571,10 @@
     border-width: 0px;
   }
   .list .status:hover {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-hover-background-color1);
   }
   .list .status:active {
-    background-color: var(--button-active-background-color);
+    background-color: var(--button-active-background-color1);
   }
   .list .status:focus {
     background-color: transparent;
@@ -616,7 +637,7 @@
     bottom: 0px;
     right: 0px;
     width: 100%;
-    background-color: var(--button-background-color);
+    background-color: var(--button-background-color1);
     background-image: var(--add-background-image);
     background-size: 25px;
     border-bottom-left-radius: 6px;
@@ -625,10 +646,10 @@
     cursor: pointer;
   }
   .add:hover {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-hover-background-color1);
   }
   .add:active {
-    background-color: var(--button-active-background-color);
+    background-color: var(--button-active-background-color1);
   }
 
   .percentage-of-scholarship {
@@ -685,10 +706,10 @@
     display: none;
   }
   .edit-status:hover {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-hover-background-color1);
   }
   .edit-status:active {
-    background-color: var(--button-active-background-color);
+    background-color: var(--button-active-background-color1);
   }
 
 </style> 
