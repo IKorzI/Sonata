@@ -1,7 +1,7 @@
 {
   "lng": "en",
 
-  "workspace.example": "Example of document(s) that are obtained",
+  "workspace.example": "Example of output document(s)",
   "workspace.clear": "Clear",
   "workspace.start": "Start",
   "workspace.message1Text": "A file or multiple files are open and locked for editing.\nSuch files were saved with these names:",

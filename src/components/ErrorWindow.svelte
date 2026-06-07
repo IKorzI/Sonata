@@ -52,7 +52,7 @@
     border-radius: 0px;
   }
   :global(.error-area.showed) {
-    z-index: 1;
+    z-index: 3;
     opacity: 1;
   }
 
