@@ -5,4 +5,4 @@
 
 Порожня сторінка:
 
-![Порожня сторінка](https://www.example.com/image.jpg)
+![Порожня сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/package_of_documents_1.png)
