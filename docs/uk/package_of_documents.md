@@ -1,11 +1,11 @@
 # Створення повного пакету документів
 
-| EN [English](README.md) | UK [Український](uk/README.md) |
-|-------------------------|--------------------------------|
+| EN [English](../package_of_documents.md) | UK [Український](package_of_documents.md) | RU [Русский](../ru/package_of_documents.md) |
+|---|---|---|
 
 Порожня сторінка:
 
-![Порожня сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/package_of_documents_1.png)
+![Порожня сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/uk/imgs/package_of_documents_1.png)
 
 ## На сторінці потрібно:
  * Завантажити файл шляхом переміщення файлу до області елементу "Оберіть файл" чи кліком на цю область;
@@ -19,4 +19,4 @@
 
 Приклад заповненої сторінки:
 
-![Заповнена сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/package_of_documents_2.png)
+![Заповнена сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/uk/imgs/package_of_documents_2.png)

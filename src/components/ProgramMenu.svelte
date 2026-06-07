@@ -126,7 +126,7 @@
 
   .program-menu {
     position: relative;
-    width: 200px;
+    width: 210px;
     height: calc(100% - 40px);
     display: flex;
     flex-direction: column;

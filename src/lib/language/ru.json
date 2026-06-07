@@ -43,7 +43,7 @@
   "packageOfDocuments.semesterDates.end": "Крайняя дата", 
   "packageOfDocuments.classTeacherName.label": "Имя и фамилия классного руководителя", 
   "packageOfDocuments.classTeacherName.nominative": "Именит. падеж", 
-  "packageOfDocuments.classTeacherName.genitive": "Родовой падеж", 
+  "packageOfDocuments.classTeacherName.genitive": "Родительный падеж", 
 
   "report.loadedGroups": "Загруженные группы", 
   "report.messageText.part1": "Группа", 
