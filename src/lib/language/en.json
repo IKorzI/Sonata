@@ -1,7 +1,7 @@
 {
   "lng": "en",
 
-  "workspace.example": "Example of the received document(s)",
+  "workspace.example": "Example of document(s) that are obtained",
   "workspace.clear": "Clear",
   "workspace.start": "Start",
   "workspace.message1Text": "A file or multiple files are open and locked for editing.\nSuch files were saved with these names:",
@@ -35,7 +35,7 @@
   "packageOfDocuments.socialScholarship.label1": "Social statuses of students",
   "packageOfDocuments.socialScholarship.label2": "Students on increased scholarship",
   "packageOfDocuments.list.student": "Select student",
-  "packageOfDocuments.list.socialy": "Select status",
+  "packageOfDocuments.list.status": "Select status",
   "packageOfDocuments.percentageOfScholarship": "% of the scholarship budget",
   "packageOfDocuments.semesterDates.label": "Scholarship assignment dates",
   "packageOfDocuments.semesterDates.start": "Start date",
@@ -106,7 +106,7 @@
 
   "python.session.emptyStart.customText": "There are specialties in the groups with several OPPs.\nThe following OPPs were recorded in the information for teachers in such specialties:",
 
-  "packageOfDocuments.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  file uploaded; \n  –  scholarship assignment dates entered; \n  –  class teacher's last name entered.",
+  "packageOfDocuments.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  file uploaded; \n  –  scholarship assignment dates entered; \n  –  class teacher's last name entered; \n  –  there are no values \"Select student\" and \"Select status\" in the lists for social and increased scholarships.",
   "emptyStatements.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  files uploaded.",
   "report.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  more than 1 groups uploaded.",
   "debtors.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  more than 1 groups uploaded.",

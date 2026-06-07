@@ -64,6 +64,12 @@
   }
 
   async function saveAll() {
+    if (currentList === 'socialy') {
+      socialyList = list;
+    } else if (currentList === 'increased') {
+      increasedList = list;
+    }
+    
     if (
       data.subgroups.length === 0 ||
       data.percentage === null ||
@@ -71,16 +77,13 @@
       eKuratorNom.value === '' ||
       eKuratorGen.value === '' ||
       eSemesterStart.value === '' ||
-      eSemesterEnd.value === ''
+      eSemesterEnd.value === '' ||
+      increasedList.some(item => item.studentName === null) ||
+      socialyList.some(item => item.studentName === null) ||
+      socialyList.some(item => item.status === null)
     ) {
       message.set({type: 'error', text: _lng.packageOfDocuments.notAllData});
       return;
-    }
-
-    if (currentList === 'socialy') {
-      socialyList = list;
-    } else if (currentList === 'increased') {
-      increasedList = list;
     }
 
     let endInformation = {
@@ -98,7 +101,7 @@
     console.log(endInformation)
     endInformation = await window.electron.sessionPackageDataSupplement(endInformation);
     console.log(endInformation)
-
+    
     savedInformation.set(endInformation);
   }
 
@@ -404,7 +407,7 @@
             {item.studentName ? item.studentName : _lng.packageOfDocuments.list.student}
           </div>
           <input class="status" type="text" readonly 
-            value={currentList === 'socialy' ? item.status ? item.status : _lng.packageOfDocuments.list.socialy : ""}
+            value={currentList === 'socialy' ? item.status ? item.status : _lng.packageOfDocuments.list.status : ""}
             on:click={() => handleOpenStatusesList(index)} on:mouseenter={() => handleStatusEnter(index)} on:mouseleave={() => handleStatusLeave(index)}/>
           <div class="edit-status" on:click={() => handleEditStatusClick(index)} on:mouseenter={() => handleEditStatusEnter(index)} on:mouseleave={() => handleEditStatusLeave(index)}></div>
         </div>
