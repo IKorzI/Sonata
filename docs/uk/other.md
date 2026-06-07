@@ -1,3 +1,5 @@
+# **[←](README.md)**
+
 # Створення звіту щодо успішності студентів усіх груп за семестр
 
 | EN [English](../other.md) | UK [Український](other.md) | RU [Русский](../ru/other.md) |
@@ -10,3 +12,5 @@
 Приклад сторінки:
 
 ![Заповнена сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/uk/imgs/other_1.png)
+
+# **[←](README.md)**

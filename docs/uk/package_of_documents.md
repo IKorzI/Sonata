@@ -1,3 +1,5 @@
+# **[←](README.md)**
+
 # Створення повного пакету документів
 
 | EN [English](../package_of_documents.md) | UK [Український](package_of_documents.md) | RU [Русский](../ru/package_of_documents.md) |
@@ -20,3 +22,5 @@
 Приклад заповненої сторінки:
 
 ![Заповнена сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/uk/imgs/package_of_documents_2.png)
+
+# **[←](README.md)**

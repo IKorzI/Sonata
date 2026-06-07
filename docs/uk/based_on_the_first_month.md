@@ -1,3 +1,5 @@
+# **[←](README.md)**
+
 # Створення годин на весь семестр на основі годин першого сесемтру
 
 | EN [English](../based_on_the_first_month.md) | UK [Український](based_on_the_first_month.md) | RU [Русский](../ru/based_on_the_first_month.md) |
@@ -15,3 +17,5 @@
 Приклад заповненої сторінки:
 
 ![Заповнена сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/uk/imgs/based_on_the_first_month_2.png)
+
+# **[←](README.md)**

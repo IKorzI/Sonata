@@ -1,3 +1,5 @@
+# **[←](README.md)**
+
 # Створення звіту по годинам з усіх груп по викладачам
 
 | EN [English](../summary_of_teachers.md) | UK [Український](summary_of_teachers.md) | RU [Русский](../ru/summary_of_teachers.md) |
@@ -13,3 +15,5 @@
 Приклад заповненої сторінки:
 
 ![Заповнена сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/uk/imgs/summary_of_teachers_2.png)
+
+# **[←](README.md)**

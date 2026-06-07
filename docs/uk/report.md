@@ -1,3 +1,5 @@
+# **[←](README.md)**
+
 # Створення звіту щодо успішності студентів усіх груп за семестр
 
 | EN [English](../report.md) | UK [Український](report.md) | RU [Русский](../ru/report.md) |
@@ -14,3 +16,5 @@
 Приклад заповненої сторінки:
 
 ![Заповнена сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/uk/imgs/report_2.png)
+
+# **[←](README.md)**

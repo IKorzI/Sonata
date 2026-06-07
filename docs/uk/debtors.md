@@ -1,3 +1,5 @@
+# **[←](README.md)**
+
 # Створення звіту студентів, які за результатами семестру виявилися неатестованими
 
 | EN [English](../debtors.md) | UK [Український](debtors.md) | RU [Русский](../ru/debtors.md) |
@@ -14,3 +16,5 @@
 Приклад заповненої сторінки:
 
 ![Заповнена сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/uk/imgs/debtors_2.png)
+
+# **[←](README.md)**

@@ -1,3 +1,5 @@
+# **[←](README.md)**
+
 # Додаткові модулі програми
 
 | EN [English](../additionally.md) | UK [Український](additionally.md) | RU [Русский](../ru/additionally.md) |
@@ -43,3 +45,5 @@
 Приклад вікна помилки/попередження:
 
 ![Світла тема](https://github.com/IKorzI/Sonata/blob/main/docs/uk/imgs/error_window.png)
+
+# **[←](README.md)**
