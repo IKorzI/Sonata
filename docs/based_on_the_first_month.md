@@ -10,9 +10,9 @@ Blank page:
 ![Blank page](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/based_on_the_first_month_1.png)
 
 ## On the page you need to:
-* Upload files by dragging the file to the "Choose file" element area or by clicking on this area;
-* Check the list of received hours for subjects from the file and, if necessary, edit the number of hours by clicking on the number;
-* Check the automatically calculated end date of the semester and edit it if necessary by clicking on the date.
+ * Upload files by dragging the file to the "Choose file" element area or by clicking on this area;
+ * Check the list of received hours for subjects from the file and, if necessary, edit the number of hours by clicking on the number;
+ * Check the automatically calculated end date of the semester and edit it if necessary by clicking on the date.
 
 Example of a completed page:
 

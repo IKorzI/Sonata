@@ -10,7 +10,7 @@ Blank page:
 ![Blank page](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/summary_of_teachers_1.png)
 
 ## The page requires:
-* Upload files by dragging the file to the "Choose file" element area or by clicking on this area.
+ * Upload files by dragging the file to the "Choose file" element area or by clicking on this area.
 
 Example of a completed page:
 

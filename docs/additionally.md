@@ -15,12 +15,12 @@ You can open this window by clicking on the button with a question mark:
 
 When you click on the question mark, a window opens displaying an example document.
 In this window, you can:
-- change the image scale by pressing Ctrl and scrolling with the mouse wheel;
-- change the image position vertically (scroll with the mouse wheel) and horizontally (Shift + scroll with the mouse wheel);
-- display different images by clicking on the corresponding name in the panel at the bottom left (if any);
-- change the scale and set the image scale to the width of the window by clicking on the buttons at the bottom right;
-- save the file to the device by clicking the save button (if any);
-- close the window by clicking on the close button.
+ - change the image scale by pressing Ctrl and scrolling with the mouse wheel;
+ - change the image position vertically (scroll with the mouse wheel) and horizontally (Shift + scroll with the mouse wheel);
+ - display different images by clicking on the corresponding name in the panel at the bottom left (if any);
+ - change the scale and set the image scale to the width of the window by clicking on the buttons at the bottom right;
+ - save the file to the device by clicking the save button (if any);
+ - close the window by clicking on the close button.
 
 ![Example of window1 that opens](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/select_file_example_window.png)
 ![Example of window2 that opens](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/example_of_output_document(s)_example_window.png)

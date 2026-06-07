@@ -6,7 +6,7 @@
 |---|---|---|
 
 ## On the page you can:
-* Save empty files to the device, which can be used in the Sonata program later
+ * Save empty files to the device, which can be used in the Sonata program later
 
 Page:
 
