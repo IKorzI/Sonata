@@ -11,6 +11,6 @@
 
 Example page:
 
-![Completed page](https://github.com/IKorzI/Sonata/blob/main/docs/uk/imgs/other_1.png)
+![Completed page](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/other_1.png)
 
 # **[←](README.md)**

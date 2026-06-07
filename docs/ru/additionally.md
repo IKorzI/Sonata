@@ -11,7 +11,7 @@
 
 Открыть это окно можно путем нажатия на кнопку со знаком вопроса:
 
-![Пример вопросительного знака в блоке загрузки файла в приложение](https://github.com/IKorzI/Sonata/blob/main/docs/ru/imgs/select_file.png) ![Пример вопросительного знака в блоке сохранения файла на устройство](https://github.com/IKorzI/Sonata/blob/png) ![Пример вопросительного знака в блоке формирования файла графика числитель/знаменатель](https://github.com/IKorzI/Sonata/blob/main/docs/ru/imgs/num_den.png)
+![Пример вопросительного знака в блоке загрузки файла в приложение](https://github.com/IKorzI/Sonata/blob/main/docs/ru/imgs/select_file.png) ![Пример вопросительного знака в блоке сохранения файла на устройство](https://github.com/IKorzI/Sonata/blob/main/docs/ru/imgs/save_file.png) ![Пример вопросительного знака в блоке формирования файла графика числитель/знаменатель](https://github.com/IKorzI/Sonata/blob/main/docs/ru/imgs/num_den.png)
 
 При нажатии на вопросительный знак открывается окно с отображением примера документа.
 В этом окне можно: 
