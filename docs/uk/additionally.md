@@ -9,7 +9,7 @@
 
 Відкрити це вікно можна шляхом натискання на кнопку зі знаком питання:
 
-![Приклад знаку питання у блоці завантаження файла у програму](https://github.com/IKorzI/Sonata/blob/main/docs/uk/imgs/save_file.png) ![Приклад знаку питання у блоці збереження файла на пристрій](https://github.com/IKorzI/Sonata/blob/main/docs/uk/imgs/select_file.png) ![Приклад знаку питання у блоці формування файлу графіку чисельник/знаменник](https://github.com/IKorzI/Sonata/blob/main/docs/uk/imgs/num_den.png)
+![Приклад знаку питання у блоці завантаження файла у програму](https://github.com/IKorzI/Sonata/blob/main/docs/uk/imgs/select_file.png) ![Приклад знаку питання у блоці збереження файла на пристрій](https://github.com/IKorzI/Sonata/blob/main/docs/uk/imgs/save_file.png) ![Приклад знаку питання у блоці формування файлу графіку чисельник/знаменник](https://github.com/IKorzI/Sonata/blob/main/docs/uk/imgs/num_den.png)
 
 При натисканні на знак питання відкривається вікно з відображенням прикладу документа.
 У цьому вікні можно:
@@ -33,7 +33,7 @@
 
 Змінити тему з темної на світлу та навпаки можно шляхом натискання на відповідну кнопку зправа зверху програми біля кнопки згортання:
 
-![Світла тема](https://github.com/IKorzI/Sonata/blob/main/docs/uk/imgs/white_theme.png)
+![Світла тема](https://github.com/IKorzI/Sonata/blob/main/docs/uk/imgs/light_theme.png)
 
 ### Вікно помилки чи попередження
 
