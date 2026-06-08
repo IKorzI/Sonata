@@ -1,20 +1,20 @@
 # **[←](README.md)**
 
-# Creating a report of students who were not certified according to the results of the semester
+# Створення звіту студентів, які за результатами семестру виявилися неатестованими
 
-| EN [English](debtors.md) | UK [Український](uk/debtors.md) | RU [Русский](ru/debtors.md) |
+| EN [English](en/debtors.md) | UK [Український](debtors.md) | RU [Русский](ru/debtors.md) |
 |---|---|---|
 
-Blank page:
+Порожня сторінка:
 
-![Blank page](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/debtors_1.png)
+![Порожня сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/debtors_1.png)
 
-## On the page you need to:
- * Upload files by dragging the file to the "Select file" element area or by clicking on this area;
- * Check the list of received data from files and, if necessary, delete elements by clicking on the "✕" button.
+## На сторінці потрібно:
+ * Завантажити файли шляхом переміщення файлу до області елементу "Оберіть файл" чи натисканням на цю область;
+ * Перевірити список отриманих даних з файлів та за необхідності видалити елементи через натискання на кнопку "✕".
 
-Example of a completed page:
+Приклад заповненої сторінки:
 
-![Completed page](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/debtors_2.png)
+![Заповнена сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/debtors_2.png)
 
 # **[←](README.md)**

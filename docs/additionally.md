@@ -1,49 +1,49 @@
 # **[←](README.md)**
 
-# Additional program modules
+# Додаткові модулі програми
 
-| EN [English](additionally.md) | UK [Ukrainian](uk/additionally.md) | RU [Russian](ru/additionally.md) |
+| EN [English](en/additionally.md) | UK [Український](additionally.md) | RU [Русский](ru/additionally.md) |
 |---|---|---|
 
-## The program contains the following modules:
+## Програма містить такі модулі:
 
-### Window of an example file for loading/saving to the device
+### Вікно прикладу файла для завантаження/збереження на пристрій
 
-You can open this window by clicking on the button with a question mark:
+Відкрити це вікно можна шляхом натискання на кнопку зі знаком питання:
 
-![Example of a question mark in the block for loading a file into the program](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/select_file.png) ![Example of a question mark in the block for saving a file to the device](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/save_file.png) ![Example of a question mark in the block for generating a numerator/denominator graph file](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/num_den.png)
+![Приклад знаку питання у блоці завантаження файла у програму](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/select_file.png) ![Приклад знаку питання у блоці збереження файла на пристрій](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/save_file.png) ![Приклад знаку питання у блоці формування файлу графіку чисельник/знаменник](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/num_den.png)
 
-When you click on the question mark, a window opens displaying an example document.
-In this window, you can:
- - change the image scale by pressing Ctrl and scrolling with the mouse wheel;
- - change the image position vertically (scroll with the mouse wheel) and horizontally (Shift + scroll with the mouse wheel);
- - display different images by clicking on the corresponding name in the panel at the bottom left (if any);
- - change the scale and set the image scale to the width of the window by clicking on the buttons at the bottom right;
- - save the file to the device by clicking the save button (if any);
- - close the window by clicking on the close button.
+При натисканні на знак питання відкривається вікно з відображенням прикладу документа.
+У цьому вікні можно:
+ - змінювати масштаб зображення шляхом натискання Ctrl та прокрутки колесиком миші;
+ - змінювати положення зображення по вертикалі (прокрутка колесиком миші) та по горизонталі (Shift + прокрутка колесиком миші);
+ - відобразити різні зображення шляхом натискання на відповідну назву на панелі зліва знизу (якщо така є);
+ - змінити масштаб та встановити масштаб зображення по ширині вікна шляхом натискання на кнопки зправа знизу;
+ - зберегти файл на пристрій шляхом натискання кнопки збереження (якщо така є);
+ - закрити вікно шляхом натискання на кнопку закриття.
 
-![Example of window1 that opens](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/select_file_example_window.png)
-![Example of window2 that opens](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/example_of_output_document(s)_example_window.png)
+![Приклад вікна1, що відкривається](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/select_file_example_window.png)
+![Приклад вікна2, що відкривається](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/example_of_output_document(s)_example_window.png)
 
-### Program translation
+### Переклад програми
 
-You can change the program translation by clicking on the appropriate button at the top left of the program near the logo and selecting the desired language from the suggested ones:
+Змінити переклад програми можно шляхом натискання на відповідну кнопку зліва зверху програми біля логотипу та вибору бажаної мови серед запропонованих:
 
-![Change the program language](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/language.png)
+![Зміна мови програми](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/language.png)
 
-After selecting the language, the program is immediately translated.
+Після вибору мови програма відразу перекладається.
 
-### Changing the program theme
+### Зміна теми програми
 
-You can change the theme from dark to light and vice versa by clicking on the corresponding button at the top right of the program near the minimize button:
+Змінити тему з темної на світлу та навпаки можно шляхом натискання на відповідну кнопку зправа зверху програми біля кнопки згортання:
 
-![Light theme](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/light_theme.png)
+![Світла тема](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/light_theme.png)
 
-### Error or warning window
+### Вікно помилки чи попередження
 
-During operation, the program checks the input data and displays a message to the user in case of an error. If the input data is correct but an error occurs during operation, the user will also receive an error or warning message.
-Example of an error/warning window:
+Під час роботи програма перевіряє вхідні дані та у разі помилки виводить повідомлення користувачу. Якщо вхідні дані вірні але під час роботи програми трапилася помилка користувач теж отримає повідомлення про помилку чи попередження.  
+Приклад вікна помилки/попередження:
 
-![Light theme](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/error_window.png)
+![Світла тема](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/error_window.png)
 
 # **[←](README.md)**

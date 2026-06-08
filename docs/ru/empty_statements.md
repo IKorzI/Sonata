@@ -2,7 +2,7 @@
 
 # Пустые сведения
 
-| EN [English](../empty_statements.md) | UK [Український](../uk/empty_statements.md) | RU [Русский](empty_statements.md) |
+| EN [English](../en/empty_statements.md) | UK [Український](../empty_statements.md) | RU [Русский](empty_statements.md) |
 |---|---|---|
 
 Пустая страница:

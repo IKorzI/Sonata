@@ -1,21 +1,21 @@
 # **[←](README.md)**
 
-# Creating hours for the entire semester based on the hours of the first semester
+# Створення годин на весь семестр на основі годин першого сесемтру
 
-| EN [English](based_on_the_first_month.md) | UK [Ukrainian](uk/based_on_the_first_month.md) | RU [Russian](ru/based_on_the_first_month.md) |
+| EN [English](en/based_on_the_first_month.md) | UK [Український](based_on_the_first_month.md) | RU [Русский](ru/based_on_the_first_month.md) |
 |---|---|---|
 
-Blank page:
+Порожня сторінка:
 
-![Blank page](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/based_on_the_first_month_1.png)
+![Порожня сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/based_on_the_first_month_1.png)
 
-## On the page you need to:
- * Upload files by dragging the file to the "Choose file" element area or by clicking on this area;
- * Check the list of received hours for subjects from the file and, if necessary, edit the number of hours by clicking on the number;
- * Check the automatically calculated end date of the semester and edit it if necessary by clicking on the date.
+## На сторінці потрібно:
+ * Завантажити файли шляхом переміщення файлу до області елементу "Оберіть файл" чи натисканням на цю область;
+ * Перевірити список отриманих годин для предметів з файлу та за необхідності відредагувати кількість годин шляхом натискання на число;
+ * Перевірити автоматично розраховану крайню дату навчання у семестрі та за необхідності відредагувати шляхом натискання на дату.
 
-Example of a completed page:
+Приклад заповненої сторінки:
 
-![Completed page](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/based_on_the_first_month_2.png)
+![Заповнена сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/based_on_the_first_month_2.png)
 
 # **[←](README.md)**

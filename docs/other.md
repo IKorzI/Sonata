@@ -1,16 +1,16 @@
 # **[←](README.md)**
 
-# Creating a report on the success of students of all groups for the semester
+# Створення звіту щодо успішності студентів усіх груп за семестр
 
-| EN [English](other.md) | UK [Ukrainian](uk/other.md) | RU [Russian](ru/other.md) |
+| EN [English](en/other.md) | UK [Український](other.md) | RU [Русский](ru/other.md) |
 |---|---|---|
 
-## On the page you can:
- * Enable screenshot mode. After enabling the mode, all subsequent copying of the range of cells in Microsoft Excel will call the window for saving them as an image. In the window, you can specify the quality increase factor (by 2 times, by 3 times, etc.) from 1 (no change) to 10 (10 times increase in quality), the default is a factor of 5;
- * Generate a document of the schedule of weeks numerator/denominator. Before this, you need to check the automatically calculated start and end dates of the semesters and, if necessary, edit them by clicking on the date.
+## На сторінці можно:
+ * Увімкнути режим скріншоту. Після увімкнення режиму усі наступні копіювання діапазону клітинок у програмі Microsoft Excel будуть викликати вікно їх збереження як зображення. У вікні можна вказати коефіцієнт збільшення якості (у 2 рази, у 3 рази і т.д.) від 1 (без змін) до 10 (підвищення якості у 10 разів), за замовчуванням стоїть коефіцієнт 5;
+ * Сформувати документ графіку тижнів чисельник/знаменник. Перед цим потрібно перевірити автоматично розраховані дати початку та кінця семестрів та за необхідності відредагувати їх шляхом натискання на дату.
 
-Example page:
+Приклад сторінки:
 
-![Completed page](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/other_1.png)
+![Заповнена сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/other_1.png)
 
 # **[←](README.md)**

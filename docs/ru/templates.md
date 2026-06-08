@@ -2,7 +2,7 @@
 
 # Создание отчета об успешности студентов всех групп за семестр
 
-| EN [English](../templates.md) | UK [Український](../uk/templates.md) | RU [Русский](templates.md) |
+| EN [English](../en/templates.md) | UK [Український](../templates.md) | RU [Русский](templates.md) |
 |---|---|---|
 
 ## На странице можно: 

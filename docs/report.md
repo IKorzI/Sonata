@@ -1,20 +1,20 @@
 # **[←](README.md)**
 
-# Creating a report on the success of students of all groups for the semester
+# Створення звіту щодо успішності студентів усіх груп за семестр
 
-| EN [English](report.md) | UK [Український](uk/report.md) | RU [Русский](ru/report.md) |
+| EN [English](en/report.md) | UK [Український](report.md) | RU [Русский](ru/report.md) |
 |---|---|---|
 
-Blank page:
+Порожня сторінка:
 
-![Blank page](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/report_1.png)
+![Порожня сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/report_1.png)
 
-## On the page you need to:
- * Upload files by dragging the file to the "Select file" element area or by clicking on this area;
- * Check the list of received data from files and, if necessary, delete elements by clicking on the "✕" button.
+## На сторінці потрібно:
+ * Завантажити файли шляхом переміщення файлу до області елементу "Оберіть файл" чи натисканням на цю область;
+ * Перевірити список отриманих даних з файлів та за необхідності видалити елементи через натискання на кнопку "✕".
 
-Example of a completed page:
+Приклад заповненої сторінки:
 
-![Completed page](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/report_2.png)
+![Заповнена сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/report_2.png)
 
 # **[←](README.md)**

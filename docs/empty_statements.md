@@ -1,20 +1,20 @@
 # **[←](README.md)**
 
-# Empty statements
+# Порожні відомості
 
-| EN [English](empty_statements.md) | UK [Ukrainian](uk/empty_statements.md) | RU [Russian](ru/empty_statements.md) |
+| EN [English](en/empty_statements.md) | UK [Український](empty_statements.md) | RU [Русский](ru/empty_statements.md) |
 |---|---|---|
 
-Empty page:
+Порожня сторінка:
 
-![Empty page](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/empty_statements_1.png)
+![Порожня сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/empty_statements_1.png)
 
-## On the page you need to:
- * Upload files by dragging the file to the "Choose file" element area or by clicking on this area;
- * Check the automatically entered % of scholarship places relative to budget places and, if necessary, edit the data by clicking on the number.
+## На сторінці потрібно:
+ * Завантажити файли шляхом переміщення файлу до області елементу "Оберіть файл" чи натисканням на цю область;
+ * Перевірити автоматично введений % місць на стипендію відносно бюджетних місць та за необхідності відредагувати дані шляхом натискання на число.
 
-Example of a filled page:
+Приклад заповненої сторінки:
 
-![Plugged page](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/empty_statements_2.png)
+![Заповнена сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/empty_statements_2.png)
 
 # **[←](README.md)**

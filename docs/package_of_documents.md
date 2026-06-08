@@ -1,26 +1,26 @@
 # **[←](README.md)**
 
-# Creating a complete package of documents
+# Створення повного пакету документів
 
-| EN [English](package_of_documents.md) | UK [Ukrainian](uk/package_of_documents.md) | RU [Russian](ru/package_of_documents.md) |
+| EN [English](en/package_of_documents.md) | UK [Український](package_of_documents.md) | RU [Русский](ru/package_of_documents.md) |
 |---|---|---|
 
-Blank page:
+Порожня сторінка:
 
-![Blank page](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/package_of_documents_1.png)
+![Порожня сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/package_of_documents_1.png)
 
-## On the page you need to:
- * Upload the file by dragging the file to the "Choose file" element area or by clicking on this area;
- * Check the automatically calculated start and end dates of the scholarship award. Edit the data in case of an error by clicking on the text and changing it;
- * Check the received surname, name of the class teacher and its automatically created genitive case. Edit the data in case of an error by clicking on the text and changing it;
- * Fill in the list of social statuses of students and the list of students on an increased scholarship:
-   - Creating a new list item is done by clicking on the button with "+";
-   - To fill in an item, you need to click on the items of the item with the word "Select" and select the appropriate parameter in the pop-up list;
-   - List items can be deleted by clicking on the "✕" button;
-   - You can manually enter the social status by clicking on the button with a pencil next to the social status (the pencil is displayed when you hover the mouse over the social status).
+## На сторінці потрібно:
+ * Завантажити файл шляхом переміщення файлу до області елементу "Оберіть файл" чи натисканням на цю область;
+ * Перевірити автоматично розраховані дати початку та кінця приначення стипендії. Відредагувати дані у випадку помилки шляхом натискання на текст та його зміну;
+ * Перевірити отримані прізвище, ім'я класного керівника та його авматично створений родовий відмінок. Відредагувати дані у випадку помилки шляхом натискання на текст та його зміну;
+ * Заповнити список соціальних статусів студентів та список студентів на підвищену стипендію:
+   - Створення нового пункту списку відбувається через натискання на кнопку з "+";
+   - Для заповнення пункту потрібно натиснути на елементи пункту зі словом "Оберіть" та обрати відповідний параметр у спливаючому списку;
+   - Пункти списку можно видаляти через натискання на кнопку "✕";
+   - Вручну ввести соціальний статус можно через натискання кнопки з олівцем поруч зі соціальним статусом (олівець відображається при наведенні миші на соціальний статус).
 
-Example of a filled page:
+Приклад заповненої сторінки:
 
-![Filled page](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/package_of_documents_2.png)
+![Заповнена сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/package_of_documents_2.png)
 
 # **[←](README.md)**
