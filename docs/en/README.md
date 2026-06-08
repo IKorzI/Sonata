@@ -47,7 +47,7 @@ The program is based on Electron in a combination of Svelte + NodeJS + Python/C#
  * After starting the program, a Python server is started in command waiting mode, the process of which is attached to the Electron process.
  * The user interface is built on Svelte
  * Input files from the user are checked and data is received in NodeJS
- * After pressing the "Start" button, the final data from the user goes through the final addition and calculations in NodeJS before being sent to Python
+ * After pressing the "Start" button, the final data from the user goes through final addition and calculations in NodeJS before being sent to Python
  * Work with files is performed on the Python server
  * The final result is formed in response and returned to NodeJS. From NodeJS, the response is sent to the user on the Svelte interface
  * Enabling the screenshot mode occurs in NodeJS after sending a command from Svelte. NodeJS monitors the clipboard and when fixing a range of cells, NodeJS calls a custom file saving window via C# with the transfer of parameters. After the user consents, C# returns data to NodeJS. After that, NodeJS, using PowerShell to control Microsoft Excel, generates an image and saves it to a temporary directory and sends a command to the Python server to add fields to the image and save it to the directory, which was returned from the C# save window.
