@@ -7,6 +7,9 @@
 
 ![Превью](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/preview.png)
 
+## Переваги:
+ * Програма побудована на основі Electron з використанням Svelte, що дозволило забезпечити модульність у проєктуванні інтерфейсу користувача та розділити логіку окремих модулів між собою
+
 ![Превью](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/preview2.png)
 
 ## Можливості
