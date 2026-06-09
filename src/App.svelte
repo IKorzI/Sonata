@@ -13,7 +13,7 @@
   // import ScreenshotWindow from './components/ScreenshotWindow.svelte';
 </script>
 
-<main class="program {$hide ? 'hide' : ''}" style="
+<main class="program {$hide ? 'hide' : ''}" style='
 
   --transition: {_transition};
 
@@ -70,7 +70,7 @@
   --ul-border-color: {_styles.ul.border.color};
   --li-hover-background-color: {_styles.li.hover.background.color};
   --li-active-background-color: {_styles.li.active.background.color};
-">
+'>
   <TitleBar />
 
   <ProgramMenu />

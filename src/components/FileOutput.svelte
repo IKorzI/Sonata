@@ -8,23 +8,23 @@
   lng.subscribe(value => (_lng = value));
 
   $: label = {
-    "statements": _lng.fileOutput.label.statements,
-    "hours": _lng.fileOutput.label.hours,
-    "contingent": _lng.fileOutput.label.contingent,
+    'statements': _lng.fileOutput.label.statements,
+    'hours': _lng.fileOutput.label.hours,
+    'contingent': _lng.fileOutput.label.contingent,
   }
 
   $: names = {
-    "statements": {
+    'statements': {
       fileNameToSave: _lng.fileOutput.names.statements,
-      filePathToSave: "statements",
+      filePathToSave: 'statements',
     },
-    "hours": {
+    'hours': {
       fileNameToSave: _lng.fileOutput.names.hours,
-      filePathToSave: "hours",
+      filePathToSave: 'hours',
     },
-    "contingent": {
+    'contingent': {
       fileNameToSave: _lng.fileOutput.names.contingent,
-      filePathToSave: "contingent",
+      filePathToSave: 'contingent',
     },
   }
 
@@ -99,19 +99,19 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 
 <div
-  class="file-output"
+  class='file-output'
   id={eId}
 >
 
-  <div class="label">{label[eId]}</div>
+  <div class='label'>{label[eId]}</div>
 
-  <div class="area"
+  <div class='area'
     on:click={handleDownload}
     bind:this={eArea}
   >
-    <div class="text">{_lng.fileOutput.area.text}</div>
-    <div class="img" style:background-image={`url(${backgroundImageUrl})`}></div>
-    <div class="what" on:click|stopPropagation={handleWhat}></div>
+    <div class='text'>{_lng.fileOutput.area.text}</div>
+    <div class='img' style:background-image={`url(${backgroundImageUrl})`}></div>
+    <div class='what' on:click|stopPropagation={handleWhat}></div>
   </div>
 </div>
 

@@ -13,14 +13,14 @@
   let fileInputEl;
   let fileName = ''; // Добавляем переменную для имени файла
   $: label = {
-    "session--package-of-documents--statements": _lng.fileInput.label.session.packageOfDocuments.statements,
-    "session--empty-statements--hours": _lng.fileInput.label.session.emptyStatements.hours,
-    "session--empty-statements--contingent": _lng.fileInput.label.session.emptyStatements.contingent,
-    "session--report--statements": _lng.fileInput.label.session.report.statements,
-    "session--debtors--statements": _lng.fileInput.label.session.debtors.statements,
+    'session--package-of-documents--statements': _lng.fileInput.label.session.packageOfDocuments.statements,
+    'session--empty-statements--hours': _lng.fileInput.label.session.emptyStatements.hours,
+    'session--empty-statements--contingent': _lng.fileInput.label.session.emptyStatements.contingent,
+    'session--report--statements': _lng.fileInput.label.session.report.statements,
+    'session--debtors--statements': _lng.fileInput.label.session.debtors.statements,
 
-    "hours--based-on-the-first-month--hours": _lng.fileInput.label.hours.basedOnTheFirstMonth.hours,
-    "hours--summary-of-teachers--hours": _lng.fileInput.label.hours.summaryOfTeachers.hours
+    'hours--based-on-the-first-month--hours': _lng.fileInput.label.hours.basedOnTheFirstMonth.hours,
+    'hours--summary-of-teachers--hours': _lng.fileInput.label.hours.summaryOfTeachers.hours
   }
 
   let eArea, eText, eName, eExtensions, eDelete, eWhat;
@@ -51,7 +51,7 @@
   }
 
   function fileSelect(inputFile) {
-    if (eId !== "session--report--statements" && eId !== "session--debtors--statements") {
+    if (eId !== 'session--report--statements' && eId !== 'session--debtors--statements') {
       file = inputFile;
       fileName = file.name; // Устанавливаем имя файла при дропе
     }
@@ -161,7 +161,7 @@
     const selectedFile = event.target.files[0] || null;
     if (selectedFile && extensions.some(ext => selectedFile.name.endsWith(ext))) {
       fileSelect(selectedFile)
-      if (eId === "session--report--statements" || eId === "session--debtors--statements") {
+      if (eId === 'session--report--statements' || eId === 'session--debtors--statements') {
         fileDelete();
       } else {
         stylesLoadedSet(true)
@@ -188,7 +188,7 @@
       const droppedFile = event.dataTransfer.files[0];
       if (droppedFile && extensions.some(ext => droppedFile.name.endsWith(ext))) {
         fileSelect(droppedFile)
-        if (eId === "session--report--statements" || eId === "session--debtors--statements") {
+        if (eId === 'session--report--statements' || eId === 'session--debtors--statements') {
           fileDelete();
         } else {
           stylesLoadedSet(true)
@@ -270,31 +270,31 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 
 <div
-  class="file-input"
+  class='file-input'
   id={eId}
 >
 
-  <div class="label">{label[eId]}</div>
+  <div class='label'>{label[eId]}</div>
   
-  <div class="area"
+  <div class='area'
     bind:this={eArea}
     on:click={handleClick}
     on:dragover={handleDragOver}
     on:drop={handleDrop}
   >
-    <div class="text" bind:this={eText}>{_lng.fileInput.area.text}</div>
-    <div class="name" bind:this={eName}>{truncatedFileName}</div>
-    <div class="extensions" bind:this={eExtensions}>{extensions.join(', ')}</div>
-    <div class="img" class:loaded={file !== null} style:background-image={`url(${backgroundImageUrl})`}></div>
-    <div class="delete" bind:this={eDelete} on:click|stopPropagation={handleDelete}></div>
-    <div class="what" bind:this={eWhat} on:click|stopPropagation={handleWhat}></div>
+    <div class='text' bind:this={eText}>{_lng.fileInput.area.text}</div>
+    <div class='name' bind:this={eName}>{truncatedFileName}</div>
+    <div class='extensions' bind:this={eExtensions}>{extensions.join(', ')}</div>
+    <div class='img' class:loaded={file !== null} style:background-image={`url(${backgroundImageUrl})`}></div>
+    <div class='delete' bind:this={eDelete} on:click|stopPropagation={handleDelete}></div>
+    <div class='what' bind:this={eWhat} on:click|stopPropagation={handleWhat}></div>
   </div>
 
   <input
-    type="file"
+    type='file'
     accept={extensions.join(', ')}
     bind:this={fileInputEl}
-    style="display: none;"
+    style='display: none;'
     on:change={handleFileChange}
   />
 </div>

@@ -1,7 +1,7 @@
-import { ipcMain } from "electron";
-import XlsxPopulate from "xlsx-populate";
-import { findCell } from "../utils.js";
-import shevchenko from "shevchenko";
+import { ipcMain } from 'electron';
+import XlsxPopulate from 'xlsx-populate';
+import { findCell } from '../utils.js';
+import shevchenko from 'shevchenko';
 
 async function convertToGenitive(fullNameString) {
   try {
@@ -57,7 +57,7 @@ async function getInfo(filePath) {
   match = semesterCellV.match(/За\s+([IІ]+)/i);
   const semesterNumberRoman = match[1].toUpperCase().replace('І', 'I');
   const semesterNumber = semesterNumberRoman === 'I' ? 1 : 2;
-  const semesterNumberWord = semesterNumber === 1 ? `першого` : `другого`
+  const semesterNumberWord = semesterNumber === 1 ? 'першого' : 'другого'
   match = semesterCellV.match(/семестр\s+(\d{4})/i);
   const yearNumber = parseInt(match[1], 10); // число 2025
   // Даты начала и конца семестра, года учебного года
@@ -65,28 +65,28 @@ async function getInfo(filePath) {
   const semesterEnd = semesterNumber === 1 ? `30.06.${yearNumber + 1}` : `31.12.${yearNumber}`;
   const years = semesterNumber === 1 ? `${yearNumber}-${yearNumber + 1}` : `${yearNumber - 1}-${yearNumber}`
   // Средний бал и предметы
-  findedCell = findCell(sheet, "Середній бал", "right", {row: 8, column: 5});
+  findedCell = findCell(sheet, 'Середній бал', 'right', {row: 8, column: 5});
   const avgGradeColumn = findedCell.column;
   const subjects = [];
   for (let col = 6; col <= avgGradeColumn - 1; col++) {
     const text = sheet.cell(9, col).value();
     const lines = text.split(/\r?\n/);
     subjects.push({
-      "subjectName": lines[0],
-      "teacherName": lines[1]
+      'subjectName': lines[0],
+      'teacherName': lines[1]
     });
   }
   // Куратор и процент на стипендию
-  const groupCode = sheet.cell(7, 3).value().split(" ")[1];
+  const groupCode = sheet.cell(7, 3).value().split(' ')[1];
   // строка под последним студентом
-  findedCell = findCell(sheet, undefined, "down", {row: 10, column: 4});
+  findedCell = findCell(sheet, undefined, 'down', {row: 10, column: 4});
   const percentageF = sheet.cell(findedCell.row + 8, 6).formula();
   match = percentageF.match(/ROUNDDOWN\([^*]+\*([0-9.]+),0\)/);
   const percentage = parseFloat(match[1]) * 100;
   // колонка "Класний керівник"
-  findedCell = findCell(sheet, "Класний керівник", "right", {row: findedCell.row + 6, column: 7});
+  findedCell = findCell(sheet, 'Класний керівник', 'right', {row: findedCell.row + 6, column: 7});
   // первая непустая ячейка справа от "Класний керівник"
-  findedCell = findCell(sheet, true, "right", {row: findedCell.row, column: findedCell.column + 1});
+  findedCell = findCell(sheet, true, 'right', {row: findedCell.row, column: findedCell.column + 1});
   const kuratorNom = sheet.cell(findedCell.row, findedCell.column).value();
   const kuratorGen = await convertToGenitive(kuratorNom);
 
@@ -105,7 +105,7 @@ async function getInfo(filePath) {
     const specialityCode = match[1];   // "G1"
     const specialityName = match[2];   // "«Хімічні технології та інженерія»"
 
-    findedCell = findCell(sheet, undefined, "down", {row: 10, column: 4});
+    findedCell = findCell(sheet, undefined, 'down', {row: 10, column: 4});
     const endRow = findedCell.row - 1;
     for (let row = 10; row <= endRow; row++) {
       const studentName = sheet.cell(row, 5).value();
@@ -178,7 +178,7 @@ function dataSupplement(data) {
 
   // Вспомогательная функция
   const parseGrade = (grade) => {
-    if (grade === "-" || grade === " - ") return -1;
+    if (grade === '-' || grade === ' - ') return -1;
     const parsed = parseFloat(String(grade).replace(',', '.'));
     return isNaN(parsed) ? -1 : parsed;
   };
@@ -202,14 +202,14 @@ function dataSupplement(data) {
       const a = students[aIndex];
       const b = students[bIndex];
 
-      if (a.bc === "Б" && b.bc !== "Б") return -1;
-      if (a.bc !== "Б" && b.bc === "Б") return 1;
+      if (a.bc === 'Б' && b.bc !== 'Б') return -1;
+      if (a.bc !== 'Б' && b.bc === 'Б') return 1;
 
       const gradeA = parseGrade(a.avgGrade);
       const gradeB = parseGrade(b.avgGrade);
       if (gradeA !== gradeB) return gradeB - gradeA;
 
-      return (a.studentName || "").localeCompare(b.studentName || "");
+      return (a.studentName || '').localeCompare(b.studentName || '');
     });
 
     // Сохраняем отсортированный список оригинальных индексов
@@ -228,7 +228,7 @@ function dataSupplement(data) {
     // Проходим по отсортированным индексам
     indices.forEach((originalIndex, sortedIndex) => {
       const student = students[originalIndex];
-      if (student.bc === "Б") {
+      if (student.bc === 'Б') {
         const grade = parseGrade(student.avgGrade);
         if (grade !== -1) {
           if (currentGrade === grade) {
@@ -249,7 +249,7 @@ function dataSupplement(data) {
     const scholarshipList = indices
       .filter(originalIndex => {
         const s = students[originalIndex];
-        return s.avgGrade !== "-" && s.avgGrade !== " - " && s.bc !== "К";
+        return s.avgGrade !== '-' && s.avgGrade !== ' - ' && s.bc !== 'К';
       })
       .map(originalIndex => {
         return {
@@ -301,7 +301,7 @@ ipcMain.handle('sessionPackageGetInformation', async (event, path) => {
   try {
     return await getInfo(path);
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
     return false;
   }
 });

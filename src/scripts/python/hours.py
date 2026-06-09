@@ -19,15 +19,15 @@ def filling_out_the_hours_sheet(sheet: Worksheet, month_name: str, year: int, gr
     Returns:
         sheet (Worksheet): Заполненный лист.
     """
-    subject_len = len(group["subjects"]) # Количество предметов
-    days_list = list(range(days["start_day"], days["end_day"] + 1)) # Список дат месяца ([1, 2, ... 31])
-    start_weekday = days["start_weekday"] # Номер дня недели первого дня (0 = Понедельник, 6 = Воскресенье)
+    subject_len = len(group['subjects']) # Количество предметов
+    days_list = list(range(days['start_day'], days['end_day'] + 1)) # Список дат месяца ([1, 2, ... 31])
+    start_weekday = days['start_weekday'] # Номер дня недели первого дня (0 = Понедельник, 6 = Воскресенье)
 
     delete_row_start = 11 + subject_len + 1      # Начало удаления строк
     delete_row_count = 42 - delete_row_start     # Кол-во удалений строк
     end_row = delete_row_start - 1               # Строка крайнего предмета
     
-    delete_col_count = (days["start_day"] - 1) + (31 - days["end_day"])   # Кол-во удаления столбцов
+    delete_col_count = (days['start_day'] - 1) + (31 - days['end_day'])   # Кол-во удаления столбцов
     delete_col_start = 36 - delete_col_count + 1                        # Начало удаления столбцов
     end_col = delete_col_start - 1                                      # Столбец крайней даты
     end_col_letter = get_column_letter(end_col)                         # Буква столбца крайней даты
@@ -67,7 +67,7 @@ def filling_out_the_hours_sheet(sheet: Worksheet, month_name: str, year: int, gr
     
     # --- Установка области печати ---
     col_letter = get_column_letter(end_col + 1)
-    sheet.print_area = f"C3:{col_letter}{end_row + 4}"
+    sheet.print_area = f'C3:{col_letter}{end_row + 4}'
     
     # --- Возвращение формул ---
     for col in range(6, end_col + 1):
@@ -82,18 +82,18 @@ def filling_out_the_hours_sheet(sheet: Worksheet, month_name: str, year: int, gr
 
     # --- Заполнение шапки ---
     sheet.cell(row=7, column=3).value = f'за {month_name} {year} р.'
-    sheet.cell(row=8, column=3).value = group["cell_C8"]
+    sheet.cell(row=8, column=3).value = group['cell_C8']
 
     # --- Заполнение дат месяца ---
     for index, date in enumerate(days_list):
         sheet.cell(row=11, column=index + 6).value = date
     
     # --- Заполнение часов ---
-    for index, subject in enumerate(group["subjects"]):
+    for index, subject in enumerate(group['subjects']):
         row = index + 12
-        sheet.cell(row=row, column=4).value = f"{subject['subject_name']}"
-        sheet.cell(row=row, column=5).value = f"{subject['teacher_name']}"
-        for index, hour in enumerate(subject["values"]):
+        sheet.cell(row=row, column=4).value = f'{subject['subject_name']}'
+        sheet.cell(row=row, column=5).value = f'{subject['teacher_name']}'
+        for index, hour in enumerate(subject['values']):
             if hour:
                 sheet.cell(row=row, column=index + 6).value = hour
         # Получение список выходных ([4, 5, 11, 12, ...])
@@ -114,16 +114,16 @@ def filling_out_the_timekeeping_sheet(workbook, months, hours_per_subject):
 
     # --- Проход по каждой группе ---
     step = 1
-    for group_index, group in enumerate(months[0]["groups"]):
+    for group_index, group in enumerate(months[0]['groups']):
 
-        group_code = group["group_code"]
+        group_code = group['group_code']
 
-        delete_row_start = 3 + len(group["subjects"]) + 1      # Начало удаления строк
+        delete_row_start = 3 + len(group['subjects']) + 1      # Начало удаления строк
         delete_row_count = 34 - delete_row_start            # Кол-во удалений строк
         end_row = delete_row_start - 1                      # Строка крайнего предмета
 
-        # print(f"Л{step}")
-        sheet = workbook[f"Л{step}"]
+        # print(f'Л{step}')
+        sheet = workbook[f'Л{step}']
         sheet.title = group_code
         dims = sheet.column_dimensions
 
@@ -146,7 +146,7 @@ def filling_out_the_timekeeping_sheet(workbook, months, hours_per_subject):
         dims[get_column_letter(end_col + 3)].width = 2.71
 
         # --- Установка области печати ---
-        sheet.print_area = f"C3:{end_col_plus_1_letter}{end_row + 1}"
+        sheet.print_area = f'C3:{end_col_plus_1_letter}{end_row + 1}'
 
         # --- Возвращение формул ---
         for row in range(4, end_row + 1):
@@ -162,28 +162,28 @@ def filling_out_the_timekeeping_sheet(workbook, months, hours_per_subject):
         # --- Запись месяцев ---
         col = 7
         for month in months:
-            sheet.cell(row=3, column=col).value = month["month_name"].capitalize()
+            sheet.cell(row=3, column=col).value = month['month_name'].capitalize()
             col += 1
         # --- Запись ---
-        for index, subject in enumerate(group["subjects"]):
+        for index, subject in enumerate(group['subjects']):
             row = 4 + index
 
             # Предмет, преподаватель, план часов
-            sheet.cell(row=row, column=4).value = subject["subject_name"]
-            sheet.cell(row=row, column=5).value = subject["teacher_name"]
-            sheet.cell(row=row, column=6).value = hours_per_subject[subject["subject_name"]]
+            sheet.cell(row=row, column=4).value = subject['subject_name']
+            sheet.cell(row=row, column=5).value = subject['teacher_name']
+            sheet.cell(row=row, column=6).value = hours_per_subject[subject['subject_name']]
 
             # Ссылки на другие книги
             col = 7
             for month in months:
-                month_name = month["month_name"]
+                month_name = month['month_name']
 
                 # Получаем номер столбца, на который нужно ссылаться
                 # текущая группа в месяце
-                current_group = month["groups"][group_index]
+                current_group = month['groups'][group_index]
                 # первый предмет в группе
-                first_subject = current_group["subjects"][0]
-                col_num = 5 + len(first_subject["values"]) + 1
+                first_subject = current_group['subjects'][0]
+                col_num = 5 + len(first_subject['values']) + 1
                 col_letter = get_column_letter(col_num)
 
                 sheet.cell(row=row, column=col).value = f"='[{month_name.capitalize()}.xlsx]{group_code}'!${col_letter}{8 + row}"
@@ -192,8 +192,8 @@ def filling_out_the_timekeeping_sheet(workbook, months, hours_per_subject):
         step += 1
 
     return {
-        "workbook": workbook,
-        "not_found_subjects": not_found_subjects
+        'workbook': workbook,
+        'not_found_subjects': not_found_subjects
     }
 
 def filling_out_the_general_statement_sheet(sheet: Worksheet, month: str, year: int, teachers: list, groups: dict):
@@ -237,7 +237,7 @@ def filling_out_the_general_statement_sheet(sheet: Worksheet, month: str, year: 
         dims[get_column_letter(delete_col_start + 2)].width = 1.5
     
     # --- Установка области печати ---
-    sheet.print_area = f"C3:{end_col_plus_1_letter}{end_row + 4}"
+    sheet.print_area = f'C3:{end_col_plus_1_letter}{end_row + 4}'
 
     # --- Возвращение формул ---
     for col in range(5, end_col + 1):
@@ -260,106 +260,106 @@ def filling_out_the_general_statement_sheet(sheet: Worksheet, month: str, year: 
 
     for index, teacher in enumerate(teachers):
         row_for_fill = 10 + index
-        sheet.cell(row=row_for_fill, column=4).value = teacher["teacher_name"]
-        for g_element in teacher["groups"]:
-            group_name = g_element["group_name"]
+        sheet.cell(row=row_for_fill, column=4).value = teacher['teacher_name']
+        for g_element in teacher['groups']:
+            group_name = g_element['group_name']
             col_for_fill = groups[group_name] + 4
-            column_letter = get_column_letter(g_element["column"])
-            row = g_element["row"]
+            column_letter = get_column_letter(g_element['column'])
+            row = g_element['row']
             if sheet.cell(row=row_for_fill, column=col_for_fill).value is None:
                 sheet.cell(row=row_for_fill, column=col_for_fill).value = f"='{group_name}'!${column_letter}${row}"
             else:
                 sheet.cell(row=row_for_fill, column=col_for_fill).value += f" + '{group_name}'!${column_letter}${row}"
 
 def hours_BasedOnTheFirstMonth(info, app_path):
-    answer = {"success": True, "files": [], "not_found_subjects": []}
-    directory_to_save = os.path.dirname(info["file_path"])
+    answer = {'success': True, 'files': [], 'not_found_subjects': []}
+    directory_to_save = os.path.dirname(info['file_path'])
     os.makedirs(directory_to_save, exist_ok=True)
-    path = f"{app_path}/public/examples/work"
+    path = f'{app_path}/public/examples/work'
 
     # =============================================================================================================
     # СОЗДАНИЕ ЧАСОВ ПО МЕСЯЦАМ
 
     # --- Проход по каждому месяцу ---
-    for month in info["months"]:
-        month_name = month["month_name"]
+    for month in info['months']:
+        month_name = month['month_name']
         # Загружаем книгу
-        workbook = load_workbook(f"{path}/hours.xlsx")
+        workbook = load_workbook(f'{path}/hours.xlsx')
         # --- Проход по каждой группе ---
         step = 1
-        for group in month["groups"]:
-            group_code = group["group_code"]
+        for group in month['groups']:
+            group_code = group['group_code']
             # Получаем лист и называем его
-            sheet = workbook[f"Л{step}"]
+            sheet = workbook[f'Л{step}']
             sheet.title = group_code
             # Заполняем лист
             days = {
-               "start_day": month["start_day"],
-               "end_day": month["end_day"],
-               "start_weekday": month["start_weekday"]
+               'start_day': month['start_day'],
+               'end_day': month['end_day'],
+               'start_weekday': month['start_weekday']
             }
-            filling_out_the_hours_sheet(sheet, month_name, info["year"], group, days)
+            filling_out_the_hours_sheet(sheet, month_name, info['year'], group, days)
             step += 1
 
         # Удаляем лишние листы и сохраняем книгу
-        path_to_save = f"{directory_to_save}/{month_name.capitalize()}.xlsx"
+        path_to_save = f'{directory_to_save}/{month_name.capitalize()}.xlsx'
         # print(path_to_save)
         data = cleaning_and_save_workbook(workbook, path_to_save)
         if data:
-            answer["files"].append(data)
+            answer['files'].append(data)
 
     # =============================================================================================================
     # СОЗДАНИЕ ОБЩИХ ЧАСОВ ЗА СЕМЕСТР
 
     # Загружаем книгу
-    workbook = load_workbook(f"{path}/timekeeping.xlsx")
+    workbook = load_workbook(f'{path}/timekeeping.xlsx')
     # Заполняем книгу
-    data = filling_out_the_timekeeping_sheet(workbook, info["months"], info["hours_per_subject"])
-    workbook = data["workbook"]
-    answer["not_found_subjects"] = data["not_found_subjects"]
+    data = filling_out_the_timekeeping_sheet(workbook, info['months'], info['hours_per_subject'])
+    workbook = data['workbook']
+    answer['not_found_subjects'] = data['not_found_subjects']
 
     # Удаляем лишние листы и сохраняем книгу
-    path_to_save = f"{directory_to_save}/Загальна.xlsx"
+    path_to_save = f'{directory_to_save}/Загальна.xlsx'
     data = cleaning_and_save_workbook(workbook, path_to_save)
     if data:
-        answer["files"].append(data)
+        answer['files'].append(data)
 
     return answer
 
 def hours_SummaryOfTeachers(info, appPath):
-    answer = {"success": True, "files": []}
-    directory_to_save = os.path.dirname(info["file_path"])
+    answer = {'success': True, 'files': []}
+    directory_to_save = os.path.dirname(info['file_path'])
     os.makedirs(directory_to_save, exist_ok=True)
-    file_name = os.path.basename(info["file_path"])
-    path = f"{appPath}/public/examples/work"
-    # first_key = next(iter(info["groups"]))
-    # subjectsLen = len(info["groups"][first_key]["subjects"])
-    workbook = load_workbook(f"{path}/hours.xlsx")
-    month_name = MONTH_NAMES[info["month"]]
+    file_name = os.path.basename(info['file_path'])
+    path = f'{appPath}/public/examples/work'
+    # first_key = next(iter(info['groups']))
+    # subjectsLen = len(info['groups'][first_key]['subjects'])
+    workbook = load_workbook(f'{path}/hours.xlsx')
+    month_name = MONTH_NAMES[info['month']]
 
     # --- Проход по каждой группе ---
     step = 1
     groups = {}
-    for group in info["groups"]:
-        group_name = group["group_name"]
+    for group in info['groups']:
+        group_name = group['group_name']
         # Получаем лист и называем его
-        sheet = workbook[f"Л{step}"]
+        sheet = workbook[f'Л{step}']
         sheet.title = group_name
         groups[group_name] = step
         # Заполняем лист
-        filling_out_the_hours_sheet(sheet, month_name, info["year"], group, info["days"])
+        filling_out_the_hours_sheet(sheet, month_name, info['year'], group, info['days'])
         step += 1
 
     # --- Заполнение сводного листа ---
-    sheet = workbook["Л_Зведена"]
-    sheet.title = "Зведена"
+    sheet = workbook['Л_Зведена']
+    sheet.title = 'Зведена'
     # Заполняем лист
-    filling_out_the_general_statement_sheet(sheet, month_name, info["year"], info["teachers"], groups)
+    filling_out_the_general_statement_sheet(sheet, month_name, info['year'], info['teachers'], groups)
 
     # Удаляем лишние листы и сохраняем книгу
-    path_to_save = f"{directory_to_save}/{file_name}"
+    path_to_save = f'{directory_to_save}/{file_name}'
     data = cleaning_and_save_workbook(workbook, path_to_save)
     if data:
-        answer["files"].append(data)
+        answer['files'].append(data)
 
     return answer

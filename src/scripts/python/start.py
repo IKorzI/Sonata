@@ -18,9 +18,9 @@ def test_save_info(data):
             # ensure_ascii=False позволяет сохранять кириллицу корректно
             json.dump(data, f, indent=4, ensure_ascii=False)
         
-        print(f"Файл успешно сохранен по адресу: {file_path}")
+        print(f'Файл успешно сохранен по адресу: {file_path}')
     except Exception as e:
-        print(f"Произошла ошибка при сохранении: {e}")
+        print(f'Произошла ошибка при сохранении: {e}')
 
 def camel_to_snake(name):
     """
@@ -84,14 +84,14 @@ def decamelize_dict(data):
     else:
         return data
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     import sys
     import json
     import traceback
 
     # Настраиваем кодировку
-    sys.stdout.reconfigure(encoding="utf-8")
-    sys.stdin.reconfigure(encoding="utf-8") 
+    sys.stdout.reconfigure(encoding='utf-8')
+    sys.stdin.reconfigure(encoding='utf-8') 
 
     # Читаем аргументы один раз при старте сервера
     up2 = sys.argv[1] if len(sys.argv) > 1 else None
@@ -113,9 +113,9 @@ if __name__ == "__main__":
             request = decamelize_dict(raw_request)
             
             # Достаем ID, флаг теста и чистый data
-            req_id = request.get("req_id")
-            is_test = request.get("is_test", False)
-            data = request.get("data", {})
+            req_id = request.get('req_id')
+            is_test = request.get('is_test', False)
+            data = request.get('data', {})
             
             # Сохраняем data в файл для отладки только если получен флаг isTest
             if is_test:
@@ -124,36 +124,36 @@ if __name__ == "__main__":
             result = None
 
             # Дальше всё работает с чистым data, как и раньше
-            if data["id"] == "session--package-of-documents":
+            if data['id'] == 'session--package-of-documents':
                 result = session_PackageOfDocuments(data, up2)
-            elif data["id"] == "session--empty-statements":
+            elif data['id'] == 'session--empty-statements':
                 result = session_EmptyStart(data, up2)
-            elif data["id"] == "session--report":
+            elif data['id'] == 'session--report':
                 result = session_ReportStart(data, up2)
-            elif data["id"] == "session--debtors":
+            elif data['id'] == 'session--debtors':
                 result = session_DebtorsStart(data, up2)
-            elif data["id"] == "hours--based-on-the-first-month":
+            elif data['id'] == 'hours--based-on-the-first-month':
                 result = hours_BasedOnTheFirstMonth(data, up2)
-            elif data["id"] == "hours--summary-of-teachers":
+            elif data['id'] == 'hours--summary-of-teachers':
                 result = hours_SummaryOfTeachers(data, up2)
-            elif data["id"] == "other--other--screenshot--transform":
-                path = data["temp_path"]
-                final_path = data["final_path"]
+            elif data['id'] == 'other--other--screenshot--transform':
+                path = data['temp_path']
+                final_path = data['final_path']
                 result = extend_image(path, final_path)
-            elif data["id"] == "other--other--num-den":
+            elif data['id'] == 'other--other--num-den':
                 result = other_NumDenStart(data, up2)
 
             # Отправляем ответ, прикрепляя req_id
-            response_data = {"req_id": req_id, "result": result}
+            response_data = {'req_id': req_id, 'result': result}
             
             print(json.dumps(response_data, ensure_ascii=False), flush=True)
 
         except Exception as e:
             error_data = {
                 # Безопасно достаем req_id даже при ошибке
-                "req_id": raw_request.get("req_id") if 'raw_request' in locals() and isinstance(raw_request, dict) else None,
-                "result": None,
-                "error": str(e),
-                "traceback": traceback.format_exc()
+                'req_id': raw_request.get('req_id') if 'raw_request' in locals() and isinstance(raw_request, dict) else None,
+                'result': None,
+                'error': str(e),
+                'traceback': traceback.format_exc()
             }
             print(json.dumps(error_data, ensure_ascii=False), flush=True)

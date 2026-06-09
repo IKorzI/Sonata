@@ -18,8 +18,8 @@
   });
 </script>
 
-<button class="section-button" id={id} bind:this={buttonElement} on:click={handleClick}>
-  <img class="section-icon" src="{id}.png" alt="{id}" />
+<button class='section-button' id={id} bind:this={buttonElement} on:click={handleClick}>
+  <img class='section-icon' src='{id}.png' alt='{id}' />
   {text}
 </button>
 

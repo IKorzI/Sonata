@@ -15,8 +15,8 @@
   $: if ($selectedSection) {
     if (this_) {
       if ($selectedSection === thisId) {
-        this_.style.zIndex = "1";
-      } else if (this_.style.zIndex !== "-1") {
+        this_.style.zIndex = '1';
+      } else if (this_.style.zIndex !== '-1') {
         setTimeout(() => {
           this_.style.zIndex = -1;
         }, 200);
@@ -44,7 +44,7 @@
 
   async function saveAll() {
     if (loadedGroups.length === 0) {
-      message.set({type: 'error', text: _lng.report.notAllData});
+      message.set({type: 'error', text: 'report.notAllData'});
       return;
     }
 
@@ -68,13 +68,17 @@
       const data = await window.electron.sessionReportGetInformation(uploadedFile.path);
       console.log(data)
       if (!data) {
-        message.set({type: 'error', text: _lng.inputFile.error});
+        message.set({type: 'error', text: 'inputFile.error'});
         clearInformation.set(thisId)
         return;
       }
       for (const group of loadedGroups) {
         if (group.groupCode === data.groupCode) {
-          message.set({type: 'error', text: `${_lng.report.messageText.part1} ${group.groupCode} ${_lng.report.messageText.part2}`});
+          message.set({
+            type: 'error', 
+            text: 'report.groupAlreadyLoaded',
+            params: { groupCode: group.groupCode } 
+          });
           return;
         }
       }
@@ -97,21 +101,21 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 
-<div class="gui" id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
+<div class='gui' id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
 
   <FileInput eId='session--report--statements' extensions={['.xlsx']} type='excel'
     on:fileSelected={event => handleFileInputChange(event.detail)}
     on:fileRemoved={event => handleFileRemove(event.detail)}
   />
 
-  <div class="loaded-groups">
-    <div class="label">{_lng.report.loadedGroups}</div>
-    <div class="list">
+  <div class='loaded-groups'>
+    <div class='label'>{_lng.report.loadedGroups}</div>
+    <div class='list'>
       {#each loadedGroups as group}
-        <div class="row" id={group.groupCode}>
-          <div class="groupCode">{group.groupCode}</div>
-          <div class="specialityCodes">{group.specialityCodes.join(', ')}</div>
-          <div class="remove" on:click={() => handleRemoveRow(loadedGroups.indexOf(group))}>✕</div> 
+        <div class='row' id={group.groupCode}>
+          <div class='groupCode'>{group.groupCode}</div>
+          <div class='specialityCodes'>{group.specialityCodes.join(', ')}</div>
+          <div class='remove' on:click={() => handleRemoveRow(loadedGroups.indexOf(group))}>✕</div> 
         </div>
       {/each}
     </div>

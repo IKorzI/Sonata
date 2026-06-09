@@ -12,7 +12,7 @@
   let this_
   let uploadedFileHours = null;
   let uploadedFileContingent = null;
-  let ePercentage;
+  let ePercentage, eFirstIndex;
 
   let contingentData = null;
   let hoursData = null;
@@ -20,8 +20,8 @@
   $: if ($selectedSection) {
     if (this_) {
       if ($selectedSection === thisId) {
-        this_.style.zIndex = "1";
-      } else if (this_.style.zIndex !== "-1") {
+        this_.style.zIndex = '1';
+      } else if (this_.style.zIndex !== '-1') {
         setTimeout(() => {
           this_.style.zIndex = -1;
         }, 200);
@@ -51,18 +51,19 @@
   }
 
   async function saveAll() {
-    if (contingentData === null || hoursData === null || uploadedFileHours === null || uploadedFileContingent === null) {
+    if (ePercentage.value === '' || eFirstIndex.value === '' || contingentData === null || hoursData === null || uploadedFileHours === null || uploadedFileContingent === null) {
       message.set({type: 'error', text: _lng.emptyStatements.notAllData});
       return;
     }
     
-    const targetPath = await window.electron.saveDialog("Зберегти", ".txt");
+    const targetPath = await window.electron.saveDialog('Зберегти', '.txt');
     if (!targetPath) return;
 
     let endInformation = {
       id: thisId,
       filePath: targetPath,
       percentage: Number(ePercentage.value),
+      firstIndex: Number(eFirstIndex.value),
       hoursData: hoursData,
       contingentData: contingentData
     }
@@ -79,13 +80,13 @@
     if (!window.electron) return;
     if (detail.id === 'session--empty-statements--hours') {
       uploadedFileHours = detail.file;
-      hoursData = await window.electron.sessionEmptyGetInformation(uploadedFileHours.path, "hours");
+      hoursData = await window.electron.sessionEmptyGetInformation(uploadedFileHours.path, 'hours');
       console.log(hoursData)
       if (!hoursData) {
         message.set({type: 'error', text: _lng.inputFile.error});
         uploadedFileHours = null;
         hoursData = null;
-        clearInformation.set("session--empty-statements--hours")
+        clearInformation.set('session--empty-statements--hours')
         setTimeout(() => {
           clearInformation.set(null)
         }, 50)
@@ -93,13 +94,13 @@
       }
     } else if (detail.id === 'session--empty-statements--contingent') {
       uploadedFileContingent = detail.file;
-      contingentData = await window.electron.sessionEmptyGetInformation(uploadedFileContingent.path, "contingent");
+      contingentData = await window.electron.sessionEmptyGetInformation(uploadedFileContingent.path, 'contingent');
       console.log(contingentData)
       if (!contingentData) {
         message.set({type: 'error', text: _lng.inputFile.error});
         uploadedFileContingent = null;
         contingentData = null;
-        clearInformation.set("session--empty-statements--contingent")
+        clearInformation.set('session--empty-statements--contingent')
         setTimeout(() => {
           clearInformation.set(null)
         }, 50)
@@ -122,7 +123,7 @@
 
 </script>
 
-<div class="gui" id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
+<div class='gui' id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
 
   <FileInput eId='session--empty-statements--hours' extensions={['.xlsx']} type='excel'
     on:fileSelected={event => handleFileInputChange(event.detail)}
@@ -134,9 +135,14 @@
     on:fileRemoved={event => handleFileRemove(event.detail)}
   />
 
-  <div class="percentage-of-scholarship">
+  <div class='percentage-of-scholarship'>
     <div>{_lng.emptyStatements.percentage}</div>
-    <input type="text" bind:this={ePercentage} value="40"/>
+    <input type='text' bind:this={ePercentage} value='40'/>
+  </div>
+
+  <div class='first-index'>
+    <div>{_lng.emptyStatements.firstIndex}</div>
+    <input type='text' bind:this={eFirstIndex} value='1'/>
   </div>
 
 </div>
@@ -159,6 +165,19 @@
     row-gap: 5px;
   }
   .percentage-of-scholarship input {
+    width: 50px;
+    text-align: center;
+    padding-left: 0px;
+  }
+
+  .first-index {
+    position: absolute;
+    top: 280px;
+    display: grid;
+    grid-template-columns: 325px 25px;
+    row-gap: 5px;
+  }
+  .first-index input {
     width: 50px;
     text-align: center;
     padding-left: 0px;

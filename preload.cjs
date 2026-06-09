@@ -5,8 +5,8 @@ contextBridge.exposeInMainWorld('electron', {
 
   checkFileAccess: (filePath) => ipcRenderer.invoke('check-file-access', filePath),
 
-  minimize: () => ipcRenderer.send("window-action", "minimize"),
-  close: () => ipcRenderer.send("window-action", "close"),
+  minimize: () => ipcRenderer.send('window-action', 'minimize'),
+  close: () => ipcRenderer.send('window-action', 'close'),
 
   saveDialog: (fileName, extension) => ipcRenderer.invoke('save-dialog', fileName, extension),
   saveFile: (sourcePath, targetPath) => ipcRenderer.invoke('save-file', sourcePath, targetPath),
@@ -33,7 +33,7 @@ contextBridge.exposeInMainWorld('electron', {
   startBackendFunc: (data) => ipcRenderer.invoke('startBackendFunc', data),
 
   screenshotMode: flag => ipcRenderer.invoke('screenshotMode', flag),
-  onExcelHtml: callback => ipcRenderer.on("excel-html", (event, html) => callback(html)),
+  onExcelHtml: callback => ipcRenderer.on('excel-html', (event, html) => callback(html)),
   sendToMain: (channel, data) => ipcRenderer.send(channel, data),
   otherNumDenStart: (data) => ipcRenderer.invoke('otherNumDenStart', data)
 });

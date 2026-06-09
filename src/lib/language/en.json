@@ -4,12 +4,12 @@
   "workspace.example": "Example of output document(s)",
   "workspace.clear": "Clear",
   "workspace.start": "Start",
-  "workspace.message1Text": "A file or multiple files are open and locked for editing.\nSuch files were saved with these names:",
-  "workspace.message2Text": "The following subjects were not found and the hours were left empty:",
+  "workspace.saveWithADifferentName": "A file or multiple files are open and locked for editing.\nSuch files were saved with these names:",
+  "workspace.unfoundSubjects": "The following subjects were not found and the hours were left empty:",
 
   "basedOnTheFirstMonth.semesterEnd": "End date of the semester",
   "basedOnTheFirstMonth.hoursPerSubject": "Hours by subject",
-  "basedOnTheFirstMonth.messageText": "The following subjects were not found in the hours and need to be filled in personally:",
+  "basedOnTheFirstMonth.unfoundSubjects": "There are unknown subjects that require personal filling in the \"Hours by subject\" table:\n{notFoundSubjects}",
 
   "other.screenshotMode": "Screenshot mode",
   "other.numDen.title": "Numerator/Denominator",
@@ -19,11 +19,12 @@
   "other.numDen.end2": "End of semester 2",
   "other.numDen.saveName": "Numerator Denominator",
   "other.start": "Start",
+
   "debtors.loadedGroups": "Loaded groups",
-  "debtors.messageText.part1": "Group",
-  "debtors.messageText.part2": "already loaded.",
+  "debtors.groupAlreadyLoaded": "Group {groupCode} is already loaded.",
 
   "emptyStatements.percentage": "% of scholarship budget",
+  "emptyStatements.firstIndex": "Number of the first statement in the issue journal",
 
   "packageOfDocuments.socialScholarship.statusesList": [
   "Internally displaced person",
@@ -45,8 +46,7 @@
   "packageOfDocuments.classTeacherName.genitive": "Genitive case",
 
   "report.loadedGroups": "Loaded groups",
-  "report.messageText.part1": "Group",
-  "report.messageText.part2": "already loaded.",
+  "report.groupAlreadyLoaded": "Group {groupCode} is already loaded.",
 
   "errorWindow.errorWindow.title.error": "Error",
   "errorWindow.errorWindow.title.warning": "Warning",
@@ -104,15 +104,14 @@
   "exampleWindow.names.statements.fileNameToSave": "Statements",
   "exampleWindow.names.statements.displayName": "Statements",
 
-  "python.session.emptyStart.customText": "There are specialties in the groups with several OPPs.\nThe following OPPs were recorded in the information for teachers in such specialties:",
+  "python.session.emptyStart.customText": "The groups contain specialties with multiple OPPs.\nThe following OPPs were recorded in the information for instructors for these specialties:",
 
-  "packageOfDocuments.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  file uploaded; \n  –  scholarship assignment dates entered; \n  –  class teacher's last name entered; \n  –  there are no values \"Select student\" and \"Select status\" in the lists for social and increased scholarships.",
-  "emptyStatements.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  files uploaded.",
-  "report.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  more than 1 groups uploaded.",
-  "debtors.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  more than 1 groups uploaded.",
-  "basedOnTheFirstMonth.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  file uploaded; \n  –  entered last date of study in the semester.",
-  "summaryOfTeachers.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  file is uploaded.",
-  "other.numDen.notAllData": "Incorrect final data. Check the correctness of the entered data.\nOne of the conditions is NOT met: \n  –  all semester start and end dates are entered.",
-  "inputFile.error": "Error while retrieving information from file. Check the correctness of the selected file."
-
+  "packageOfDocuments.notAllData": "The data is incorrect for one of the reasons:\n  –  file not uploaded;\n  –  scholarship assignment dates not entered;\n  –  class teacher's last name not entered;\n  –  in the lists for social and increased scholarships the value is \"Select student\" or \"Select status\".",
+  "emptyStatements.notAllData": "The data is incorrect for one of the following reasons:\n  –  files not uploaded;\n  –  the \"% of scholarship budget\" field is not filled in;\n  –  the \"Number of the first statement in the issuance journal\" field is not filled in.",
+  "report.notAllData": "The data is incorrect for one of the reasons:\n  –  groups uploaded 0.",
+  "debtors.notAllData": "The data is incorrect for one of the reasons:\n  –  groups uploaded 0.",
+  "basedOnTheFirstMonth.notAllData": "The data is incorrect for one of the reasons:\n  –  file not uploaded;\n  –  no last date of study in the semester has been entered.",
+  "summaryOfTeachers.notAllData": "The data is incorrect for one of the reasons:\n  –  no file has been uploaded.",
+  "other.numDen.notAllData": "The data is incorrect for one of the reasons:\n  –  all start and end dates of the semesters have not been entered.",
+  "inputFile.error": "Error retrieving information from the file. Check the correctness of the selected file."
 }

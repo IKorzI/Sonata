@@ -1,20 +1,20 @@
-import { ipcMain } from "electron";
-import XlsxPopulate from "xlsx-populate";
-import { findCell } from "../utils.js";
+import { ipcMain } from 'electron';
+import XlsxPopulate from 'xlsx-populate';
+import { findCell } from '../utils.js';
 
 const monthNames = {
-    "січень": 1,        "січня": 1,         1: "січень",
-    "лютий": 2,         "лютого": 2,        2: "лютий",
-    "березень": 3,      "березня": 3,       3: "березень",
-    "квітень": 4,       "квітня": 4,        4: "квітень",
-    "травень": 5,       "травня": 5,        5: "травень",
-    "червень": 6,       "червня": 6,        6: "червень",
-    "липень": 7,        "липня": 7,         7: "липень",
-    "серпень": 8,       "серпня": 8,        8: "серпень",
-    "вересень": 9,      "вересня": 9,       9: "вересень",
-    "жовтень": 10,      "жовтня": 10,       10: "жовтень",
-    "листопад": 11,     "листопада": 11,    11: "листопад",
-    "грудень": 12,      "грудня": 12,       12: "грудень"
+    'січень': 1,        'січня': 1,         1: 'січень',
+    'лютий': 2,         'лютого': 2,        2: 'лютий',
+    'березень': 3,      'березня': 3,       3: 'березень',
+    'квітень': 4,       'квітня': 4,        4: 'квітень',
+    'травень': 5,       'травня': 5,        5: 'травень',
+    'червень': 6,       'червня': 6,        6: 'червень',
+    'липень': 7,        'липня': 7,         7: 'липень',
+    'серпень': 8,       'серпня': 8,        8: 'серпень',
+    'вересень': 9,      'вересня': 9,       9: 'вересень',
+    'жовтень': 10,      'жовтня': 10,       10: 'жовтень',
+    'листопад': 11,     'листопада': 11,    11: 'листопад',
+    'грудень': 12,      'грудня': 12,       12: 'грудень'
 };
 
 async function getInfo(filePath) {
@@ -26,28 +26,28 @@ async function getInfo(filePath) {
   const workbook = await XlsxPopulate.fromFileAsync(filePath);
   const sheetNames = workbook.sheets().map(s => s.name());
   // фильтрация по "Приклад"
-  const filteredSheetNames = sheetNames.filter(name => name !== "Приклад");
+  const filteredSheetNames = sheetNames.filter(name => name !== 'Приклад');
 
   // --- Получение одинаковых данных во всех листах ---
   const sheet = workbook.sheet(filteredSheetNames[0]);
   let cell = sheet.cell(7, 3).value();
-  let parts = cell.split(" ");
+  let parts = cell.split(' ');
   const startDay = sheet.cell(11, 6).value();  // день
   const startMonth = monthNames[parts[1]];     // месяц
   const year = parseInt(parts[2], 10);         // год
 
   // Последняя строка
-  findedCell = findCell(sheet, undefined, "down", {row: 12, column: 5});
+  findedCell = findCell(sheet, undefined, 'down', {row: 12, column: 5});
   const endRow = findedCell.row - 1;
   // Последний столбец
-  findedCell = findCell(sheet, "Примітка", "right", {row: 10, column: 5});
+  findedCell = findCell(sheet, 'Примітка', 'right', {row: 10, column: 5});
   const endCol = findedCell.column - 2
 
   // Поиск первой 12-ячейковой последовательности (парная, непарная недели)
   const pattern = [
-    ...Array(5).fill("FFFFFFFF"),
-    ...Array(2).fill("FFBFBFBF"),
-    ...Array(5).fill("FFFFFFFF")
+    ...Array(5).fill('FFFFFFFF'),
+    ...Array(2).fill('FFBFBFBF'),
+    ...Array(5).fill('FFFFFFFF')
   ];
   const targetPattern = pattern.join('|');
   const rowColors = [];
@@ -68,7 +68,7 @@ async function getInfo(filePath) {
   }
 
   for (let col = 6; col <= endCol; col++) {
-    const colorObj = sheet.cell(12, col).style("fill").color;
+    const colorObj = sheet.cell(12, col).style('fill').color;
     const finalColor = normalizeColor(colorObj);
     rowColors.push(finalColor);
   }

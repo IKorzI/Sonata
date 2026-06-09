@@ -1,43 +1,43 @@
-import { ipcMain, dialog } from "electron";
+import { ipcMain, dialog } from 'electron';
 import { fileURLToPath } from 'url';
 import path from 'path';
-import { spawn } from "child_process";
-import fs from "fs";
+import { spawn } from 'child_process';
+import fs from 'fs';
 import readline from 'readline';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const pathStart = path.resolve(__dirname, "./python/start.exe")
-const up2 = path.resolve(__dirname, "../../");
+const pathStart = path.resolve(__dirname, './python/start.exe')
+const up2 = path.resolve(__dirname, '../../');
 
 export const monthNames = {
-    "січень": 1,        "січня": 1,         1: "січень",
-    "лютий": 2,         "лютого": 2,        2: "лютий",
-    "березень": 3,      "березня": 3,       3: "березень",
-    "квітень": 4,       "квітня": 4,        4: "квітень",
-    "травень": 5,       "травня": 5,        5: "травень",
-    "червень": 6,       "червня": 6,        6: "червень",
-    "липень": 7,        "липня": 7,         7: "липень",
-    "серпень": 8,       "серпня": 8,        8: "серпень",
-    "вересень": 9,      "вересня": 9,       9: "вересень",
-    "жовтень": 10,      "жовтня": 10,       10: "жовтень",
-    "листопад": 11,     "листопада": 11,    11: "листопад",
-    "грудень": 12,      "грудня": 12,       12: "грудень"
+    'січень': 1,        'січня': 1,         1: 'січень',
+    'лютий': 2,         'лютого': 2,        2: 'лютий',
+    'березень': 3,      'березня': 3,       3: 'березень',
+    'квітень': 4,       'квітня': 4,        4: 'квітень',
+    'травень': 5,       'травня': 5,        5: 'травень',
+    'червень': 6,       'червня': 6,        6: 'червень',
+    'липень': 7,        'липня': 7,         7: 'липень',
+    'серпень': 8,       'серпня': 8,        8: 'серпень',
+    'вересень': 9,      'вересня': 9,       9: 'вересень',
+    'жовтень': 10,      'жовтня': 10,       10: 'жовтень',
+    'листопад': 11,     'листопада': 11,    11: 'листопад',
+    'грудень': 12,      'грудня': 12,       12: 'грудень'
 };
 
 export const specNames = {
-  "D5":  "«Маркетинг»",
-  "D7":  "«Торгівля»",
-  "E2":  "«Екологія»",
-  "G1":  "«Хімічні технології та інженерія»",
-  "G3":  "«Електрична інженерія»",
-  "G5":  "«Електроніка, електронні комунікації, приладобудування та радіотехніка»",
-  "G7":  "«Автоматизація, комп’ютерно-інтегровані технології та робототехніка»",
-  "G13": "«Харчові технології»",
-  "G16": "«Гірництво та нафтогазові технології»",
-  "J2":  "«Готельно-ресторанна справа та кейтеринг»",
-  "J3":  "«Туризм та рекреація»"
+  'D5':  '«Маркетинг»',
+  'D7':  '«Торгівля»',
+  'E2':  '«Екологія»',
+  'G1':  '«Хімічні технології та інженерія»',
+  'G3':  '«Електрична інженерія»',
+  'G5':  '«Електроніка, електронні комунікації, приладобудування та радіотехніка»',
+  'G7':  "«Автоматизація, комп'ютерно-інтегровані технології та робототехніка»",
+  'G13': '«Харчові технології»',
+  'G16': '«Гірництво та нафтогазові технології»',
+  'J2':  '«Готельно-ресторанна справа та кейтеринг»',
+  'J3':  '«Туризм та рекреація»'
 }
 
 /**
@@ -140,7 +140,7 @@ export function initPythonServer() {
     if (pyProcess) return; 
 
     // Запускаем твой скомпилированный .exe файл напрямую
-    pyProcess = spawn(pathStart, [up2], { cwd: "./" });
+    pyProcess = spawn(pathStart, [up2], { cwd: './' });
 
     // Настраиваем построчное чтение из stdout
     const rl = readline.createInterface({
@@ -173,23 +173,23 @@ export function initPythonServer() {
                 pendingRequests.delete(reqId);
             } else {
                 // Добавим лог для отладки, если вдруг ID не совпал
-                console.warn("Получен ответ для неизвестного reqId:", reqId, "\n",response);
+                console.warn('Получен ответ для неизвестного reqId:', reqId, '\n',response);
             }
         } catch (e) {
-            console.error("Failed to parse Python response:", line);
+            console.error('Failed to parse Python response:', line);
         }
     });
 
-    pyProcess.stderr.on("data", (data) => {
-        console.error("Python Stderr:", data.toString());
+    pyProcess.stderr.on('data', (data) => {
+        console.error('Python Stderr:', data.toString());
     });
 
-    pyProcess.on("close", (code) => {
+    pyProcess.on('close', (code) => {
         console.log(`Python server (.exe) exited with code ${code}`);
         pyProcess = null;
         
         for (const [id, { reject }] of pendingRequests) {
-            reject(new Error("Python server closed unexpectedly"));
+            reject(new Error('Python server closed unexpectedly'));
         }
         pendingRequests.clear();
     });
@@ -222,7 +222,7 @@ function camelizeKeys(data) {
 
 export async function startBackendFunc(data) {
     if (!pyProcess) {
-        throw new Error("Python server is not running. Call initPythonServer first.");
+        throw new Error('Python server is not running. Call initPythonServer first.');
     }
     
     return new Promise((resolve, reject) => {
@@ -247,7 +247,7 @@ export async function startBackendFunc(data) {
         };
 
         // Отправляем конверт в Python
-        const payload = JSON.stringify(payloadObj) + "\n";
+        const payload = JSON.stringify(payloadObj) + '\n';
         
         try {
             pyProcess.stdin.write(payload);

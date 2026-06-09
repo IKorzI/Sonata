@@ -23,36 +23,36 @@
 
   // 1. Статичная структура файлов (не зависит от языка)
   const FILE_STRUCTURE = {
-    "hours--based-on-the-first-month": [
-      "based-on-the-first-month--september",
-      "based-on-the-first-month--october",
-      "based-on-the-first-month--november",
-      "based-on-the-first-month--december",
-      "based-on-the-first-month--total"
+    'hours--based-on-the-first-month': [
+      'based-on-the-first-month--september',
+      'based-on-the-first-month--october',
+      'based-on-the-first-month--november',
+      'based-on-the-first-month--december',
+      'based-on-the-first-month--total'
     ],
-    "hours--summary-of-teachers": ["summary-of-teachers"],
-    "session--empty-statements": [
-      "empty-statements--general",
-      "empty-statements--statements"
+    'hours--summary-of-teachers': ['summary-of-teachers'],
+    'session--empty-statements': [
+      'empty-statements--general',
+      'empty-statements--statements'
     ],
-    "session--package-of-documents": [
-      "package-of-documents--summary",
-      "package-of-documents--rating",
-      "package-of-documents--petition",
-      "package-of-documents--submission",
-      "package-of-documents--explanation",
-      "package-of-documents--rating-on-website"
+    'session--package-of-documents': [
+      'package-of-documents--summary',
+      'package-of-documents--rating',
+      'package-of-documents--petition',
+      'package-of-documents--submission',
+      'package-of-documents--explanation',
+      'package-of-documents--rating-on-website'
     ],
-    "session--report": ["report"],
-    "session--debtors": ["debtors"],
-    "other--other--num-den": ["num-den"],
-    "hours--based-on-the-first-month--hours": ["hours"],
-    "hours--summary-of-teachers--hours": ["hours"],
-    "session--empty-statements--contingent": ["contingent"],
-    "session--empty-statements--hours": ["hours"],
-    "session--package-of-documents--statements": ["statements"],
-    "session--report--statements": ["statements"],
-    "session--debtors--statements": ["statements"]
+    'session--report': ['report'],
+    'session--debtors': ['debtors'],
+    'other--other--num-den': ['num-den'],
+    'hours--based-on-the-first-month--hours': ['hours'],
+    'hours--summary-of-teachers--hours': ['hours'],
+    'session--empty-statements--contingent': ['contingent'],
+    'session--empty-statements--hours': ['hours'],
+    'session--package-of-documents--statements': ['statements'],
+    'session--report--statements': ['statements'],
+    'session--debtors--statements': ['statements']
   };
 
   // 2. Получаем массив уникальных имен файлов железно 1 раз
@@ -60,114 +60,114 @@
 
   // 3. Реактивный объект для рендера интерфейса с использованием $lng напрямую
   $: names = {
-    "hours--based-on-the-first-month": {
+    'hours--based-on-the-first-month': {
       downloadable: false,
       filesToDisplay: [
-        {filePath: "based-on-the-first-month--september", displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.september},
-        {filePath: "based-on-the-first-month--october", displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.october},
-        {filePath: "based-on-the-first-month--november", displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.november},
-        {filePath: "based-on-the-first-month--december", displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.december},
-        {filePath: "based-on-the-first-month--total", displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.total}
+        {filePath: 'based-on-the-first-month--september', displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.september},
+        {filePath: 'based-on-the-first-month--october', displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.october},
+        {filePath: 'based-on-the-first-month--november', displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.november},
+        {filePath: 'based-on-the-first-month--december', displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.december},
+        {filePath: 'based-on-the-first-month--total', displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.total}
       ]
     },
-    "hours--summary-of-teachers": {
+    'hours--summary-of-teachers': {
       downloadable: false,
       filesToDisplay: [
-        {filePath: "summary-of-teachers", displayName: $lng.exampleWindow.names.summaryOfTeachers}
+        {filePath: 'summary-of-teachers', displayName: $lng.exampleWindow.names.summaryOfTeachers}
       ]
     },
    
-    "session--empty-statements": {
+    'session--empty-statements': {
       downloadable: false,
       filesToDisplay: [
-        {filePath: "empty-statements--general", displayName: $lng.exampleWindow.names.emptyStatements.general},
-        {filePath: "empty-statements--statements", displayName: $lng.exampleWindow.names.emptyStatements.statements}
+        {filePath: 'empty-statements--general', displayName: $lng.exampleWindow.names.emptyStatements.general},
+        {filePath: 'empty-statements--statements', displayName: $lng.exampleWindow.names.emptyStatements.statements}
       ]
     },
-    "session--package-of-documents": {
+    'session--package-of-documents': {
       downloadable: false,
       filesToDisplay: [
-        {filePath: "package-of-documents--summary", displayName: $lng.exampleWindow.names.packageOfDocuments.summary},
-        {filePath: "package-of-documents--rating", displayName: $lng.exampleWindow.names.packageOfDocuments.rating},
-        {filePath: "package-of-documents--petition", displayName: $lng.exampleWindow.names.packageOfDocuments.petition},
-        {filePath: "package-of-documents--submission", displayName: $lng.exampleWindow.names.packageOfDocuments.submission},
-        {filePath: "package-of-documents--explanation", displayName: $lng.exampleWindow.names.packageOfDocuments.explanation},
-        {filePath: "package-of-documents--rating-on-website", displayName: $lng.exampleWindow.names.packageOfDocuments.ratingOnWebsite}
+        {filePath: 'package-of-documents--summary', displayName: $lng.exampleWindow.names.packageOfDocuments.summary},
+        {filePath: 'package-of-documents--rating', displayName: $lng.exampleWindow.names.packageOfDocuments.rating},
+        {filePath: 'package-of-documents--petition', displayName: $lng.exampleWindow.names.packageOfDocuments.petition},
+        {filePath: 'package-of-documents--submission', displayName: $lng.exampleWindow.names.packageOfDocuments.submission},
+        {filePath: 'package-of-documents--explanation', displayName: $lng.exampleWindow.names.packageOfDocuments.explanation},
+        {filePath: 'package-of-documents--rating-on-website', displayName: $lng.exampleWindow.names.packageOfDocuments.ratingOnWebsite}
       ]
     },
-    "session--report": {
+    'session--report': {
       downloadable: false,
       filesToDisplay: [
-        {filePath: "report", displayName: $lng.exampleWindow.names.report}
+        {filePath: 'report', displayName: $lng.exampleWindow.names.report}
       ]
     },
-    "session--debtors": {
+    'session--debtors': {
       downloadable: false,
       filesToDisplay: [
-        {filePath: "debtors", displayName: $lng.exampleWindow.names.debtors}
+        {filePath: 'debtors', displayName: $lng.exampleWindow.names.debtors}
       ]
     },
-    "other--other--num-den": {
+    'other--other--num-den': {
       downloadable: false,
       filesToDisplay: [
-        {filePath: "num-den", displayName: $lng.exampleWindow.names.numDen}
+        {filePath: 'num-den', displayName: $lng.exampleWindow.names.numDen}
       ]
     },
 
-    "hours--based-on-the-first-month--hours": {
+    'hours--based-on-the-first-month--hours': {
       downloadable: true,
       fileNameToSave: $lng.exampleWindow.names.hours.fileNameToSave,
-      filePathToSave: "hours",
+      filePathToSave: 'hours',
       filesToDisplay: [
-        {filePath: "hours", displayName: $lng.exampleWindow.names.hours.displayName}
+        {filePath: 'hours', displayName: $lng.exampleWindow.names.hours.displayName}
       ]
     },
-    "hours--summary-of-teachers--hours": {
+    'hours--summary-of-teachers--hours': {
       downloadable: true,
       fileNameToSave: $lng.exampleWindow.names.hours.fileNameToSave,
-      filePathToSave: "hours",
+      filePathToSave: 'hours',
       filesToDisplay: [
-        {filePath: "hours", displayName: $lng.exampleWindow.names.hours.displayName}
+        {filePath: 'hours', displayName: $lng.exampleWindow.names.hours.displayName}
       ]
     },
-    "session--empty-statements--contingent": {
+    'session--empty-statements--contingent': {
       downloadable: true,
       fileNameToSave: $lng.exampleWindow.names.contingent.fileNameToSave,
-      filePathToSave: "contingent",
+      filePathToSave: 'contingent',
       filesToDisplay: [
-        {filePath: "contingent", displayName: $lng.exampleWindow.names.contingent.displayName}
+        {filePath: 'contingent', displayName: $lng.exampleWindow.names.contingent.displayName}
       ]
     },
-    "session--empty-statements--hours": {
+    'session--empty-statements--hours': {
       downloadable: true,
       fileNameToSave: $lng.exampleWindow.names.hours.fileNameToSave,
-      filePathToSave: "hours",
+      filePathToSave: 'hours',
       filesToDisplay: [
-        {filePath: "hours", displayName: $lng.exampleWindow.names.hours.displayName}
+        {filePath: 'hours', displayName: $lng.exampleWindow.names.hours.displayName}
       ]
     },
-    "session--package-of-documents--statements": {
+    'session--package-of-documents--statements': {
       downloadable: true,
       fileNameToSave: $lng.exampleWindow.names.statements.fileNameToSave,
-      filePathToSave: "statements",
+      filePathToSave: 'statements',
       filesToDisplay: [
-        {filePath: "statements", displayName: $lng.exampleWindow.names.statements.displayName}
+        {filePath: 'statements', displayName: $lng.exampleWindow.names.statements.displayName}
       ]
     },
-    "session--report--statements": {
+    'session--report--statements': {
       downloadable: true,
       fileNameToSave: $lng.exampleWindow.names.statements.fileNameToSave,
-      filePathToSave: "statements",
+      filePathToSave: 'statements',
       filesToDisplay: [
-        {filePath: "statements", displayName: $lng.exampleWindow.names.statements.displayName}
+        {filePath: 'statements', displayName: $lng.exampleWindow.names.statements.displayName}
       ]
     },
-    "session--debtors--statements": {
+    'session--debtors--statements': {
       downloadable: true,
       fileNameToSave: $lng.exampleWindow.names.statements.fileNameToSave,
-      filePathToSave: "statements",
+      filePathToSave: 'statements',
       filesToDisplay: [
-        {filePath: "statements", displayName: $lng.exampleWindow.names.statements.displayName}
+        {filePath: 'statements', displayName: $lng.exampleWindow.names.statements.displayName}
       ]
     }
   }
@@ -462,9 +462,9 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 
-<div class="example-area" bind:this={areaEl}>
+<div class='example-area' bind:this={areaEl}>
   <div
-    class="example-window"
+    class='example-window'
     bind:this={containerEl}
     on:wheel={handleWheel}
     on:mousedown={handleMouseDown}
@@ -473,34 +473,34 @@
     on:mouseleave={handleMouseLeave}
   >
     <button 
-      class="close" 
+      class='close' 
       class:rounded-corner={!showDownload} 
       on:click|stopPropagation={handleDelete}
     >✕</button>
     {#if showDownload}
-      <button class="download" on:click|stopPropagation={handleDownload}></button>
+      <button class='download' on:click|stopPropagation={handleDownload}></button>
     {/if}
     
-    <button class="scale-up" on:click|stopPropagation={handleScaleUp}></button>
-    <button class="scale-by-width" on:click|stopPropagation={handleScaleByWidth}></button>
-    <button class="scale-down" on:click|stopPropagation={handleScaleDown}></button>
+    <button class='scale-up' on:click|stopPropagation={handleScaleUp}></button>
+    <button class='scale-by-width' on:click|stopPropagation={handleScaleByWidth}></button>
+    <button class='scale-down' on:click|stopPropagation={handleScaleDown}></button>
     
     {#each uniqueImageNames as imgName (imgName)}
       <img
         src={'examples/save/' + imgName + '.png'}
-        alt="Zoomable {imgName}"
-        class="zoom-image {imgName === activeImgName ? 'visible' : ''}"
-        draggable="false"
+        alt='Zoomable {imgName}'
+        class='zoom-image {imgName === activeImgName ? 'visible' : ''}'
+        draggable='false'
         on:load={(e) => handleImageLoad(e, imgName)}
         bind:this={imgRefs[imgName]}
       />
     {/each}
 
     {#if currentImages.length > 1}
-      <div class="nav-buttons-container" on:mousedown|stopPropagation>
+      <div class='nav-buttons-container' on:mousedown|stopPropagation>
         {#each currentImages as imgInfo}
           <button 
-            class="nav-button {imgInfo.filePath === activeImgName ? 'active' : ''}"
+            class='nav-button {imgInfo.filePath === activeImgName ? 'active' : ''}'
             on:click|stopPropagation={() => switchImage(imgInfo.filePath)}
           >
             {imgInfo.displayName}

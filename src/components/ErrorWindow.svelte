@@ -6,15 +6,75 @@
   
   let errorText = '';
   let errorType = '';
+
+// 1. Базовая функция для поиска обычных переводов
+  function getTranslation(dict, path) {
+    if (!path) return '';
+    return path.split('.').reduce((acc, part) => acc && acc[part], dict) || path;
+  }
+
+  // 2. Функция для бэкенд-текста: ищет {{key}} и переводит
+  function parseBackendText(dict, text) {
+    if (!text) return '';
+    return text.replace(/\{\{([a-zA-Z0-9_\.]+)\}\}/g, (match, key) => {
+      const translated = getTranslation(dict, key);
+      // Если перевод найден и это не объект, возвращаем его. Иначе возвращаем оригинальный {{key}}
+      return (translated && typeof translated !== 'object' && translated !== key) ? translated : match;
+    });
+  }
+
+  // 3. Реактивный блок: пересчитывается при любом изменении $message или $lng
   $: if ($message) {
-    if ($message.text === '') {
+    // Проверяем, пустое ли сообщение на самом деле
+    // Теперь сообщение считается валидным, если есть text ИЛИ есть messageFromTheBackendData
+    const isMessageEmpty = $message.text === '' && !$message.params?.messageFromTheBackendData;
+    
+    if (isMessageEmpty) {
+      // Логика закрытия окна
       setTimeout(() => {
         errorText = '';
         errorType = '';
       }, 400);
     } else {
-      errorText = $message.text;
-      errorType = $message.type === 'warning' ? _lng.errorWindow.errorWindow.title.warning : _lng.errorWindow.errorWindow.title.error;
+      // Обновляем заголовок
+      errorType = $message.type === 'warning' 
+        ? $lng.errorWindow.errorWindow.title.warning 
+        : $lng.errorWindow.errorWindow.title.error;
+
+      // Сценарий А: Сложные данные от бэкенда
+      if ($message.params?.messageFromTheBackendData) {
+        const backendData = $message.params.messageFromTheBackendData;
+        let combinedParts = [];
+
+        // Если есть файлы, переводим заголовок для них и склеиваем
+        if (backendData.filesText) {
+          const filesTitle = getTranslation($lng, 'workspace.saveWithADifferentName');
+          combinedParts.push(`${filesTitle}\n${backendData.filesText}`);
+        }
+
+        // Если есть кастомный текст, парсим ключи внутри {{}}
+        if (backendData.customText) {
+          combinedParts.push(parseBackendText($lng, backendData.customText));
+        }
+
+        // Соединяем части. Если есть и файлы и текст, между ними будет пустая строка (\n\n)
+        errorText = combinedParts.join('\n\n'); 
+
+      // Сценарий Б: Стандартное сообщение (например, workspace.unfoundSubjects)
+      } else {
+        let text = getTranslation($lng, $message.text);
+        
+        // Подставляем параметры (например {notFoundSubjects})
+        if ($message.params) {
+          for (const [key, value] of Object.entries($message.params)) {
+            // Заменяем только если значение - строка или число
+            if (typeof value === 'string' || typeof value === 'number') {
+              text = text.replace(new RegExp(`{${key}}`, 'g'), value);
+            }
+          }
+        }
+        errorText = text;
+      }
     }
   }
 
@@ -24,12 +84,12 @@
 
 </script>
 
-<div class="error-area" class:showed={$message.text}>
-
-  <div class="error-window" class:showed={$message.text}>
-    <div class="title">{errorType}</div>
-    <div class="text-area">{errorText}</div>
-    <button class="ok" on:click={handlerClickOK}>OK</button>
+<div class='error-area' class:showed={$message.text || $message.params?.messageFromTheBackendData}>
+  
+  <div class='error-window' class:showed={$message.text || $message.params?.messageFromTheBackendData}>
+    <div class='title'>{errorType}</div>
+    <div class='text-area'>{errorText}</div>
+    <button class='ok' on:click={handlerClickOK}>OK</button>
   </div>
 
 </div>

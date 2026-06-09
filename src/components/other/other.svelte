@@ -16,8 +16,8 @@
   $: if ($selectedSection) {
     if (this_) {
       if ($selectedSection === thisId) {
-        this_.style.zIndex = "1";
-      } else if (this_.style.zIndex !== "-1") {
+        this_.style.zIndex = '1';
+      } else if (this_.style.zIndex !== '-1') {
         setTimeout(() => {
           this_.style.zIndex = -1;
         }, 200);
@@ -34,7 +34,7 @@
   onMount(() => {
     if (window.electron?.onExcelHtml) {
       window.electron.onExcelHtml(html => {
-        window.electron.sendToMain("excel-html", html);
+        window.electron.sendToMain('excel-html', html);
       });
     }
     const now = new Date();
@@ -76,11 +76,11 @@
       eSemester2Start.value === '' ||
       eSemester2End.value === ''
     ) {
-      message.set({type: 'error', text: _lng.other.numDen.notAllData});
+      message.set({type: 'error', text: 'other.numDen.notAllData'});
       return;
     }
     
-    const targetPath = await window.electron.saveDialog(_lng.other.numDen.saveName, ".xlsx");
+    const targetPath = await window.electron.saveDialog(_lng.other.numDen.saveName, '.xlsx');
     if (!targetPath) return;
 
     if (isProcessing) return;
@@ -113,42 +113,42 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 
-<div class="gui" id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
+<div class='gui' id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
 
-  <div class="block" id="screenshot-mode">
-    <div class="label">{_lng.other.screenshotMode}</div>
+  <div class='block' id='screenshot-mode'>
+    <div class='label'>{_lng.other.screenshotMode}</div>
     <button class={`screenshot-mode ${isScreenshotMode ? 'active' : ''}`} on:click={() => screenshotMode()}>{_lng.other.screenshotMode}</button>
   </div>
   
-  <div class="block" id="num-den">
-    <div class="label">{_lng.other.numDen.title}</div>
-    <div class="input-block" id="start1">
+  <div class='block' id='num-den'>
+    <div class='label'>{_lng.other.numDen.title}</div>
+    <div class='input-block' id='start1'>
       <div>{_lng.other.numDen.start1}</div>
-      <input type="text" bind:this={eSemester1Start}/>
+      <input type='text' bind:this={eSemester1Start}/>
     </div>
-    <div class="input-block" id="end1">
+    <div class='input-block' id='end1'>
       <div>{_lng.other.numDen.end1}</div>
-      <input type="text" bind:this={eSemester1End}/>
+      <input type='text' bind:this={eSemester1End}/>
     </div>
-    <div class="input-block" id="start2">
+    <div class='input-block' id='start2'>
       <div>{_lng.other.numDen.start2}</div>
-      <input type="text" bind:this={eSemester2Start}/>
+      <input type='text' bind:this={eSemester2Start}/>
     </div>
-    <div class="input-block" id="end2">
+    <div class='input-block' id='end2'>
       <div>{_lng.other.numDen.end2}</div>
-      <input type="text" bind:this={eSemester2End}/>
+      <input type='text' bind:this={eSemester2End}/>
     </div>
-    <button class="start" on:click={() => numDenStart()}>
+    <button class='start' on:click={() => numDenStart()}>
       {#if isProcessing === false && isComleting === false}
         {_lng.other.start}
       {/if}
-      <div class="process" style="
-        z-index: {isProcessing === true ? '1' : '-1'};
-        display: {isProcessing === true ? 'block' : 'none'};
-      "></div>
-      <div class="complete" bind:this={elComplete}></div>
+      <div class='process' style='
+        z-index: {isProcessing === true ? "1" : "-1"};
+        display: {isProcessing === true ? "block" : "none"};
+      '></div>
+      <div class='complete' bind:this={elComplete}></div>
     </button>
-    <div class="what" on:click={() => handleWhat()}></div>
+    <div class='what' on:click={() => handleWhat()}></div>
   </div>
 
 </div>

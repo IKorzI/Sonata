@@ -67,47 +67,35 @@
     console.log(result);
     
     if (result.success === true && (result.files?.length > 0 || result.customText)) {
-      let messageText = "";
+      let messageFromTheBackendData = {};
+
       if (result.files.length > 0) {
-        messageText = _lng.workspace.message1Text;
-        result.files.forEach(file => {
-          messageText += `\n  – ${file}`;
-        });
+        const filesText = `  –  ${result.files.join(';\n  –  ')}`;
+        messageFromTheBackendData.filesText = filesText
       }
       
       if (result.customText) {
-        // 1. Записываем во временную переменную
-        let processedCustomText = result.customText;
-        
-        // 2. Регулярное выражение ищет любые подстроки, похожие на ключи (буквы, цифры, точки, подчеркивания)
-        // Если ключи в вашем тексте обернуты в какие-то символы (например, {{key}}), регулярку стоит подправить
-        const keyRegex = /[a-zA-Z0-9_\.]+/g; 
-        
-        processedCustomText = processedCustomText.replace(keyRegex, (match) => {
-          // Проверяем, существует ли такой путь в объекте _lng
-          const translation = getValueByPath(_lng, match);
-          // Если перевод найден и это строка/число, заменяем. Иначе оставляем как было.
-          return (translation && typeof translation !== 'object') ? translation : match;
-        });
-
-        // 3. Добавляем уже обработанный текст к основному сообщению
-        if (!messageText) {
-          messageText = processedCustomText;
-        } else {
-          messageText = `${messageText}\n${processedCustomText}`;
-        }
+        messageFromTheBackendData.customText = result.customText
       }
       
-      message.set({type: 'warning', text: messageText});
+      message.set({
+        type: 'warning',
+        text: '',
+        params: { messageFromTheBackendData: messageFromTheBackendData }
+      });
+
     } else if (result.success === true && result.notFoundSubjects?.length > 0) {
-      let messageText = "";
-      if (result.notFoundSubjects.length > 0) {
-        messageText = _lng.workspace.message2Text;
-        result.notFoundSubjects.forEach(group => {
-          messageText += `\n  – ${group.group}: ${group.subjects.join(", ")}`;
-        });
-      }
-      message.set({type: 'warning', text: messageText});
+
+      let notFoundSubjectsText = '';
+      result.notFoundSubjects.forEach(group => {
+        notFoundSubjectsText += `\n  – ${group.group}: ${group.subjects.join(', ')}`;
+      });
+
+      message.set({
+        type: 'warning',
+        text: 'workspace.unfoundSubjects',
+        params: { notFoundSubjects : notFoundSubjectsText }
+      });
     }
 
     isComleting = true; // Обратите внимание на возможную опечатку в вашем коде (isCompleting?)
@@ -130,19 +118,19 @@
 
 </script>
 
-<div class="workspace">
+<div class='workspace'>
 
-  <button class="example" class:hidden={!isVisible} on:click={() => example()}>{_lng.workspace.example}</button>
-  <button class="clear" class:hidden={!isVisible} on:click={() => clear()}>{_lng.workspace.clear}</button>
-  <button class="start" class:hidden={!isVisible} on:click={() => save()}>
+  <button class='example' class:hidden={!isVisible} on:click={() => example()}>{_lng.workspace.example}</button>
+  <button class='clear' class:hidden={!isVisible} on:click={() => clear()}>{_lng.workspace.clear}</button>
+  <button class='start' class:hidden={!isVisible} on:click={() => save()}>
     {#if isProcessing === false && isComleting === false}
       {_lng.workspace.start}
     {/if}
-    <div class="process" style="
-      z-index: {isProcessing === true ? '1' : '-1'};
-      display: {isProcessing === true ? 'block' : 'none'};
-    "></div>
-    <div class="complete" bind:this={elComplete}></div>
+    <div class='process' style='
+      z-index: {isProcessing === true ? "1" : "-1"};
+      display: {isProcessing === true ? "block" : "none"};
+    '></div>
+    <div class='complete' bind:this={elComplete}></div>
   </button>
 
   <SessionPackageOfDocuments />

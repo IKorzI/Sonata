@@ -47,7 +47,7 @@ pyProcess.stderr.on('data', (data) => {
 });
 
 pyProcess.on('close', (code) => {
-    console.log(`\n🛑 Сервер завершил работу с кодом ${code}`);
+    console.log(`\nСервер завершил работу с кодом ${code}`);
     process.exit(code);
 });
 
@@ -69,7 +69,7 @@ requests.forEach((data, index) => {
     
     // Отправляем запросы с небольшой задержкой на случай массива данных
     setTimeout(() => {
-        console.log(`\n📤 Отправка запроса #${reqId}...`);
+        console.log(`\nОтправка запроса #${reqId}...`);
         pyProcess.stdin.write(payload);
     }, index * 500); 
 });

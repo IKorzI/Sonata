@@ -10,7 +10,7 @@ import './src/scripts/session/report.js';
 import './src/scripts/session/debtors.js';
 import './src/scripts/hours/based-on-the-first-month.js';
 import './src/scripts/hours/summary-of-teachers.js';
-import "./src/scripts/other/other.js"
+import './src/scripts/other/other.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -47,7 +47,7 @@ function createWindow() {
     frame: false,
     resizable: false,
     transparent: true,
-    icon: path.join(__dirname, "public/icon.ico"),
+    icon: path.join(__dirname, 'public/icon.ico'),
     webPreferences: {
       backgroundThrottling: false, // Отключает замедление фоновых процессов
       nodeIntegration: false,
@@ -65,27 +65,27 @@ function createWindow() {
     });
 
     // Обработка контекстного меню
-    mainWindow.webContents.on("context-menu", (event, params) => {
+    mainWindow.webContents.on('context-menu', (event, params) => {
       const menu = Menu.buildFromTemplate([
         {
-          label: "Проверить",
+          label: 'Проверить',
           click: () => {
-            mainWindow.webContents.openDevTools({ mode: "right" });
+            mainWindow.webContents.openDevTools({ mode: 'right' });
             setTimeout(() => {
               mainWindow.webContents.inspectElement(params.x, params.y);
             }, 100);
           },
         },
         {
-          label: "Перезагрузить",
+          label: 'Перезагрузить',
           click: () => {
             mainWindow.webContents.reload();
           },
         },
         {
-          label: "Перезапустить",
+          label: 'Перезапустить',
           click: () => {
-            const restartFile = path.join(__dirname, "restart.flag");
+            const restartFile = path.join(__dirname, 'restart.flag');
             fs.writeFileSync(restartFile, Date.now().toString());
           },
         },

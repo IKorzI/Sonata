@@ -1,20 +1,20 @@
-import { ipcMain } from "electron";
-import XlsxPopulate from "xlsx-populate";
-import { findCell } from "../utils.js";
+import { ipcMain } from 'electron';
+import XlsxPopulate from 'xlsx-populate';
+import { findCell } from '../utils.js';
 
 const monthNames = {
-    "січень": 1,        "січня": 1,         1: "січень",
-    "лютий": 2,         "лютого": 2,        2: "лютий",
-    "березень": 3,      "березня": 3,       3: "березень",
-    "квітень": 4,       "квітня": 4,        4: "квітень",
-    "травень": 5,       "травня": 5,        5: "травень",
-    "червень": 6,       "червня": 6,        6: "червень",
-    "липень": 7,        "липня": 7,         7: "липень",
-    "серпень": 8,       "серпня": 8,        8: "серпень",
-    "вересень": 9,      "вересня": 9,       9: "вересень",
-    "жовтень": 10,      "жовтня": 10,       10: "жовтень",
-    "листопад": 11,     "листопада": 11,    11: "листопад",
-    "грудень": 12,      "грудня": 12,       12: "грудень"
+    'січень': 1,        'січня': 1,         1: 'січень',
+    'лютий': 2,         'лютого': 2,        2: 'лютий',
+    'березень': 3,      'березня': 3,       3: 'березень',
+    'квітень': 4,       'квітня': 4,        4: 'квітень',
+    'травень': 5,       'травня': 5,        5: 'травень',
+    'червень': 6,       'червня': 6,        6: 'червень',
+    'липень': 7,        'липня': 7,         7: 'липень',
+    'серпень': 8,       'серпня': 8,        8: 'серпень',
+    'вересень': 9,      'вересня': 9,       9: 'вересень',
+    'жовтень': 10,      'жовтня': 10,       10: 'жовтень',
+    'листопад': 11,     'листопада': 11,    11: 'листопад',
+    'грудень': 12,      'грудня': 12,       12: 'грудень'
 };
 
 async function getInfo(filePath) {
@@ -25,19 +25,19 @@ async function getInfo(filePath) {
 
   // Список листов без "Приклад"
   const sheetNames = workbook.sheets().map(s => s.name());
-  const filteredSheetNames = sheetNames.filter(name => name !== "Приклад");
+  const filteredSheetNames = sheetNames.filter(name => name !== 'Приклад');
   
   // --- Получение одинаковых данных во всех листах ---
   const sheet = workbook.sheet(filteredSheetNames[0]);
   let cell = sheet.cell(7, 3).value();
-  let parts = cell.split(" ");
+  let parts = cell.split(' ');
   const month = monthNames[parts[1]];
   const year = parseInt(parts[2], 10);
 
-  findedCell = findCell(sheet, undefined, "down", {row: 12, column: 5});
+  findedCell = findCell(sheet, undefined, 'down', {row: 12, column: 5});
   const endRow = findedCell.row - 1;
 
-  findedCell = findCell(sheet, "Примітка", "right", {row: 10, column: 5});
+  findedCell = findCell(sheet, 'Примітка', 'right', {row: 10, column: 5});
   const endCol = findedCell.column - 2;
 
   const startDay = sheet.cell(11, 6).value();
@@ -46,9 +46,9 @@ async function getInfo(filePath) {
   let dayOfWeek = date.getDay();
   dayOfWeek = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
   const days = {
-    "startDay": startDay,
-    "endDay": endDay,
-    "startWeekday": dayOfWeek
+    'startDay': startDay,
+    'endDay': endDay,
+    'startWeekday': dayOfWeek
   };
 
   // --- Чтение часов по группам ---

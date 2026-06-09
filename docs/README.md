@@ -7,6 +7,8 @@
 
 ![Превью](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/preview.png)
 
+![Превью](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/preview2.png)
+
 ## Можливості
 ### Сесія:
  * Створення повного пакету документів (зведена відомість, рейтингова відомість, клопотання, подання, рейтинг на сайт) для певної групи студентів під час сесії;

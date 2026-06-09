@@ -12,37 +12,37 @@
 
   const hoursPerSubject = [
     {
-        "Біологія":               34,
-        "Всесвітня історія":      34,
-        "Географія":              40,
-        "Зарубіжна література":   34,
-        "Захист України":         34,
-        "Іноземна мова":          34,
-        "Інформатика":            34,
-        "Історія України":        34,
-        "Математика":             68,
-        "Українська література":  34,
-        "Українська мова":        34,
-        "Фізика":                 68,
-        "Фізична культура":       51,
-        "Хімія":                  34
+        'Біологія':               34,
+        'Всесвітня історія':      34,
+        'Географія':              40,
+        'Зарубіжна література':   34,
+        'Захист України':         34,
+        'Іноземна мова':          34,
+        'Інформатика':            34,
+        'Історія України':        34,
+        'Математика':             68,
+        'Українська література':  34,
+        'Українська мова':        34,
+        'Фізика':                 68,
+        'Фізична культура':       51,
+        'Хімія':                  34
     },
     {
-        "Астрономія":             46,
-        "Біологія":               72,
-        "Всесвітня історія":      46,
-        "Географія":              48,
-        "Зарубіжна література":   46,
-        "Захист України":         69,
-        "Іноземна мова":          46,
-        "Інформатика":            23,
-        "Історія України":        46,
-        "Математика":             69,
-        "Українська література":  46,
-        "Українська мова":        46,
-        "Фізика":                 46,
-        "Фізична культура":       69,
-        "Хімія":                  54
+        'Астрономія':             46,
+        'Біологія':               72,
+        'Всесвітня історія':      46,
+        'Географія':              48,
+        'Зарубіжна література':   46,
+        'Захист України':         69,
+        'Іноземна мова':          46,
+        'Інформатика':            23,
+        'Історія України':        46,
+        'Математика':             69,
+        'Українська література':  46,
+        'Українська мова':        46,
+        'Фізика':                 46,
+        'Фізична культура':       69,
+        'Хімія':                  54
     },
   ];
 
@@ -55,8 +55,8 @@
   $: if ($selectedSection) {
     if (this_) {
       if ($selectedSection === thisId) {
-        this_.style.zIndex = "1";
-      } else if (this_.style.zIndex !== "-1") {
+        this_.style.zIndex = '1';
+      } else if (this_.style.zIndex !== '-1') {
         setTimeout(() => {
           this_.style.zIndex = -1;
         }, 200);
@@ -85,8 +85,8 @@
   }
 
   async function saveAll() {
-    if (uploadedFile === null || eSemesterEnd.value === "" || subjectsAndHours.length === 0) {
-      message.set({type: 'error', text: _lng.basedOnTheFirstMonth.notAllData});
+    if (uploadedFile === null || eSemesterEnd.value === '' || subjectsAndHours.length === 0) {
+      message.set({type: 'error', text: 'basedOnTheFirstMonth.notAllData'});
       return;
     }
 
@@ -112,11 +112,11 @@
       data = await window.electron.hoursBasedGetInformation(uploadedFile.path);
       console.log(data);
       if (!data) {
-        message.set({type: 'error', text: _lng.inputFile.error});
+        message.set({type: 'error', text: 'inputFile.error'});
         clearInformation.set(thisId)
         return;
       }
-      const parts = data.semesterStartDate.split(".");
+      const parts = data.semesterStartDate.split('.');
       const month = parseInt(parts[1], 10);
       let semesterNumber;
       if (month > 7) {
@@ -132,14 +132,18 @@
         if (hours !== undefined) {
           subjectsAndHours.push({subjectName: subject.subjectName, hours: hours});
         } else {
-          subjectsAndHours.push({subjectName: subject.subjectName, hours: "--"});
+          subjectsAndHours.push({subjectName: subject.subjectName, hours: '--'});
           notFoundSubjects.push(subject.subjectName);
         }
       }
       
       if (notFoundSubjects.length > 0) {
-        const messageText = `${_lng.basedOnTheFirstMonth.messageText}\n${notFoundSubjects.join(', ')}`;
-        message.set({type: 'warning', text: messageText});
+        const notFoundSubjectsText = `  –  ${notFoundSubjects.join(';\n  –  ')}`;
+        message.set({
+          type: 'warning',
+          text: 'basedOnTheFirstMonth.unfoundSubjects',
+          params: { notFoundSubjects : notFoundSubjectsText }
+        });
       }
     }
   }
@@ -179,25 +183,25 @@
   }
 </script>
 
-<div class="gui" id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
+<div class='gui' id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
 
   <FileInput eId='hours--based-on-the-first-month--hours' extensions={['.xlsx']} type='excel'
     on:fileSelected={event => handleFileInputChange(event.detail)}
     on:fileRemoved={event => handleFileRemove(event.detail)}
   />
 
-  <div class="semester-end">
+  <div class='semester-end'>
     <div>{_lng.basedOnTheFirstMonth.semesterEnd}</div>
-    <input type="text" bind:this={eSemesterEnd} value="{data.semesterEndDate ? `${data.semesterEndDate}`: ""}" class:unavailable={uploadedFile === null}/>
+    <input type='text' bind:this={eSemesterEnd} value='{data.semesterEndDate ? `${data.semesterEndDate}`: ''}' class:unavailable={uploadedFile === null}/>
   </div>
 
-  <div class="hours-per-subject">
-    <div class="label">{_lng.basedOnTheFirstMonth.hoursPerSubject}</div>
-    <div class="list">
+  <div class='hours-per-subject'>
+    <div class='label'>{_lng.basedOnTheFirstMonth.hoursPerSubject}</div>
+    <div class='list'>
       {#each subjectsAndHours as subject, subjectIndex}
-        <div class="row" id={subject.subjectName}>
-          <div class="subject">{subject.subjectName}</div>
-          <input class="hoursCount" value={subject.hours} on:input={(e) => handleInput(e, subjectIndex)}/>
+        <div class='row' id={subject.subjectName}>
+          <div class='subject'>{subject.subjectName}</div>
+          <input class='hoursCount' value={subject.hours} on:input={(e) => handleInput(e, subjectIndex)}/>
         </div>
       {/each}
     </div>

@@ -6,7 +6,7 @@
   let languageListIsOpen = false;
   
   function handleGlobalClick(event) {
-    if (!event.target.className.includes("language") && event.target.tagName !== 'LI' && languageListIsOpen) {
+    if (!event.target.className.includes('language') && event.target.tagName !== 'LI' && languageListIsOpen) {
       const languageList = document.querySelector('.title-bar .language-list');
       languageList.style.opacity = '';
       languageList.style.zIndex = '';
@@ -20,7 +20,7 @@
       const li = document.createElement('li');
       li.textContent = lng;
       if (index === availableLngs.length - 1) {
-        li.className = "last";
+        li.className = 'last';
       }
       li.addEventListener('click', function (event) {
         changeLanguage(event.target.textContent)
@@ -101,14 +101,14 @@
   
 </script>
 
-<div class="title-bar">
-  <div class="program-icon"></div>
-  <button class="language" on:click={showLngList}>{_lng.lng}</button>
-  <ul class="language-list"></ul>
-  <div class="program-name">Sonata</div>
-  <button class="theme-swap" on:click={handleThemeSwap}></button>
-  <button class="minimize" on:click={handleMinimize}>—</button>
-  <button class="close" on:click={handleClose}>✕</button>
+<div class='title-bar'>
+  <div class='program-icon'></div>
+  <button class='language' on:click={showLngList}>{_lng.lng}</button>
+  <ul class='language-list'></ul>
+  <div class='program-name'>Sonata</div>
+  <button class='theme-swap' on:click={handleThemeSwap}></button>
+  <button class='minimize' on:click={handleMinimize}>—</button>
+  <button class='close' on:click={handleClose}>✕</button>
 </div>
 
 <style>

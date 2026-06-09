@@ -31,8 +31,8 @@
   $: if ($selectedSection) {
     if (this_) {
       if ($selectedSection === thisId) {
-        this_.style.zIndex = "1";
-      } else if (this_.style.zIndex !== "-1") {
+        this_.style.zIndex = '1';
+      } else if (this_.style.zIndex !== '-1') {
         setTimeout(() => {
           this_.style.zIndex = -1;
         }, 200);
@@ -82,7 +82,7 @@
       socialyList.some(item => item.studentName === null) ||
       socialyList.some(item => item.status === null)
     ) {
-      message.set({type: 'error', text: _lng.packageOfDocuments.notAllData});
+      message.set({type: 'error', text: 'packageOfDocuments.notAllData'});
       return;
     }
 
@@ -196,7 +196,7 @@
       data = await window.electron.sessionPackageGetInformation(uploadedFile.path);
       console.log(data)
       if (!data) {
-        message.set({type: 'error', text: _lng.inputFile.error});
+        message.set({type: 'error', text: 'inputFile.error'});
         clearInformation.set(thisId)
         return;
       }
@@ -251,8 +251,8 @@
 
   function handleOpenStatusesList(index) {
     const row = document.getElementById(`row-${index}`);
-    const status = row.querySelector(".status");
-    if (!status.hasAttribute("readonly")) {
+    const status = row.querySelector('.status');
+    if (!status.hasAttribute('readonly')) {
       return;
     }
     if (!showedStatusList || currentStudentRow !== index) {
@@ -305,50 +305,50 @@
 
   function handleStatusEnter(index) {
     const row = document.getElementById(`row-${index}`);
-    const editStatus = row.querySelector(".edit-status");
-    editStatus.style.display = "block";
+    const editStatus = row.querySelector('.edit-status');
+    editStatus.style.display = 'block';
   }
   function handleStatusLeave(index) {
     const row = document.getElementById(`row-${index}`);
-    const editStatus = row.querySelector(".edit-status");
-    editStatus.style.display = "none";
+    const editStatus = row.querySelector('.edit-status');
+    editStatus.style.display = 'none';
   }
 
   function handleEditStatusEnter(index) {
     const row = document.getElementById(`row-${index}`);
-    const editStatus = row.querySelector(".edit-status");
-    editStatus.style.display = "block";
+    const editStatus = row.querySelector('.edit-status');
+    editStatus.style.display = 'block';
   }
   function handleEditStatusLeave(index) {
     const row = document.getElementById(`row-${index}`);
-    const editStatus = row.querySelector(".edit-status");
-    editStatus.style.display = "none";
+    const editStatus = row.querySelector('.edit-status');
+    editStatus.style.display = 'none';
   }
   function handleEditStatusClick(index) {
     currentStudentRow = index;
     const row = document.getElementById(`row-${index}`);
-    const status = row.querySelector(".status");
-    const editStatus = row.querySelector(".edit-status");
-    status.style.cursor = "text";
-    status.removeAttribute("readonly");
+    const status = row.querySelector('.status');
+    const editStatus = row.querySelector('.edit-status');
+    status.style.cursor = 'text';
+    status.removeAttribute('readonly');
     status.focus();
     setTimeout(() => status.select(), 0);
-    status.addEventListener("blur", () => {
-      status.setAttribute("readonly", true);
+    status.addEventListener('blur', () => {
+      status.setAttribute('readonly', true);
       status.setSelectionRange(0, 0);
-      status.style.cursor = "pointer";
+      status.style.cursor = 'pointer';
       if (currentStudentRow !== null) {
         list[currentStudentRow].status = status.value;
         list = [...list];
         currentStudentRow = null;
       }
     }, { once: true });
-    editStatus.style.display = "none";
+    editStatus.style.display = 'none';
   }
 
   function handleLabelClick(label) {
     const choiceMark = document.querySelector(`.social-scholarship .choice-mark`);
-    if (label === "label1" && choiceMark.style.left !== '429px') {
+    if (label === 'label1' && choiceMark.style.left !== '429px') {
       increasedList = list;
       list = socialyList;
       currentList = 'socialy';
@@ -357,7 +357,7 @@
       setTimeout(() => {
         choiceMark.style.width = '270px';
       }, 200);
-    } else if (label === "label2" && choiceMark.style.left !== '710px') {
+    } else if (label === 'label2' && choiceMark.style.left !== '710px') {
       socialyList = list;
       list = increasedList;
       currentList = 'increased';
@@ -386,37 +386,37 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 
-<div class="gui" id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
+<div class='gui' id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
   
   <FileInput eId='session--package-of-documents--statements' extensions={['.xlsx']} type='excel'
     on:fileSelected={event => handleFileInputChange(event.detail)}
     on:fileRemoved={event => handleFileRemove(event.detail)}
   />
 
-  <div class="social-scholarship">
-    <div class="choice-mark"/>
-    <div class="label1" on:click={() => handleLabelClick("label1")}>{_lng.packageOfDocuments.socialScholarship.label1}</div>
-    <div class="label2" on:click={() => handleLabelClick("label2")}>{_lng.packageOfDocuments.socialScholarship.label2}</div>
-    <div class="list" bind:this={eList}>
+  <div class='social-scholarship'>
+    <div class='choice-mark'/>
+    <div class='label1' on:click={() => handleLabelClick('label1')}>{_lng.packageOfDocuments.socialScholarship.label1}</div>
+    <div class='label2' on:click={() => handleLabelClick('label2')}>{_lng.packageOfDocuments.socialScholarship.label2}</div>
+    <div class='list' bind:this={eList}>
       {#each list as item, index}
-        <div class="row" id={"row-" + index} class:unavailable={uploadedFile === null}
-          style="grid-template-columns: {currentList === 'socialy' ? '25px 1fr 240px' : '25px 1fr 0px'};"
+        <div class='row' id={'row-' + index} class:unavailable={uploadedFile === null}
+          style='grid-template-columns: {currentList === "socialy" ? "25px 1fr 240px" : "25px 1fr 0px"};'
         >
-          <div class="remove" on:click={() => handleRemoveRow(index)}>✕</div> 
-          <div class="student" on:click={() => handleOpenStudentsList(index)}>
+          <div class='remove' on:click={() => handleRemoveRow(index)}>✕</div> 
+          <div class='student' on:click={() => handleOpenStudentsList(index)}>
             {item.studentName ? item.studentName : _lng.packageOfDocuments.list.student}
           </div>
-          <input class="status" type="text" readonly 
-            value={currentList === 'socialy' ? item.status ? item.status : _lng.packageOfDocuments.list.status : ""}
+          <input class='status' type='text' readonly 
+            value={currentList === 'socialy' ? item.status ? item.status : _lng.packageOfDocuments.list.status : ''}
             on:click={() => handleOpenStatusesList(index)} on:mouseenter={() => handleStatusEnter(index)} on:mouseleave={() => handleStatusLeave(index)}/>
-          <div class="edit-status" on:click={() => handleEditStatusClick(index)} on:mouseenter={() => handleEditStatusEnter(index)} on:mouseleave={() => handleEditStatusLeave(index)}></div>
+          <div class='edit-status' on:click={() => handleEditStatusClick(index)} on:mouseenter={() => handleEditStatusEnter(index)} on:mouseleave={() => handleEditStatusLeave(index)}></div>
         </div>
       {/each}
     </div>
-    <ul class="students-by-specialty" bind:this={eStudentsBySpecialty}>
+    <ul class='students-by-specialty' bind:this={eStudentsBySpecialty}>
       {#each Object.entries(studentNamesByCode) as [specialityCode, object]}
-        <div class="speciality-code">----- {specialityCode} -----</div>
-        <ul class="students">
+        <div class='speciality-code'>----- {specialityCode} -----</div>
+        <ul class='students'>
           {#each object.students as studentName, studentIndex} 
             <li on:click={() => handleSetStudent(studentName, studentIndex, object.specialityIndex)}>
               {studentName}
@@ -425,42 +425,42 @@
         </ul>
       {/each}
     </ul>
-    <ul class="status-list" bind:this={eStatusList}>
+    <ul class='status-list' bind:this={eStatusList}>
       {#each statusesList as status}
         <li on:click={() => handleSetStatus(status)}>
           {status}
         </li>
       {/each}
     </ul>
-    <div class="add" on:click={handleAddRow} class:unavailable={uploadedFile === null}></div>
+    <div class='add' on:click={handleAddRow} class:unavailable={uploadedFile === null}></div>
   </div>
 
-  <div class="percentage-of-scholarship">
+  <div class='percentage-of-scholarship'>
     <div>{_lng.packageOfDocuments.percentageOfScholarship}</div>
-    <input type="text" bind:this={ePercentage} value={data.percentage} class:unavailable={uploadedFile === null}/>
+    <input type='text' bind:this={ePercentage} value={data.percentage} class:unavailable={uploadedFile === null}/>
   </div>
 
-  <div class="data-block" id="semester-dates">
-    <div class="label">{_lng.packageOfDocuments.semesterDates.label}</div>
-    <div class="row" id="start">
+  <div class='data-block' id='semester-dates'>
+    <div class='label'>{_lng.packageOfDocuments.semesterDates.label}</div>
+    <div class='row' id='start'>
       <div>{_lng.packageOfDocuments.semesterDates.start}</div>
-      <input type="text" bind:this={eSemesterStart} value={data.semesterStart} class:unavailable={uploadedFile === null}/>
+      <input type='text' bind:this={eSemesterStart} value={data.semesterStart} class:unavailable={uploadedFile === null}/>
     </div>
-    <div class="row" id="end">
+    <div class='row' id='end'>
       <div>{_lng.packageOfDocuments.semesterDates.end}</div>
-      <input type="text" bind:this={eSemesterEnd} value={data.semesterEnd} class:unavailable={uploadedFile === null}/>
+      <input type='text' bind:this={eSemesterEnd} value={data.semesterEnd} class:unavailable={uploadedFile === null}/>
     </div>
   </div>
 
-  <div class="data-block" id="class-teacher-name">
-    <div class="label">{_lng.packageOfDocuments.classTeacherName.label}</div>
-    <div class="row" id="nominative">
+  <div class='data-block' id='class-teacher-name'>
+    <div class='label'>{_lng.packageOfDocuments.classTeacherName.label}</div>
+    <div class='row' id='nominative'>
       <div>{_lng.packageOfDocuments.classTeacherName.nominative}</div>
-      <input type="text" bind:this={eKuratorNom} value={data.kuratorNom} class:unavailable={uploadedFile === null}/>
+      <input type='text' bind:this={eKuratorNom} value={data.kuratorNom} class:unavailable={uploadedFile === null}/>
     </div>
-    <div class="row" id="genitive">
+    <div class='row' id='genitive'>
       <div>{_lng.packageOfDocuments.classTeacherName.genitive}</div>
-      <input type="text" bind:this={eKuratorGen} value={data.kuratorGen} class:unavailable={uploadedFile === null}/>
+      <input type='text' bind:this={eKuratorGen} value={data.kuratorGen} class:unavailable={uploadedFile === null}/>
     </div>
   </div>
 

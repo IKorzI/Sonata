@@ -1,6 +1,6 @@
-import { ipcMain } from "electron";
+import { ipcMain } from 'electron';
 import XlsxPopulate from 'xlsx-populate';
-import { findCell } from "../utils.js";
+import { findCell } from '../utils.js';
 
 // Проверка, число ли значение
 function getNumericValue(val) {
@@ -52,7 +52,7 @@ async function getInfo(filePath, type) {
   // --- Получение одинаковых данных во всех листах ---
   const sheet = workbook.sheet(filteredSheetNames[0]);
   // Группа
-  const groupCode = sheet.cell(7, 3).value().split(" ")[1];
+  const groupCode = sheet.cell(7, 3).value().split(' ')[1];
 
   // Итерируем по отфильтрованным листам
   let students = [];
@@ -60,14 +60,14 @@ async function getInfo(filePath, type) {
   filteredSheetNames.forEach(sheetName => {
     const sheet = workbook.sheet(sheetName);
     // Код специальности
-    const specialityCode = sheet.cell(5, 3).value().split(" ")[3];
+    const specialityCode = sheet.cell(5, 3).value().split(' ')[3];
     specialityCodes.push(specialityCode);
 
     // строка последнего студента
-    findedCell = findCell(sheet, undefined, "down", {row: 10, column: 4});
+    findedCell = findCell(sheet, undefined, 'down', {row: 10, column: 4});
     const endRow = findedCell.row - 1;
     // столбец среднего балла
-    findedCell = findCell(sheet, "Середній бал", "right", {row: 8, column: 5});
+    findedCell = findCell(sheet, 'Середній бал', 'right', {row: 8, column: 5});
     const endCol = findedCell.column;
     
     let step = -1;
@@ -81,18 +81,18 @@ async function getInfo(filePath, type) {
             step += 1;
             const studentShortName = formatFio(sheet.cell(row, 5).value())
             students[step] = {
-              "studentName": studentShortName,
-              "bc": sheet.cell(row, 3).value(),
-              "grades": []
+              'studentName': studentShortName,
+              'bc': sheet.cell(row, 3).value(),
+              'grades': []
             };
           }
           const text = sheet.cell(9, col).value();
           const lines = text.split(/\r?\n/);
-          const grade = !value ? "н/а" : value;
+          const grade = !value ? 'н/а' : value;
           const element = {
-            "subjectName": lines[0],
-            "teacherName": lines[1],
-            "grade": grade
+            'subjectName': lines[0],
+            'teacherName': lines[1],
+            'grade': grade
           }
           students[step].grades.push(element);
         }
@@ -102,9 +102,9 @@ async function getInfo(filePath, type) {
   });
 
   const answer = {
-    "groupCode": groupCode,
-    "students": students,
-    "specialityCodes": specialityCodes
+    'groupCode': groupCode,
+    'students': students,
+    'specialityCodes': specialityCodes
   }
 
   return answer;

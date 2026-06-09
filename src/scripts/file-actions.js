@@ -1,6 +1,6 @@
-import { ipcMain, dialog } from "electron";
-import path from "path";
-import fs from "fs";
+import { ipcMain, dialog } from 'electron';
+import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);

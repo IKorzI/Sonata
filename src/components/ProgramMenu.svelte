@@ -50,35 +50,35 @@
   });
 </script>
 
-<div class="program-menu" >
-  <div class="choice-mark"/>
+<div class='program-menu' >
+  <div class='choice-mark'/>
 
-  <div class="section-list">
+  <div class='section-list'>
 
-    <div class="group-of-sections" id="session">
-      <div class="line-with-text">
-        <span class="section-title">{_lng.programMenu.session.sectionTitle}</span>
+    <div class='group-of-sections' id='session'>
+      <div class='line-with-text'>
+        <span class='section-title'>{_lng.programMenu.session.sectionTitle}</span>
       </div>
-      <SectionButton on:sectionclick={selectSection} id="package-of-documents" text={_lng.programMenu.session.packageOfDocuments} />
-      <SectionButton on:sectionclick={selectSection} id="empty-statements" text={_lng.programMenu.session.emptyStatements} />
-      <SectionButton on:sectionclick={selectSection} id="report" text={_lng.programMenu.session.report} />
-      <SectionButton on:sectionclick={selectSection} id="debtors" text={_lng.programMenu.session.debtors} />
+      <SectionButton on:sectionclick={selectSection} id='package-of-documents' text={_lng.programMenu.session.packageOfDocuments} />
+      <SectionButton on:sectionclick={selectSection} id='empty-statements' text={_lng.programMenu.session.emptyStatements} />
+      <SectionButton on:sectionclick={selectSection} id='report' text={_lng.programMenu.session.report} />
+      <SectionButton on:sectionclick={selectSection} id='debtors' text={_lng.programMenu.session.debtors} />
     </div>
 
-    <div class="group-of-sections" id="hours">
-      <div class="line-with-text">
-        <span class="section-title">{_lng.programMenu.hours.sectionTitle}</span>
+    <div class='group-of-sections' id='hours'>
+      <div class='line-with-text'>
+        <span class='section-title'>{_lng.programMenu.hours.sectionTitle}</span>
       </div>
-      <SectionButton on:sectionclick={selectSection} id="based-on-the-first-month" text={_lng.programMenu.hours.basedOnTheFirstMonth} />
-      <SectionButton on:sectionclick={selectSection} id="summary-of-teachers" text={_lng.programMenu.hours.summaryOfTeachers} />
+      <SectionButton on:sectionclick={selectSection} id='based-on-the-first-month' text={_lng.programMenu.hours.basedOnTheFirstMonth} />
+      <SectionButton on:sectionclick={selectSection} id='summary-of-teachers' text={_lng.programMenu.hours.summaryOfTeachers} />
     </div>
 
-    <div class="group-of-sections" id="other">
-      <div class="line-with-text">
-        <span class="section-title">{_lng.programMenu.other.sectionTitle}</span>
+    <div class='group-of-sections' id='other'>
+      <div class='line-with-text'>
+        <span class='section-title'>{_lng.programMenu.other.sectionTitle}</span>
       </div>
-      <SectionButton on:sectionclick={selectSection} id="templates" text={_lng.programMenu.other.templates} />
-      <SectionButton on:sectionclick={selectSection} id="other" text={_lng.programMenu.other.other} />
+      <SectionButton on:sectionclick={selectSection} id='templates' text={_lng.programMenu.other.templates} />
+      <SectionButton on:sectionclick={selectSection} id='other' text={_lng.programMenu.other.other} />
     </div>
 
   </div>
@@ -114,7 +114,7 @@
 
   .line-with-text::before,
   .line-with-text::after {
-    content: "";
+    content: '';
     flex: 1;
     height: 2px;
     background: rgb(153, 153, 153);

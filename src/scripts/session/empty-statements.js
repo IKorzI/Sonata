@@ -1,6 +1,6 @@
-import { ipcMain } from "electron";
+import { ipcMain } from 'electron';
 import XlsxPopulate from 'xlsx-populate';
-import { specNames } from "../utils.js";
+import { specNames } from '../utils.js';
 
 // Функция для проверки, входит ли ячейка в объединенный диапазон
 function getMergeRangeForCell(sheet, cell) {
@@ -45,9 +45,9 @@ async function getInfoContingent(filePath) {
   filteredSheetNames.forEach(sheetName => {
     const sheet = workbook.sheet(sheetName);
     groups[sheetName] = {
-      "kuratorNom": "",
-      "subgroups": [],
-      "students": []
+      'kuratorNom': '',
+      'subgroups': [],
+      'students': []
     };
 
     let row = 9;
@@ -81,16 +81,16 @@ async function getInfoContingent(filePath) {
       if (newSpec) {
         newSpec = false;
         groups[sheetName].subgroups.push({
-          "specialityCode": specCode,
-          "specialityName": (typeof specNames !== 'undefined' ? specNames[specCode] : specCode),
-          "studentIDs": []
+          'specialityCode': specCode,
+          'specialityName': (typeof specNames !== 'undefined' ? specNames[specCode] : specCode),
+          'studentIDs': []
         });
       }
 
       // --- ИЗМЕНЕНИЯ НАЧИНАЮТСЯ ЗДЕСЬ ---
 
       // 1. Создаем объект студента
-      const studentObj = { "studentName": cell4Val, "bc": cell5Val };
+      const studentObj = { 'studentName': cell4Val, 'bc': cell5Val };
 
       // 2. Добавляем объект во временный список внутри специальности
       if (groups[sheetName].subgroups[step]) {
@@ -109,7 +109,7 @@ async function getInfoContingent(filePath) {
     const kuratorCellText = sheet.cell(row + 1, 4).value();
     
     if (kuratorCellText && typeof kuratorCellText === 'string') {
-      const parts = kuratorCellText.split("керівник ");
+      const parts = kuratorCellText.split('керівник ');
       if (parts.length > 1) {
         groups[sheetName].kuratorNom = parts[1];
       }
@@ -140,14 +140,14 @@ async function getInfoContingent(filePath) {
   const semesterNumber = monthNumber > 7 ? 1 : 2;
   const semesterRoman = semesterNumber === 1 ? 'I' : 'II';
   const years = semesterNumber === 1 ? `${yearNumber}-${yearNumber + 1}` : `${yearNumber - 1}-${yearNumber}`;
-  const year = semesterNumber === 1 ? `${yearNumber}` : `${yearNumber - 1}`;
+  const year = `${yearNumber}`;
 
   return {
-    "groups": groups,
-    "semesterNumber": semesterNumber,
-    "semesterRoman": semesterRoman,
-    "years": years,
-    "year": year
+    'groups': groups,
+    'semesterNumber': semesterNumber,
+    'semesterRoman': semesterRoman,
+    'years': years,
+    'year': year
   };
 }
 
@@ -162,7 +162,7 @@ async function getInfoHours(filePath) {
 
   filteredSheetNames.forEach(sheetName => {
     const sheet = workbook.sheet(sheetName);
-    groups[sheetName] = { "subjects": [] };
+    groups[sheetName] = { 'subjects': [] };
     
     let row = 12;
     
@@ -177,8 +177,8 @@ async function getInfoHours(filePath) {
       }
 
       groups[sheetName].subjects.push({
-        "subjectName": cell4Val,
-        "teacherName": cell5Val
+        'subjectName': cell4Val,
+        'teacherName': cell5Val
       });
 
       row++;

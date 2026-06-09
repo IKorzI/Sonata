@@ -5,13 +5,13 @@ import lng_ru from './language/ru.json';
 import lng_uk from './language/uk.json';
 import lng_en from './language/en.json';
 const lngs = {
-  "ru": unflattenStyles(lng_ru),
-  "uk": unflattenStyles(lng_uk),
-  "en": unflattenStyles(lng_en)
+  'ru': unflattenStyles(lng_ru),
+  'uk': unflattenStyles(lng_uk),
+  'en': unflattenStyles(lng_en)
 }
 
 // Загружаем данные по умолчанию (uk)
-const defaultLng = lngs["uk"];
+const defaultLng = lngs['uk'];
 
 // Функция для смены языка
 export async function changeLanguage(language) {
