@@ -6,6 +6,7 @@
 Працюйте з документами, заощаджуючи до 95% часу з програмним забеспеченням для фахових коледжів!
 
 ![Превью](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/preview.png)
+<video src="./media/my-video.mp4" autoplay loop muted playsinline width="100%"></video>
 
 ## Переваги:
  * Програма побудована на базі Electron та Svelte, що забезпечує модульність користувацького інтерфейсу та чітке розділення логіки між окремими компонентами.
