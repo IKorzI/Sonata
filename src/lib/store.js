@@ -15,6 +15,7 @@ export const transition = writable('0s');
 
 export { themeSwap } from './theme.js';
 export { changeLanguage, availableLngs } from './language.js';
+export { textFilter, handleInput } from './handle-input.js';
 
 import { start as startTheme } from './theme.js';
 import { start as startLanguage } from './language.js';

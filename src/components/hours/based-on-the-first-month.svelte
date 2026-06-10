@@ -1,15 +1,16 @@
 <script>
-  import { selectedSection, clearInformation, saveInformation, savedInformation, message, lng } from '../../lib/store.js'
+  import { selectedSection, clearInformation, saveInformation, savedInformation, message, lng, textFilter, handleInput } from '../../lib/store.js'
   import FileInput from '../FileInput.svelte';
   import { tick } from 'svelte';
   
-  // ========== ЗАПОЛНИТЬ ==========
+  // Ідентифікатор компоненту
   let thisId = 'hours--based-on-the-first-month';
-  // ===============================
 
+  // Автоматичне оновлення мови програми
   let _lng = {};
   lng.subscribe(value => (_lng = value));
 
+  // Години по предметах за 1-й та 2-й семестри
   const hoursPerSubject = [
     {
         'Біологія':               34,
@@ -46,50 +47,69 @@
     },
   ];
 
-  let this_
-  let uploadedFile = null;
-  let data = {semesterEnd: null};
-  let eSemesterEnd;
-  let subjectsAndHours = [];
+  let this_                         // Даний компонент
+  let uploadedFile = null;          // Завантажений файл
+  let data = {semesterEnd: null};   // Отримана інформація (semesterEnd внесено для коректного відображення пустого значення на сторінці)
+  let eSemesterEnd;                 // Елемент input для вводу кінця семестра
+  let subjectsAndHours = [];        // Список елементів предмет-години, отриманих з файлу та відредаговані користувачем
 
+  // Підписання на:
+  //   – відображення компоненту
   $: if ($selectedSection) {
+    // Якщо компонент вже завантажено
     if (this_) {
+      // Якщо ідентифікатор обраної сецкції, це ідентифікатор компоненту
       if ($selectedSection === thisId) {
+        // зробити доступним для користувача
         this_.style.zIndex = '1';
+      // Якщо ідентифікатор обраної сецкції, це не ідентифікатор компоненту
       } else if (this_.style.zIndex !== '-1') {
+        // зробити недоступним для користувача з затримкою для виконання усіх анімацій
         setTimeout(() => {
           this_.style.zIndex = -1;
         }, 200);
       }
     }
   }
+  //   – очищення внесених даних
   $: if ($clearInformation) {
+    // Якщо ідентифікатор очищення внесених даних, це ідентифікатор компоненту
     if ($clearInformation === thisId) {
+      // Очистити усі дані
       clearAll()
+      // Очистити ідентифікатор очищення внесених даних з затримкою, щоб компонент FileInput теж встиг очиститися
       setTimeout(() => {
         clearInformation.set(null)
       }, 50)
     }
   }
+  //   – збереження внесених даних для подальшої роботи з ними
   $: if ($saveInformation) {
+    // Якщо ідентифікатор збереження внесених даних, це ідентифікатор компоненту
     if ($saveInformation === thisId) {
+      // Зберегти усі дані
       saveAll()
+      // Очистити ідентифікатор збереження внесених даних
       saveInformation.set(null)
     }
   }
 
+  // Очищення внесених даних
   function clearAll() {
     uploadedFile = null;
     subjectsAndHours = [];
     data = {semesterEnd: null};
   }
 
+  // Збереження внесених даних
   async function saveAll() {
+    // Перевірка, чи все, що потрібно, внесено
     if (uploadedFile === null || eSemesterEnd.value === '' || subjectsAndHours.length === 0) {
       message.set({type: 'error', text: 'basedOnTheFirstMonth.notAllData'});
       return;
     }
 
+    // Збирання усієї внесеної інформації в одне ціле
     let endInformation = {
       ...data,
       semesterEndDate: eSemesterEnd.value,
@@ -98,110 +118,120 @@
       hoursPerSubject: subjectsAndHours
     }
 
-    console.log(endInformation)
+    // Проходження даних через фінальне доповнення та комплектацію перед відправкою до бекенду
     endInformation = await window.electron.hoursBasedDataSupplement(endInformation);
-    console.log(endInformation)
     
+    // Запис фінальних даних
     savedInformation.set(endInformation);
   }
 
+  // Обробка завантаження файлу
   async function handleFileInputChange(detail) {
+    // Якщо window не ініціалізована (додаток запущено у режимі vite-серверу без Electron) повернутися
     if (!window.electron) return;
-    if (detail.id === 'hours--based-on-the-first-month--hours') {
-      uploadedFile = detail.file;
-      data = await window.electron.hoursBasedGetInformation(uploadedFile.path);
-      console.log(data);
-      if (!data) {
-        message.set({type: 'error', text: 'inputFile.error'});
-        clearInformation.set(thisId)
-        return;
-      }
-      const parts = data.semesterStartDate.split('.');
-      const month = parseInt(parts[1], 10);
-      let semesterNumber;
-      if (month > 7) {
-        semesterNumber = 1;
+
+    // Запис отриманого файлу
+    uploadedFile = detail.file;
+    // Отримання інформації з файлу
+    data = await window.electron.hoursBasedGetInformation(uploadedFile.path);
+
+    // У разі помилки при отриманні інформації повертається false
+    if (!data) {
+      // Запис інформації про помилку для відображення користувачеві
+      message.set({type: 'error', text: 'inputFile.error'});
+      // Очищення внесеної інформації
+      clearInformation.set(thisId)
+      return;
+    }
+
+    // Отримання номера семестра
+    const parts = data.semesterStartDate.split('.');
+    const month = parseInt(parts[1], 10);
+    const semesterNumber = month > 7 ? 1 : 2;
+
+    // Отримання списку елементів предмет-години
+    subjectsAndHours = [];
+    const subjects = data.groups[0].subjects;
+    const notFoundSubjects = []; // Премдети, які не були знайдені будуть відображені користувачеві в окні попередження
+    for (const subject of subjects) {
+      // Отримання годин зі словника
+      const hours = hoursPerSubject[semesterNumber - 1][subject.subjectName];
+      // Якщо такий предмет існує і години були знайдені
+      if (hours) {
+        subjectsAndHours.push({subjectName: subject.subjectName, hours: hours});
+      // Якщо такий предмет не існує і години не були знайдені
       } else {
-        semesterNumber = 2;
-      }
-      subjectsAndHours = [];
-      const subjects = data.groups[0].subjects;
-      const notFoundSubjects = [];
-      for (const subject of subjects) {
-        const hours = hoursPerSubject[semesterNumber - 1][subject.subjectName];
-        if (hours !== undefined) {
-          subjectsAndHours.push({subjectName: subject.subjectName, hours: hours});
-        } else {
-          subjectsAndHours.push({subjectName: subject.subjectName, hours: '--'});
-          notFoundSubjects.push(subject.subjectName);
-        }
-      }
-      
-      if (notFoundSubjects.length > 0) {
-        const notFoundSubjectsText = `  –  ${notFoundSubjects.join(';\n  –  ')}`;
-        message.set({
-          type: 'warning',
-          text: 'basedOnTheFirstMonth.unfoundSubjects',
-          params: { notFoundSubjects : notFoundSubjectsText }
-        });
+        subjectsAndHours.push({subjectName: subject.subjectName, hours: '--'});
+        notFoundSubjects.push(subject.subjectName);
       }
     }
-  }
-
-  function handleFileRemove(detail) {
-    if (!window.electron) return;
-    if (detail.id === 'hours--based-on-the-first-month--hours') {
-      uploadedFile = null;
-    }
-  }
-
-  async function handleInput(event, subjectIndex) {
-    const input = event.target;
     
-    // 1. Запоминаем текущую позицию курсора (которую поставил браузер после ввода)
+    // Якщо є хочаб 1 предмет, що не було знайдено у словнику – відобразити це користувачеві
+    if (notFoundSubjects.length > 0) {
+      // Формування тексту зі списку
+      const notFoundSubjectsText = `  –  ${notFoundSubjects.join(';\n  –  ')}`;
+      message.set({
+        type: 'warning',                                    // Тип повідомлення
+        text: 'basedOnTheFirstMonth.unfoundSubjects',       // Ключ зі словника перекладу
+        params: { notFoundSubjects : notFoundSubjectsText } // Текст, що був сформований вище
+      });
+    }
+  }
+
+  // Обробка видалення файлу
+  function handleFileRemove(detail) {
+    // Якщо window не ініціалізована (додаток запущено у режимі vite-серверу без Electron) повернутися
+    if (!window.electron) return;
+    // Видалення запису про файл
+    uploadedFile = null;
+  }
+
+  // Обробка введення годин
+  async function handleHoursInput(event, subjectIndex) {
+    // Отримання елементу input
+    const input = event.target;
+    // Запис поточної позиції курсору, яку поставив браузер після введення
     const cursorStart = input.selectionStart;
     const originalValue = input.value;
-
-    // 2. Чистим значение (удаляем всё кроме цифр)
-    const cleanValue = originalValue.replace(/[^0-9]/g, '');
-
-    // 3. Обновляем данные
+    // Очистка значення (видалення всього крім цифр)
+    const cleanValue = textFilter(originalValue, { numbers: true });
+    // Оновлення тексту
     subjectsAndHours[subjectIndex].hours = cleanValue;
-    input.value = cleanValue; // Обновляем визуально сразу
-
-    // Вычисляем смещение курсора.
-    // Если мы удалили символ (например, букву), длина уменьшилась.
-    // Нам нужно вернуть курсор назад на количество удаленных символов.
+    input.value = cleanValue;
+    // Обчислення зміщення курсору
     const diff = originalValue.length - cleanValue.length;
     const newCursorPos = cursorStart - diff;
-
-    // 4. Ждем, пока Svelte закончит свои дела с DOM
+    // Очікування Svelte
     await tick();
-
-    // 5. Восстанавливаем курсор на правильную позицию
+    // Встановлення курсору на правильну позицію
     input.setSelectionRange(newCursorPos, newCursorPos);
   }
 </script>
 
+<!-- Компонент -->
 <div class='gui' id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
 
+  <!-- Компонент FileInput для завантаження файлів -->
   <FileInput eId='hours--based-on-the-first-month--hours' extensions={['.xlsx']} type='excel'
     on:fileSelected={event => handleFileInputChange(event.detail)}
     on:fileRemoved={event => handleFileRemove(event.detail)}
   />
 
+  <!-- Блок FileInput для завантаження файлів -->
   <div class='semester-end'>
     <div>{_lng.basedOnTheFirstMonth.semesterEnd}</div>
-    <input type='text' bind:this={eSemesterEnd} value='{data.semesterEndDate ? `${data.semesterEndDate}`: ''}' class:unavailable={uploadedFile === null}/>
+    <input type='text' bind:this={eSemesterEnd} value='{data.semesterEndDate ? `${data.semesterEndDate}`: ''}' class:unavailable={uploadedFile === null} on:input={(e) => handleInput(e.target, { numbers: true, period: true })}/>
   </div>
 
+  <!-- Таблиця елементів предмет-години -->
   <div class='hours-per-subject'>
     <div class='label'>{_lng.basedOnTheFirstMonth.hoursPerSubject}</div>
     <div class='list'>
+      <!-- Автоматичне створення елементів відносно списку subjectsAndHours -->
       {#each subjectsAndHours as subject, subjectIndex}
         <div class='row' id={subject.subjectName}>
           <div class='subject'>{subject.subjectName}</div>
-          <input class='hoursCount' value={subject.hours} on:input={(e) => handleInput(e, subjectIndex)}/>
+          <input class='hoursCount' value={subject.hours} on:input={(e) => handleHoursInput(e, subjectIndex)}/>
         </div>
       {/each}
     </div>
@@ -210,7 +240,8 @@
 </div>
 
 <style>
-  
+
+  /* Індивідуальні стилі для компоненту FileInput */
   :global(.file-input#hours--based-on-the-first-month--hours) {
     position: absolute;
   }
@@ -220,6 +251,7 @@
     left: -10px;
   }
 
+  /* Інші стилі */
   .semester-end {
     position: absolute;
     top: 240px;
@@ -254,7 +286,7 @@
   }
 
   .hours-per-subject::-webkit-scrollbar {
-    display: none; /* Chrome, Safari и Edge */
+    display: none;
   }
   
   .list .row {

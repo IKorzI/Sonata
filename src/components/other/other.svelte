@@ -2,22 +2,30 @@
   import { onMount } from 'svelte';
   import { whatDocument, selectedSection, lng, message } from '../../lib/store.js'
 
-  // ========== ЗАПОЛНИТЬ ==========
+  // Ідентифікатор компоненту
   let thisId = 'other--other';
-  // ===============================
 
+  // Автоматичне оновлення мови програми
   let _lng = {};
   lng.subscribe(value => (_lng = value));
   
-  let this_, isScreenshotMode = false
-  let eSemester1Start, eSemester1End, eSemester2Start, eSemester2End
-  let elComplete, isProcessing = false, isComleting = false;
+  let this_ // Даний компонент
+  let isScreenshotMode = false // Режим скріншоту
+  let eSemester1Start, eSemester1End, eSemester2Start, eSemester2End // Елементи input для введення дат початку та дат кінця семестрів
+  let elComplete, isProcessing = false, isComleting = false; // Окрема кнопка "Старт", тому окремі змінні для неї
 
+  // Підписання на:
+  //   – відображення компоненту
   $: if ($selectedSection) {
+    // Якщо компонент вже завантажено
     if (this_) {
+      // Якщо ідентифікатор обраної сецкції, це ідентифікатор компоненту
       if ($selectedSection === thisId) {
+        // зробити доступним для користувача
         this_.style.zIndex = '1';
+      // Якщо ідентифікатор обраної сецкції, це не ідентифікатор компоненту
       } else if (this_.style.zIndex !== '-1') {
+        // зробити недоступним для користувача з затримкою для виконання усіх анімацій
         setTimeout(() => {
           this_.style.zIndex = -1;
         }, 200);
@@ -25,29 +33,40 @@
     }
   }
 
+  // Зміна режиму скріншота
   function screenshotMode() {
+    // Якщо window не ініціалізована (додаток запущено у режимі vite-серверу без Electron) повернутися
     if (!window.electron) return;
+    // Зміна режиму у бекенді
     window.electron.screenshotMode(!isScreenshotMode);
+    // Зміна режиму у фронтенді
     isScreenshotMode = !isScreenshotMode
   }
 
+  // При завантаженні компоненту у DOM
   onMount(() => {
+    // Якщо window ініціалізована (додаток запущено в Electron) і наявний метод onExcelHtml
+    // ПОСМОТРЕТЬ
     if (window.electron?.onExcelHtml) {
       window.electron.onExcelHtml(html => {
         window.electron.sendToMain('excel-html', html);
       });
     }
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth() + 1;
-    const semNum = month >= 7 ? 1 : 2
+
+    // Отримання поточної дати та розрахунок номера семестру
+    const now = new Date();             // Дата
+    const year = now.getFullYear();     // Рік
+    const month = now.getMonth() + 1;   // Місяць
+    const semNum = month >= 7 ? 1 : 2;  // Номер семестру
     
+    // Автоматичний запис розрахованих дат в елементи input 
     eSemester1Start.value  = semNum === 1  ?  `01.09.${year}`      :  `01.09.${year - 1}`
     eSemester1End.value    = semNum === 1  ?  `31.12.${year}`      :  `31.12.${year - 1}`
     eSemester2Start.value  = semNum === 1  ?  `01.01.${year + 1}`  :  `01.01.${year}`
     eSemester2End.value    = semNum === 1  ?  `30.06.${year + 1}`  :  `30.06.${year}`
   });
 
+  // Анімація успіху
   function completeAnimation() {
     elComplete.style.transition = 'clip-path 0s';
     elComplete.style.clipPath = 'inset(0 100% 0 0)';
@@ -69,7 +88,9 @@
     }, 1100);
   }
 
+  // Індивідуальна обробка натискання на кнопку "Старт"
   async function numDenStart() {
+    // Перевірка, чи все, що потрібно, внесено
     if (
       eSemester1Start.value === '' ||
       eSemester1End.value === '' ||
@@ -80,12 +101,16 @@
       return;
     }
     
+    // Запит у користувача шляху для збереження
     const targetPath = await window.electron.saveDialog(_lng.other.numDen.saveName, '.xlsx');
+    // Якщо відмова – повернутися
     if (!targetPath) return;
 
+    // Якщо вже виконується робота – повернутися
     if (isProcessing) return;
-    isProcessing = true;
+    isProcessing = true; // Виконується процес
 
+    // Збирання усієї інформації в одне ціле
     const data = {
       id: `${thisId}--num-den`,
       semester1Start: eSemester1Start.value,
@@ -95,18 +120,20 @@
       filePath: targetPath
     };
 
+    // Запуск функції у бекенді і очікування відповіді
     let result = await window.electron.startBackendFunc(data);
-    console.log(result)
 
-    isComleting = true
-    isProcessing = false;
-    completeAnimation()
+    // Завершення та анімація завершення
+    isComleting = true;   // Виконується анімація успіху
+    isProcessing = false; // Виконання процесу завершено
+    completeAnimation();  // Анімація успіху
   }
 
+  // Обробка натискання на знак питання
   function handleWhat() {
+    // Запис ідентифікатору зображення, що цікавить користувача
     whatDocument.set(`${thisId}--num-den`)
   }
-
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
