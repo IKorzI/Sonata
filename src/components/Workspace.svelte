@@ -63,44 +63,72 @@
   async function start() {
     if (isProcessing || $savedInformation?.id === undefined) return;
     isProcessing = true;
-    let result = await window.electron.startBackendFunc($savedInformation);
-    console.log(result);
-    
-    if (result.success === true && (result.files?.length > 0 || result.customText)) {
-      let messageFromTheBackendData = {};
 
-      if (result.files.length > 0) {
-        const filesText = `  –  ${result.files.join(';\n  –  ')}`;
-        messageFromTheBackendData.filesText = filesText
+    try {
+      // Получаем полный ответ от бэкенда (конверт)
+      let backendResponse = await window.electron.startBackendFunc($savedInformation);
+      console.log(backendResponse);
+
+      // 1. Проверяем, пришла ли ошибка из Python
+      // (camelizeKeys в .js превратит traceback в traceback, а error в error)
+      if (backendResponse.error) {
+        const errorText = `Ошибка: ${backendResponse.error}\n\nТрассировка:\n${backendResponse.traceback}`;
+        
+        message.set({
+          type: 'error',
+          text: errorText
+        });
+        
+        return; // Прерываем дальнейшее выполнение успешного сценария
       }
-      
-      if (result.customText) {
-        messageFromTheBackendData.customText = result.customText
+
+      // 2. Если ошибки нет, достаем полезную нагрузку
+      // Так как Python теперь возвращает { req_id, result }, ваши данные лежат в поле result
+      let result = backendResponse.result || backendResponse;
+
+      if (result.success === true && (result.files?.length > 0 || result.customText)) {
+        let messageFromTheBackendData = {};
+
+        if (result.files?.length > 0) {
+          const filesText = `  –  ${result.files.join(';\n  –  ')}`;
+          messageFromTheBackendData.filesText = filesText;
+        }
+        
+        if (result.customText) {
+          messageFromTheBackendData.customText = result.customText;
+        }
+        
+        message.set({
+          type: 'warning',
+          text: '',
+          params: { messageFromTheBackendData: messageFromTheBackendData }
+        });
+
+      } else if (result.success === true && result.notFoundSubjects?.length > 0) {
+        let notFoundSubjectsText = '';
+        result.notFoundSubjects.forEach(group => {
+          notFoundSubjectsText += `\n  – ${group.group}: ${group.subjects.join(', ')}`;
+        });
+
+        message.set({
+          type: 'warning',
+          text: 'workspace.unfoundSubjects',
+          params: { notFoundSubjects : notFoundSubjectsText }
+        });
       }
-      
+
+    } catch (err) {
+      // 3. Перехватываем ошибки JS/Electron (например, reject(new Error(...)) из .js)
       message.set({
-        type: 'warning',
-        text: '',
-        params: { messageFromTheBackendData: messageFromTheBackendData }
+        type: 'error',
+        text: `Системная ошибка JS: ${err.message}`
       });
-
-    } else if (result.success === true && result.notFoundSubjects?.length > 0) {
-
-      let notFoundSubjectsText = '';
-      result.notFoundSubjects.forEach(group => {
-        notFoundSubjectsText += `\n  – ${group.group}: ${group.subjects.join(', ')}`;
-      });
-
-      message.set({
-        type: 'warning',
-        text: 'workspace.unfoundSubjects',
-        params: { notFoundSubjects : notFoundSubjectsText }
-      });
+    } finally {
+      // Этот блок выполнится в любом случае (успех или ошибка)
+      isComleting = true; // Оставил вашу переменную (возможно, опечатка от isCompleting?)
+      isProcessing = false;
+      completeAnimation();
     }
-
-    isComleting = true; // Обратите внимание на возможную опечатку в вашем коде (isCompleting?)
-    isProcessing = false;
-    completeAnimation();
   }
 
   function example() {

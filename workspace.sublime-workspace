@@ -27,17 +27,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "src/lib/styles.json",
-			"settings":
-			{
-				"buffer_size": 5852,
-				"line_ending": "Windows"
-			},
-			"undo_stack":
-			[
-			]
-		}
 	],
 	"build_system": "Packages/Python/Python.sublime-build",
 	"build_system_choices":
@@ -111,22 +100,14 @@
 	},
 	"expanded_folders":
 	[
-		"/D/Мои документы/JavaScript/Sonata",
-		"/D/Мои документы/JavaScript/Sonata/examples",
-		"/D/Мои документы/JavaScript/Sonata/src",
-		"/D/Мои документы/JavaScript/Sonata/src/components",
-		"/D/Мои документы/JavaScript/Sonata/src/components/hours",
-		"/D/Мои документы/JavaScript/Sonata/src/components/other",
-		"/D/Мои документы/JavaScript/Sonata/src/components/session",
-		"/D/Мои документы/JavaScript/Sonata/src/lib",
-		"/D/Мои документы/JavaScript/Sonata/src/lib/language",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts/other",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts/python",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts/session"
+		"/D/Мои документы/JavaScript/Sonata"
 	],
 	"file_history":
 	[
+		"/D/Мои документы/JavaScript/Sonata/docs/README.md",
+		"/D/Мои документы/JavaScript/Sonata/docs/en/README.md",
+		"/D/Мои документы/JavaScript/Sonata/docs/ru/README.md",
+		"/D/Мои документы/JavaScript/Sonata/src/lib/styles.json",
 		"/D/Мои документы/JavaScript/Sonata/preload.cjs",
 		"/D/Мои документы/JavaScript/Sonata/main.js",
 		"/D/Мои документы/JavaScript/Sonata/src/App.svelte",
@@ -195,14 +176,13 @@
 		"/D/Мои документы/JavaScript/Sonata/dist/win-unpacked/resources/app/node_modules/jszip/dist/jszip.js",
 		"/D/Мои документы/JavaScript/Sonata/vite.config.js",
 		"/D/Мои документы/ПОЛИТЕХ/5 семестр/Інтелектуальний аналіз даних -/ЛР 7 -/Lab7_ukr_part_1.ipynb",
-		"/D/Мои документы/JavaScript/Sonata/src/lib/styles.json",
 		"/D/Мои документы/JavaScript/Sonata/src/components/AccountActionButtons.svelte",
 		"/C/Users/Maxim/AppData/Roaming/Sublime Text/Packages/User/Default.sublime-commands",
 		"/C/Users/Maxim/AppData/Roaming/Sublime Text/Packages/Terminus/Default.sublime-commands"
 	],
 	"find":
 	{
-		"height": 38.0
+		"height": 22.0
 	},
 	"find_in_files":
 	{
@@ -488,34 +468,6 @@
 		{
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "src/lib/styles.json",
-					"selected": true,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5852,
-						"regions":
-						{
-						},
-						"selection":
-						[
-						],
-						"settings":
-						{
-							"syntax": "Packages/JSON/JSON.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 273.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"stack_multiselect": false,
-					"type": "text"
-				}
 			]
 		},
 		{
@@ -578,7 +530,7 @@
 	"project": "workspace.sublime-project",
 	"replace":
 	{
-		"height": 68.0
+		"height": 40.0
 	},
 	"save_all_on_build": true,
 	"select_file":
