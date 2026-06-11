@@ -10,6 +10,6 @@
 
 Страница:
 
-![Пустая страница](https://github.com/IKorzI/Sonata/blob/main/docs/ru/imgs/templates_1.png)
+![Пустая страница](imgs/templates_1.png)
 
 # **[←](README.md)**

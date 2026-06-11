@@ -10,6 +10,6 @@
 
 Page:
 
-![Empty page](https://github.com/IKorzI/Sonata/blob/main/docs/en/imgs/templates_1.png)
+![Empty page](imgs/templates_1.png)
 
 # **[←](README.md)**

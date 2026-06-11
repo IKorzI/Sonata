@@ -11,6 +11,6 @@
 
 Пример страницы:
 
-![Заполненная страница](https://github.com/IKorzI/Sonata/blob/main/docs/ru/imgs/other_1.png)
+![Заполненная страница](imgs/other_1.png)
 
 # **[←](README.md)**

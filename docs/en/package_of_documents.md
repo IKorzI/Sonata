@@ -7,7 +7,7 @@
 
 Blank page:
 
-![Blank page](https://github.com/IKorzI/Sonata/blob/main/docs/en/imgs/package_of_documents_1.png)
+![Blank page](imgs/package_of_documents_1.png)
 
 ## On the page you need to:
  * Upload the file by dragging the file to the "Choose file" element area or by clicking on this area;
@@ -21,6 +21,6 @@ Blank page:
 
 Example of a filled page:
 
-![Filled page](https://github.com/IKorzI/Sonata/blob/main/docs/en/imgs/package_of_documents_2.png)
+![Filled page](imgs/package_of_documents_2.png)
 
 # **[←](README.md)**

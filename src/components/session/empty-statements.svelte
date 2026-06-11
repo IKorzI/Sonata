@@ -164,7 +164,7 @@
     position: absolute;
     top: 250px;
     display: grid;
-    grid-template-columns: 210px 25px;
+    grid-template-columns: 360px 25px;
     row-gap: 5px;
   }
   .percentage-of-scholarship input {
@@ -172,18 +172,26 @@
     text-align: center;
     padding-left: 0px;
   }
+  .percentage-of-scholarship div {
+    text-align: right;
+    padding-right: 15px;
+  }
 
   .first-index {
     position: absolute;
-    top: 280px;
+    top: 290px;
     display: grid;
-    grid-template-columns: 325px 25px;
+    grid-template-columns: 360px 25px;
     row-gap: 5px;
   }
   .first-index input {
     width: 50px;
     text-align: center;
     padding-left: 0px;
+  }
+  .first-index div {
+    text-align: right;
+    padding-right: 15px;
   }
 
 </style>

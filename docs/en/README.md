@@ -5,7 +5,7 @@
 
 Work with documents, saving up to 95% of time with software for professional colleges!
 
-![Preview](https://github.com/IKorzI/Sonata/blob/main/docs/en/imgs/preview.png)
+![Preview](imgs/preview.png)
 
 ## Features
 ### Session:
@@ -26,8 +26,8 @@ Work with documents, saving up to 95% of time with software for professional col
 After launching, you need to select the necessary section from the program menu and work with the interface
 Interface appearance after launching the program:
 
-![After launch](https://github.com/IKorzI/Sonata/blob/main/docs/en/imgs/after_launch.png)
-![After launch gif](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/after_launch.gif)
+![After launch](imgs/after_launch.png)
+![After launch gif](imgs/after_launch.gif)
 
 ## Documentation
 | Links | Description |
@@ -53,4 +53,4 @@ The program is based on Electron in a combination of Svelte + NodeJS + Python/C#
  * The final result is formed in response and returned to NodeJS. From NodeJS, the response is sent to the user on the Svelte interface
  * Enabling the screenshot mode occurs in NodeJS after sending a command from Svelte. NodeJS monitors the clipboard and when fixing a range of cells, NodeJS calls a custom file saving window via C# with the transfer of parameters. After the user consents, C# returns data to NodeJS. After that, NodeJS, using PowerShell to control Microsoft Excel, generates an image and saves it to a temporary directory and sends a command to the Python server to add fields to the image and save it to the directory, which was returned from the C# save window.
 
-![Program Structure](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/schema1.png)
+![Program Structure](../imgs/schema1.png)

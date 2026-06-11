@@ -7,13 +7,13 @@
 
 Пустая страница:
 
-![Пустая страница](https://github.com/IKorzI/Sonata/blob/main/docs/ru/imgs/summary_of_teachers_1.png)
+![Пустая страница](imgs/summary_of_teachers_1.png)
 
 ## На странице нужно: 
  * Загрузить файлы путем перемещения файла в область элемента "Выберите файл" или нажатием на эту область.
 
 Пример заполненной страницы:
 
-![Заполненная страница](https://github.com/IKorzI/Sonata/blob/main/docs/ru/imgs/summary_of_teachers_2.png)
+![Заполненная страница](imgs/summary_of_teachers_2.png)
 
 # **[←](README.md)**

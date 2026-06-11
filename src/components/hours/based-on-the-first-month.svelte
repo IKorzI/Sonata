@@ -1,6 +1,5 @@
 <script>
   import { selectedSection, clearInformation, saveInformation, savedInformation, message, lng, textFilter, handleInput } from '../../lib/store.js'
-  import { selectedSection, clearInformation, saveInformation, savedInformation, message, lng, textFilter, handleInput } from '../../lib/store.js'
   import FileInput from '../FileInput.svelte';
   import { tick } from 'svelte';
   

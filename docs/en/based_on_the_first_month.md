@@ -7,7 +7,7 @@
 
 Blank page:
 
-![Blank page](https://github.com/IKorzI/Sonata/blob/main/docs/en/imgs/based_on_the_first_month_1.png)
+![Blank page](imgs/based_on_the_first_month_1.png)
 
 ## On the page you need to:
  * Upload files by dragging the file to the "Choose file" element area or by clicking on this area;
@@ -16,6 +16,6 @@ Blank page:
 
 Example of a completed page:
 
-![Completed page](https://github.com/IKorzI/Sonata/blob/main/docs/en/imgs/based_on_the_first_month_2.png)
+![Completed page](imgs/based_on_the_first_month_2.png)
 
 # **[←](README.md)**

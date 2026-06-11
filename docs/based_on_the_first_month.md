@@ -7,7 +7,7 @@
 
 Порожня сторінка:
 
-![Порожня сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/based_on_the_first_month_1.png)
+![Порожня сторінка](imgs/based_on_the_first_month_1.png)
 
 ## На сторінці потрібно:
  * Завантажити файли шляхом переміщення файлу до області елементу "Оберіть файл" чи натисканням на цю область;
@@ -16,6 +16,6 @@
 
 Приклад заповненої сторінки:
 
-![Заповнена сторінка](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/based_on_the_first_month_2.png)
+![Заповнена сторінка](imgs/based_on_the_first_month_2.png)
 
 # **[←](README.md)**
