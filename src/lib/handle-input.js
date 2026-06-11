@@ -30,8 +30,6 @@ export function textFilter(text, { numbers = false, letters = false, period = fa
   return text.replace(regex, '');
 }
 
-textFilter()
-
 /**
  * Застосовує фільтр до поля вводу та зберігає правильну позицію курсора,
  * щоб він не стрибав у кінець рядка після перезапису значення.

@@ -1,5 +1,6 @@
 <script>
   import { selectedSection, clearInformation, saveInformation, savedInformation, message, lng, textFilter, handleInput } from '../../lib/store.js'
+  import { selectedSection, clearInformation, saveInformation, savedInformation, message, lng, textFilter, handleInput } from '../../lib/store.js'
   import FileInput from '../FileInput.svelte';
   import { tick } from 'svelte';
   
@@ -7,6 +8,7 @@
   let _lng = {};
   lng.subscribe(value => (_lng = value));
 
+  // Години по предметах за 1-й та 2-й семестри
   // Години по предметах за 1-й та 2-й семестри
   const hoursPerSubject = [
     {
@@ -52,10 +54,15 @@
   let subjectsAndHours = [];
 
   $: if ($selectedSection) {
+    // Якщо компонент вже завантажено
     if (this_) {
+      // Якщо ідентифікатор обраної сецкції, це ідентифікатор компоненту
       if ($selectedSection === thisId) {
+        // зробити доступним для користувача
         this_.style.zIndex = '1';
+      // Якщо ідентифікатор обраної сецкції, це не ідентифікатор компоненту
       } else if (this_.style.zIndex !== '-1') {
+        // зробити недоступним для користувача з затримкою для виконання усіх анімацій
         setTimeout(() => {
           this_.style.zIndex = -1;
         }, 200);
@@ -64,6 +71,7 @@
   }
 
   $: if ($clearInformation) {
+    // Якщо ідентифікатор очищення внесених даних, це ідентифікатор компоненту
     if ($clearInformation === thisId) {
       clearAll();
       setTimeout(() => {
@@ -73,24 +81,29 @@
   }
 
   $: if ($saveInformation) {
+    // Якщо ідентифікатор збереження внесених даних, це ідентифікатор компоненту
     if ($saveInformation === thisId) {
       saveAll();
       saveInformation.set(null);
     }
   }
 
+  // Очищення внесених даних
   function clearAll() {
     uploadedFile = null;
     subjectsAndHours = [];
     data = {semesterEnd: null};
   }
 
+  // Збереження внесених даних
   async function saveAll() {
+    // Перевірка, чи все, що потрібно, внесено
     if (uploadedFile === null || eSemesterEnd.value === '' || subjectsAndHours.length === 0) {
       message.set({type: 'error', text: 'basedOnTheFirstMonth.notAllData'});
       return;
     }
 
+    // Збирання усієї внесеної інформації в одне ціле
     let endInformation = {
       ...data,
       semesterEndDate: eSemesterEnd.value,
@@ -103,6 +116,7 @@
     savedInformation.set(endInformation);
   }
 
+  // Обробка завантаження файлу
   async function handleFileInputChange(detail) {
     // Перевірка на запуск у режимі vite-серверу без Electron
     if (!window.electron) return;
@@ -145,7 +159,9 @@
     }
   }
 
+  // Обробка видалення файлу
   function handleFileRemove(detail) {
+    // Якщо window не ініціалізована (додаток запущено у режимі vite-серверу без Electron) повернутися
     if (!window.electron) return;
     uploadedFile = null;
   }
@@ -168,24 +184,31 @@
   }
 </script>
 
+<!-- Компонент -->
 <div class='gui' id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
 
+  <!-- Компонент FileInput для завантаження файлів -->
   <FileInput eId='hours--based-on-the-first-month--hours' extensions={['.xlsx']} type='excel'
     on:fileSelected={event => handleFileInputChange(event.detail)}
     on:fileRemoved={event => handleFileRemove(event.detail)}
   />
 
+  <!-- Блок FileInput для завантаження файлів -->
   <div class='semester-end'>
     <div>{_lng.basedOnTheFirstMonth.semesterEnd}</div>
     <input type='text' bind:this={eSemesterEnd} value='{data.semesterEndDate ? `${data.semesterEndDate}`: ''}' class:unavailable={uploadedFile === null} on:input={(e) => handleInput(e.target, { numbers: true, period: true })}/>
+    <input type='text' bind:this={eSemesterEnd} value='{data.semesterEndDate ? `${data.semesterEndDate}`: ''}' class:unavailable={uploadedFile === null} on:input={(e) => handleInput(e.target, { numbers: true, period: true })}/>
   </div>
 
+  <!-- Таблиця елементів предмет-години -->
   <div class='hours-per-subject'>
     <div class='label'>{_lng.basedOnTheFirstMonth.hoursPerSubject}</div>
     <div class='list'>
+      <!-- Автоматичне створення елементів відносно списку subjectsAndHours -->
       {#each subjectsAndHours as subject, subjectIndex}
         <div class='row' id={subject.subjectName}>
           <div class='subject'>{subject.subjectName}</div>
+          <input class='hoursCount' value={subject.hours} on:input={(e) => handleHoursInput(e, subjectIndex)}/>
           <input class='hoursCount' value={subject.hours} on:input={(e) => handleHoursInput(e, subjectIndex)}/>
         </div>
       {/each}
@@ -205,6 +228,7 @@
     left: -10px;
   }
 
+  /* Інші стилі */
   .semester-end {
     position: absolute;
     top: 240px;
@@ -239,6 +263,7 @@
   }
 
   .hours-per-subject::-webkit-scrollbar {
+    display: none;
     display: none;
   }
   

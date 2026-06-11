@@ -13,10 +13,15 @@
   let elComplete, isProcessing = false, isComleting = false;
 
   $: if ($selectedSection) {
+    // Якщо компонент вже завантажено
     if (this_) {
+      // Якщо ідентифікатор обраної сецкції, це ідентифікатор компоненту
       if ($selectedSection === thisId) {
+        // зробити доступним для користувача
         this_.style.zIndex = '1';
+      // Якщо ідентифікатор обраної сецкції, це не ідентифікатор компоненту
       } else if (this_.style.zIndex !== '-1') {
+        // зробити недоступним для користувача з затримкою для виконання усіх анімацій
         setTimeout(() => {
           this_.style.zIndex = -1;
         }, 200);
@@ -24,13 +29,16 @@
     }
   }
 
+  // Зміна режиму скріншота
   function screenshotMode() {
     // Перевірка на запуск у режимі vite-серверу без Electron
     if (!window.electron) return;
+    // Зміна режиму у бекенді
     window.electron.screenshotMode(!isScreenshotMode);
     isScreenshotMode = !isScreenshotMode;
   }
 
+  // При завантаженні компоненту у DOM
   onMount(() => {
     const now = new Date();
     const year = now.getFullYear();
@@ -43,6 +51,7 @@
     eSemester2End.value    = semNum === 1  ?  `30.06.${year + 1}`  :  `30.06.${year}`;
   });
 
+  // Анімація успіху
   function completeAnimation() {
     elComplete.style.transition = 'clip-path 0s';
     elComplete.style.clipPath = 'inset(0 100% 0 0)';
@@ -66,7 +75,9 @@
     }, 1100);
   }
 
+  // Індивідуальна обробка натискання на кнопку "Старт"
   async function numDenStart() {
+    // Перевірка, чи все, що потрібно, внесено
     if (
       eSemester1Start.value === '' ||
       eSemester1End.value === '' ||
@@ -77,12 +88,16 @@
       return;
     }
     
+    // Запит у користувача шляху для збереження
     const targetPath = await window.electron.saveDialog(_lng.other.numDen.saveName, '.xlsx');
+    // Якщо відмова – повернутися
     if (!targetPath) return;
 
+    // Якщо вже виконується робота – повернутися
     if (isProcessing) return;
-    isProcessing = true;
+    isProcessing = true; // Виконується процес
 
+    // Збирання усієї інформації в одне ціле
     const data = {
       id: `${thisId}--num-den`,
       semester1Start: eSemester1Start.value,
@@ -92,6 +107,7 @@
       filePath: targetPath
     };
 
+    // Запуск функції у бекенді і очікування відповіді
     let result = await window.electron.startBackendFunc(data);
     
     isComleting = true;
@@ -99,6 +115,7 @@
     completeAnimation();
   }
 
+  // Обробка натискання на знак питання
   function handleWhat() {
     whatDocument.set(`${thisId}--num-den`);
   }
