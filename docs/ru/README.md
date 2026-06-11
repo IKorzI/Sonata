@@ -27,6 +27,7 @@
 Вид интерфейса после запуска программы:
 
 ![После запуска](https://github.com/IKorzI/Sonata/blob/main/docs/ru/imgs/after_launch.png)
+![После запуска gif](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/after_launch.gif)
 
 ## Документация
 | Ссылки | Описание |

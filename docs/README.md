@@ -5,7 +5,7 @@
 
 Працюйте з документами, заощаджуючи до 95% часу з програмним забеспеченням для фахових коледжів!
 
-![Превью](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/preview.png)
+![Превью](imgs/preview.png)
 
 ## Переваги:
  * Програма побудована на базі Electron та Svelte, що забезпечує модульність користувацького інтерфейсу та чітке розділення логіки між окремими компонентами.
@@ -32,7 +32,7 @@
 Вигляд інтерфейсу після запуску програми:
 
 ![Після запуску](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/after_launch.png)
-![Моя анимация](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/preview.gif)
+![Після запуску gif](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/after_launch.gif)
 
 ## Документація
 | Посилання | Опис |

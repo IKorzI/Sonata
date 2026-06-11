@@ -27,6 +27,7 @@ After launching, you need to select the necessary section from the program menu 
 Interface appearance after launching the program:
 
 ![After launch](https://github.com/IKorzI/Sonata/blob/main/docs/en/imgs/after_launch.png)
+![After launch gif](https://github.com/IKorzI/Sonata/blob/main/docs/imgs/after_launch.gif)
 
 ## Documentation
 | Links | Description |
