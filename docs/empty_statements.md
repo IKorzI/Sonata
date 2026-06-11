@@ -2,7 +2,7 @@
 
 # Порожні відомості
 
-| EN [English](en/empty_statements.md) | UK [Український](empty_statements.md) | RU [Русский](ru/empty_statements.md) |
+| EN [English](en/empty_statements.md) | UK [Українська](empty_statements.md) | RU [Русский](ru/empty_statements.md) |
 |---|---|---|
 
 Порожня сторінка:

@@ -2,7 +2,7 @@
 
 # Creating a complete package of documents
 
-| EN [English](package_of_documents.md) | UK [Ukrainian](../package_of_documents.md) | RU [Russian](../ru/package_of_documents.md) |
+| EN [English](package_of_documents.md) | UK [Українська](../package_of_documents.md) | RU [Русский](../ru/package_of_documents.md) |
 |---|---|---|
 
 Blank page:

@@ -2,7 +2,7 @@
 
 # Empty statements
 
-| EN [English](empty_statements.md) | UK [Ukrainian](../empty_statements.md) | RU [Russian](../ru/empty_statements.md) |
+| EN [English](empty_statements.md) | UK [Українська](../empty_statements.md) | RU [Русский](../ru/empty_statements.md) |
 |---|---|---|
 
 Empty page:

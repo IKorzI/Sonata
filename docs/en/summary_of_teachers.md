@@ -2,7 +2,7 @@
 
 # Creating a report by hours from all groups by teachers
 
-| EN [English](summary_of_teachers.md) | UK [Ukrainian](../summary_of_teachers.md) | RU [Russian](../ru/summary_of_teachers.md) |
+| EN [English](summary_of_teachers.md) | UK [Українська](../summary_of_teachers.md) | RU [Русский](../ru/summary_of_teachers.md) |
 |---|---|---|
 
 Blank page:

@@ -1,8 +1,8 @@
 # **[←](README.md)**
 
-# Creating a report on the success of students of all groups for the semester
+# Loading blank documents
 
-| EN [English](templates.md) | UK [Ukrainian](../templates.md) | RU [Russian](../ru/templates.md) |
+| EN [English](templates.md) | UK [Українська](../templates.md) | RU [Russian](../ru/templates.md) |
 |---|---|---|
 
 ## On the page you can:

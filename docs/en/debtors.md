@@ -2,7 +2,7 @@
 
 # Creating a report of students who were not certified according to the results of the semester
 
-| EN [English](debtors.md) | UK [Український](../debtors.md) | RU [Русский](../ru/debtors.md) |
+| EN [English](debtors.md) | UK [Українська](../debtors.md) | RU [Русский](../ru/debtors.md) |
 |---|---|---|
 
 Blank page:

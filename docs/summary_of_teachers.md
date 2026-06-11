@@ -2,7 +2,7 @@
 
 # Створення звіту по годинам з усіх груп по викладачам
 
-| EN [English](en/summary_of_teachers.md) | UK [Український](summary_of_teachers.md) | RU [Русский](ru/summary_of_teachers.md) |
+| EN [English](en/summary_of_teachers.md) | UK [Українська](summary_of_teachers.md) | RU [Русский](ru/summary_of_teachers.md) |
 |---|---|---|
 
 Порожня сторінка:

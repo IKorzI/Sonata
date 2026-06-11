@@ -2,7 +2,7 @@
 
 # Створення звіту студентів, які за результатами семестру виявилися неатестованими
 
-| EN [English](en/debtors.md) | UK [Український](debtors.md) | RU [Русский](ru/debtors.md) |
+| EN [English](en/debtors.md) | UK [Українська](debtors.md) | RU [Русский](ru/debtors.md) |
 |---|---|---|
 
 Порожня сторінка:

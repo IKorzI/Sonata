@@ -2,7 +2,7 @@
 
 # Creating hours for the entire semester based on the hours of the first semester
 
-| EN [English](based_on_the_first_month.md) | UK [Ukrainian](../based_on_the_first_month.md) | RU [Russian](../ru/based_on_the_first_month.md) |
+| EN [English](based_on_the_first_month.md) | UK [Українська](../based_on_the_first_month.md) | RU [Русский](../ru/based_on_the_first_month.md) |
 |---|---|---|
 
 Blank page:

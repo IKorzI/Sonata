@@ -2,7 +2,7 @@
 
 # Создание часов на весь семестр на основе часов первого сесемтра
 
-| EN [English](../en/based_on_the_first_month.md) | UK [Український](../based_on_the_first_month.md) | RU [Русский](based_on_the_first_month.md) |
+| EN [English](../en/based_on_the_first_month.md) | UK [Українська](../based_on_the_first_month.md) | RU [Русский](based_on_the_first_month.md) |
 |---|---|---|
 
 Пустая страница:

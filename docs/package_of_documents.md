@@ -2,7 +2,7 @@
 
 # Створення повного пакету документів
 
-| EN [English](en/package_of_documents.md) | UK [Український](package_of_documents.md) | RU [Русский](ru/package_of_documents.md) |
+| EN [English](en/package_of_documents.md) | UK [Українська](package_of_documents.md) | RU [Русский](ru/package_of_documents.md) |
 |---|---|---|
 
 Порожня сторінка:

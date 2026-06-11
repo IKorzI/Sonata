@@ -2,7 +2,7 @@
 
 # Создание отчета по часам из всех групп по преподавателям
 
-| EN [English](../en/summary_of_teachers.md) | UK [Український](../summary_of_teachers.md) | RU [Русский](summary_of_teachers.md) |
+| EN [English](../en/summary_of_teachers.md) | UK [Українська](../summary_of_teachers.md) | RU [Русский](summary_of_teachers.md) |
 |---|---|---|
 
 Пустая страница:

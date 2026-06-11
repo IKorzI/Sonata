@@ -2,7 +2,7 @@
 
 # Additional program modules
 
-| EN [English](additionally.md) | UK [Ukrainian](../additionally.md) | RU [Russian](../ru/additionally.md) |
+| EN [English](additionally.md) | UK [Українська](../additionally.md) | RU [Русский](../ru/additionally.md) |
 |---|---|---|
 
 ## The program contains the following modules:

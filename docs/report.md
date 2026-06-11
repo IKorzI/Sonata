@@ -2,7 +2,7 @@
 
 # Створення звіту щодо успішності студентів усіх груп за семестр
 
-| EN [English](en/report.md) | UK [Український](report.md) | RU [Русский](ru/report.md) |
+| EN [English](en/report.md) | UK [Українська](report.md) | RU [Русский](ru/report.md) |
 |---|---|---|
 
 Порожня сторінка:

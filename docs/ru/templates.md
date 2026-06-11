@@ -1,8 +1,8 @@
 # **[←](README.md)**
 
-# Создание отчета об успешности студентов всех групп за семестр
+# Загрузка пустых документов
 
-| EN [English](../en/templates.md) | UK [Український](../templates.md) | RU [Русский](templates.md) |
+| EN [English](../en/templates.md) | UK [Українська](../templates.md) | RU [Русский](templates.md) |
 |---|---|---|
 
 ## На странице можно: 

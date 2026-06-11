@@ -1,8 +1,8 @@
 # **[←](README.md)**
 
-# Creating a report on the success of students of all groups for the semester
+# Other
 
-| EN [English](other.md) | UK [Ukrainian](../other.md) | RU [Russian](../ru/other.md) |
+| EN [English](other.md) | UK [Українська](../other.md) | RU [Русский](../ru/other.md) |
 |---|---|---|
 
 ## On the page you can:

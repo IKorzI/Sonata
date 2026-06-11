@@ -1,6 +1,6 @@
 # Sonata
 
-| EN [English](README.md) | UK [Український](../README.md) | RU [Русский](../ru/README.md) |
+| EN [English](README.md) | UK [Українська](../README.md) | RU [Русский](../ru/README.md) |
 |---|---|---|
 
 Work with documents, saving up to 95% of time with software for professional colleges!

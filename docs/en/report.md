@@ -2,7 +2,7 @@
 
 # Creating a report on the success of students of all groups for the semester
 
-| EN [English](report.md) | UK [Український](../report.md) | RU [Русский](../ru/report.md) |
+| EN [English](report.md) | UK [Українська](../report.md) | RU [Русский](../ru/report.md) |
 |---|---|---|
 
 Blank page:

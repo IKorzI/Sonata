@@ -2,7 +2,7 @@
 
 # Створення годин на весь семестр на основі годин першого сесемтру
 
-| EN [English](en/based_on_the_first_month.md) | UK [Український](based_on_the_first_month.md) | RU [Русский](ru/based_on_the_first_month.md) |
+| EN [English](en/based_on_the_first_month.md) | UK [Українська](based_on_the_first_month.md) | RU [Русский](ru/based_on_the_first_month.md) |
 |---|---|---|
 
 Порожня сторінка:

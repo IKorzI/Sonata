@@ -2,7 +2,7 @@
 
 # Додаткові модулі програми
 
-| EN [English](en/additionally.md) | UK [Український](additionally.md) | RU [Русский](ru/additionally.md) |
+| EN [English](en/additionally.md) | UK [Українська](additionally.md) | RU [Русский](ru/additionally.md) |
 |---|---|---|
 
 ## Програма містить такі модулі:
