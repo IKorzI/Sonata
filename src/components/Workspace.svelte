@@ -15,15 +15,16 @@
   let _lng = {};
   lng.subscribe(value => (_lng = value));
 
+  // Автоматичний запуск обробки після того, як активний компонент зібрав та зберіг свої дані у стор
   $: if($savedInformation) {
-    //console.log($savedInformation)
     start()
   }
 
   let isProcessing = false;
-  let isComleting = false;
+  let isComleting = false; // Прапорець стану анімації завершення
   let elComplete;
 
+  // Перелік ідентифікаторів секцій, які підтримують централізовані кнопки дій
   const startSections = [
     'session--empty-statements',
     'session--package-of-documents',
@@ -37,6 +38,7 @@
   function completeAnimation() {
     elComplete.style.transition = 'clip-path 0s';
     elComplete.style.clipPath = 'inset(0 100% 0 0)';
+    
     setTimeout(() => {
       elComplete.style.transition = 'clip-path 0.4s ease-in-out';
       elComplete.style.zIndex = '1';
@@ -45,6 +47,7 @@
         elComplete.style.clipPath = 'inset(0 0 0 0)';
       }, 50);
     }, 50);
+
     setTimeout(() => {
       elComplete.style.zIndex = '-1';
       elComplete.style.display = 'none';
@@ -55,52 +58,78 @@
     }, 1100);
   }
 
-  // Вспомогательная функция для получения значения из объекта по пути "key1.key2.key3"
+  // Допоміжна функція для безпечного отримання значення з об'єкта за рядковим шляхом
   function getValueByPath(obj, path) {
     return path.split('.').reduce((acc, part) => acc && acc[part], obj);
   }
 
+  // Головний метод взаємодії з бекендом
   async function start() {
     if (isProcessing || $savedInformation?.id === undefined) return;
     isProcessing = true;
-    let result = await window.electron.startBackendFunc($savedInformation);
-    console.log(result);
-    
-    if (result.success === true && (result.files?.length > 0 || result.customText)) {
-      let messageFromTheBackendData = {};
 
-      if (result.files.length > 0) {
-        const filesText = `  –  ${result.files.join(';\n  –  ')}`;
-        messageFromTheBackendData.filesText = filesText
+    try {
+      // Виклик основної функції Python-бекенду через міст Electron
+      let backendResponse = await window.electron.startBackendFunc($savedInformation);
+
+      // 1. Перевірка наявності помилок рівня Python (traceback)
+      if (backendResponse.error) {
+        const errorText = `Помилка: ${backendResponse.error}\n\nТрасування:\n${backendResponse.traceback}`;
+        message.set({
+          type: 'error',
+          text: errorText
+        });
+        return; 
       }
-      
-      if (result.customText) {
-        messageFromTheBackendData.customText = result.customText
+
+      // 2. Вилучення корисного навантаження (результату виконання)
+      let result = backendResponse.result || backendResponse;
+
+      // Обробка кастомних текстових повідомлень або ситуацій, коли файли потрібно зберігати під іншими іменами
+      if (result.success === true && (result.files?.length > 0 || result.customText)) {
+        let messageFromTheBackendData = {};
+        
+        if (result.files?.length > 0) {
+          const filesText = `  –  ${result.files.join(';\n  –  ')}`;
+          messageFromTheBackendData.filesText = filesText;
+        }
+        
+        if (result.customText) {
+          messageFromTheBackendData.customText = result.customText;
+        }
+        
+        message.set({
+          type: 'warning',
+          text: '',
+          params: { messageFromTheBackendData: messageFromTheBackendData }
+        });
+        
+      // Повідомлення про предмети/групи, які не вдалося знайти у базі
+      } else if (result.success === true && result.notFoundSubjects?.length > 0) {
+        let notFoundSubjectsText = '';
+        result.notFoundSubjects.forEach(group => {
+          notFoundSubjectsText += `\n  – ${group.group}: ${group.subjects.join(', ')}`;
+        });
+        
+        message.set({
+          type: 'warning',
+          text: 'workspace.unfoundSubjects',
+          params: { notFoundSubjects : notFoundSubjectsText }
+        });
       }
-      
+
+    } catch (err) {
+      // 3. Перехоплення системних помилок JS/Electron
       message.set({
-        type: 'warning',
-        text: '',
-        params: { messageFromTheBackendData: messageFromTheBackendData }
+        type: 'error',
+        text: `Системна помилка JS: ${err.message}`
       });
-
-    } else if (result.success === true && result.notFoundSubjects?.length > 0) {
-
-      let notFoundSubjectsText = '';
-      result.notFoundSubjects.forEach(group => {
-        notFoundSubjectsText += `\n  – ${group.group}: ${group.subjects.join(', ')}`;
-      });
-
-      message.set({
-        type: 'warning',
-        text: 'workspace.unfoundSubjects',
-        params: { notFoundSubjects : notFoundSubjectsText }
-      });
+    } finally {
+      // Зняття блокування інтерфейсу та запуск анімації успіху незалежно від результату
+      isComleting = true;
+      isProcessing = false;
+      completeAnimation();
     }
-
-    isComleting = true; // Обратите внимание на возможную опечатку в вашем коде (isCompleting?)
-    isProcessing = false;
-    completeAnimation();
   }
 
   function example() {
@@ -111,6 +140,7 @@
     clearInformation.set($selectedSection)
   }
 
+  // Ініціатор процесу. Дає команду поточній активній секції зібрати та надіслати свої дані у store
   async function save() {
     if (!window.electron) return;
     saveInformation.set($selectedSection)
@@ -206,7 +236,6 @@
     display: none;
   }
 
-  /* Анимация вращения */
   @keyframes spin {
     from {
       transform: translate(-50%, -50%) rotate(360deg);
@@ -221,4 +250,4 @@
     z-index: -1;
   }
 
-</style> 
+</style>

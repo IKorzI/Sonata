@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"te",
+				"textFilter"
+			],
+			[
 				"start",
 				"start_index"
 			],
@@ -28,15 +32,523 @@
 	"buffers":
 	[
 		{
-			"file": "src/lib/styles.json",
+			"file": "src/lib/handle-input.js",
 			"settings":
 			{
-				"buffer_size": 5852,
+				"buffer_size": 1859,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+				[
+					4,
+					1,
+					"insert",
+					{
+						"characters": "\n\n"
+					},
+					"AgAAAA8DAAAAAAAAEAMAAAAAAAAAAAAAEAMAAAAAAAARAwAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					7,
+					1,
+					"paste",
+					null,
+					"AQAAABEDAAAAAAAA9QUAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					10,
+					1,
+					"unindent",
+					null,
+					"EgAAABEDAAAAAAAAEQMAAAAAAAACAAAAICBAAwAAAAAAAEADAAAAAAAAAgAAACAgXgMAAAAAAABeAwAAAAAAAAIAAAAgIHwDAAAAAAAAfAMAAAAAAAACAAAAICDFAwAAAAAAAMUDAAAAAAAAAgAAACAg8QMAAAAAAADxAwAAAAAAAAIAAAAgIBYEAAAAAAAAFgQAAAAAAAACAAAAICBJBAAAAAAAAEkEAAAAAAAAAgAAACAgjAQAAAAAAACMBAAAAAAAAAIAAAAgIKIEAAAAAAAAogQAAAAAAAACAAAAICC+BAAAAAAAAL4EAAAAAAAAAgAAACAg3wQAAAAAAADfBAAAAAAAAAIAAAAgIBgFAAAAAAAAGAUAAAAAAAACAAAAICBDBQAAAAAAAEMFAAAAAAAAAgAAACAgWgUAAAAAAABaBQAAAAAAAAIAAAAgIGoFAAAAAAAAagUAAAAAAAACAAAAICCZBQAAAAAAAJkFAAAAAAAAAgAAACAg0AUAAAAAAADQBQAAAAAAAAIAAAAgIA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					15,
+					1,
+					"left_delete",
+					null,
+					"AQAAACYDAAAAAAAAJgMAAAAAAAALAAAAU2VtZXN0ZXJFbmQ",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					37,
+					1,
+					"paste",
+					null,
+					"AgAAACwDAAAAAAAAMQMAAAAAAAAAAAAAMQMAAAAAAAAxAwAAAAAAAAUAAABldmVudA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					40,
+					1,
+					"left_delete",
+					null,
+					"AQAAADQDAAAAAAAANAMAAAAAAABNAAAACiAgLy8g0J7RgtGA0LjQvNCw0L3QvdGPINC10LvQtdC80LXQvdGC0YMgaW5wdXQKICBjb25zdCBpbnB1dCA9IGV2ZW50LnRhcmdldDs",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					52,
+					1,
+					"cut",
+					null,
+					"AQAAADEEAAAAAAAAMQQAAAAAAAARAAAAeyBudW1iZXJzOiB0cnVlIH0",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					55,
+					1,
+					"insert",
+					{
+						"characters": ","
+					},
+					"AQAAADEDAAAAAAAAMgMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					56,
+					1,
+					"insert",
+					{
+						"characters": " params"
+					},
+					"BwAAADIDAAAAAAAAMwMAAAAAAAAAAAAAMwMAAAAAAAA0AwAAAAAAAAAAAAA0AwAAAAAAADUDAAAAAAAAAAAAADUDAAAAAAAANgMAAAAAAAAAAAAANgMAAAAAAAA3AwAAAAAAAAAAAAA3AwAAAAAAADgDAAAAAAAAAAAAADgDAAAAAAAAOQMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					59,
+					1,
+					"insert",
+					{
+						"characters": "params"
+					},
+					"BgAAADkEAAAAAAAAOgQAAAAAAAAAAAAAOgQAAAAAAAA7BAAAAAAAAAAAAAA7BAAAAAAAADwEAAAAAAAAAAAAADwEAAAAAAAAPQQAAAAAAAAAAAAAPQQAAAAAAAA+BAAAAAAAAAAAAAA+BAAAAAAAAD8EAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					76,
+					1,
+					"delete_word",
+					{
+						"forward": false
+					},
+					"AQAAABEDAAAAAAAAEQMAAAAAAAAFAAAAYXN5bmM",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					77,
+					1,
+					"insert",
+					{
+						"characters": "export"
+					},
+					"BgAAABEDAAAAAAAAEgMAAAAAAAAAAAAAEgMAAAAAAAATAwAAAAAAAAAAAAATAwAAAAAAABQDAAAAAAAAAAAAABQDAAAAAAAAFQMAAAAAAAAAAAAAFQMAAAAAAAAWAwAAAAAAAAAAAAAWAwAAAAAAABcDAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					78,
+					1,
+					"insert",
+					{
+						"characters": " async"
+					},
+					"BgAAABcDAAAAAAAAGAMAAAAAAAAAAAAAGAMAAAAAAAAZAwAAAAAAAAAAAAAZAwAAAAAAABoDAAAAAAAAAAAAABoDAAAAAAAAGwMAAAAAAAAAAAAAGwMAAAAAAAAcAwAAAAAAAAAAAAAcAwAAAAAAAB0DAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					222,
+					1,
+					"insert",
+					{
+						"characters": "\n\n"
+					},
+					"AgAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAACAAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					224,
+					1,
+					"paste",
+					null,
+					"AQAAAAAAAAAAAAAAHgAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					9,
+					1,
+					"paste",
+					null,
+					"AgAAAAAAAAAAAAAAKwUAAAAAAAAAAAAAKwUAAAAAAAArBQAAAAAAAC4HAABpbXBvcnQgeyB0aWNrIH0gZnJvbSAnc3ZlbHRlJzsKCmV4cG9ydCBmdW5jdGlvbiB0ZXh0RmlsdGVyKHRleHQsIHsgbnVtYmVycyA9IGZhbHNlLCBsZXR0ZXJzID0gZmFsc2UsIHBlcmlvZCA9IGZhbHNlLCBjb21tYSA9IGZhbHNlLCBzcGFjZXMgPSBmYWxzZSB9ID0ge30pIHsKICBpZiAodHlwZW9mIHRleHQgIT09ICdzdHJpbmcnKSByZXR1cm4gJyc7CgogIC8vINCh0L7QsdC40YDQsNC10Lwg0L/QsNGC0YLQtdGA0L0g0LTQu9GPINGC0L7Qs9C+LCDRh9GC0L4g0LzRiyDQpdCe0KLQmNCcINC+0YHRgtCw0LLQuNGC0YwKICBsZXQgYWxsb3dlZENoYXJzID0gJyc7CgogIGlmIChudW1iZXJzKSBhbGxvd2VkQ2hhcnMgKz0gJzAtOSc7CiAgaWYgKGxldHRlcnMpIGFsbG93ZWRDaGFycyArPSAnYS16QS1a0LAt0Y/RkdCQLdCv0IEnOyAvLyDQkNC90LPQu9C40LnRgdC60LjQuSDQuCDRgNGD0YHRgdC60LjQuSDQsNC70YTQsNCy0LjRggogIGlmIChwZXJpb2QpICBhbGxvd2VkQ2hhcnMgKz0gJ1xcLic7CiAgaWYgKGNvbW1hKSAgIGFsbG93ZWRDaGFycyArPSAnLCc7CiAgaWYgKHNwYWNlcykgIGFsbG93ZWRDaGFycyArPSAnICc7CgogIC8vINCV0YHQu9C4INC90Lgg0L7QtNC40L0g0YTQu9Cw0LMg0L3QtSDQv9C10YDQtdC00LDQvSwg0LLQtdGA0L3QtdC8INC/0YPRgdGC0YPRjiDRgdGC0YDQvtC60YMKICBpZiAoIWFsbG93ZWRDaGFycykgcmV0dXJuICcnOwoKICAvLyDQodC+0LfQtNCw0LXQvCDRgNC10LPRg9C70Y/RgNC90L7QtSDQstGL0YDQsNC20LXQvdC40LU6INC40L3QstC10YDRgtC40YDRg9C10Lwg0LrQu9Cw0YHRgSBbXi4uLl0gCiAgLy8g0KLQviDQtdGB0YLRjCDCq9GD0LTQsNC70LjRgtGMINCy0YHRkSwg0YfRgtC+INCd0JUg0LLRhdC+0LTQuNGCINCyINGB0L/QuNGB0L7QuiDRgNCw0LfRgNC10YjQtdC90L3Ri9GFwrsKICBjb25zdCByZWdleCA9IG5ldyBSZWdFeHAoYFteJHthbGxvd2VkQ2hhcnN9XWAsICdnJyk7CgogIHJldHVybiB0ZXh0LnJlcGxhY2UocmVnZXgsICcnKTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGhhbmRsZUlucHV0KGlucHV0LCBwYXJhbXMpIHsKICAvLyDQl9Cw0L/QuNGBINC/0L7RgtC+0YfQvdC+0Zcg0L/QvtC30LjRhtGW0Zcg0LrRg9GA0YHQvtGA0YMsINGP0LrRgyDQv9C+0YHRgtCw0LLQuNCyINCx0YDQsNGD0LfQtdGAINC/0ZbRgdC70Y8g0LLQstC10LTQtdC90L3RjwogIGNvbnN0IGN1cnNvclN0YXJ0ID0gaW5wdXQuc2VsZWN0aW9uU3RhcnQ7CiAgY29uc3Qgb3JpZ2luYWxWYWx1ZSA9IGlucHV0LnZhbHVlOwogIC8vINCe0YfQuNGB0YLQutCwINC30L3QsNGH0LXQvdC90Y8gKNCy0LjQtNCw0LvQtdC90L3RjyDQstGB0YzQvtCz0L4g0LrRgNGW0Lwg0YbQuNGE0YApCiAgY29uc3QgY2xlYW5WYWx1ZSA9IHRleHRGaWx0ZXIob3JpZ2luYWxWYWx1ZSwgcGFyYW1zKTsKICAvLyDQntC90L7QstC70LXQvdC90Y8g0YLQtdC60YHRgtGDCiAgaW5wdXQudmFsdWUgPSBjbGVhblZhbHVlOwogIC8vINCe0LHRh9C40YHQu9C10L3QvdGPINC30LzRltGJ0LXQvdC90Y8g0LrRg9GA0YHQvtGA0YMKICBjb25zdCBkaWZmID0gb3JpZ2luYWxWYWx1ZS5sZW5ndGggLSBjbGVhblZhbHVlLmxlbmd0aDsKICBjb25zdCBuZXdDdXJzb3JQb3MgPSBjdXJzb3JTdGFydCAtIGRpZmY7CiAgLy8g0J7Rh9GW0LrRg9Cy0LDQvdC90Y8gU3ZlbHRlCiAgYXdhaXQgdGljaygpOwogIC8vINCS0YHRgtCw0L3QvtCy0LvQtdC90L3RjyDQutGD0YDRgdC+0YDRgyDQvdCwINC/0YDQsNCy0LjQu9GM0L3RgyDQv9C+0LfQuNGG0ZbRjgogIGlucHV0LnNldFNlbGVjdGlvblJhbmdlKG5ld0N1cnNvclBvcywgbmV3Q3Vyc29yUG9zKTsKfQ",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAK4FAAAAAAAAAAAAAAAA8L8"
+				],
+				[
+					16,
+					1,
+					"paste",
+					null,
+					"AgAAACAAAAAAAAAAbgIAAAAAAAAAAAAAbgIAAAAAAABuAgAAAAAAAHEAAAAvKioKICog0KTRltC70YzRgtGA0YPRlCDRgNGP0LTQvtC6LCDQt9Cw0LvQuNGI0LDRjtGH0Lgg0LvQuNGI0LUg0LTQvtC30LLQvtC70LXQvdGWINGC0LjQv9C4INGB0LjQvNCy0L7Qu9GW0LIuCiAqLw",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAABiAAAAAAAAACAAAAAAAAAAAAAAAAAA8L8"
+				],
+				[
+					23,
+					2,
+					"left_delete",
+					null,
+					"AgAAAGMAAAAAAAAAYwAAAAAAAAABAAAAIGIAAAAAAAAAYgAAAAAAAAABAAAAKg",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAABkAAAAAAAAAGQAAAAAAAAAAAAAAAAA8L8"
+				],
+				[
+					33,
+					1,
+					"insert",
+					{
+						"characters": "\n\n"
+					},
+					"AgAAALwEAAAAAAAAvQQAAAAAAAAAAAAAvQQAAAAAAAC+BAAAAAAAAAAAAAA",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAC8BAAAAAAAALwEAAAAAAAAAAAAAAAA8L8"
+				],
+				[
+					35,
+					1,
+					"paste",
+					null,
+					"AQAAAL0EAAAAAAAAxwQAAAAAAAAAAAAA",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAC9BAAAAAAAAL0EAAAAAAAAAAAAAAAAAAA"
+				],
+				[
+					36,
+					1,
+					"insert_snippet",
+					{
+						"contents": "($0)"
+					},
+					"AQAAAMcEAAAAAAAAyQQAAAAAAAAAAAAA",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAADHBAAAAAAAAMcEAAAAAAAAAAAAAAAA8L8"
+				],
+				[
+					37,
+					1,
+					"insert",
+					{
+						"characters": "ы"
+					},
+					"AQAAAMgEAAAAAAAAyQQAAAAAAAAAAAAA",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAADIBAAAAAAAAMgEAAAAAAAAAAAAAAAA8L8"
+				],
+				[
+					38,
+					1,
+					"left_delete",
+					null,
+					"AQAAAMgEAAAAAAAAyAQAAAAAAAACAAAA0Ys",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAADJBAAAAAAAAMkEAAAAAAAAAAAAAAAA8L8"
+				],
+				[
+					39,
+					1,
+					"run_macro_file",
+					{
+						"file": "res://Packages/Default/Delete Left Right.sublime-macro"
+					},
+					"AgAAAMcEAAAAAAAAxwQAAAAAAAABAAAAKMcEAAAAAAAAxwQAAAAAAAABAAAAKQ",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAADIBAAAAAAAAMgEAAAAAAAAAAAAAAAA8L8"
+				],
+				[
+					40,
+					1,
+					"delete_word",
+					{
+						"forward": false
+					},
+					"AQAAAL0EAAAAAAAAvQQAAAAAAAAKAAAAdGV4dEZpbHRlcg",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAADHBAAAAAAAAMcEAAAAAAAAAAAAAAAA8L8"
+				],
+				[
+					49,
+					2,
+					"left_delete",
+					null,
+					"AgAAALwEAAAAAAAAvAQAAAAAAAABAAAACrsEAAAAAAAAuwQAAAAAAAABAAAACg",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAC9BAAAAAAAAL0EAAAAAAAAAAAAAAAA8L8"
+				],
+				[
+					4,
+					1,
+					"insert",
+					{
+						"characters": "\n"
+					},
+					"AQAAALwEAAAAAAAAvQQAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAvAQAAAAAAAC8BAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					6,
+					1,
+					"insert",
+					{
+						"characters": "\nte"
+					},
+					"AwAAALwEAAAAAAAAvQQAAAAAAAAAAAAAvQQAAAAAAAC+BAAAAAAAAAAAAAC+BAAAAAAAAL8EAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAvAQAAAAAAAC8BAAAAAAAAAAAAAAAAAAA"
+				],
+				[
+					8,
+					1,
+					"insert_completion",
+					{
+						"completion": "textFilter",
+						"format": "text",
+						"keep_prefix": false,
+						"must_insert": false,
+						"trigger": "textFilter"
+					},
+					"AgAAAL0EAAAAAAAAvQQAAAAAAAACAAAAdGW9BAAAAAAAAMcEAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAvwQAAAAAAAC/BAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					9,
+					1,
+					"insert_snippet",
+					{
+						"contents": "($0)"
+					},
+					"AQAAAMcEAAAAAAAAyQQAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAxwQAAAAAAADHBAAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		},
+		{
+			"file": "src/lib/language.js",
+			"settings":
+			{
+				"buffer_size": 1618,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/lib/store.js",
+			"settings":
+			{
+				"buffer_size": 761,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+				[
+					30,
+					1,
+					"paste",
+					null,
+					"AQAAADICAAAAAAAAWgIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					35,
+					1,
+					"paste",
+					null,
+					"AgAAADwCAAAAAAAARgIAAAAAAAAAAAAARgIAAAAAAABGAgAAAAAAAAkAAAB0aGVtZVN3YXA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					40,
+					1,
+					"insert",
+					{
+						"characters": "handler"
+					},
+					"CAAAAFECAAAAAAAAUgIAAAAAAAAAAAAAUgIAAAAAAABSAgAAAAAAAAUAAAB0aGVtZVICAAAAAAAAUwIAAAAAAAAAAAAAUwIAAAAAAABUAgAAAAAAAAAAAABUAgAAAAAAAFUCAAAAAAAAAAAAAFUCAAAAAAAAVgIAAAAAAAAAAAAAVgIAAAAAAABXAgAAAAAAAAAAAABXAgAAAAAAAFgCAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					41,
+					1,
+					"insert_completion",
+					{
+						"completion": "handler-input.js",
+						"format": "snippet",
+						"keep_prefix": false,
+						"must_insert": false,
+						"trigger": "handler-input.js"
+					},
+					"AgAAAFECAAAAAAAAUQIAAAAAAAAHAAAAaGFuZGxlclECAAAAAAAAYQIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					42,
+					3,
+					"left_delete",
+					null,
+					"AwAAAGACAAAAAAAAYAIAAAAAAAABAAAAc18CAAAAAAAAXwIAAAAAAAABAAAAal4CAAAAAAAAXgIAAAAAAAABAAAALg",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					57,
+					1,
+					"left_delete",
+					null,
+					"AQAAAFcCAAAAAAAAVwIAAAAAAAABAAAAcg",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					61,
+					1,
+					"insert",
+					{
+						"characters": "."
+					},
+					"AQAAAEYCAAAAAAAARwIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					62,
+					1,
+					"insert",
+					{
+						"characters": " "
+					},
+					"AQAAAEcCAAAAAAAASAIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					63,
+					1,
+					"paste",
+					null,
+					"AQAAAEgCAAAAAAAAUwIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					66,
+					1,
+					"left_delete",
+					null,
+					"AQAAAEYCAAAAAAAARgIAAAAAAAABAAAALg",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					67,
+					1,
+					"insert",
+					{
+						"characters": ","
+					},
+					"AQAAAEYCAAAAAAAARwIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					74,
+					1,
+					"paste",
+					null,
+					"AgAAAEgCAAAAAAAAUwIAAAAAAAAAAAAAUwIAAAAAAABTAgAAAAAAAAsAAABoYW5kbGVJbnB1dA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		},
+		{
+			"file": "src/lib/theme.js",
+			"settings":
+			{
+				"buffer_size": 656,
 				"line_ending": "Windows"
 			},
 			"undo_stack":
 			[
 			]
+		},
+		{
+			"file": "src/scripts/hours/based-on-the-first-month.js",
+			"settings":
+			{
+				"buffer_size": 10076,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/scripts/hours/summary-of-teachers.js",
+			"settings":
+			{
+				"buffer_size": 4529,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/scripts/other/other.js",
+			"settings":
+			{
+				"buffer_size": 15908,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/scripts/session/debtors.js",
+			"settings":
+			{
+				"buffer_size": 3964,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/scripts/session/empty-statements.js",
+			"settings":
+			{
+				"buffer_size": 7560,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/scripts/session/package-of-documents.js",
+			"settings":
+			{
+				"buffer_size": 10709,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+			]
+		},
+		{
+			"file": "src/scripts/session/report.js",
+			"settings":
+			{
+				"buffer_size": 3425,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+			]
+		},
+		{
+			"file": "src/scripts/file-actions.js",
+			"settings":
+			{
+				"buffer_size": 1995,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/scripts/utils.js",
+			"settings":
+			{
+				"buffer_size": 11477,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
 		}
 	],
 	"build_system": "Packages/Python/Python.sublime-build",
@@ -66,6 +578,18 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"Install",
+				"Package Control: Install Package"
+			],
+			[
+				"Enable",
+				"LSP: Enable Language Server Globally"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
 			[
 				"insta",
 				"Package Control: Install Package"
@@ -112,15 +636,14 @@
 	"expanded_folders":
 	[
 		"/D/Мои документы/JavaScript/Sonata",
-		"/D/Мои документы/JavaScript/Sonata/examples",
 		"/D/Мои документы/JavaScript/Sonata/src",
 		"/D/Мои документы/JavaScript/Sonata/src/components",
 		"/D/Мои документы/JavaScript/Sonata/src/components/hours",
 		"/D/Мои документы/JavaScript/Sonata/src/components/other",
 		"/D/Мои документы/JavaScript/Sonata/src/components/session",
 		"/D/Мои документы/JavaScript/Sonata/src/lib",
-		"/D/Мои документы/JavaScript/Sonata/src/lib/language",
 		"/D/Мои документы/JavaScript/Sonata/src/scripts",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/hours",
 		"/D/Мои документы/JavaScript/Sonata/src/scripts/other",
 		"/D/Мои документы/JavaScript/Sonata/src/scripts/python",
 		"/D/Мои документы/JavaScript/Sonata/src/scripts/session"
@@ -128,28 +651,8 @@
 	"file_history":
 	[
 		"/D/Мои документы/JavaScript/Sonata/preload.cjs",
-		"/D/Мои документы/JavaScript/Sonata/main.js",
-		"/D/Мои документы/JavaScript/Sonata/src/App.svelte",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts.js",
-		"/D/Мои документы/JavaScript/Sonata/src/main.js",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts/utils.js",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts/file-actions.js",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts/session/package-of-documents.js",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts/session/empty-statements.js",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts/session/debtors.js",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/utils.py",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/test.js",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/test.py",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/start.py",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/session.py",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/other.py",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/hours.py",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts/other/other.js",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts/hours/summary-of-teachers.js",
-		"/D/Мои документы/JavaScript/Sonata/src/scripts/hours/based-on-the-first-month.js",
-		"/D/Мои документы/JavaScript/Sonata/src/lib/theme.js",
+		"/D/Мои документы/JavaScript/Sonata/src/lib/handle-input.js",
 		"/D/Мои документы/JavaScript/Sonata/src/lib/store.js",
-		"/D/Мои документы/JavaScript/Sonata/src/lib/language.js",
 		"/D/Мои документы/JavaScript/Sonata/src/components/Workspace.svelte",
 		"/D/Мои документы/JavaScript/Sonata/src/components/TitleBar.svelte",
 		"/D/Мои документы/JavaScript/Sonata/src/components/template.svelte",
@@ -157,16 +660,43 @@
 		"/D/Мои документы/JavaScript/Sonata/src/components/ProgramMenu.svelte",
 		"/D/Мои документы/JavaScript/Sonata/src/components/FileOutput.svelte",
 		"/D/Мои документы/JavaScript/Sonata/src/components/FileInput.svelte",
-		"/D/Мои документы/JavaScript/Sonata/src/components/ErrorWindow.svelte",
 		"/D/Мои документы/JavaScript/Sonata/src/components/ExampleWindow.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/components/ErrorWindow.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/components/hours/based-on-the-first-month.svelte",
 		"/D/Мои документы/JavaScript/Sonata/src/components/session/report.svelte",
-		"/D/Мои документы/JavaScript/Sonata/src/components/session/package-of-documents.svelte",
 		"/D/Мои документы/JavaScript/Sonata/src/components/session/empty-statements.svelte",
 		"/D/Мои документы/JavaScript/Sonata/src/components/session/debtors.svelte",
 		"/D/Мои документы/JavaScript/Sonata/src/components/other/templates.svelte",
 		"/D/Мои документы/JavaScript/Sonata/src/components/other/other.svelte",
 		"/D/Мои документы/JavaScript/Sonata/src/components/hours/summary-of-teachers.svelte",
-		"/D/Мои документы/JavaScript/Sonata/src/components/hours/based-on-the-first-month.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/session.py",
+		"/D/Мои документы/JavaScript/Sonata/src/components/session/package-of-documents.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/other/other.js",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/utils.js",
+		"/D/Мои документы/JavaScript/Sonata/src/lib/handler-input.js",
+		"/D/Мои документы/JavaScript/Sonata/src/lib/handlerInput.js",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/session/package-of-documents.js",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/hours/based-on-the-first-month.js",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/start.py",
+		"/D/Мои документы/JavaScript/Sonata/docs/README.md",
+		"/D/Мои документы/JavaScript/Sonata/docs/en/README.md",
+		"/D/Мои документы/JavaScript/Sonata/docs/ru/README.md",
+		"/D/Мои документы/JavaScript/Sonata/src/lib/styles.json",
+		"/D/Мои документы/JavaScript/Sonata/main.js",
+		"/D/Мои документы/JavaScript/Sonata/src/App.svelte",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts.js",
+		"/D/Мои документы/JavaScript/Sonata/src/main.js",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/file-actions.js",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/session/empty-statements.js",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/session/debtors.js",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/utils.py",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/test.js",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/test.py",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/other.py",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/hours.py",
+		"/D/Мои документы/JavaScript/Sonata/src/scripts/hours/summary-of-teachers.js",
+		"/D/Мои документы/JavaScript/Sonata/src/lib/theme.js",
+		"/D/Мои документы/JavaScript/Sonata/src/lib/language.js",
 		"/D/Мои документы/JavaScript/Sonata/src/scripts/python/test_data.json",
 		"/D/Мои документы/JavaScript/Sonata/examples/empty-statements.json",
 		"/D/Мои документы/JavaScript/Sonata/src/lib/language/en.json",
@@ -195,14 +725,13 @@
 		"/D/Мои документы/JavaScript/Sonata/dist/win-unpacked/resources/app/node_modules/jszip/dist/jszip.js",
 		"/D/Мои документы/JavaScript/Sonata/vite.config.js",
 		"/D/Мои документы/ПОЛИТЕХ/5 семестр/Інтелектуальний аналіз даних -/ЛР 7 -/Lab7_ukr_part_1.ipynb",
-		"/D/Мои документы/JavaScript/Sonata/src/lib/styles.json",
 		"/D/Мои документы/JavaScript/Sonata/src/components/AccountActionButtons.svelte",
 		"/C/Users/Maxim/AppData/Roaming/Sublime Text/Packages/User/Default.sublime-commands",
 		"/C/Users/Maxim/AppData/Roaming/Sublime Text/Packages/Terminus/Default.sublime-commands"
 	],
 	"find":
 	{
-		"height": 38.0
+		"height": 22.0
 	},
 	"find_in_files":
 	{
@@ -216,6 +745,11 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"isComleting",
+			"sendToMain",
+			"onExcelHtml",
+			"Блок",
+			"блок",
 			"\"",
 			"25-",
 			"firstInde",
@@ -338,12 +872,7 @@
 			"semesterNumberWord",
 			"semester_number_word",
 			"kurator22",
-			"kuratorGen",
-			"kurator_gen",
-			"kurator21",
-			"kurator_21",
-			"speciality2",
-			"speciality_2"
+			"kuratorGen"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -490,12 +1019,106 @@
 			[
 				{
 					"buffer": 0,
-					"file": "src/lib/styles.json",
+					"file": "src/lib/handle-input.js",
 					"selected": true,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5852,
+						"buffer_size": 1859,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1022,
+								1022
+							]
+						],
+						"settings":
+						{
+							"lsp_uri": "file:///D:/%D0%9C%D0%BE%D0%B8%20%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D1%8B/JavaScript/Sonata/src/lib/handle-input.js",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/lib/language.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1618,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1187,
+								1188
+							]
+						],
+						"settings":
+						{
+							"lsp_uri": "file:///D:/%D0%9C%D0%BE%D0%B8%20%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D1%8B/JavaScript/Sonata/src/lib/language.js",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/lib/store.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 761,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"lsp_uri": "file:///D:/%D0%9C%D0%BE%D0%B8%20%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D1%8B/JavaScript/Sonata/src/lib/store.js",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/lib/theme.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 656,
 						"regions":
 						{
 						},
@@ -504,15 +1127,296 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/JSON/JSON.sublime-syntax",
+							"lsp_uri": "file:///D:/%D0%9C%D0%BE%D0%B8%20%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D1%8B/JavaScript/Sonata/src/lib/theme.js",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 273.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 10,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/scripts/hours/based-on-the-first-month.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10076,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								889,
+								889
+							]
+						],
+						"settings":
+						{
+							"lsp_uri": "file:///D:/%D0%9C%D0%BE%D0%B8%20%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D1%8B/JavaScript/Sonata/src/scripts/hours/based-on-the-first-month.js",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1755.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/scripts/hours/summary-of-teachers.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4529,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1010,
+								1011
+							]
+						],
+						"settings":
+						{
+							"lsp_uri": "file:///D:/%D0%9C%D0%BE%D0%B8%20%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D1%8B/JavaScript/Sonata/src/scripts/hours/summary-of-teachers.js",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1014.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/scripts/other/other.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15908,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6198,
+								6198
+							]
+						],
+						"settings":
+						{
+							"lsp_uri": "file:///D:/%D0%9C%D0%BE%D0%B8%20%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D1%8B/JavaScript/Sonata/src/scripts/other/other.js",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "src/scripts/session/debtors.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3964,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								421,
+								422
+							]
+						],
+						"settings":
+						{
+							"lsp_uri": "file:///D:/%D0%9C%D0%BE%D0%B8%20%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D1%8B/JavaScript/Sonata/src/scripts/session/debtors.js",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "src/scripts/session/empty-statements.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7560,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								430,
+								430
+							]
+						],
+						"settings":
+						{
+							"lsp_uri": "file:///D:/%D0%9C%D0%BE%D0%B8%20%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D1%8B/JavaScript/Sonata/src/scripts/session/empty-statements.js",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "src/scripts/session/package-of-documents.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10709,
+						"regions":
+						{
+						},
+						"selection":
+						[
+						],
+						"settings":
+						{
+							"lsp_uri": "file:///D:/%D0%9C%D0%BE%D0%B8%20%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D1%8B/JavaScript/Sonata/src/scripts/session/package-of-documents.js",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "src/scripts/session/report.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3425,
+						"regions":
+						{
+						},
+						"selection":
+						[
+						],
+						"settings":
+						{
+							"lsp_uri": "file:///D:/%D0%9C%D0%BE%D0%B8%20%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D1%8B/JavaScript/Sonata/src/scripts/session/report.js",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "src/scripts/file-actions.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1995,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								150,
+								150
+							]
+						],
+						"settings":
+						{
+							"lsp_uri": "file:///D:/%D0%9C%D0%BE%D0%B8%20%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D1%8B/JavaScript/Sonata/src/scripts/file-actions.js",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "src/scripts/utils.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11477,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1652,
+								1652
+							]
+						],
+						"settings":
+						{
+							"lsp_uri": "file:///D:/%D0%9C%D0%BE%D0%B8%20%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D1%8B/JavaScript/Sonata/src/scripts/utils.js",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"stack_multiselect": false,
 					"type": "text"
 				}
@@ -530,7 +1434,7 @@
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 34.0
 	},
 	"layout":
 	{
@@ -552,7 +1456,7 @@
 		"cols":
 		[
 			0.0,
-			0.849565217391,
+			0.902608695652,
 			1.0
 		],
 		"rows":
@@ -562,9 +1466,17 @@
 		]
 	},
 	"menu_visible": true,
+	"output.LSP Log Panel":
+	{
+		"height": 0.0
+	},
 	"output.Terminus":
 	{
-		"height": 123.0
+		"height": 127.0
+	},
+	"output.diagnostics":
+	{
+		"height": 0.0
 	},
 	"output.exec":
 	{
@@ -578,7 +1490,7 @@
 	"project": "workspace.sublime-project",
 	"replace":
 	{
-		"height": 68.0
+		"height": 40.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -611,6 +1523,7 @@
 	"selected_group": 0,
 	"settings":
 	{
+		"lsp_show_inlay_hints": false
 	},
 	"show_minimap": false,
 	"show_open_files": false,

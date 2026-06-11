@@ -1,16 +1,15 @@
 <script>
   import { onMount } from 'svelte';
-  import { whatDocument, selectedSection, lng, message } from '../../lib/store.js'
+  import { whatDocument, selectedSection, lng, message, handleInput } from '../../lib/store.js'
 
-  // ========== ЗАПОЛНИТЬ ==========
   let thisId = 'other--other';
-  // ===============================
-
+  
   let _lng = {};
   lng.subscribe(value => (_lng = value));
   
-  let this_, isScreenshotMode = false
-  let eSemester1Start, eSemester1End, eSemester2Start, eSemester2End
+  let this_;
+  let isScreenshotMode = false;
+  let eSemester1Start, eSemester1End, eSemester2Start, eSemester2End;
   let elComplete, isProcessing = false, isComleting = false;
 
   $: if ($selectedSection) {
@@ -26,31 +25,28 @@
   }
 
   function screenshotMode() {
+    // Перевірка на запуск у режимі vite-серверу без Electron
     if (!window.electron) return;
     window.electron.screenshotMode(!isScreenshotMode);
-    isScreenshotMode = !isScreenshotMode
+    isScreenshotMode = !isScreenshotMode;
   }
 
   onMount(() => {
-    if (window.electron?.onExcelHtml) {
-      window.electron.onExcelHtml(html => {
-        window.electron.sendToMain('excel-html', html);
-      });
-    }
     const now = new Date();
     const year = now.getFullYear();
     const month = now.getMonth() + 1;
-    const semNum = month >= 7 ? 1 : 2
+    const semNum = month >= 7 ? 1 : 2;
     
-    eSemester1Start.value  = semNum === 1  ?  `01.09.${year}`      :  `01.09.${year - 1}`
-    eSemester1End.value    = semNum === 1  ?  `31.12.${year}`      :  `31.12.${year - 1}`
-    eSemester2Start.value  = semNum === 1  ?  `01.01.${year + 1}`  :  `01.01.${year}`
-    eSemester2End.value    = semNum === 1  ?  `30.06.${year + 1}`  :  `30.06.${year}`
+    eSemester1Start.value  = semNum === 1  ?  `01.09.${year}`      :  `01.09.${year - 1}`;
+    eSemester1End.value    = semNum === 1  ?  `31.12.${year}`      :  `31.12.${year - 1}`;
+    eSemester2Start.value  = semNum === 1  ?  `01.01.${year + 1}`  :  `01.01.${year}`;
+    eSemester2End.value    = semNum === 1  ?  `30.06.${year + 1}`  :  `30.06.${year}`;
   });
 
   function completeAnimation() {
     elComplete.style.transition = 'clip-path 0s';
     elComplete.style.clipPath = 'inset(0 100% 0 0)';
+    
     setTimeout(() => {
       elComplete.style.transition = 'clip-path 0.4s ease-in-out';
       elComplete.style.zIndex = '1';
@@ -59,6 +55,7 @@
         elComplete.style.clipPath = 'inset(0 0 0 0)';
       }, 50);
     }, 50);
+
     setTimeout(() => {
       elComplete.style.zIndex = '-1';
       elComplete.style.display = 'none';
@@ -96,22 +93,16 @@
     };
 
     let result = await window.electron.startBackendFunc(data);
-    console.log(result)
-
-    isComleting = true
+    
+    isComleting = true;
     isProcessing = false;
-    completeAnimation()
+    completeAnimation();
   }
 
   function handleWhat() {
-    whatDocument.set(`${thisId}--num-den`)
+    whatDocument.set(`${thisId}--num-den`);
   }
-
 </script>
-
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 
 <div class='gui' id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
 
@@ -259,7 +250,6 @@
     display: none;
   }
 
-  /* Анимация вращения */
   @keyframes spin {
     from {
       transform: translate(-50%, -50%) rotate(360deg);
@@ -274,4 +264,4 @@
     z-index: -1;
   }
 
-</style> 
+</style>

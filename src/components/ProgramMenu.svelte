@@ -7,17 +7,23 @@
   lng.subscribe(value => (_lng = value));
 
   let choiceMark, choiseMarkIsVisible = false;
+  
+  // Скидання обраної секції при ініціалізації компоненту
   selectedSection.set('');
 
   function selectSection(event) {
     const { id, parentId } = event.detail;
+    // Знаходимо DOM-елемент натиснутої кнопки для точного розрахунку позиції повзунка
     const button = document.querySelector(`.program-menu #${parentId} #${id}`);
+    
     moveChoiceMark(button);
     selectedSection.set(`${parentId}--${id}`);
   }
 
+  // Анімація повзунка: створення ефекту "гумки" (розтягування в бік нової цілі та стискання)
   function moveChoiceMark(button) {
     if (!choiseMarkIsVisible) {
+      // Перша поява повзунка: без розтягування, просто плавна поява (opacity)
       choiceMark.style.top = button.offsetTop - 3 + 'px';
       choiceMark.style.height = '21px';
       choiceMark.style.zIndex = '1';
@@ -28,15 +34,19 @@
       choiseMarkIsVisible = true;
     } else {
       if (parseInt(choiceMark.style.top) < button.offsetTop) {
+        // Рух ВНИЗ: фіксуємо верхній край, розтягуємо висоту до нової кнопки
         choiceMark.style.height = (button.offsetTop + 18 - parseInt(choiceMark.style.top)) + 'px';
         setTimeout(() => {
+          // Підтягуємо верхній край до нової кнопки, повертаючи стандартну висоту
           choiceMark.style.top = button.offsetTop - 3 + 'px';
           choiceMark.style.height = '21px';
         }, 200);
       } else if (parseInt(choiceMark.style.top) > button.offsetTop) {
+        // Рух ВГОРУ: розтягуємо висоту вгору та зміщуємо верхній край до нової кнопки
         choiceMark.style.height = (parseInt(choiceMark.style.top) - button.offsetTop + 24) + 'px';
         choiceMark.style.top = button.offsetTop - 3 + 'px';
         setTimeout(() => {
+          // Відпускаємо нижній край, повертаючи стандартну висоту
           choiceMark.style.height = '21px';
         }, 200);
       }
@@ -44,6 +54,7 @@
   }
 
   onMount(() => {
+    // Початкова ініціалізація повзунка
     choiceMark = document.querySelector(`.program-menu .choice-mark`);
     choiceMark.style.top = '23px';
     choiceMark.style.height = '21px';
@@ -98,6 +109,7 @@
     opacity: 0;
   }
 
+  /* Оформлення заголовків груп (горизонтальні лінії з боків від тексту) */
   .line-with-text {
     display: flex;
     align-items: center;

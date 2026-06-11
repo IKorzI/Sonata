@@ -1,15 +1,13 @@
 <script>
-  import { selectedSection, clearInformation, saveInformation, savedInformation, message, lng } from '../../lib/store.js'
+  import { selectedSection, clearInformation, saveInformation, savedInformation, message, lng, textFilter, handleInput } from '../../lib/store.js'
   import FileInput from '../FileInput.svelte';
   import { tick } from 'svelte';
   
-  // ========== ЗАПОЛНИТЬ ==========
   let thisId = 'hours--based-on-the-first-month';
-  // ===============================
-
   let _lng = {};
   lng.subscribe(value => (_lng = value));
 
+  // Години по предметах за 1-й та 2-й семестри
   const hoursPerSubject = [
     {
         'Біологія':               34,
@@ -46,8 +44,9 @@
     },
   ];
 
-  let this_
+  let this_;
   let uploadedFile = null;
+  // semesterEnd внесено для коректного відображення пустого значення на сторінці
   let data = {semesterEnd: null};
   let eSemesterEnd;
   let subjectsAndHours = [];
@@ -63,18 +62,20 @@
       }
     }
   }
+
   $: if ($clearInformation) {
     if ($clearInformation === thisId) {
-      clearAll()
+      clearAll();
       setTimeout(() => {
-        clearInformation.set(null)
-      }, 50)
+        clearInformation.set(null);
+      }, 50);
     }
   }
+
   $: if ($saveInformation) {
     if ($saveInformation === thisId) {
-      saveAll()
-      saveInformation.set(null)
+      saveAll();
+      saveInformation.set(null);
     }
   }
 
@@ -96,89 +97,73 @@
       id: thisId,
       filePath: uploadedFile.path,
       hoursPerSubject: subjectsAndHours
-    }
+    };
 
-    console.log(endInformation)
     endInformation = await window.electron.hoursBasedDataSupplement(endInformation);
-    console.log(endInformation)
-    
     savedInformation.set(endInformation);
   }
 
   async function handleFileInputChange(detail) {
+    // Перевірка на запуск у режимі vite-серверу без Electron
     if (!window.electron) return;
-    if (detail.id === 'hours--based-on-the-first-month--hours') {
-      uploadedFile = detail.file;
-      data = await window.electron.hoursBasedGetInformation(uploadedFile.path);
-      console.log(data);
-      if (!data) {
-        message.set({type: 'error', text: 'inputFile.error'});
-        clearInformation.set(thisId)
-        return;
-      }
-      const parts = data.semesterStartDate.split('.');
-      const month = parseInt(parts[1], 10);
-      let semesterNumber;
-      if (month > 7) {
-        semesterNumber = 1;
-      } else {
-        semesterNumber = 2;
-      }
-      subjectsAndHours = [];
-      const subjects = data.groups[0].subjects;
-      const notFoundSubjects = [];
-      for (const subject of subjects) {
-        const hours = hoursPerSubject[semesterNumber - 1][subject.subjectName];
-        if (hours !== undefined) {
-          subjectsAndHours.push({subjectName: subject.subjectName, hours: hours});
-        } else {
-          subjectsAndHours.push({subjectName: subject.subjectName, hours: '--'});
-          notFoundSubjects.push(subject.subjectName);
-        }
-      }
+
+    uploadedFile = detail.file;
+    data = await window.electron.hoursBasedGetInformation(uploadedFile.path);
+
+    if (!data) {
+      message.set({type: 'error', text: 'inputFile.error'});
+      clearInformation.set(thisId);
+      return;
+    }
+
+    const parts = data.semesterStartDate.split('.');
+    const month = parseInt(parts[1], 10);
+    const semesterNumber = month > 7 ? 1 : 2;
+
+    subjectsAndHours = [];
+    const subjects = data.groups[0].subjects;
+    const notFoundSubjects = [];
+
+    for (const subject of subjects) {
+      const hours = hoursPerSubject[semesterNumber - 1][subject.subjectName];
       
-      if (notFoundSubjects.length > 0) {
-        const notFoundSubjectsText = `  –  ${notFoundSubjects.join(';\n  –  ')}`;
-        message.set({
-          type: 'warning',
-          text: 'basedOnTheFirstMonth.unfoundSubjects',
-          params: { notFoundSubjects : notFoundSubjectsText }
-        });
+      if (hours) {
+        subjectsAndHours.push({subjectName: subject.subjectName, hours: hours});
+      } else {
+        subjectsAndHours.push({subjectName: subject.subjectName, hours: '--'});
+        notFoundSubjects.push(subject.subjectName);
       }
+    }
+    
+    if (notFoundSubjects.length > 0) {
+      const notFoundSubjectsText = `  –  ${notFoundSubjects.join(';\n  –  ')}`;
+      message.set({
+        type: 'warning',
+        text: 'basedOnTheFirstMonth.unfoundSubjects',
+        params: { notFoundSubjects : notFoundSubjectsText }
+      });
     }
   }
 
   function handleFileRemove(detail) {
     if (!window.electron) return;
-    if (detail.id === 'hours--based-on-the-first-month--hours') {
-      uploadedFile = null;
-    }
+    uploadedFile = null;
   }
 
-  async function handleInput(event, subjectIndex) {
+  async function handleHoursInput(event, subjectIndex) {
     const input = event.target;
-    
-    // 1. Запоминаем текущую позицию курсора (которую поставил браузер после ввода)
     const cursorStart = input.selectionStart;
     const originalValue = input.value;
-
-    // 2. Чистим значение (удаляем всё кроме цифр)
-    const cleanValue = originalValue.replace(/[^0-9]/g, '');
-
-    // 3. Обновляем данные
+    
+    const cleanValue = textFilter(originalValue, { numbers: true });
     subjectsAndHours[subjectIndex].hours = cleanValue;
-    input.value = cleanValue; // Обновляем визуально сразу
+    input.value = cleanValue;
 
-    // Вычисляем смещение курсора.
-    // Если мы удалили символ (например, букву), длина уменьшилась.
-    // Нам нужно вернуть курсор назад на количество удаленных символов.
+    // Збереження позиції курсору після фільтрації вводу
     const diff = originalValue.length - cleanValue.length;
     const newCursorPos = cursorStart - diff;
-
-    // 4. Ждем, пока Svelte закончит свои дела с DOM
+    
     await tick();
-
-    // 5. Восстанавливаем курсор на правильную позицию
     input.setSelectionRange(newCursorPos, newCursorPos);
   }
 </script>
@@ -192,7 +177,7 @@
 
   <div class='semester-end'>
     <div>{_lng.basedOnTheFirstMonth.semesterEnd}</div>
-    <input type='text' bind:this={eSemesterEnd} value='{data.semesterEndDate ? `${data.semesterEndDate}`: ''}' class:unavailable={uploadedFile === null}/>
+    <input type='text' bind:this={eSemesterEnd} value='{data.semesterEndDate ? `${data.semesterEndDate}`: ''}' class:unavailable={uploadedFile === null} on:input={(e) => handleInput(e.target, { numbers: true, period: true })}/>
   </div>
 
   <div class='hours-per-subject'>
@@ -201,7 +186,7 @@
       {#each subjectsAndHours as subject, subjectIndex}
         <div class='row' id={subject.subjectName}>
           <div class='subject'>{subject.subjectName}</div>
-          <input class='hoursCount' value={subject.hours} on:input={(e) => handleInput(e, subjectIndex)}/>
+          <input class='hoursCount' value={subject.hours} on:input={(e) => handleHoursInput(e, subjectIndex)}/>
         </div>
       {/each}
     </div>
@@ -210,7 +195,7 @@
 </div>
 
 <style>
-  
+  /* Індивідуальні стилі для компоненту FileInput */
   :global(.file-input#hours--based-on-the-first-month--hours) {
     position: absolute;
   }
@@ -254,7 +239,7 @@
   }
 
   .hours-per-subject::-webkit-scrollbar {
-    display: none; /* Chrome, Safari и Edge */
+    display: none;
   }
   
   .list .row {
@@ -306,5 +291,4 @@
     overflow: hidden;
     white-space: nowrap;
   }
-
-</style> 
+</style>

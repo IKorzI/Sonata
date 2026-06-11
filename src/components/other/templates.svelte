@@ -2,11 +2,9 @@
   import { selectedSection } from '../../lib/store.js'
   import FileOutput from '../FileOutput.svelte';
 
-  // ========== ЗАПОЛНИТЬ ==========
   let thisId = 'other--templates';
-  // ===============================
 
-  let this_
+  let this_;
 
   $: if ($selectedSection) {
     if (this_) {
@@ -39,10 +37,11 @@
     align-content: flex-start;
   }
 
+  /* Глобальні стилі для підпису конкретного компонента FileOutput */
   :global(.file-output#hours--based-on-the-first-month--hours .label) {
     position: relative;
     width: calc(100% + 20px);
     left: -10px;
   }
 
-</style> 
+</style>

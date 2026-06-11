@@ -2,16 +2,14 @@
   import { selectedSection, clearInformation, saveInformation, savedInformation, lng, message } from '../../lib/store.js'
   import FileInput from '../FileInput.svelte';
 
-  // ========== ЗАПОЛНИТЬ ==========
   let thisId = 'hours--summary-of-teachers';
-  // ===============================
 
   let _lng = {};
   lng.subscribe(value => (_lng = value));
   
-  let this_
+  let this_;
   let uploadedFile = null;
-  let data = null
+  let data = null;
 
   $: if ($selectedSection) {
     if (this_) {
@@ -24,18 +22,20 @@
       }
     }
   }
+
   $: if ($clearInformation) {
     if ($clearInformation === thisId) {
-      clearAll()
+      clearAll();
       setTimeout(() => {
-        clearInformation.set(null)
-      }, 50)
+        clearInformation.set(null);
+      }, 50);
     }
   }
+
   $: if ($saveInformation) {
     if ($saveInformation === thisId) {
-      saveAll()
-      saveInformation.set(null)
+      saveAll();
+      saveInformation.set(null);
     }
   }
   
@@ -53,34 +53,30 @@
       ...data,
       id: thisId,
       filePath: uploadedFile.path
-    }
+    };
 
-    console.log(endInformation)
+    // Фінальне доповнення та комплектація перед відправкою до бекенду
     endInformation = await window.electron.hoursSummaryDataSupplement(endInformation);
-    console.log(endInformation)
-
     savedInformation.set(endInformation);
   }
 
   async function handleFileInputChange(detail) {
+    // Перевірка на запуск у режимі vite-серверу без Electron
     if (!window.electron) return;
-    if (detail.id === 'hours--summary-of-teachers--hours') {
-      uploadedFile = detail.file;
-      data = await window.electron.hoursSummaryGetInformation(uploadedFile.path);
-      console.log(data);
-      if (!data) {
-        message.set({type: 'error', text: 'inputFile.error'});
-        clearInformation.set(thisId)
-        return;
-      }
+
+    uploadedFile = detail.file;
+    data = await window.electron.hoursSummaryGetInformation(uploadedFile.path);
+
+    if (!data) {
+      message.set({type: 'error', text: 'inputFile.error'});
+      clearInformation.set(thisId);
+      return;
     }
   }
 
   function handleFileRemove(detail) {
     if (!window.electron) return;
-    if (detail.id === 'hours--summary-of-teachers--hours') {
-      uploadedFile = null;
-    }
+    uploadedFile = null;
   }
 </script>
 
@@ -94,7 +90,4 @@
 </div>
 
 <style>
-  
-  
-  
-</style> 
+</style>

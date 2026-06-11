@@ -1,11 +1,9 @@
 <script>
   import { selectedSection } from '../../lib/store.js'
 
-  // ========== ЗАПОЛНИТЬ ==========
   let thisId = 'session--template';
-  // ===============================
 
-  let this_
+  let this_;
 
   $: if ($selectedSection) {
     if (this_) {
@@ -28,4 +26,4 @@
 
 <style>
   
-</style> 
+</style>

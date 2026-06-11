@@ -2,14 +2,11 @@
   import FileInput from '../FileInput.svelte';
   import { selectedSection, clearInformation, saveInformation, savedInformation, lng, message } from '../../lib/store.js'
 
-  // ========== ЗАПОЛНИТЬ ==========
   let thisId = 'session--empty-statements';
-  // ===============================
-
   let _lng = {};
   lng.subscribe(value => (_lng = value));
 
-  let this_
+  let this_;
   let uploadedFileHours = null;
   let uploadedFileContingent = null;
   let ePercentage, eFirstIndex;
@@ -28,18 +25,20 @@
       }
     }
   }
+
   $: if ($clearInformation) {
     if ($clearInformation === thisId) {
-      clearAll()
+      clearAll();
       setTimeout(() => {
-        clearInformation.set(null)
-      }, 50)
+        clearInformation.set(null);
+      }, 50);
     }
   }
+
   $: if ($saveInformation) {
     if ($saveInformation === thisId) {
-      saveAll()
-      saveInformation.set(null)
+      saveAll();
+      saveInformation.set(null);
     }
   }
 
@@ -56,6 +55,7 @@
       return;
     }
     
+    // Запит у користувача шляху для збереження кінцевого файлу
     const targetPath = await window.electron.saveDialog('Зберегти', '.txt');
     if (!targetPath) return;
 
@@ -66,45 +66,47 @@
       firstIndex: Number(eFirstIndex.value),
       hoursData: hoursData,
       contingentData: contingentData
-    }
+    };
 
-    console.log(endInformation)
+    // Фінальне доповнення даних перед відправкою до бекенду
     endInformation = await window.electron.sessionEmptyDataSupplement(endInformation);
-    console.log(endInformation)
-
     savedInformation.set(endInformation);
   }
 
-  let dddd = false
   async function handleFileInputChange(detail) {
+    // Перевірка на запуск у режимі vite-серверу без Electron
     if (!window.electron) return;
+
     if (detail.id === 'session--empty-statements--hours') {
       uploadedFileHours = detail.file;
       hoursData = await window.electron.sessionEmptyGetInformation(uploadedFileHours.path, 'hours');
-      console.log(hoursData)
+
       if (!hoursData) {
         message.set({type: 'error', text: _lng.inputFile.error});
         uploadedFileHours = null;
         hoursData = null;
-        clearInformation.set('session--empty-statements--hours')
+        
+        // Очищення конкретного компоненту FileInput у разі помилки читання файлу
+        clearInformation.set('session--empty-statements--hours');
         setTimeout(() => {
-          clearInformation.set(null)
-        }, 50)
+          clearInformation.set(null);
+        }, 50);
         return;
       }
     } else if (detail.id === 'session--empty-statements--contingent') {
       uploadedFileContingent = detail.file;
       contingentData = await window.electron.sessionEmptyGetInformation(uploadedFileContingent.path, 'contingent');
-      console.log(contingentData)
+      
       if (!contingentData) {
         message.set({type: 'error', text: _lng.inputFile.error});
         uploadedFileContingent = null;
         contingentData = null;
-        clearInformation.set('session--empty-statements--contingent')
+        
+        // Очищення конкретного компоненту FileInput у разі помилки читання файлу
+        clearInformation.set('session--empty-statements--contingent');
         setTimeout(() => {
-          clearInformation.set(null)
-        }, 50)
-        dddd = true
+          clearInformation.set(null);
+        }, 50);
         return;
       }
     }
@@ -112,6 +114,7 @@
 
   function handleFileRemove(detail) {
     if (!window.electron) return;
+
     if (detail.id === 'session--empty-statements--hours') {
       uploadedFileHours = null;
       hoursData = null;
@@ -183,4 +186,4 @@
     padding-left: 0px;
   }
 
-</style> 
+</style>

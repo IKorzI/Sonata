@@ -3,71 +3,63 @@
 
   let _lng = {};
   lng.subscribe(value => (_lng = value));
-  
+
   let errorText = '';
   let errorType = '';
 
-// 1. Базовая функция для поиска обычных переводов
+  // Пошук звичайних перекладів у словнику за шляхом (наприклад, 'errorWindow.title')
   function getTranslation(dict, path) {
     if (!path) return '';
     return path.split('.').reduce((acc, part) => acc && acc[part], dict) || path;
   }
 
-  // 2. Функция для бэкенд-текста: ищет {{key}} и переводит
+  // Парсинг тексту з бекенду: пошук та переклад ключів у форматі {{key}}
   function parseBackendText(dict, text) {
     if (!text) return '';
     return text.replace(/\{\{([a-zA-Z0-9_\.]+)\}\}/g, (match, key) => {
       const translated = getTranslation(dict, key);
-      // Если перевод найден и это не объект, возвращаем его. Иначе возвращаем оригинальный {{key}}
+      // Якщо переклад знайдено і це рядок (а не гілка об'єкта), повертаємо його. Інакше — оригінальний {{key}}
       return (translated && typeof translated !== 'object' && translated !== key) ? translated : match;
     });
   }
 
-  // 3. Реактивный блок: пересчитывается при любом изменении $message или $lng
+  // Відслідковування змін у повідомленнях або мові
   $: if ($message) {
-    // Проверяем, пустое ли сообщение на самом деле
-    // Теперь сообщение считается валидным, если есть text ИЛИ есть messageFromTheBackendData
+    // Повідомлення валідне, якщо є звичайний text або повідомлення від бекенду
     const isMessageEmpty = $message.text === '' && !$message.params?.messageFromTheBackendData;
-    
+
     if (isMessageEmpty) {
-      // Логика закрытия окна
       setTimeout(() => {
         errorText = '';
         errorType = '';
       }, 400);
     } else {
-      // Обновляем заголовок
       errorType = $message.type === 'warning' 
         ? $lng.errorWindow.errorWindow.title.warning 
         : $lng.errorWindow.errorWindow.title.error;
 
-      // Сценарий А: Сложные данные от бэкенда
+      // Сценарій А: Складні дані від бекенду
       if ($message.params?.messageFromTheBackendData) {
         const backendData = $message.params.messageFromTheBackendData;
         let combinedParts = [];
 
-        // Если есть файлы, переводим заголовок для них и склеиваем
         if (backendData.filesText) {
           const filesTitle = getTranslation($lng, 'workspace.saveWithADifferentName');
           combinedParts.push(`${filesTitle}\n${backendData.filesText}`);
         }
 
-        // Если есть кастомный текст, парсим ключи внутри {{}}
         if (backendData.customText) {
           combinedParts.push(parseBackendText($lng, backendData.customText));
         }
 
-        // Соединяем части. Если есть и файлы и текст, между ними будет пустая строка (\n\n)
-        errorText = combinedParts.join('\n\n'); 
+        errorText = combinedParts.join('\n\n');
 
-      // Сценарий Б: Стандартное сообщение (например, workspace.unfoundSubjects)
+      // Сценарій Б: Стандартне повідомлення з підстановкою параметрів (наприклад, {notFoundSubjects})
       } else {
         let text = getTranslation($lng, $message.text);
-        
-        // Подставляем параметры (например {notFoundSubjects})
+
         if ($message.params) {
           for (const [key, value] of Object.entries($message.params)) {
-            // Заменяем только если значение - строка или число
             if (typeof value === 'string' || typeof value === 'number') {
               text = text.replace(new RegExp(`{${key}}`, 'g'), value);
             }
@@ -158,22 +150,19 @@
     cursor: pointer;
   }
 
-  /* Скрываем скроллбар для Chrome, Edge, Safari */
+  /* Стилізація скроллбару */
   .text-area::-webkit-scrollbar {
     width: 8px;
   }
-  /* Дорожка */
   .text-area::-webkit-scrollbar-track {
     background: transparent;
   }
-  /* Ползунок */
   .text-area::-webkit-scrollbar-thumb {
     background-color: var(--button-background-color1);
     border-radius: 4px;
     border: 2px solid transparent;
     background-clip: content-box;
   }
-  /* При наведении */
   .text-area::-webkit-scrollbar-thumb:hover {
     background-color: var(--button-hover-background-color1);
   }

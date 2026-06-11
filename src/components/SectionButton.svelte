@@ -1,19 +1,24 @@
 <script>
   import { onMount } from 'svelte';
   import { createEventDispatcher } from 'svelte';
+  
+  // Вхідні параметри компонента
   export let id;
   export let text;
-
+  
   let buttonElement;
   let parentId;
 
   const dispatch = createEventDispatcher();
 
   function handleClick() {
+    // Відправка події кліку батьківському компоненту (ProgramMenu) для оновлення обраної секції
     dispatch('sectionclick', { id, parentId });
   }
 
   onMount(() => {
+    // Автоматичне визначення ID батьківської групи секцій через DOM. 
+    // Це дозволяє не передавати parentId вручну через props для кожної кнопки.
     parentId = buttonElement.closest('.group-of-sections').id;
   });
 </script>

@@ -2,14 +2,11 @@
   import { selectedSection, clearInformation, saveInformation, savedInformation, message, lng } from '../../lib/store.js'
   import FileInput from '../FileInput.svelte';
 
-  // ========== ЗАПОЛНИТЬ ==========
   let thisId = 'session--debtors';
-  // ===============================
-
   let _lng = {};
   lng.subscribe(value => (_lng = value));
   
-  let this_
+  let this_;
   let loadedGroups = [];
 
   $: if ($selectedSection) {
@@ -23,18 +20,20 @@
       }
     }
   }
+
   $: if ($clearInformation) {
     if ($clearInformation === thisId) {
-      clearAll()
+      clearAll();
       setTimeout(() => {
-        clearInformation.set(null)
-      }, 50)
+        clearInformation.set(null);
+      }, 50);
     }
   }
+
   $: if ($saveInformation) {
     if ($saveInformation === thisId) {
-      saveAll()
-      saveInformation.set(null)
+      saveAll();
+      saveInformation.set(null);
     }
   }
 
@@ -52,26 +51,28 @@
       id: thisId,
       filePath: loadedGroups[0].filePath,
       groups: loadedGroups,
-    }
+    };
 
-    console.log(endInformation)
+    // Фінальне доповнення даних перед відправкою до бекенду
     endInformation = await window.electron.sessionDebtorsDataSupplement(endInformation);
-    console.log(endInformation)
-
     savedInformation.set(endInformation);
   }
 
   async function handleFileInputChange(detail) {
+    // Перевірка на запуск у режимі vite-серверу без Electron
     if (!window.electron) return;
+
     if (detail.id === 'session--debtors--statements') {
       const uploadedFile = detail.file;
       const data = await window.electron.sessionDebtorsGetInformation(uploadedFile.path);
-      console.log(data)
+
       if (!data) {
         message.set({type: 'error', text: 'inputFile.error'});
-        clearInformation.set(thisId)
+        clearInformation.set(thisId);
         return;
       }
+
+      // Перевірка, чи не була ця група вже завантажена раніше
       for (const group of loadedGroups) {
         if (group.groupCode === data.groupCode) {
           message.set({
@@ -82,24 +83,23 @@
           return;
         }
       }
+
+      // Додавання нової групи до загального списку
       loadedGroups = [...loadedGroups, {...data, filePath: uploadedFile.path}];
-      console.log(loadedGroups);
     }
   }
+
   async function handleFileRemove(detail) {
-    return
+    return;
   }
 
+  // Видалення групи зі списку завантажених
   function handleRemoveRow(index) {
     loadedGroups.splice(index, 1);
-    loadedGroups = [...loadedGroups];
+    loadedGroups = [...loadedGroups]; // Переприсвоєння для спрацювання реактивності Svelte
   }
 
 </script>
-
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 
 <div class='gui' id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
 
@@ -155,8 +155,9 @@
     justify-content: center;
   }
 
+  /* Приховування стандартного скроллбару */
   .loaded-groups::-webkit-scrollbar {
-    display: none; /* Chrome, Safari и Edge */
+    display: none;
   }
   
   .list .row {
@@ -199,4 +200,4 @@
     background-color: var(--button-active-background-color1);
   }
   
-</style> 
+</style>

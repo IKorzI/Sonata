@@ -1,6 +1,7 @@
 <script>
   import { createEventDispatcher, onMount, onDestroy } from 'svelte';
   import { whatDocument, clearInformation, lng } from '../lib/store.js'
+  
   const dispatch = createEventDispatcher();
   export let extensions;
   export let type;
@@ -11,7 +12,8 @@
 
   let file = null;
   let fileInputEl;
-  let fileName = ''; // Добавляем переменную для имени файла
+  let fileName = ''; 
+
   $: label = {
     'session--package-of-documents--statements': _lng.fileInput.label.session.packageOfDocuments.statements,
     'session--empty-statements--hours': _lng.fileInput.label.session.emptyStatements.hours,
@@ -25,15 +27,15 @@
 
   let eArea, eText, eName, eExtensions, eDelete, eWhat;
 
-  // Путь к изображению по типу
   $: backgroundImageUrl =
     type === 'excel' ? 'excel.png'
     : type === 'word' ? 'word.png'
     : '';
 
-  // Вычисляемое имя с ограничением символов
+  // Обрізка довгого імені файлу для збереження коректної верстки компоненту
   $: truncatedFileName = fileName.length > 15 ? fileName.substring(0, 15) + '...' : fileName;
 
+  // Лічильники для усунення мерехтіння (flickering) при подіях наведення та перетягування (drag & drop) над дочірніми елементами
   let mouseCounter = 0;
   let dragCounter = 0;
 
@@ -51,20 +53,23 @@
   }
 
   function fileSelect(inputFile) {
+    // Компоненти звітів та боржників не фіксують файл візуально, оскільки дані одразу обробляються бекендом
     if (eId !== 'session--report--statements' && eId !== 'session--debtors--statements') {
       file = inputFile;
-      fileName = file.name; // Устанавливаем имя файла при дропе
+      fileName = file.name;
     }
-    dispatch('fileSelected', { id: eId, file: inputFile }); // отправка файла родителю
+    dispatch('fileSelected', { id: eId, file: inputFile });
   }
 
   function fileDelete() {
     file = null;
-    fileName = ''; // Сброс имени файла при удалении
+    fileName = '';
     fileInputEl.value = '';
     dispatch('fileRemoved', { id: eId });
   }
 
+  // Послідовна зміна CSS-класів та z-index з затримками для коректного відпрацювання анімації 
+  // появи/зникнення елементів (назва, іконка видалення, розширення)
   function stylesLoadedSet(type) {
     if (type) {
       eArea.classList.add('unavailable')
@@ -92,24 +97,17 @@
 
         setTimeout(() => {
           eArea.classList.remove('unavailable')
-
           eArea.style.transition = null;
-
           eText.style.transition = null;
           eText.style.zIndex = '-1';
-
           eName.style.transition = null;
-
           eExtensions.style.transition = null;
           eExtensions.style.zIndex = '-1';
-
           eDelete.style.transition = null;
-
           eWhat.style.transition = null;
           eWhat.style.zIndex = '-1';
         }, 400);
       }, 10);
-
     } else {
       eArea.classList.add('unavailable')
 
@@ -137,23 +135,16 @@
 
         setTimeout(() => {
           eArea.classList.remove('unavailable')
-
           eArea.style.transition = null;
-
           eText.style.transition = null;
-
           eName.style.transition = null;
           eName.style.zIndex = '-1';
-
           eExtensions.style.transition = null;
-
           eWhat.style.transition = null;
-
           eDelete.style.transition = null;
           eDelete.style.zIndex = '-1';
         }, 400);
       }, 10);
-
     }
   }
 
@@ -207,7 +198,6 @@
   }
 
   onMount(() => {
-
     eArea.addEventListener('mouseenter', (e) => {
       if (file !== null) return;
       mouseCounter++;
@@ -246,7 +236,6 @@
       e.preventDefault();
       dragCounter = 0;
       mouseCounter = 0;
-
       eArea.classList.remove('hovered');
     });
 
@@ -263,11 +252,7 @@
     eArea.removeEventListener('drop');
     eArea.removeEventListener('dragover');
   });
-
 </script>
-
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<!-- svelte-ignore a11y-click-events-have-key-events -->
 
 <div
   class='file-input'

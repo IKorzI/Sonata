@@ -1,10 +1,12 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import { availableLngs, changeLanguage, lng, transition, themeSwap, hide } from '../lib/store.js'
+  
   let _lng = {};
   lng.subscribe(value => (_lng = value));
   let languageListIsOpen = false;
   
+  // Закриття списку мов при кліку поза його межами
   function handleGlobalClick(event) {
     if (!event.target.className.includes('language') && event.target.tagName !== 'LI' && languageListIsOpen) {
       const languageList = document.querySelector('.title-bar .language-list');
@@ -15,6 +17,7 @@
   }
 
   onMount(() => {
+    // Динамічна генерація пунктів меню для вибору мови
     const languageList = document.querySelector('.title-bar .language-list');
     availableLngs.forEach((lng, index) => {
       const li = document.createElement('li');
@@ -33,11 +36,12 @@
 
     window.addEventListener('click', handleGlobalClick);
   });
-  
+
   onDestroy(() => {
     window.removeEventListener('click', handleGlobalClick);
   });
 
+  // Прапорець для запобігання повторним клікам під час виконання анімації
   let isProcess = false;
 
   function handleMinimize() {
@@ -45,6 +49,7 @@
     isProcess = true;
     transition.set('0.2s');
 
+    // Плавне приховування контенту перед згортанням вікна в Electron
     hide.set(true);
     setTimeout(() => {
       if (window.electron) {
@@ -63,6 +68,7 @@
     isProcess = true;
     transition.set('0.2s');
 
+    // Плавне приховування контенту перед повним закриттям програми
     hide.set(true);
     setTimeout(() => {
       if (window.electron) {
@@ -86,13 +92,12 @@
   }
 
   function showLngList() {
+    const languageList = document.querySelector('.title-bar .language-list');
     if (!languageListIsOpen) {
-      const languageList = document.querySelector('.title-bar .language-list');
       languageList.style.zIndex = '999';
-      languageList.style.opacity = '1'
+      languageList.style.opacity = '1';
       languageListIsOpen = true;
     } else {
-      const languageList = document.querySelector('.title-bar .language-list');
       languageList.style.opacity = '';
       languageList.style.zIndex = '';
       languageListIsOpen = false;
@@ -149,11 +154,7 @@
     background-image: url('../icon.png');
   }
 
-  /*
-    ".title-bar .language", потому что просто ".language" слабее чем ".title-bar > *:not(.language-list)",
-    а в нём прописан стиль "font-weight: bold" и чтобы его перебить нужно сделать стиль более
-    специфичным, а для этого нужно добавить ".title-bar"
-  */
+  /* Збільшення специфічності селектора, щоб перевизначити font-weight: bold з .title-bar > *:not(.language-list) */
   .title-bar .language {
     font-weight: normal;
   }
@@ -172,6 +173,7 @@
   }
 
   .program-name {
+    /* Дозволяє користувачу перетягувати вікно програми за цю область (Electron) */
     -webkit-app-region: drag;
     font-weight: normal;
     font-size: 20px;

@@ -30,19 +30,19 @@
 
   let eArea;
 
-  // Путь к изображению по типу
   $: backgroundImageUrl =
     type === 'excel' ? 'excel.png'
     : type === 'word' ? 'word.png'
     : '';
 
   async function handleDownload() {
+    // Перевірка на запуск у режимі vite-серверу без Electron
     if (!window.electron) return;
 
     const baseName = names[eId].filePathToSave;
     const basePath = 'examples/save/';
-
-    // Получаем расширение от Electron (поиск файла с этим базовым именем в папке examples)
+    
+    // Пошук файлу шаблону в директорії examples та визначення його розширення
     const fileInfo = await window.electron.findFileWithExtension(basePath, baseName);
     if (!fileInfo) {
       alert('File not found.');
@@ -50,16 +50,14 @@
     }
 
     const { fullPath, extension } = fileInfo;
-
     const fileName = names[eId].fileNameToSave
 
-    // Открываем диалог сохранения
+    // Відкриття системного діалогу для вибору місця збереження файлу користувачем
     const targetPath = await window.electron.saveDialog(fileName, extension);
     if (!targetPath) return;
 
-    // Копируем файл
+    // Фізичне копіювання файлу шаблону за обраним шляхом
     const result = await window.electron.saveFile(fullPath, targetPath);
-
     if (!result.success) {
       alert('Error saving file: ' + result.error);
     }
@@ -70,6 +68,7 @@
   }
 
   onMount(() => {
+    // Лічильник для уникнення мерехтіння (flickering) при наведенні курсора на дочірні елементи
     let mouseCounter = 0;
 
     eArea.addEventListener('mouseenter', (e) => {
@@ -92,11 +91,7 @@
     eArea.removeEventListener('mouseenter');
     eArea.removeEventListener('mouseleave');
   });
-
 </script>
-
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<!-- svelte-ignore a11y-click-events-have-key-events -->
 
 <div
   class='file-output'

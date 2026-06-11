@@ -13,15 +13,15 @@
   let raf = null;
   let containerEl;
   let areaEl;
-  // Храним ссылки на DOM-элементы изображений
+
+  // Посилання на DOM-елементи зображень та їхні оригінальні розміри для точного розрахунку масштабу
   let imgRefs = {};
-  // Храним размеры для каждого загруженного изображения
   let imageDimensions = {}; 
 
   let imageNaturalWidth = 0;
   let imageNaturalHeight = 0;
 
-  // 1. Статичная структура файлов (не зависит от языка)
+  // Статична структура файлів (базові імена), яка не залежить від обраної мови інтерфейсу
   const FILE_STRUCTURE = {
     'hours--based-on-the-first-month': [
       'based-on-the-first-month--september',
@@ -55,10 +55,9 @@
     'session--debtors--statements': ['statements']
   };
 
-  // 2. Получаем массив уникальных имен файлов железно 1 раз
   const uniqueImageNames = [...new Set(Object.values(FILE_STRUCTURE).flat())];
 
-  // 3. Реактивный объект для рендера интерфейса с использованием $lng напрямую
+  // Реактивний об'єкт конфігурації для рендеру підписів та назв файлів, залежить від мовного стору $lng
   $: names = {
     'hours--based-on-the-first-month': {
       downloadable: false,
@@ -76,7 +75,6 @@
         {filePath: 'summary-of-teachers', displayName: $lng.exampleWindow.names.summaryOfTeachers}
       ]
     },
-   
     'session--empty-statements': {
       downloadable: false,
       filesToDisplay: [
@@ -113,7 +111,6 @@
         {filePath: 'num-den', displayName: $lng.exampleWindow.names.numDen}
       ]
     },
-
     'hours--based-on-the-first-month--hours': {
       downloadable: true,
       fileNameToSave: $lng.exampleWindow.names.hours.fileNameToSave,
@@ -172,7 +169,6 @@
     }
   }
 
-  // Реактивная переменная для списка изображений текущего документа
   $: currentImages = $whatDocument && names[$whatDocument] ?
     names[$whatDocument].filesToDisplay : [];
 
@@ -180,22 +176,20 @@
   let prevDocument = null;
   let showDownload = false;
   let downloadTimeout = null;
-  let imageTimeout = null; // таймер для задержки скрытия картинки
+  let imageTimeout = null;
   
-  // Реактивно назначаем первое изображение активным при смене документа
   $: {
     if ($whatDocument !== prevDocument) {
-      clearTimeout(imageTimeout); // Обязательно сбрасываем таймер, если пользователь быстро передумал
+      clearTimeout(imageTimeout); // Обов'язково скидаємо таймер для запобігання мерехтінню при швидкому кліку
 
       if ($whatDocument) {
-        // Окно открывается или меняется документ — показываем картинку сразу
         if (currentImages.length > 0) {
           activeImgName = currentImages[0].filePath;
         } else {
           activeImgName = null;
         }
       } else {
-        // Окно закрывается — убираем картинку с задержкой
+        // Затримуємо приховування картинки, щоб анімація закриття вікна встигла програтися без "стрибків" контенту
         imageTimeout = setTimeout(() => {
           activeImgName = null;
         }, 500);
@@ -211,12 +205,11 @@
     } else {
       clearTimeout(downloadTimeout);
       downloadTimeout = setTimeout(() => {
-        showDownload = false; // Прячем через 0.5с (когда анимация окна уже завершится)
+        showDownload = false;
       }, 500);
     }
   }
 
-  // Функция для переключения изображений кликом по кнопке
   function switchImage(filePath) {
     activeImgName = filePath;
   }
@@ -224,9 +217,8 @@
   $: {
     if ($whatDocument) {
       stylesLoadedSet(true);
-      // Если изображение уже было загружено ранее, пересчитываем трансформацию
       if (activeImgName && imageDimensions[activeImgName]) {
-        // Используем setTimeout, чтобы DOM успел применить класс .visible перед расчетами
+        // Відкладаємо виконання на наступний тік, щоб DOM встиг застосувати клас .visible перед розрахунками
         setTimeout(() => initTransformForActiveImage(activeImgName), 0);
       }
     } else {
@@ -273,7 +265,6 @@
 
     const containerWith = containerRect.width - 4;
     const containerHeight = containerRect.height - 4;
-
     const scaleX = containerWith / imageNaturalWidth;
     const scaleY = containerHeight / imageNaturalHeight;
 
@@ -333,11 +324,11 @@
       translateX = Math.min(maxTranslateX, Math.max(minTranslateX, translateX));
       translateY = Math.min(maxTranslateY, Math.max(minTranslateY, translateY));
 
-      // 1. Задаем физические размеры вместо масштабирования через transform
+      // Встановлюємо фізичні розміри ширини/висоти. Якщо масштабувати через transform: scale, текст на картинці може блюритись.
       activeImgEl.style.width = `${imageWidth}px`;
       activeImgEl.style.height = `${imageHeight}px`;
       
-      // 2. В transform оставляем ТОЛЬКО перемещение
+      // У властивості transform залишаємо виключно X/Y координати переміщення для плавності.
       activeImgEl.style.transform = `translate(${translateX}px, ${translateY}px)`;
     });
   }
@@ -346,7 +337,6 @@
     event.preventDefault();
 
     const scrollSpeed = 50;
-
     if (event.ctrlKey) {
       const delta = event.deltaY > 0 ? -scaleStep : scaleStep;
       const newScaleUnclamped = scale + delta;
@@ -373,22 +363,19 @@
     updateTransform();
   }
 
-  // Требование 3: Функция сброса масштаба по ширине окна
   function handleScaleByWidth() {
     if (!containerEl || !activeImgName || !imageDimensions[activeImgName]) return;
-
     const containerRect = containerEl.getBoundingClientRect();
     const containerWith = containerRect.width - 4;
     const containerHeight = containerRect.height - 4;
-
+    
     scale = containerWith / imageNaturalWidth;
 
     const imageWidth = imageNaturalWidth * scale;
     const imageHeight = imageNaturalHeight * scale;
-
+    
     translateX = (containerWith - imageWidth) / 2;
     translateY = imageHeight > containerHeight ? 0 : (containerHeight - imageHeight) / 2;
-
     updateTransform();
   }
 
@@ -452,15 +439,12 @@
     scale = Math.min(maxScale, scale + scaleStep);
     updateTransform();
   }
+  
   function handleScaleDown() {
     scale = Math.max(minScale, scale - scaleStep);
     updateTransform();
   }
 </script>
-
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 
 <div class='example-area' bind:this={areaEl}>
   <div
