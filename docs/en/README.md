@@ -7,7 +7,7 @@ Work with documents, saving up to 95% of time with software for professional col
 
 ![Preview](imgs/preview.png)
 
-## Advantages:
+## Advantages
 * The program is built on Electron and Svelte, which ensures modularity of the user interface and clear separation of logic between individual components.
 
 ![Preview2](imgs/preview2.png)
