@@ -132,19 +132,19 @@
     <div class='label'>{_lng.other.numDen.title}</div>
     <div class='input-block' id='start1'>
       <div>{_lng.other.numDen.start1}</div>
-      <input type='text' bind:this={eSemester1Start}/>
+      <input type='date' bind:this={eSemester1Start} on:input={(e) => handleInput(e.target, { date: true })}/>
     </div>
     <div class='input-block' id='end1'>
       <div>{_lng.other.numDen.end1}</div>
-      <input type='text' bind:this={eSemester1End}/>
+      <input type='date' bind:this={eSemester1End} on:input={(e) => handleInput(e.target, { date: true })}/>
     </div>
     <div class='input-block' id='start2'>
       <div>{_lng.other.numDen.start2}</div>
-      <input type='text' bind:this={eSemester2Start}/>
+      <input type='date' bind:this={eSemester2Start} on:input={(e) => handleInput(e.target, { numbers: true, period: true })}/>
     </div>
     <div class='input-block' id='end2'>
       <div>{_lng.other.numDen.end2}</div>
-      <input type='text' bind:this={eSemester2End}/>
+      <input type='date' bind:this={eSemester2End} on:input={(e) => handleInput(e.target, { numbers: true, period: true })}/>
     </div>
     <button class='start' on:click={() => numDenStart()}>
       {#if isProcessing === false && isComleting === false}
