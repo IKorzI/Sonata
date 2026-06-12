@@ -77,14 +77,15 @@
     // Перевірка на запуск у режимі vite-серверу без Electron
     if (!window.electron) return;
 
-    uploadedFile = detail.file;
-    data = await window.electron.hoursSummaryGetInformation(uploadedFile.path);
+    data = await window.electron.hoursSummaryGetInformation(detail.file.path);
 
     if (!data) {
       message.set({type: 'error', text: 'inputFile.error'});
       clearInformation.set(thisId);
       return;
     }
+
+    uploadedFile = detail.file;
   }
 
   // Обробка видалення файлу
@@ -102,6 +103,7 @@
   <FileInput eId='hours--summary-of-teachers--hours' extensions={['.xlsx']} type='excel'
     on:fileSelected={event => handleFileInputChange(event.detail)}
     on:fileRemoved={event => handleFileRemove(event.detail)}
+    isLoaded={uploadedFile !== null}
   />
 
 </div>

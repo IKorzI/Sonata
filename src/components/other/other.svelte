@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
-  import { whatDocument, selectedSection, lng, message, handleInput } from '../../lib/store.js'
+  import CustomDateInput from '../CustomDateInput.svelte';
+  import { whatDocument, selectedSection, lng, message, strToDate } from '../../lib/store.js'
 
   let thisId = 'other--other';
   
@@ -9,8 +10,9 @@
   
   let this_;
   let isScreenshotMode = false;
-  let eSemester1Start, eSemester1End, eSemester2Start, eSemester2End;
+  let semester1Start, semester1End, semester2Start, semester2End;
   let elComplete, isProcessing = false, isComleting = false;
+  let isDone = true;
 
   $: if ($selectedSection) {
     // Якщо компонент вже завантажено
@@ -45,44 +47,72 @@
     const month = now.getMonth() + 1;
     const semNum = month >= 7 ? 1 : 2;
     
-    eSemester1Start.value  = semNum === 1  ?  `01.09.${year}`      :  `01.09.${year - 1}`;
-    eSemester1End.value    = semNum === 1  ?  `31.12.${year}`      :  `31.12.${year - 1}`;
-    eSemester2Start.value  = semNum === 1  ?  `01.01.${year + 1}`  :  `01.01.${year}`;
-    eSemester2End.value    = semNum === 1  ?  `30.06.${year + 1}`  :  `30.06.${year}`;
+    semester1Start = semNum === 1  ?  `01.09.${year}`      :  `01.09.${year - 1}`;
+    semester1End = semNum === 1  ?  `31.12.${year}`      :  `31.12.${year - 1}`;
+    semester2Start = semNum === 1  ?  `01.01.${year + 1}`  :  `01.01.${year}`;
+    semester2End = semNum === 1  ?  `30.06.${year + 1}`  :  `30.06.${year}`;
   });
 
   // Анімація успіху
   function completeAnimation() {
-    elComplete.style.transition = 'clip-path 0s';
-    elComplete.style.clipPath = 'inset(0 100% 0 0)';
-    
-    setTimeout(() => {
-      elComplete.style.transition = 'clip-path 0.4s ease-in-out';
-      elComplete.style.zIndex = '1';
-      elComplete.style.display = 'block';
+    if (isDone) {
+      elComplete.style.transition = 'clip-path 0s';
+      elComplete.style.clipPath = 'inset(0 100% 0 0)';
+      
       setTimeout(() => {
-        elComplete.style.clipPath = 'inset(0 0 0 0)';
+        elComplete.style.transition = 'clip-path 0.4s ease-in-out';
+        elComplete.style.zIndex = '1';
+        elComplete.style.display = 'block';
+        setTimeout(() => {
+          elComplete.style.clipPath = 'inset(0 0 0 0)';
+        }, 50);
       }, 50);
-    }, 50);
 
-    setTimeout(() => {
-      elComplete.style.zIndex = '-1';
-      elComplete.style.display = 'none';
       setTimeout(() => {
+        elComplete.style.zIndex = '';
+        elComplete.style.display = '';
         elComplete.style.transition = '';
-        isComleting = false;
+      }, 3100);
+    } else {
+      console.log('1')
+      elComplete.style.transition = 'transform 0s';
+      elComplete.style.transformOrigin = 'center';
+      elComplete.style.transform = 'scale(0.2)';
+      elComplete.style.display = 'block';
+      elComplete.style.zIndex = '1';
+      elComplete.style.opacity = '0';
+      
+      setTimeout(() => {
+        elComplete.style.transition = 'transform 0.4s ease-in-out, opacity 0.2s ease';
+        elComplete.style.opacity = '1';
+        elComplete.style.transform = 'scale(1)';
       }, 50);
-    }, 1100);
+      
+      setTimeout(() => {
+        elComplete.style.transformOrigin = '';
+        elComplete.style.transition = '';
+        elComplete.style.transform = '';
+        elComplete.style.zIndex = '';
+        elComplete.style.display = '';
+        elComplete.style.opacity = '';
+        elComplete.style.transition = '';
+      }, 3050);
+    }
+
+    isComleting = false;
   }
 
   // Індивідуальна обробка натискання на кнопку "Старт"
   async function numDenStart() {
     // Перевірка, чи все, що потрібно, внесено
     if (
-      eSemester1Start.value === '' ||
-      eSemester1End.value === '' ||
-      eSemester2Start.value === '' ||
-      eSemester2End.value === ''
+      semester1Start === '' ||
+      semester1End === '' ||
+      semester2Start === '' ||
+      semester2End === '' ||
+      strToDate(semester1End) <= strToDate(semester1Start) ||
+      strToDate(semester2End) <= strToDate(semester2Start) ||
+      strToDate(semester2Start) <= strToDate(semester1End)
     ) {
       message.set({type: 'error', text: 'other.numDen.notAllData'});
       return;
@@ -96,20 +126,32 @@
     // Якщо вже виконується робота – повернутися
     if (isProcessing) return;
     isProcessing = true; // Виконується процес
+    isDone = true;
 
     // Збирання усієї інформації в одне ціле
     const data = {
       id: `${thisId}--num-den`,
-      semester1Start: eSemester1Start.value,
-      semester1End: eSemester1End.value,
-      semester2Start: eSemester2Start.value,
-      semester2End: eSemester2End.value,
+      semester1Start: semester1Start,
+      semester1End: semester1End,
+      semester2Start: semester2Start,
+      semester2End: semester2End,
       filePath: targetPath
     };
 
     // Запуск функції у бекенді і очікування відповіді
     let result = await window.electron.startBackendFunc(data);
     
+    // Перевірка наявності помилок рівня Python (traceback)
+    if (result.error) {
+      const errorText = `Error: ${result.error}\n\nTracing:\n${result.traceback}`;
+      message.set({
+        type: 'error',
+        text: errorText
+      });
+      isDone = false;
+      return; 
+    }
+
     isComleting = true;
     isProcessing = false;
     completeAnimation();
@@ -132,19 +174,19 @@
     <div class='label'>{_lng.other.numDen.title}</div>
     <div class='input-block' id='start1'>
       <div>{_lng.other.numDen.start1}</div>
-      <input type='date' bind:this={eSemester1Start} on:input={(e) => handleInput(e.target, { date: true })}/>
+      <CustomDateInput bind:value={semester1Start} />
     </div>
     <div class='input-block' id='end1'>
       <div>{_lng.other.numDen.end1}</div>
-      <input type='date' bind:this={eSemester1End} on:input={(e) => handleInput(e.target, { date: true })}/>
+      <CustomDateInput bind:value={semester1End} />
     </div>
     <div class='input-block' id='start2'>
       <div>{_lng.other.numDen.start2}</div>
-      <input type='date' bind:this={eSemester2Start} on:input={(e) => handleInput(e.target, { numbers: true, period: true })}/>
+      <CustomDateInput bind:value={semester2Start} />
     </div>
     <div class='input-block' id='end2'>
       <div>{_lng.other.numDen.end2}</div>
-      <input type='date' bind:this={eSemester2End} on:input={(e) => handleInput(e.target, { numbers: true, period: true })}/>
+      <CustomDateInput bind:value={semester2End} />
     </div>
     <button class='start' on:click={() => numDenStart()}>
       {#if isProcessing === false && isComleting === false}
@@ -154,7 +196,9 @@
         z-index: {isProcessing === true ? "1" : "-1"};
         display: {isProcessing === true ? "block" : "none"};
       '></div>
-      <div class='complete' bind:this={elComplete}></div>
+      <div class='complete' bind:this={elComplete} style='
+        background-image: {isDone === true ? "url(\"/done.png\")" : "url(\"/undone.png\")"};
+      '></div>
     </button>
     <div class='what' on:click={() => handleWhat()}></div>
   </div>

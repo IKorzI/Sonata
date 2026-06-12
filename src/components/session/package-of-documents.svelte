@@ -1,7 +1,8 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import FileInput from '../FileInput.svelte';
-  import { selectedSection, clearInformation, saveInformation, savedInformation, lng, message } from '../../lib/store.js'
+  import CustomDateInput from '../CustomDateInput.svelte';
+  import { selectedSection, clearInformation, saveInformation, savedInformation, lng, message, handleInput, strToDate } from '../../lib/store.js'
 
   // ========== ЗАПОЛНИТЬ ==========
   let thisId = 'session--package-of-documents';
@@ -21,7 +22,8 @@
   let uploadedFile = null;
 
   let this_
-  let eList, eStudentsBySpecialty, eStatusList, ePercentage, eSemesterStart, eSemesterEnd, eKuratorNom, eKuratorGen;
+  let eList, eStudentsBySpecialty, eStatusList, ePercentage, eKuratorNom, eKuratorGen;
+  let semesterStart, semesterEnd;
   let currentStudentRow;
   let studentListMoveProcessing = false;
   let statusListMoveProcessing = false;
@@ -76,8 +78,9 @@
       uploadedFile === null ||
       eKuratorNom.value === '' ||
       eKuratorGen.value === '' ||
-      eSemesterStart.value === '' ||
-      eSemesterEnd.value === '' ||
+      semesterStart === '' ||
+      semesterEnd === '' ||
+      strToDate(semesterEnd) <= strToDate(semesterStart) ||
       increasedList.some(item => item.studentName === null) ||
       socialyList.some(item => item.studentName === null) ||
       socialyList.some(item => item.status === null)
@@ -94,8 +97,8 @@
       increasedList: increasedList,
       kuratorNom: eKuratorNom.value,
       kuratorGen: eKuratorGen.value,
-      semesterStart: eSemesterStart.value,
-      semesterEnd: eSemesterEnd.value
+      semesterStart: semesterStart,
+      semesterEnd: semesterEnd
     }
 
     console.log(endInformation)
@@ -192,14 +195,14 @@
   async function handleFileInputChange(detail) {
     if (!window.electron) return;
     if (detail.id === 'session--package-of-documents--statements') {
-      uploadedFile = detail.file;
-      data = await window.electron.sessionPackageGetInformation(uploadedFile.path);
+      data = await window.electron.sessionPackageGetInformation(detail.file.path);
       console.log(data)
       if (!data) {
         message.set({type: 'error', text: 'inputFile.error'});
         clearInformation.set(thisId)
         return;
       }
+      uploadedFile = detail.file;
 
       // Получение списка имён студентов по коду специальности
       studentNamesByCode = data.subgroups.reduce((acc, specialty, index) => {
@@ -391,6 +394,7 @@
   <FileInput eId='session--package-of-documents--statements' extensions={['.xlsx']} type='excel'
     on:fileSelected={event => handleFileInputChange(event.detail)}
     on:fileRemoved={event => handleFileRemove(event.detail)}
+    isLoaded={uploadedFile !== null}
   />
 
   <div class='social-scholarship'>
@@ -445,11 +449,17 @@
     <div class='label'>{_lng.packageOfDocuments.semesterDates.label}</div>
     <div class='row' id='start'>
       <div>{_lng.packageOfDocuments.semesterDates.start}</div>
-      <input type='text' bind:this={eSemesterStart} value={data.semesterStart} class:unavailable={uploadedFile === null}/>
+      <CustomDateInput 
+        bind:value={data.semesterStart} 
+        class={uploadedFile === null ? 'unavailable' : ''}
+      />
     </div>
     <div class='row' id='end'>
       <div>{_lng.packageOfDocuments.semesterDates.end}</div>
-      <input type='text' bind:this={eSemesterEnd} value={data.semesterEnd} class:unavailable={uploadedFile === null}/>
+      <CustomDateInput 
+        bind:value={data.semesterEnd} 
+        class={uploadedFile === null ? 'unavailable' : ''}
+      />
     </div>
   </div>
 
@@ -457,11 +467,11 @@
     <div class='label'>{_lng.packageOfDocuments.classTeacherName.label}</div>
     <div class='row' id='nominative'>
       <div>{_lng.packageOfDocuments.classTeacherName.nominative}</div>
-      <input type='text' bind:this={eKuratorNom} value={data.kuratorNom} class:unavailable={uploadedFile === null}/>
+      <input type='text' bind:this={eKuratorNom} value={data.kuratorNom} class:unavailable={uploadedFile === null} on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}/>
     </div>
     <div class='row' id='genitive'>
       <div>{_lng.packageOfDocuments.classTeacherName.genitive}</div>
-      <input type='text' bind:this={eKuratorGen} value={data.kuratorGen} class:unavailable={uploadedFile === null}/>
+      <input type='text' bind:this={eKuratorGen} value={data.kuratorGen} class:unavailable={uploadedFile === null} on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}/>
     </div>
   </div>
 

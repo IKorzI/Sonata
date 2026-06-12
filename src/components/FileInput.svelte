@@ -6,6 +6,18 @@
   export let extensions;
   export let type;
   export let eId;
+
+  export let isLoaded = false;
+  let prevIsLoaded = false;
+  $: {
+    if (isLoaded === true && prevIsLoaded === false) {
+      stylesLoadedSet(true);
+      prevIsLoaded = isLoaded;
+    } else if (isLoaded === false && prevIsLoaded === true) {
+      stylesLoadedSet(false);
+      prevIsLoaded = isLoaded;
+    }
+  }
   
   let _lng = {};
   lng.subscribe(value => (_lng = value));
@@ -154,8 +166,6 @@
       fileSelect(selectedFile)
       if (eId === 'session--report--statements' || eId === 'session--debtors--statements') {
         fileDelete();
-      } else {
-        stylesLoadedSet(true)
       }
     }
   }
@@ -181,8 +191,6 @@
         fileSelect(droppedFile)
         if (eId === 'session--report--statements' || eId === 'session--debtors--statements') {
           fileDelete();
-        } else {
-          stylesLoadedSet(true)
         }
       }
     }

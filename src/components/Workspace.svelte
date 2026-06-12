@@ -1,5 +1,6 @@
 <script>
   import { selectedSection, clearInformation, saveInformation, savedInformation, message, whatDocument, lng } from '../lib/store.js'
+  import { tick } from 'svelte';
 
   import SessionPackageOfDocuments from './session/package-of-documents.svelte';
   import SessionEmptyStatements from './session/empty-statements.svelte';
@@ -22,6 +23,7 @@
 
   let isProcessing = false;
   let isComleting = false; // Прапорець стану анімації завершення
+  let isDone = true;
   let elComplete;
 
   // Перелік ідентифікаторів секцій, які підтримують централізовані кнопки дій
@@ -36,37 +38,58 @@
   $: isVisible = startSections.includes($selectedSection);
 
   function completeAnimation() {
-    elComplete.style.transition = 'clip-path 0s';
-    elComplete.style.clipPath = 'inset(0 100% 0 0)';
-    
-    setTimeout(() => {
-      elComplete.style.transition = 'clip-path 0.4s ease-in-out';
-      elComplete.style.zIndex = '1';
-      elComplete.style.display = 'block';
+    if (isDone) {
+      elComplete.style.transition = 'clip-path 0s';
+      elComplete.style.clipPath = 'inset(0 100% 0 0)';
+      
       setTimeout(() => {
-        elComplete.style.clipPath = 'inset(0 0 0 0)';
+        elComplete.style.transition = 'clip-path 0.4s ease-in-out';
+        elComplete.style.zIndex = '1';
+        elComplete.style.display = 'block';
+        setTimeout(() => {
+          elComplete.style.clipPath = 'inset(0 0 0 0)';
+        }, 50);
       }, 50);
-    }, 50);
 
-    setTimeout(() => {
-      elComplete.style.zIndex = '-1';
-      elComplete.style.display = 'none';
       setTimeout(() => {
+        elComplete.style.zIndex = '';
+        elComplete.style.display = '';
         elComplete.style.transition = '';
-        isComleting = false;
+      }, 3100);
+    } else {
+      console.log('1')
+      elComplete.style.transition = 'transform 0s';
+      elComplete.style.transformOrigin = 'center';
+      elComplete.style.transform = 'scale(0.2)';
+      elComplete.style.display = 'block';
+      elComplete.style.zIndex = '1';
+      elComplete.style.opacity = '0';
+      
+      setTimeout(() => {
+        elComplete.style.transition = 'transform 0.4s ease-in-out, opacity 0.2s ease';
+        elComplete.style.opacity = '1';
+        elComplete.style.transform = 'scale(1)';
       }, 50);
-    }, 1100);
-  }
+      
+      setTimeout(() => {
+        elComplete.style.transformOrigin = '';
+        elComplete.style.transition = '';
+        elComplete.style.transform = '';
+        elComplete.style.zIndex = '';
+        elComplete.style.display = '';
+        elComplete.style.opacity = '';
+        elComplete.style.transition = '';
+      }, 3050);
+    }
 
-  // Допоміжна функція для безпечного отримання значення з об'єкта за рядковим шляхом
-  function getValueByPath(obj, path) {
-    return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+    isComleting = false;
   }
 
   // Головний метод взаємодії з бекендом
   async function start() {
     if (isProcessing || $savedInformation?.id === undefined) return;
     isProcessing = true;
+    isDone = true;
 
     try {
       // Виклик основної функції Python-бекенду через міст Electron
@@ -74,11 +97,12 @@
 
       // 1. Перевірка наявності помилок рівня Python (traceback)
       if (backendResponse.error) {
-        const errorText = `Помилка: ${backendResponse.error}\n\nТрасування:\n${backendResponse.traceback}`;
+        const errorText = `Error: ${backendResponse.error}\n\nTracing:\n${backendResponse.traceback}`;
         message.set({
           type: 'error',
           text: errorText
         });
+        isDone = false;
         return; 
       }
 
@@ -124,10 +148,12 @@
         type: 'error',
         text: `Системна помилка JS: ${err.message}`
       });
+      isDone = false;
     } finally {
       // Зняття блокування інтерфейсу та запуск анімації успіху незалежно від результату
       isComleting = true;
       isProcessing = false;
+      await tick();
       completeAnimation();
     }
   }
@@ -160,7 +186,9 @@
       z-index: {isProcessing === true ? "1" : "-1"};
       display: {isProcessing === true ? "block" : "none"};
     '></div>
-    <div class='complete' bind:this={elComplete}></div>
+    <div class='complete' bind:this={elComplete} style='
+      background-image: {isDone === true ? "url(\"/done.png\")" : "url(\"/undone.png\")"};
+    '></div>
   </button>
 
   <SessionPackageOfDocuments />
@@ -226,12 +254,11 @@
 
   .complete {
     position: absolute;
-    top: 50%;
+    /* top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
     height: 25px;
     width: 25px;
-    background-image: url('../done.png');
     z-index: -1;
     display: none;
   }

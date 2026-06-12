@@ -1,13 +1,13 @@
 <script>
   import { selectedSection, clearInformation, saveInformation, savedInformation, message, lng, textFilter, handleInput } from '../../lib/store.js'
   import FileInput from '../FileInput.svelte';
+  import CustomDateInput from '../CustomDateInput.svelte';
   import { tick } from 'svelte';
   
   let thisId = 'hours--based-on-the-first-month';
   let _lng = {};
   lng.subscribe(value => (_lng = value));
 
-  // Години по предметах за 1-й та 2-й семестри
   // Години по предметах за 1-й та 2-й семестри
   const hoursPerSubject = [
     {
@@ -47,9 +47,9 @@
 
   let this_;
   let uploadedFile = null;
-  // semesterEnd внесено для коректного відображення пустого значення на сторінці
-  let data = {semesterEnd: null};
-  let eSemesterEnd;
+  // semesterEndDate внесено для коректного відображення пустого значення на сторінці
+  let data = {semesterEndDate: null};
+  let semesterEnd;
   let subjectsAndHours = [];
 
   $: if ($selectedSection) {
@@ -91,13 +91,13 @@
   function clearAll() {
     uploadedFile = null;
     subjectsAndHours = [];
-    data = {semesterEnd: null};
+    data = {semesterEndDate: null};
   }
 
   // Збереження внесених даних
   async function saveAll() {
     // Перевірка, чи все, що потрібно, внесено
-    if (uploadedFile === null || eSemesterEnd.value === '' || subjectsAndHours.length === 0) {
+    if (uploadedFile === null || semesterEnd === '' || subjectsAndHours.length === 0) {
       message.set({type: 'error', text: 'basedOnTheFirstMonth.notAllData'});
       return;
     }
@@ -105,7 +105,7 @@
     // Збирання усієї внесеної інформації в одне ціле
     let endInformation = {
       ...data,
-      semesterEndDate: eSemesterEnd.value,
+      semesterEndDate: semesterEnd,
       id: thisId,
       filePath: uploadedFile.path,
       hoursPerSubject: subjectsAndHours
@@ -120,14 +120,15 @@
     // Перевірка на запуск у режимі vite-серверу без Electron
     if (!window.electron) return;
 
-    uploadedFile = detail.file;
-    data = await window.electron.hoursBasedGetInformation(uploadedFile.path);
+    data = await window.electron.hoursBasedGetInformation(detail.file.path);
 
     if (!data) {
       message.set({type: 'error', text: 'inputFile.error'});
       clearInformation.set(thisId);
       return;
     }
+
+    uploadedFile = detail.file;
 
     const parts = data.semesterStartDate.split('.');
     const month = parseInt(parts[1], 10);
@@ -190,12 +191,15 @@
   <FileInput eId='hours--based-on-the-first-month--hours' extensions={['.xlsx']} type='excel'
     on:fileSelected={event => handleFileInputChange(event.detail)}
     on:fileRemoved={event => handleFileRemove(event.detail)}
+    isLoaded={uploadedFile !== null}
   />
 
-  <!-- Блок FileInput для завантаження файлів -->
   <div class='semester-end'>
     <div>{_lng.basedOnTheFirstMonth.semesterEnd}</div>
-    <input type='text' bind:this={eSemesterEnd} value='{data.semesterEndDate ? `${data.semesterEndDate}`: ''}' class:unavailable={uploadedFile === null} on:input={(e) => handleInput(e.target, { date: true })}/>
+    <CustomDateInput
+      bind:value={data.semesterEndDate}
+      class={uploadedFile === null ? 'unavailable' : ''}
+    />
   </div>
 
   <!-- Таблиця елементів предмет-години -->
@@ -233,7 +237,7 @@
     grid-template-columns: 255px 25px;
     row-gap: 5px;
   }
-  .semester-end input {
+  :global(#hours--based-on-the-first-month .semester-end input) {
     width: 90px;
     padding-left: 5px;
   }

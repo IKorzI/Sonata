@@ -106,12 +106,12 @@
 
   "python.session.emptyStart.customText": "The groups contain specialties with multiple OPPs.\nThe following OPPs were recorded in the information for instructors for these specialties:",
 
-  "packageOfDocuments.notAllData": "The data is incorrect for one of the reasons:\n  –  file not uploaded;\n  –  scholarship assignment dates not entered;\n  –  class teacher's last name not entered;\n  –  in the lists for social and increased scholarships the value is \"Select student\" or \"Select status\".",
+  "packageOfDocuments.notAllData": "The data is incorrect for one of the reasons:\n  –  file not uploaded;\n  –  scholarship assignment dates not entered (or entered incorrectly);\n  –  class teacher's last name not entered;\n  –  in the lists for social and increased scholarships the value is \"Select student\" or \"Select status\".",
   "emptyStatements.notAllData": "The data is incorrect for one of the following reasons:\n  –  files not uploaded;\n  –  the \"% of scholarship budget\" field is not filled in;\n  –  the \"Number of the first statement in the issuance journal\" field is not filled in.",
   "report.notAllData": "The data is incorrect for one of the reasons:\n  –  groups uploaded 0.",
   "debtors.notAllData": "The data is incorrect for one of the reasons:\n  –  groups uploaded 0.",
   "basedOnTheFirstMonth.notAllData": "The data is incorrect for one of the reasons:\n  –  file not uploaded;\n  –  no last date of study in the semester has been entered.",
   "summaryOfTeachers.notAllData": "The data is incorrect for one of the reasons:\n  –  no file has been uploaded.",
-  "other.numDen.notAllData": "The data is incorrect for one of the reasons:\n  –  all start and end dates of the semesters have not been entered.",
+  "other.numDen.notAllData": "The data is incorrect for one of the reasons:\n  –  all start and end dates of the semesters have not been entered (or entered incorrectly).",
   "inputFile.error": "Error retrieving information from the file. Check the correctness of the selected file."
 }

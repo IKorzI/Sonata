@@ -1,6 +1,6 @@
 <script>
   import FileInput from '../FileInput.svelte';
-  import { selectedSection, clearInformation, saveInformation, savedInformation, lng, message } from '../../lib/store.js'
+  import { selectedSection, clearInformation, saveInformation, savedInformation, lng, message, handleInput } from '../../lib/store.js'
 
   let thisId = 'session--empty-statements';
   let _lng = {};
@@ -10,6 +10,8 @@
   let uploadedFileHours = null;
   let uploadedFileContingent = null;
   let ePercentage, eFirstIndex;
+  let percentageOfScholarship = '';
+  let firstIndex = '';
 
   let contingentData = null;
   let hoursData = null;
@@ -47,6 +49,8 @@
     hoursData = null;
     uploadedFileHours = null;
     uploadedFileContingent = null;
+    percentageOfScholarship = '';
+    firstIndex = '';
   }
 
   async function saveAll() {
@@ -78,8 +82,7 @@
     if (!window.electron) return;
 
     if (detail.id === 'session--empty-statements--hours') {
-      uploadedFileHours = detail.file;
-      hoursData = await window.electron.sessionEmptyGetInformation(uploadedFileHours.path, 'hours');
+      hoursData = await window.electron.sessionEmptyGetInformation(detail.file.path, 'hours');
 
       if (!hoursData) {
         message.set({type: 'error', text: _lng.inputFile.error});
@@ -93,9 +96,10 @@
         }, 50);
         return;
       }
+
+      uploadedFileHours = detail.file;
     } else if (detail.id === 'session--empty-statements--contingent') {
-      uploadedFileContingent = detail.file;
-      contingentData = await window.electron.sessionEmptyGetInformation(uploadedFileContingent.path, 'contingent');
+      contingentData = await window.electron.sessionEmptyGetInformation(detail.file.path, 'contingent');
       
       if (!contingentData) {
         message.set({type: 'error', text: _lng.inputFile.error});
@@ -109,6 +113,12 @@
         }, 50);
         return;
       }
+      
+      uploadedFileContingent = detail.file;
+    }
+    if (uploadedFileHours !== null && uploadedFileContingent !== null) {
+      percentageOfScholarship = 40
+      firstIndex = 1
     }
   }
 
@@ -123,7 +133,6 @@
       contingentData = null;
     }
   }
-
 </script>
 
 <div class='gui' id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
@@ -131,21 +140,23 @@
   <FileInput eId='session--empty-statements--hours' extensions={['.xlsx']} type='excel'
     on:fileSelected={event => handleFileInputChange(event.detail)}
     on:fileRemoved={event => handleFileRemove(event.detail)}
+    isLoaded={uploadedFileHours !== null}
   />
 
   <FileInput eId='session--empty-statements--contingent' extensions={['.xlsx']} type='excel'
     on:fileSelected={event => handleFileInputChange(event.detail)}
     on:fileRemoved={event => handleFileRemove(event.detail)}
+    isLoaded={uploadedFileContingent !== null}
   />
 
   <div class='percentage-of-scholarship'>
     <div>{_lng.emptyStatements.percentage}</div>
-    <input type='text' bind:this={ePercentage} value='40'/>
+    <input type='text' bind:this={ePercentage} value={percentageOfScholarship} class:unavailable={uploadedFileHours === null || uploadedFileContingent === null} on:input={(e) => handleInput(e.target, { numbers: true, maxNumber: 100 })}/>
   </div>
 
   <div class='first-index'>
     <div>{_lng.emptyStatements.firstIndex}</div>
-    <input type='text' bind:this={eFirstIndex} value='1'/>
+    <input type='text' bind:this={eFirstIndex} value={firstIndex} class:unavailable={uploadedFileHours === null || uploadedFileContingent === null} on:input={(e) => handleInput(e.target, { numbers: true })}/>
   </div>
 
 </div>
