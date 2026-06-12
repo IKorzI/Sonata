@@ -1,2 +1,5 @@
 node_modules/
 dist/
+workspace.sublime-project
+workspace.code-workspace
+workspace.sublime-workspace
