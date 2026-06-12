@@ -26,13 +26,13 @@
   "emptyStatements.percentage": "% бюджета на стипендию",
   "emptyStatements.firstIndex": "Номер первой ведомости в журнале выдачи",
 
-  "packageOfDocuments.socialScholarship.statusesList": [ 
-  "Внутренне перемещенное лицо",
-  "Ребенок участника боевых действий",
-  "Ребенок,лишенный родительской опеки",
-  "Ребенок-инвалид",
-  "Многодетная малообеспеченная семья" 
-  ],
+  "packageOfDocuments.socialScholarship.statusesList": {
+    "vpo": "Внутренне перемещенное лицо",
+    "combatantChild": "Ребенок участника боевых действий",
+    "orphanOrFoster": "Ребенок,лишенный родительской опеки",
+    "disabledChild": "Ребенок-инвалид",
+    "poorLargeFamily": "Многодетная малообеспеченная семья" 
+  },
   "packageOfDocuments.socialScholarship.label1": "Социальные статусы студентов",
   "packageOfDocuments.socialScholarship.label2": "Повышенная стипендия",
   "packageOfDocuments.list.student": "Выберите студента",

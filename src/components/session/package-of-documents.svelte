@@ -407,7 +407,8 @@
             {item.studentName ? item.studentName : _lng.packageOfDocuments.list.student}
           </div>
           <input class='status' type='text' readonly 
-            value={currentList === 'socialy' ? item.status ? item.status : _lng.packageOfDocuments.list.status : ''}
+            value={currentList === 'socialy' ?
+            item.status ? (statusesList?.[item.status] || item.status) : _lng.packageOfDocuments.list.status : ''}
             on:click={() => handleOpenStatusesList(index)} on:mouseenter={() => handleStatusEnter(index)} on:mouseleave={() => handleStatusLeave(index)}/>
           <div class='edit-status' on:click={() => handleEditStatusClick(index)} on:mouseenter={() => handleEditStatusEnter(index)} on:mouseleave={() => handleEditStatusLeave(index)}></div>
         </div>
@@ -426,9 +427,9 @@
       {/each}
     </ul>
     <ul class='status-list' bind:this={eStatusList}>
-      {#each statusesList as status}
-        <li on:click={() => handleSetStatus(status)}>
-          {status}
+      {#each Object.entries(statusesList || {}) as [key, text]}
+        <li on:click={() => handleSetStatus(key)}>
+          {text}
         </li>
       {/each}
     </ul>

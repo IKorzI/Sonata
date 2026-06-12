@@ -26,13 +26,13 @@
   "emptyStatements.percentage": "% of scholarship budget",
   "emptyStatements.firstIndex": "Number of the first statement in the issue journal",
 
-  "packageOfDocuments.socialScholarship.statusesList": [
-  "Internally displaced person",
-  "Child of combatant",
-  "Child deprived of parental care",
-  "Disabled child",
-  "Large low-income family family"
-  ],
+  "packageOfDocuments.socialScholarship.statusesList": {
+    "vpo": "Internally displaced person",
+    "combatantChild": "Child of combatant",
+    "orphanOrFoster": "Child deprived of parental care",
+    "disabledChild": "Disabled child",
+    "poorLargeFamily": "Large low-income family family"
+  },
   "packageOfDocuments.socialScholarship.label1": "Social statuses of students",
   "packageOfDocuments.socialScholarship.label2": "Students on increased scholarship",
   "packageOfDocuments.list.student": "Select student",

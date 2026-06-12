@@ -26,13 +26,13 @@
   "emptyStatements.percentage": "% бюджета на стипендию",
   "emptyStatements.firstIndex": "Номер першої відомості у журналі видачі",
 
-  "packageOfDocuments.socialScholarship.statusesList": [
-    "Внутрішньо переміщена особа",
-    "Дитина учасника бойових дій",
-    "Дитина, позбавлена батьківського піклування",
-    "Дитина-інвалід",
-    "Багатодітна малозабезпечена родина"
-  ],
+  "packageOfDocuments.socialScholarship.statusesList": {
+    "vpo": "Внутрішньо переміщена особа",
+    "combatantChild": "Дитина учасника бойових дій",
+    "orphanOrFoster": "Дитина, позбавлена батьківського піклування",
+    "disabledChild": "Дитина-інвалід",
+    "poorLargeFamily": "Багатодітна малозабезпечена родина"
+  },
   "packageOfDocuments.socialScholarship.label1": "Соціальні статуси студентів",
   "packageOfDocuments.socialScholarship.label2": "Студенти на підвищену стипендію",
   "packageOfDocuments.list.student": "Оберіть студента",
