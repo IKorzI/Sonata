@@ -195,8 +195,7 @@
   <!-- Блок FileInput для завантаження файлів -->
   <div class='semester-end'>
     <div>{_lng.basedOnTheFirstMonth.semesterEnd}</div>
-    <input type='text' bind:this={eSemesterEnd} value='{data.semesterEndDate ? `${data.semesterEndDate}`: ''}' class:unavailable={uploadedFile === null} on:input={(e) => handleInput(e.target, { numbers: true, period: true })}/>
-    <input type='text' bind:this={eSemesterEnd} value='{data.semesterEndDate ? `${data.semesterEndDate}`: ''}' class:unavailable={uploadedFile === null} on:input={(e) => handleInput(e.target, { numbers: true, period: true })}/>
+    <input type='text' bind:this={eSemesterEnd} value='{data.semesterEndDate ? `${data.semesterEndDate}`: ''}' class:unavailable={uploadedFile === null} on:input={(e) => handleInput(e.target, { date: true })}/>
   </div>
 
   <!-- Таблиця елементів предмет-години -->
@@ -207,7 +206,6 @@
       {#each subjectsAndHours as subject, subjectIndex}
         <div class='row' id={subject.subjectName}>
           <div class='subject'>{subject.subjectName}</div>
-          <input class='hoursCount' value={subject.hours} on:input={(e) => handleHoursInput(e, subjectIndex)}/>
           <input class='hoursCount' value={subject.hours} on:input={(e) => handleHoursInput(e, subjectIndex)}/>
         </div>
       {/each}
