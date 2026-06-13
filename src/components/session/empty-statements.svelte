@@ -1,17 +1,25 @@
 <script>
-  import FileInput from '../FileInput.svelte';
-  import { selectedSection, clearInformation, saveInformation, savedInformation, lng, message, handleInput } from '../../lib/store.js'
+  import FileInput from "../FileInput.svelte";
+  import {
+    selectedSection,
+    clearInformation,
+    saveInformation,
+    savedInformation,
+    lng,
+    message,
+    handleInput,
+  } from "../../lib/store.js";
 
-  let thisId = 'session--empty-statements';
+  let thisId = "session--empty-statements";
   let _lng = {};
-  lng.subscribe(value => (_lng = value));
+  lng.subscribe((value) => (_lng = value));
 
   let this_;
   let uploadedFileHours = null;
   let uploadedFileContingent = null;
   let ePercentage, eFirstIndex;
-  let percentageOfScholarship = '';
-  let firstIndex = '';
+  let percentageOfScholarship = "";
+  let firstIndex = "";
 
   let contingentData = null;
   let hoursData = null;
@@ -19,8 +27,8 @@
   $: if ($selectedSection) {
     if (this_) {
       if ($selectedSection === thisId) {
-        this_.style.zIndex = '1';
-      } else if (this_.style.zIndex !== '-1') {
+        this_.style.zIndex = "1";
+      } else if (this_.style.zIndex !== "-1") {
         setTimeout(() => {
           this_.style.zIndex = -1;
         }, 200);
@@ -49,18 +57,25 @@
     hoursData = null;
     uploadedFileHours = null;
     uploadedFileContingent = null;
-    percentageOfScholarship = '';
-    firstIndex = '';
+    percentageOfScholarship = "";
+    firstIndex = "";
   }
 
   async function saveAll() {
-    if (ePercentage.value === '' || eFirstIndex.value === '' || contingentData === null || hoursData === null || uploadedFileHours === null || uploadedFileContingent === null) {
-      message.set({type: 'error', text: _lng.emptyStatements.notAllData});
+    if (
+      ePercentage.value === "" ||
+      eFirstIndex.value === "" ||
+      contingentData === null ||
+      hoursData === null ||
+      uploadedFileHours === null ||
+      uploadedFileContingent === null
+    ) {
+      message.set({ type: "error", text: _lng.emptyStatements.notAllData });
       return;
     }
-    
+
     // Prompt the user for the path to save the final file
-    const targetPath = await window.electron.saveDialog('Зберегти', '.txt');
+    const targetPath = await window.electron.saveDialog("Зберегти", ".txt");
     if (!targetPath) return;
 
     let endInformation = {
@@ -69,11 +84,12 @@
       percentage: Number(ePercentage.value),
       firstIndex: Number(eFirstIndex.value),
       hoursData: hoursData,
-      contingentData: contingentData
+      contingentData: contingentData,
     };
 
     // Final data supplementation before sending to the backend
-    endInformation = await window.electron.sessionEmptyDataSupplement(endInformation);
+    endInformation =
+      await window.electron.sessionEmptyDataSupplement(endInformation);
     savedInformation.set(endInformation);
   }
 
@@ -81,16 +97,19 @@
     // Check for running in vite-server mode without Electron
     if (!window.electron) return;
 
-    if (detail.id === 'session--empty-statements--hours') {
-      hoursData = await window.electron.sessionEmptyGetInformation(detail.file.path, 'hours');
+    if (detail.id === "session--empty-statements--hours") {
+      hoursData = await window.electron.sessionEmptyGetInformation(
+        detail.file.path,
+        "hours",
+      );
 
       if (!hoursData) {
-        message.set({type: 'error', text: _lng.inputFile.error});
+        message.set({ type: "error", text: _lng.inputFile.error });
         uploadedFileHours = null;
         hoursData = null;
-        
+
         // Clearing the specific FileInput component in case of a file reading error
-        clearInformation.set('session--empty-statements--hours');
+        clearInformation.set("session--empty-statements--hours");
         setTimeout(() => {
           clearInformation.set(null);
         }, 50);
@@ -98,71 +117,96 @@
       }
 
       uploadedFileHours = detail.file;
-    } else if (detail.id === 'session--empty-statements--contingent') {
-      contingentData = await window.electron.sessionEmptyGetInformation(detail.file.path, 'contingent');
-      
+    } else if (detail.id === "session--empty-statements--contingent") {
+      contingentData = await window.electron.sessionEmptyGetInformation(
+        detail.file.path,
+        "contingent",
+      );
+
       if (!contingentData) {
-        message.set({type: 'error', text: _lng.inputFile.error});
+        message.set({ type: "error", text: _lng.inputFile.error });
         uploadedFileContingent = null;
         contingentData = null;
-        
+
         // Clearing the specific FileInput component in case of a file reading error
-        clearInformation.set('session--empty-statements--contingent');
+        clearInformation.set("session--empty-statements--contingent");
         setTimeout(() => {
           clearInformation.set(null);
         }, 50);
         return;
       }
-      
+
       uploadedFileContingent = detail.file;
     }
     if (uploadedFileHours !== null && uploadedFileContingent !== null) {
-      percentageOfScholarship = 40
-      firstIndex = 1
+      percentageOfScholarship = 40;
+      firstIndex = 1;
     }
   }
 
   function handleFileRemove(detail) {
     if (!window.electron) return;
 
-    if (detail.id === 'session--empty-statements--hours') {
+    if (detail.id === "session--empty-statements--hours") {
       uploadedFileHours = null;
       hoursData = null;
-    } else if (detail.id === 'session--empty-statements--contingent') {
+    } else if (detail.id === "session--empty-statements--contingent") {
       uploadedFileContingent = null;
       contingentData = null;
     }
   }
 </script>
 
-<div class='gui' id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
-
-  <FileInput eId='session--empty-statements--hours' extensions={['.xlsx']} type='excel'
-    on:fileSelected={event => handleFileInputChange(event.detail)}
-    on:fileRemoved={event => handleFileRemove(event.detail)}
+<div
+  class="gui"
+  id={thisId}
+  style:opacity={$selectedSection === thisId ? 1 : 0}
+  bind:this={this_}
+>
+  <FileInput
+    eId="session--empty-statements--hours"
+    extensions={[".xlsx"]}
+    type="excel"
+    on:fileSelected={(event) => handleFileInputChange(event.detail)}
+    on:fileRemoved={(event) => handleFileRemove(event.detail)}
     isLoaded={uploadedFileHours !== null}
   />
 
-  <FileInput eId='session--empty-statements--contingent' extensions={['.xlsx']} type='excel'
-    on:fileSelected={event => handleFileInputChange(event.detail)}
-    on:fileRemoved={event => handleFileRemove(event.detail)}
+  <FileInput
+    eId="session--empty-statements--contingent"
+    extensions={[".xlsx"]}
+    type="excel"
+    on:fileSelected={(event) => handleFileInputChange(event.detail)}
+    on:fileRemoved={(event) => handleFileRemove(event.detail)}
     isLoaded={uploadedFileContingent !== null}
   />
 
-  <div class='percentage-of-scholarship'>
+  <div class="percentage-of-scholarship">
     <div>{_lng.emptyStatements.percentage}</div>
-    <input type='text' bind:this={ePercentage} value={percentageOfScholarship} class:unavailable={uploadedFileHours === null || uploadedFileContingent === null} on:input={(e) => handleInput(e.target, { numbers: true, maxNumber: 100 })}/>
+    <input
+      type="text"
+      bind:this={ePercentage}
+      value={percentageOfScholarship}
+      class:unavailable={uploadedFileHours === null ||
+        uploadedFileContingent === null}
+      on:input={(e) => handleInput(e.target, { numbers: true, maxNumber: 100 })}
+    />
   </div>
 
-  <div class='first-index'>
+  <div class="first-index">
     <div>{_lng.emptyStatements.firstIndex}</div>
-    <input type='text' bind:this={eFirstIndex} value={firstIndex} class:unavailable={uploadedFileHours === null || uploadedFileContingent === null} on:input={(e) => handleInput(e.target, { numbers: true })}/>
+    <input
+      type="text"
+      bind:this={eFirstIndex}
+      value={firstIndex}
+      class:unavailable={uploadedFileHours === null ||
+        uploadedFileContingent === null}
+      on:input={(e) => handleInput(e.target, { numbers: true })}
+    />
   </div>
-
 </div>
 
 <style>
-  
   :global(.file-input#session--empty-statements--hours) {
     position: absolute;
   }
@@ -204,5 +248,4 @@
     text-align: right;
     padding-right: 15px;
   }
-
 </style>

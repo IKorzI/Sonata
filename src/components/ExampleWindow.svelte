@@ -1,6 +1,6 @@
 <script>
-  import { whatDocument, lng } from '../lib/store.js'
-  
+  import { whatDocument, lng } from "../lib/store.js";
+
   let scale = 1;
   let minScale = 1;
   let maxScale = 1;
@@ -20,160 +20,227 @@
   let imageNaturalHeight = 0;
 
   const FILE_STRUCTURE = {
-    'hours--based-on-the-first-month': [
-      'based-on-the-first-month--september',
-      'based-on-the-first-month--october',
-      'based-on-the-first-month--november',
-      'based-on-the-first-month--december',
-      'based-on-the-first-month--total'
+    "hours--based-on-the-first-month": [
+      "based-on-the-first-month--september",
+      "based-on-the-first-month--october",
+      "based-on-the-first-month--november",
+      "based-on-the-first-month--december",
+      "based-on-the-first-month--total",
     ],
-    'hours--summary-of-teachers': ['summary-of-teachers'],
-    'session--empty-statements': [
-      'empty-statements--general',
-      'empty-statements--statements'
+    "hours--summary-of-teachers": ["summary-of-teachers"],
+    "session--empty-statements": [
+      "empty-statements--general",
+      "empty-statements--statements",
     ],
-    'session--package-of-documents': [
-      'package-of-documents--summary',
-      'package-of-documents--rating',
-      'package-of-documents--petition',
-      'package-of-documents--submission',
-      'package-of-documents--explanation',
-      'package-of-documents--rating-on-website'
+    "session--package-of-documents": [
+      "package-of-documents--summary",
+      "package-of-documents--rating",
+      "package-of-documents--petition",
+      "package-of-documents--submission",
+      "package-of-documents--explanation",
+      "package-of-documents--rating-on-website",
     ],
-    'session--report': ['report'],
-    'session--debtors': ['debtors'],
-    'other--other--num-den': ['num-den'],
-    'hours--based-on-the-first-month--hours': ['hours'],
-    'hours--summary-of-teachers--hours': ['hours'],
-    'session--empty-statements--contingent': ['contingent'],
-    'session--empty-statements--hours': ['hours'],
-    'session--package-of-documents--statements': ['statements'],
-    'session--report--statements': ['statements'],
-    'session--debtors--statements': ['statements']
+    "session--report": ["report"],
+    "session--debtors": ["debtors"],
+    "other--other--num-den": ["num-den"],
+    "hours--based-on-the-first-month--hours": ["hours"],
+    "hours--summary-of-teachers--hours": ["hours"],
+    "session--empty-statements--contingent": ["contingent"],
+    "session--empty-statements--hours": ["hours"],
+    "session--package-of-documents--statements": ["statements"],
+    "session--report--statements": ["statements"],
+    "session--debtors--statements": ["statements"],
   };
 
   // Forming a flat list of all unique images for their pre-rendering (caching) in the DOM
   const uniqueImageNames = [...new Set(Object.values(FILE_STRUCTURE).flat())];
 
   $: names = {
-    'hours--based-on-the-first-month': {
+    "hours--based-on-the-first-month": {
       downloadable: false,
       filesToDisplay: [
-        {filePath: 'based-on-the-first-month--september', displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.september},
-        {filePath: 'based-on-the-first-month--october', displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.october},
-        {filePath: 'based-on-the-first-month--november', displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.november},
-        {filePath: 'based-on-the-first-month--december', displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.december},
-        {filePath: 'based-on-the-first-month--total', displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.total}
-      ]
+        {
+          filePath: "based-on-the-first-month--september",
+          displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.september,
+        },
+        {
+          filePath: "based-on-the-first-month--october",
+          displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.october,
+        },
+        {
+          filePath: "based-on-the-first-month--november",
+          displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.november,
+        },
+        {
+          filePath: "based-on-the-first-month--december",
+          displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.december,
+        },
+        {
+          filePath: "based-on-the-first-month--total",
+          displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.total,
+        },
+      ],
     },
-    'hours--summary-of-teachers': {
+    "hours--summary-of-teachers": {
       downloadable: false,
       filesToDisplay: [
-        {filePath: 'summary-of-teachers', displayName: $lng.exampleWindow.names.summaryOfTeachers}
-      ]
+        {
+          filePath: "summary-of-teachers",
+          displayName: $lng.exampleWindow.names.summaryOfTeachers,
+        },
+      ],
     },
-    'session--empty-statements': {
+    "session--empty-statements": {
       downloadable: false,
       filesToDisplay: [
-        {filePath: 'empty-statements--general', displayName: $lng.exampleWindow.names.emptyStatements.general},
-        {filePath: 'empty-statements--statements', displayName: $lng.exampleWindow.names.emptyStatements.statements}
-      ]
+        {
+          filePath: "empty-statements--general",
+          displayName: $lng.exampleWindow.names.emptyStatements.general,
+        },
+        {
+          filePath: "empty-statements--statements",
+          displayName: $lng.exampleWindow.names.emptyStatements.statements,
+        },
+      ],
     },
-    'session--package-of-documents': {
+    "session--package-of-documents": {
       downloadable: false,
       filesToDisplay: [
-        {filePath: 'package-of-documents--summary', displayName: $lng.exampleWindow.names.packageOfDocuments.summary},
-        {filePath: 'package-of-documents--rating', displayName: $lng.exampleWindow.names.packageOfDocuments.rating},
-        {filePath: 'package-of-documents--petition', displayName: $lng.exampleWindow.names.packageOfDocuments.petition},
-        {filePath: 'package-of-documents--submission', displayName: $lng.exampleWindow.names.packageOfDocuments.submission},
-        {filePath: 'package-of-documents--explanation', displayName: $lng.exampleWindow.names.packageOfDocuments.explanation},
-        {filePath: 'package-of-documents--rating-on-website', displayName: $lng.exampleWindow.names.packageOfDocuments.ratingOnWebsite}
-      ]
+        {
+          filePath: "package-of-documents--summary",
+          displayName: $lng.exampleWindow.names.packageOfDocuments.summary,
+        },
+        {
+          filePath: "package-of-documents--rating",
+          displayName: $lng.exampleWindow.names.packageOfDocuments.rating,
+        },
+        {
+          filePath: "package-of-documents--petition",
+          displayName: $lng.exampleWindow.names.packageOfDocuments.petition,
+        },
+        {
+          filePath: "package-of-documents--submission",
+          displayName: $lng.exampleWindow.names.packageOfDocuments.submission,
+        },
+        {
+          filePath: "package-of-documents--explanation",
+          displayName: $lng.exampleWindow.names.packageOfDocuments.explanation,
+        },
+        {
+          filePath: "package-of-documents--rating-on-website",
+          displayName:
+            $lng.exampleWindow.names.packageOfDocuments.ratingOnWebsite,
+        },
+      ],
     },
-    'session--report': {
+    "session--report": {
       downloadable: false,
       filesToDisplay: [
-        {filePath: 'report', displayName: $lng.exampleWindow.names.report}
-      ]
+        { filePath: "report", displayName: $lng.exampleWindow.names.report },
+      ],
     },
-    'session--debtors': {
+    "session--debtors": {
       downloadable: false,
       filesToDisplay: [
-        {filePath: 'debtors', displayName: $lng.exampleWindow.names.debtors}
-      ]
+        { filePath: "debtors", displayName: $lng.exampleWindow.names.debtors },
+      ],
     },
-    'other--other--num-den': {
+    "other--other--num-den": {
       downloadable: false,
       filesToDisplay: [
-        {filePath: 'num-den', displayName: $lng.exampleWindow.names.numDen}
-      ]
+        { filePath: "num-den", displayName: $lng.exampleWindow.names.numDen },
+      ],
     },
-    'hours--based-on-the-first-month--hours': {
+    "hours--based-on-the-first-month--hours": {
       downloadable: true,
       fileNameToSave: $lng.exampleWindow.names.hours.fileNameToSave,
-      filePathToSave: 'hours',
+      filePathToSave: "hours",
       filesToDisplay: [
-        {filePath: 'hours', displayName: $lng.exampleWindow.names.hours.displayName}
-      ]
+        {
+          filePath: "hours",
+          displayName: $lng.exampleWindow.names.hours.displayName,
+        },
+      ],
     },
-    'hours--summary-of-teachers--hours': {
+    "hours--summary-of-teachers--hours": {
       downloadable: true,
       fileNameToSave: $lng.exampleWindow.names.hours.fileNameToSave,
-      filePathToSave: 'hours',
+      filePathToSave: "hours",
       filesToDisplay: [
-        {filePath: 'hours', displayName: $lng.exampleWindow.names.hours.displayName}
-      ]
+        {
+          filePath: "hours",
+          displayName: $lng.exampleWindow.names.hours.displayName,
+        },
+      ],
     },
-    'session--empty-statements--contingent': {
+    "session--empty-statements--contingent": {
       downloadable: true,
       fileNameToSave: $lng.exampleWindow.names.contingent.fileNameToSave,
-      filePathToSave: 'contingent',
+      filePathToSave: "contingent",
       filesToDisplay: [
-        {filePath: 'contingent', displayName: $lng.exampleWindow.names.contingent.displayName}
-      ]
+        {
+          filePath: "contingent",
+          displayName: $lng.exampleWindow.names.contingent.displayName,
+        },
+      ],
     },
-    'session--empty-statements--hours': {
+    "session--empty-statements--hours": {
       downloadable: true,
       fileNameToSave: $lng.exampleWindow.names.hours.fileNameToSave,
-      filePathToSave: 'hours',
+      filePathToSave: "hours",
       filesToDisplay: [
-        {filePath: 'hours', displayName: $lng.exampleWindow.names.hours.displayName}
-      ]
+        {
+          filePath: "hours",
+          displayName: $lng.exampleWindow.names.hours.displayName,
+        },
+      ],
     },
-    'session--package-of-documents--statements': {
+    "session--package-of-documents--statements": {
       downloadable: true,
       fileNameToSave: $lng.exampleWindow.names.statements.fileNameToSave,
-      filePathToSave: 'statements',
+      filePathToSave: "statements",
       filesToDisplay: [
-        {filePath: 'statements', displayName: $lng.exampleWindow.names.statements.displayName}
-      ]
+        {
+          filePath: "statements",
+          displayName: $lng.exampleWindow.names.statements.displayName,
+        },
+      ],
     },
-    'session--report--statements': {
+    "session--report--statements": {
       downloadable: true,
       fileNameToSave: $lng.exampleWindow.names.statements.fileNameToSave,
-      filePathToSave: 'statements',
+      filePathToSave: "statements",
       filesToDisplay: [
-        {filePath: 'statements', displayName: $lng.exampleWindow.names.statements.displayName}
-      ]
+        {
+          filePath: "statements",
+          displayName: $lng.exampleWindow.names.statements.displayName,
+        },
+      ],
     },
-    'session--debtors--statements': {
+    "session--debtors--statements": {
       downloadable: true,
       fileNameToSave: $lng.exampleWindow.names.statements.fileNameToSave,
-      filePathToSave: 'statements',
+      filePathToSave: "statements",
       filesToDisplay: [
-        {filePath: 'statements', displayName: $lng.exampleWindow.names.statements.displayName}
-      ]
-    }
-  }
+        {
+          filePath: "statements",
+          displayName: $lng.exampleWindow.names.statements.displayName,
+        },
+      ],
+    },
+  };
 
-  $: currentImages = $whatDocument && names[$whatDocument] ? names[$whatDocument].filesToDisplay : [];
+  $: currentImages =
+    $whatDocument && names[$whatDocument]
+      ? names[$whatDocument].filesToDisplay
+      : [];
 
   let activeImgName = null;
   let prevDocument = null;
   let showDownload = false;
   let downloadTimeout = null;
   let imageTimeout = null;
-  
+
   $: {
     if ($whatDocument !== prevDocument) {
       clearTimeout(imageTimeout);
@@ -189,11 +256,14 @@
           activeImgName = null;
         }, 500);
       }
-      
+
       prevDocument = $whatDocument;
     }
 
-    const isDownloadable = $whatDocument && names[$whatDocument] && names[$whatDocument].downloadable;
+    const isDownloadable =
+      $whatDocument &&
+      names[$whatDocument] &&
+      names[$whatDocument].downloadable;
     if (isDownloadable) {
       clearTimeout(downloadTimeout);
       showDownload = true;
@@ -223,31 +293,31 @@
   function stylesLoadedSet(type) {
     if (type) {
       if (!areaEl || !containerEl) return;
-      areaEl.style.zIndex = '10';
-      areaEl.style.transition = '0.4s';
-      areaEl.classList.add('loaded');
+      areaEl.style.zIndex = "10";
+      areaEl.style.transition = "0.4s";
+      areaEl.classList.add("loaded");
 
-      containerEl.style.transition = '0.4s';
-      containerEl.classList.add('loaded');
+      containerEl.style.transition = "0.4s";
+      containerEl.classList.add("loaded");
 
       // Temporarily disabling transition (null) after the window appears prevents it from "twitching" during subsequent resizing or dragging
       setTimeout(() => {
-        if(areaEl) areaEl.style.transition = null;
-        if(containerEl) containerEl.style.transition = null;
+        if (areaEl) areaEl.style.transition = null;
+        if (containerEl) containerEl.style.transition = null;
       }, 400);
     } else {
       if (!areaEl || !containerEl) return;
-      areaEl.style.transition = '0.4s';
-      areaEl.classList.remove('loaded');
-      containerEl.style.transition = '0.4s';
-      containerEl.classList.remove('loaded');
+      areaEl.style.transition = "0.4s";
+      areaEl.classList.remove("loaded");
+      containerEl.style.transition = "0.4s";
+      containerEl.classList.remove("loaded");
 
       setTimeout(() => {
-        if(areaEl) {
+        if (areaEl) {
           areaEl.style.transition = null;
-          areaEl.style.zIndex = '-1';
+          areaEl.style.zIndex = "-1";
         }
-        if(containerEl) containerEl.style.transition = null;
+        if (containerEl) containerEl.style.transition = null;
       }, 400);
     }
   }
@@ -274,8 +344,8 @@
     const imageHeight = imageNaturalHeight * scale;
 
     translateX = (containerWith - imageWidth) / 2;
-    translateY = imageHeight > containerHeight ?
-      0 : (containerHeight - imageHeight) / 2;
+    translateY =
+      imageHeight > containerHeight ? 0 : (containerHeight - imageHeight) / 2;
 
     updateTransform();
   }
@@ -283,7 +353,7 @@
   function handleImageLoad(event, imgName) {
     imageDimensions[imgName] = {
       width: event.target.naturalWidth,
-      height: event.target.naturalHeight
+      height: event.target.naturalHeight,
     };
     if (imgName === activeImgName) {
       initTransformForActiveImage(imgName);
@@ -302,21 +372,19 @@
       const imageWidth = imageNaturalWidth * scale;
       const imageHeight = imageNaturalHeight * scale;
 
-      const minTranslateX = imageWidth < containerWith
-        ? (containerWith - imageWidth) / 2
-        : Math.min(containerWith - imageWidth, 0);
+      const minTranslateX =
+        imageWidth < containerWith
+          ? (containerWith - imageWidth) / 2
+          : Math.min(containerWith - imageWidth, 0);
 
-      const minTranslateY = imageHeight < containerHeight
-        ? (containerHeight - imageHeight) / 2
-        : Math.min(containerHeight - imageHeight, 0);
+      const minTranslateY =
+        imageHeight < containerHeight
+          ? (containerHeight - imageHeight) / 2
+          : Math.min(containerHeight - imageHeight, 0);
 
-      const maxTranslateX = imageWidth < containerWith
-        ? minTranslateX
-        : 0;
+      const maxTranslateX = imageWidth < containerWith ? minTranslateX : 0;
 
-      const maxTranslateY = imageHeight < containerHeight
-        ? minTranslateY
-        : 0;
+      const maxTranslateY = imageHeight < containerHeight ? minTranslateY : 0;
 
       // Clamping the coordinates, preventing a large image from being dragged outside the visible area of the container
       translateX = Math.min(maxTranslateX, Math.max(minTranslateX, translateX));
@@ -324,7 +392,7 @@
 
       activeImgEl.style.width = `${imageWidth}px`;
       activeImgEl.style.height = `${imageHeight}px`;
-      
+
       activeImgEl.style.transform = `translate(${translateX}px, ${translateY}px)`;
     });
   }
@@ -336,12 +404,15 @@
     if (event.ctrlKey) {
       const delta = event.deltaY > 0 ? -scaleStep : scaleStep;
       const newScaleUnclamped = scale + delta;
-      const newScale = Math.max(minScale, Math.min(newScaleUnclamped, maxScale));
+      const newScale = Math.max(
+        minScale,
+        Math.min(newScaleUnclamped, maxScale),
+      );
 
       const containerRect = containerEl.getBoundingClientRect();
       const mouseX = event.clientX - containerRect.left;
       const mouseY = event.clientY - containerRect.top;
-      
+
       // Math for "Zoom to pointer" — calculating the offset so that the point under the cursor remains in place when changing the scale
       const dx = (mouseX - translateX) / scale;
       const dy = (mouseY - translateY) / scale;
@@ -361,7 +432,8 @@
   }
 
   function handleScaleByWidth() {
-    if (!containerEl || !activeImgName || !imageDimensions[activeImgName]) return;
+    if (!containerEl || !activeImgName || !imageDimensions[activeImgName])
+      return;
     const containerRect = containerEl.getBoundingClientRect();
     const containerWith = containerRect.width - 4;
     const containerHeight = containerRect.height - 4;
@@ -370,7 +442,8 @@
     const imageWidth = imageNaturalWidth * scale;
     const imageHeight = imageNaturalHeight * scale;
     translateX = (containerWith - imageWidth) / 2;
-    translateY = imageHeight > containerHeight ? 0 : (containerHeight - imageHeight) / 2;
+    translateY =
+      imageHeight > containerHeight ? 0 : (containerHeight - imageHeight) / 2;
     updateTransform();
   }
 
@@ -412,12 +485,15 @@
     if (!$whatDocument) return;
 
     const baseName = names[$whatDocument].filePathToSave;
-    const basePath = 'examples/save/';
-    
+    const basePath = "examples/save/";
+
     // Calling the Electron IPC bridge to find the actual file in the OS
-    const fileInfo = await window.electron.findFileWithExtension(basePath, baseName);
+    const fileInfo = await window.electron.findFileWithExtension(
+      basePath,
+      baseName,
+    );
     if (!fileInfo) {
-      alert('File not found');
+      alert("File not found");
       return;
     }
 
@@ -428,7 +504,7 @@
 
     const result = await window.electron.saveFile(fullPath, targetPath);
     if (!result.success) {
-      alert('Error saving file: ' + result.error);
+      alert("Error saving file: " + result.error);
     }
   }
 
@@ -436,16 +512,16 @@
     scale = Math.min(maxScale, scale + scaleStep);
     updateTransform();
   }
-  
+
   function handleScaleDown() {
     scale = Math.max(minScale, scale - scaleStep);
     updateTransform();
   }
 </script>
 
-<div class='example-area' bind:this={areaEl}>
+<div class="example-area" bind:this={areaEl}>
   <div
-    class='example-window'
+    class="example-window"
     bind:this={containerEl}
     on:wheel={handleWheel}
     on:mousedown={handleMouseDown}
@@ -453,36 +529,41 @@
     on:mouseup={handleMouseUp}
     on:mouseleave={handleMouseLeave}
   >
-    <button 
-      class='close' 
-      class:rounded-corner={!showDownload} 
-      on:click|stopPropagation={handleDelete}
-    >✕</button>
+    <button
+      class="close"
+      class:rounded-corner={!showDownload}
+      on:click|stopPropagation={handleDelete}>✕</button
+    >
     {#if showDownload}
-      <button class='download' on:click|stopPropagation={handleDownload}></button>
+      <button class="download" on:click|stopPropagation={handleDownload}
+      ></button>
     {/if}
-    
-    <button class='scale-up' on:click|stopPropagation={handleScaleUp}></button>
-    <button class='scale-by-width' on:click|stopPropagation={handleScaleByWidth}></button>
-    
-    <button class='scale-down' on:click|stopPropagation={handleScaleDown}></button>
-    
+
+    <button class="scale-up" on:click|stopPropagation={handleScaleUp}></button>
+    <button class="scale-by-width" on:click|stopPropagation={handleScaleByWidth}
+    ></button>
+
+    <button class="scale-down" on:click|stopPropagation={handleScaleDown}
+    ></button>
+
     {#each uniqueImageNames as imgName (imgName)}
       <img
-        src={'examples/save/' + imgName + '.png'}
-        alt='Zoomable {imgName}'
-        class='zoom-image {imgName === activeImgName ? 'visible' : ''}'
-        draggable='false'
+        src={"examples/save/" + imgName + ".png"}
+        alt="Zoomable {imgName}"
+        class="zoom-image {imgName === activeImgName ? 'visible' : ''}"
+        draggable="false"
         on:load={(e) => handleImageLoad(e, imgName)}
         bind:this={imgRefs[imgName]}
       />
     {/each}
 
     {#if currentImages.length > 1}
-      <div class='nav-buttons-container' on:mousedown|stopPropagation>
+      <div class="nav-buttons-container" on:mousedown|stopPropagation>
         {#each currentImages as imgInfo}
-          <button 
-            class='nav-button {imgInfo.filePath === activeImgName ? 'active' : ''}'
+          <button
+            class="nav-button {imgInfo.filePath === activeImgName
+              ? 'active'
+              : ''}"
             on:click|stopPropagation={() => switchImage(imgInfo.filePath)}
           >
             {imgInfo.displayName}
@@ -490,7 +571,6 @@
         {/each}
       </div>
     {/if}
-
   </div>
 </div>
 
@@ -627,7 +707,7 @@
     opacity: 0;
     visibility: hidden;
   }
-  
+
   .zoom-image.visible {
     opacity: 1;
     visibility: visible;
@@ -649,7 +729,7 @@
   }
 
   .nav-button {
-    position: static; 
+    position: static;
     height: 25px;
     width: auto;
     padding: 0px 5px;

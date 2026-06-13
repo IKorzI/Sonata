@@ -1,33 +1,47 @@
-const { contextBridge, ipcRenderer } = require('electron');
+const { contextBridge, ipcRenderer } = require("electron");
 
-contextBridge.exposeInMainWorld('electron', {
-  minimize: () => ipcRenderer.send('window-action', 'minimize'),
-  close: () => ipcRenderer.send('window-action', 'close'),
+contextBridge.exposeInMainWorld("electron", {
+  minimize: () => ipcRenderer.send("window-action", "minimize"),
+  close: () => ipcRenderer.send("window-action", "close"),
 
-  saveDialog: (fileName, extension) => ipcRenderer.invoke('save-dialog', fileName, extension),
-  saveFile: (sourcePath, targetPath) => ipcRenderer.invoke('save-file', sourcePath, targetPath),
-  findFileWithExtension: (dir, baseName) => ipcRenderer.invoke('findFileWithExtension', dir, baseName),
+  saveDialog: (fileName, extension) =>
+    ipcRenderer.invoke("save-dialog", fileName, extension),
+  saveFile: (sourcePath, targetPath) =>
+    ipcRenderer.invoke("save-file", sourcePath, targetPath),
+  findFileWithExtension: (dir, baseName) =>
+    ipcRenderer.invoke("findFileWithExtension", dir, baseName),
 
-  sessionPackageGetInformation: (path) => ipcRenderer.invoke('sessionPackageGetInformation', path),
-  sessionPackageDataSupplement: (data) => ipcRenderer.invoke('sessionPackageDataSupplement', data),
+  sessionPackageGetInformation: (path) =>
+    ipcRenderer.invoke("sessionPackageGetInformation", path),
+  sessionPackageDataSupplement: (data) =>
+    ipcRenderer.invoke("sessionPackageDataSupplement", data),
 
-  sessionEmptyGetInformation: (path, type) => ipcRenderer.invoke('sessionEmptyGetInformation', path, type),
-  sessionEmptyDataSupplement: (data) => ipcRenderer.invoke('sessionEmptyDataSupplement', data),
+  sessionEmptyGetInformation: (path, type) =>
+    ipcRenderer.invoke("sessionEmptyGetInformation", path, type),
+  sessionEmptyDataSupplement: (data) =>
+    ipcRenderer.invoke("sessionEmptyDataSupplement", data),
 
-  sessionReportGetInformation: (path) => ipcRenderer.invoke('sessionReportGetInformation', path),
-  sessionReportDataSupplement: (data) => ipcRenderer.invoke('sessionReportDataSupplement', data),
+  sessionReportGetInformation: (path) =>
+    ipcRenderer.invoke("sessionReportGetInformation", path),
+  sessionReportDataSupplement: (data) =>
+    ipcRenderer.invoke("sessionReportDataSupplement", data),
 
-  sessionDebtorsGetInformation: (path) => ipcRenderer.invoke('sessionDebtorsGetInformation', path),
-  sessionDebtorsDataSupplement: (data) => ipcRenderer.invoke('sessionDebtorsDataSupplement', data),
+  sessionDebtorsGetInformation: (path) =>
+    ipcRenderer.invoke("sessionDebtorsGetInformation", path),
+  sessionDebtorsDataSupplement: (data) =>
+    ipcRenderer.invoke("sessionDebtorsDataSupplement", data),
 
-  hoursBasedGetInformation: (path) => ipcRenderer.invoke('hoursBasedGetInformation', path),
-  hoursBasedDataSupplement: (data) => ipcRenderer.invoke('hoursBasedDataSupplement', data),
-  
-  hoursSummaryGetInformation: (path) => ipcRenderer.invoke('hoursSummaryGetInformation', path),
-  hoursSummaryDataSupplement: (data) => ipcRenderer.invoke('hoursSummaryDataSupplement', data),
+  hoursBasedGetInformation: (path) =>
+    ipcRenderer.invoke("hoursBasedGetInformation", path),
+  hoursBasedDataSupplement: (data) =>
+    ipcRenderer.invoke("hoursBasedDataSupplement", data),
 
-  startBackendFunc: (data) => ipcRenderer.invoke('startBackendFunc', data),
+  hoursSummaryGetInformation: (path) =>
+    ipcRenderer.invoke("hoursSummaryGetInformation", path),
+  hoursSummaryDataSupplement: (data) =>
+    ipcRenderer.invoke("hoursSummaryDataSupplement", data),
 
-  screenshotMode: flag => ipcRenderer.invoke('screenshotMode', flag),
+  startBackendFunc: (data) => ipcRenderer.invoke("startBackendFunc", data),
+
+  screenshotMode: (flag) => ipcRenderer.invoke("screenshotMode", flag),
 });
-

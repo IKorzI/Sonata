@@ -1,7 +1,7 @@
 <script>
-  import { onMount } from 'svelte';
-  import { createEventDispatcher } from 'svelte';
-  
+  import { onMount } from "svelte";
+  import { createEventDispatcher } from "svelte";
+
   export let id;
   export let text;
   let buttonElement;
@@ -10,22 +10,26 @@
   const dispatch = createEventDispatcher();
 
   function handleClick() {
-    dispatch('sectionclick', { id, parentId });
+    dispatch("sectionclick", { id, parentId });
   }
 
   onMount(() => {
     // Automatically find the parent group ID via the DOM so you don't have to pass the parentId prop to each component
-    parentId = buttonElement.closest('.group-of-sections').id;
+    parentId = buttonElement.closest(".group-of-sections").id;
   });
 </script>
 
-<button class='section-button' id={id} bind:this={buttonElement} on:click={handleClick}>
-  <img class='section-icon' src='{id}.png' alt='{id}' />
+<button
+  class="section-button"
+  {id}
+  bind:this={buttonElement}
+  on:click={handleClick}
+>
+  <img class="section-icon" src="{id}.png" alt={id} />
   {text}
 </button>
 
 <style>
-
   .section-button {
     height: 25px;
     width: 100%;
@@ -48,5 +52,4 @@
   .section-button:active {
     background-color: var(--button-active-background-color2);
   }
-
 </style>

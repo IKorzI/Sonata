@@ -1,115 +1,111 @@
 <script>
-  import { onMount, onDestroy } from 'svelte';
-  import { whatDocument, lng } from '../lib/store.js'
+  import { onMount, onDestroy } from "svelte";
+  import { whatDocument, lng } from "../lib/store.js";
   export let type;
   export let eId;
 
   let _lng = {};
-  lng.subscribe(value => (_lng = value));
+  lng.subscribe((value) => (_lng = value));
   $: label = {
-    'statements': _lng.fileOutput.label.statements,
-    'hours': _lng.fileOutput.label.hours,
-    'contingent': _lng.fileOutput.label.contingent,
-  }
+    statements: _lng.fileOutput.label.statements,
+    hours: _lng.fileOutput.label.hours,
+    contingent: _lng.fileOutput.label.contingent,
+  };
 
   $: names = {
-    'statements': {
+    statements: {
       fileNameToSave: _lng.fileOutput.names.statements,
-      filePathToSave: 'statements',
+      filePathToSave: "statements",
     },
-    'hours': {
+    hours: {
       fileNameToSave: _lng.fileOutput.names.hours,
-      filePathToSave: 'hours',
+      filePathToSave: "hours",
     },
-    'contingent': {
+    contingent: {
       fileNameToSave: _lng.fileOutput.names.contingent,
-      filePathToSave: 'contingent',
+      filePathToSave: "contingent",
     },
-  }
+  };
 
   let eArea;
   $: backgroundImageUrl =
-    type === 'excel' ? 'excel.png'
-    : type === 'word' ?
-    'word.png'
-    : '';
+    type === "excel" ? "excel.png" : type === "word" ? "word.png" : "";
 
   async function handleDownload() {
     if (!window.electron) return;
 
     const baseName = names[eId].filePathToSave;
-    const basePath = 'examples/save/';
-    
+    const basePath = "examples/save/";
+
     // Accessing the Electron IPC bridge to find the actual file in the system
-    const fileInfo = await window.electron.findFileWithExtension(basePath, baseName);
+    const fileInfo = await window.electron.findFileWithExtension(
+      basePath,
+      baseName,
+    );
     if (!fileInfo) {
-      alert('File not found.');
+      alert("File not found.");
       return;
     }
 
     const { fullPath, extension } = fileInfo;
-    const fileName = names[eId].fileNameToSave
+    const fileName = names[eId].fileNameToSave;
 
     // Calling the native OS dialog to select the save location
     const targetPath = await window.electron.saveDialog(fileName, extension);
     if (!targetPath) return;
-    
+
     const result = await window.electron.saveFile(fullPath, targetPath);
     if (!result.success) {
-      alert('Error saving file: ' + result.error);
+      alert("Error saving file: " + result.error);
     }
   }
 
   function handleWhat() {
-    whatDocument.set(eId)
+    whatDocument.set(eId);
   }
 
   onMount(() => {
     let mouseCounter = 0;
 
-    eArea.addEventListener('mouseenter', (e) => {
+    eArea.addEventListener("mouseenter", (e) => {
       mouseCounter++;
-      eArea.classList.add('hovered');
+      eArea.classList.add("hovered");
     });
 
-    eArea.addEventListener('mouseleave', (e) => {
+    eArea.addEventListener("mouseleave", (e) => {
       // A delay (10ms) and a counter prevent the hovered class from flickering when moving the cursor between child elements inside eArea
       setTimeout(() => {
         mouseCounter--;
-        if 
-        (mouseCounter <= 0) {
+        if (mouseCounter <= 0) {
           mouseCounter = 0;
-       
-          eArea.classList.remove('hovered');
+
+          eArea.classList.remove("hovered");
         }
-      }, 10)
+      }, 10);
     });
   });
   onDestroy(() => {
-    eArea.removeEventListener('mouseenter');
-    eArea.removeEventListener('mouseleave');
+    eArea.removeEventListener("mouseenter");
+    eArea.removeEventListener("mouseleave");
   });
 </script>
 
-<div
-  class='file-output'
-  id={eId}
->
+<div class="file-output" id={eId}>
+  <div class="label">{label[eId]}</div>
 
-  <div class='label'>{label[eId]}</div>
-
-  <div class='area'
-    on:click={handleDownload}
-    bind:this={eArea}
-  >
-    <div class='text'>{_lng.fileOutput.area.text}</div>
-    <div class='img' style:background-image={`url(${backgroundImageUrl})`}></div>
-    <div class='what' on:click|stopPropagation={handleWhat}></div>
+  <div class="area" on:click={handleDownload} bind:this={eArea}>
+    <div class="text">{_lng.fileOutput.area.text}</div>
+    <div
+      class="img"
+      style:background-image={`url(${backgroundImageUrl})`}
+    ></div>
+    <div class="what" on:click|stopPropagation={handleWhat}></div>
   </div>
 </div>
 
 <style>
-  .area, .area * {
+  .area,
+  .area * {
     cursor: pointer;
   }
 
@@ -175,5 +171,4 @@
   .what:active {
     background-color: var(--button-active-background-color1);
   }
-
 </style>

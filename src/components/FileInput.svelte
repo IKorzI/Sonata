@@ -1,7 +1,7 @@
 <script>
-  import { createEventDispatcher, onMount, onDestroy } from 'svelte';
-  import { whatDocument, clearInformation, lng } from '../lib/store.js'
-  
+  import { createEventDispatcher, onMount, onDestroy } from "svelte";
+  import { whatDocument, clearInformation, lng } from "../lib/store.js";
+
   const dispatch = createEventDispatcher();
   export let extensions;
   export let type;
@@ -19,31 +19,36 @@
       prevIsLoaded = isLoaded;
     }
   }
-  
+
   let _lng = {};
-  lng.subscribe(value => (_lng = value));
+  lng.subscribe((value) => (_lng = value));
   let file = null;
   let fileInputEl;
-  let fileName = '';
+  let fileName = "";
   $: label = {
-    'session--package-of-documents--statements': _lng.fileInput.label.session.packageOfDocuments.statements,
-    'session--empty-statements--hours': _lng.fileInput.label.session.emptyStatements.hours,
-    'session--empty-statements--contingent': _lng.fileInput.label.session.emptyStatements.contingent,
-    'session--report--statements': _lng.fileInput.label.session.report.statements,
-    'session--debtors--statements': _lng.fileInput.label.session.debtors.statements,
+    "session--package-of-documents--statements":
+      _lng.fileInput.label.session.packageOfDocuments.statements,
+    "session--empty-statements--hours":
+      _lng.fileInput.label.session.emptyStatements.hours,
+    "session--empty-statements--contingent":
+      _lng.fileInput.label.session.emptyStatements.contingent,
+    "session--report--statements":
+      _lng.fileInput.label.session.report.statements,
+    "session--debtors--statements":
+      _lng.fileInput.label.session.debtors.statements,
 
-    'hours--based-on-the-first-month--hours': _lng.fileInput.label.hours.basedOnTheFirstMonth.hours,
-    'hours--summary-of-teachers--hours': _lng.fileInput.label.hours.summaryOfTeachers.hours
-  }
+    "hours--based-on-the-first-month--hours":
+      _lng.fileInput.label.hours.basedOnTheFirstMonth.hours,
+    "hours--summary-of-teachers--hours":
+      _lng.fileInput.label.hours.summaryOfTeachers.hours,
+  };
 
   let eArea, eText, eName, eExtensions, eDelete, eWhat;
   $: backgroundImageUrl =
-    type === 'excel' ? 'excel.png'
-    : type === 'word' ?
-    'word.png'
-    : '';
+    type === "excel" ? "excel.png" : type === "word" ? "word.png" : "";
 
-  $: truncatedFileName = fileName.length > 15 ? fileName.substring(0, 15) + '...' : fileName;
+  $: truncatedFileName =
+    fileName.length > 15 ? fileName.substring(0, 15) + "..." : fileName;
   let mouseCounter = 0;
   let dragCounter = 0;
 
@@ -54,107 +59,109 @@
   function handleClearInformation(info) {
     if (file && eId.includes(info)) {
       handleDelete();
-      eArea.classList.remove('hovered');
-      mouseCounter = 0
-      dragCounter = 0
+      eArea.classList.remove("hovered");
+      mouseCounter = 0;
+      dragCounter = 0;
     }
   }
 
   function fileSelect(inputFile) {
     // For these identifiers, the file is passed further via dispatch, but is not visually attached to the input
-    if (eId !== 'session--report--statements' && eId !== 'session--debtors--statements') {
+    if (
+      eId !== "session--report--statements" &&
+      eId !== "session--debtors--statements"
+    ) {
       file = inputFile;
       fileName = file.name;
     }
-    dispatch('fileSelected', { id: eId, file: inputFile });
+    dispatch("fileSelected", { id: eId, file: inputFile });
   }
 
   function fileDelete() {
     file = null;
-    fileName = '';
-    fileInputEl.value = '';
-    dispatch('fileRemoved', { id: eId });
+    fileName = "";
+    fileInputEl.value = "";
+    dispatch("fileRemoved", { id: eId });
   }
 
   function stylesLoadedSet(type) {
     if (type) {
-      eArea.classList.add('unavailable')
+      eArea.classList.add("unavailable");
 
       // A micro-delay is needed so that the browser has time to render the initial classes before starting the CSS transition
       setTimeout(() => {
-        eArea.style.transition = '0.4s';
-        eArea.classList.add('loaded');
+        eArea.style.transition = "0.4s";
+        eArea.classList.add("loaded");
 
-        eText.style.transition = '0.4s';
-        eText.classList.add('loaded');
+        eText.style.transition = "0.4s";
+        eText.classList.add("loaded");
 
-        eName.style.zIndex = '0';
-      
-        eName.style.transition = '0.4s';
-        eName.classList.add('loaded');
+        eName.style.zIndex = "0";
 
-        eExtensions.style.transition = '0.4s';
-        eExtensions.classList.add('loaded');
+        eName.style.transition = "0.4s";
+        eName.classList.add("loaded");
 
-        eDelete.style.zIndex = '0';
-        eDelete.style.transition = '0.4s';
-        eDelete.classList.add('loaded');
+        eExtensions.style.transition = "0.4s";
+        eExtensions.classList.add("loaded");
 
-        eWhat.style.transition = '0.4s';
-        eWhat.classList.add('loaded');
+        eDelete.style.zIndex = "0";
+        eDelete.style.transition = "0.4s";
+        eDelete.classList.add("loaded");
+
+        eWhat.style.transition = "0.4s";
+        eWhat.classList.add("loaded");
 
         // 400ms corresponds to the duration of the CSS animation (0.4s). We clear the transition styles after it completes
-     
+
         setTimeout(() => {
-          eArea.classList.remove('unavailable')
+          eArea.classList.remove("unavailable");
           eArea.style.transition = null;
           eText.style.transition = null;
-          eText.style.zIndex = '-1';
+          eText.style.zIndex = "-1";
           eName.style.transition = null;
           eExtensions.style.transition = null;
-          eExtensions.style.zIndex = '-1';
+          eExtensions.style.zIndex = "-1";
           eDelete.style.transition = null;
           eWhat.style.transition = null;
-          eWhat.style.zIndex = '-1';
+          eWhat.style.zIndex = "-1";
         }, 400);
       }, 10);
     } else {
-      eArea.classList.add('unavailable')
+      eArea.classList.add("unavailable");
 
       setTimeout(() => {
-        eArea.style.transition = '0.4s';
-        eArea.classList.remove('loaded');
+        eArea.style.transition = "0.4s";
+        eArea.classList.remove("loaded");
 
-        eText.style.zIndex = '0';
-        eText.style.transition = '0.4s';
-        eText.classList.remove('loaded');
+        eText.style.zIndex = "0";
+        eText.style.transition = "0.4s";
+        eText.classList.remove("loaded");
 
-        eName.style.transition = '0.4s';
-        eName.classList.remove('loaded');
+        eName.style.transition = "0.4s";
+        eName.classList.remove("loaded");
 
-        eExtensions.style.zIndex = '0';
-        eExtensions.style.transition = 
-        '0.4s';
-        eExtensions.classList.remove('loaded');
+        eExtensions.style.zIndex = "0";
+        eExtensions.style.transition = "0.4s";
+        eExtensions.classList.remove("loaded");
 
-        eWhat.style.zIndex = '0';
-        eWhat.style.transition = '0.4s';
-        eWhat.classList.remove('loaded');
+        eWhat.style.zIndex = "0";
+        eWhat.style.transition = "0.4s";
+        eWhat.classList.remove("loaded");
 
-        eDelete.style.transition = '0.4s';
-        eDelete.classList.remove('loaded');
+        eDelete.style.transition = "0.4s";
+        eDelete.classList.remove("loaded");
 
         setTimeout(() => {
-          eArea.classList.remove('unavailable')
+          eArea.classList.remove("unavailable");
           eArea.style.transition = null;
           eText.style.transition = null;
-  
+
           eName.style.transition = null;
-          eName.style.zIndex = '-1';
+          eName.style.zIndex = "-1";
           eExtensions.style.transition = null;
           eWhat.style.transition = null;
           eDelete.style.transition = null;
-          eDelete.style.zIndex = '-1';
+          eDelete.style.zIndex = "-1";
         }, 400);
       }, 10);
     }
@@ -162,9 +169,15 @@
 
   function handleFileChange(event) {
     const selectedFile = event.target.files[0] || null;
-    if (selectedFile && extensions.some(ext => selectedFile.name.endsWith(ext))) {
-      fileSelect(selectedFile)
-      if (eId === 'session--report--statements' || eId === 'session--debtors--statements') {
+    if (
+      selectedFile &&
+      extensions.some((ext) => selectedFile.name.endsWith(ext))
+    ) {
+      fileSelect(selectedFile);
+      if (
+        eId === "session--report--statements" ||
+        eId === "session--debtors--statements"
+      ) {
         fileDelete();
       }
     }
@@ -179,7 +192,7 @@
   function handleDragOver(event) {
     if (file === null) {
       event.preventDefault();
-      event.dataTransfer.dropEffect = 'copy';
+      event.dataTransfer.dropEffect = "copy";
     }
   }
 
@@ -187,9 +200,15 @@
     if (file === null) {
       event.preventDefault();
       const droppedFile = event.dataTransfer.files[0];
-      if (droppedFile && extensions.some(ext => droppedFile.name.endsWith(ext))) {
-        fileSelect(droppedFile)
-        if (eId === 'session--report--statements' || eId === 'session--debtors--statements') {
+      if (
+        droppedFile &&
+        extensions.some((ext) => droppedFile.name.endsWith(ext))
+      ) {
+        fileSelect(droppedFile);
+        if (
+          eId === "session--report--statements" ||
+          eId === "session--debtors--statements"
+        ) {
           fileDelete();
         }
       }
@@ -198,107 +217,117 @@
 
   function handleDelete(event) {
     fileDelete();
-    stylesLoadedSet(false)
+    stylesLoadedSet(false);
   }
 
   function handleWhat() {
-    whatDocument.set(eId)
+    whatDocument.set(eId);
   }
 
   onMount(() => {
     // Counters (mouseCounter, dragCounter) and delays prevent the hovered state from "flickering" when crossing child elements inside eArea
-    eArea.addEventListener('mouseenter', (e) => {
+    eArea.addEventListener("mouseenter", (e) => {
       if (file !== null) return;
       mouseCounter++;
-      eArea.classList.add('hovered');
+      eArea.classList.add("hovered");
     });
 
-    eArea.addEventListener('mouseleave', (e) => {
+    eArea.addEventListener("mouseleave", (e) => {
       if (file !== null) return;
       setTimeout(() => {
-       
         mouseCounter--;
         if (mouseCounter <= 0) {
-      
           mouseCounter = 0;
-          eArea.classList.remove('hovered');
+          eArea.classList.remove("hovered");
         }
-      }, 10)
+      }, 10);
     });
 
-    eArea.addEventListener('dragenter', (e) => {
+    eArea.addEventListener("dragenter", (e) => {
       e.preventDefault();
       dragCounter++;
-      eArea.classList.add('hovered');
+      eArea.classList.add("hovered");
     });
 
-    eArea.addEventListener('dragleave', (e) => {
-    
+    eArea.addEventListener("dragleave", (e) => {
       e.preventDefault();
       setTimeout(() => {
         dragCounter--;
-       
+
         if (dragCounter <= 0) {
           dragCounter = 0;
-          eArea.classList.remove('hovered');
+          eArea.classList.remove("hovered");
         }
-      }, 10)
+      }, 10);
     });
-    eArea.addEventListener('drop', (e) => {
+    eArea.addEventListener("drop", (e) => {
       e.preventDefault();
       dragCounter = 0;
       mouseCounter = 0;
-      eArea.classList.remove('hovered');
+      eArea.classList.remove("hovered");
     });
-    eArea.addEventListener('dragover', (e) => {
+    eArea.addEventListener("dragover", (e) => {
       e.preventDefault();
     });
   });
   onDestroy(() => {
-    eArea.removeEventListener('mouseenter');
-    eArea.removeEventListener('mouseleave');
-    eArea.removeEventListener('dragenter');
-    eArea.removeEventListener('dragleave');
-    eArea.removeEventListener('drop');
-    eArea.removeEventListener('dragover');
+    eArea.removeEventListener("mouseenter");
+    eArea.removeEventListener("mouseleave");
+    eArea.removeEventListener("dragenter");
+    eArea.removeEventListener("dragleave");
+    eArea.removeEventListener("drop");
+    eArea.removeEventListener("dragover");
   });
 </script>
 
-<div
-  class='file-input'
-  id={eId}
->
+<div class="file-input" id={eId}>
+  <div class="label">{label[eId]}</div>
 
-  <div class='label'>{label[eId]}</div>
-  
-  <div class='area'
+  <div
+    class="area"
     bind:this={eArea}
     on:click={handleClick}
     on:dragover={handleDragOver}
     on:drop={handleDrop}
   >
-    <div class='text' bind:this={eText}>{_lng.fileInput.area.text}</div>
-    <div class='name' bind:this={eName}>{truncatedFileName}</div>
-    <div class='extensions' bind:this={eExtensions}>{extensions.join(', ')}</div>
-    <div class='img' class:loaded={file !== null} style:background-image={`url(${backgroundImageUrl})`}></div>
-    <div class='delete' bind:this={eDelete} on:click|stopPropagation={handleDelete}></div>
-    <div class='what' bind:this={eWhat} on:click|stopPropagation={handleWhat}></div>
+    <div class="text" bind:this={eText}>{_lng.fileInput.area.text}</div>
+    <div class="name" bind:this={eName}>{truncatedFileName}</div>
+    <div class="extensions" bind:this={eExtensions}>
+      {extensions.join(", ")}
+    </div>
+    <div
+      class="img"
+      class:loaded={file !== null}
+      style:background-image={`url(${backgroundImageUrl})`}
+    ></div>
+    <div
+      class="delete"
+      bind:this={eDelete}
+      on:click|stopPropagation={handleDelete}
+    ></div>
+    <div
+      class="what"
+      bind:this={eWhat}
+      on:click|stopPropagation={handleWhat}
+    ></div>
   </div>
 
   <input
-    type='file'
-    accept={extensions.join(', ')}
+    type="file"
+    accept={extensions.join(", ")}
     bind:this={fileInputEl}
-    style='display: none;'
+    style="display: none;"
     on:change={handleFileChange}
   />
 </div>
 
 <style>
-  .area, .area * {
+  .area,
+  .area * {
     cursor: pointer;
   }
-  :global(.program .area.loaded), :global(.program .area .loaded:not(.delete)) {
+  :global(.program .area.loaded),
+  :global(.program .area .loaded:not(.delete)) {
     cursor: default;
   }
 
@@ -416,5 +445,4 @@
   .what:active {
     background-color: var(--button-active-background-color1);
   }
-
 </style>

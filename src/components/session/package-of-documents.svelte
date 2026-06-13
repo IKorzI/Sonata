@@ -1,23 +1,44 @@
 <script>
-  import { onMount, onDestroy } from 'svelte';
-  import FileInput from '../FileInput.svelte';
-  import CustomDateInput from '../CustomDateInput.svelte';
-  import { selectedSection, clearInformation, saveInformation, savedInformation, lng, message, handleInput, strToDate } from '../../lib/store.js'
+  import { onMount, onDestroy } from "svelte";
+  import FileInput from "../FileInput.svelte";
+  import CustomDateInput from "../CustomDateInput.svelte";
+  import {
+    selectedSection,
+    clearInformation,
+    saveInformation,
+    savedInformation,
+    lng,
+    message,
+    handleInput,
+    strToDate,
+  } from "../../lib/store.js";
 
-  let thisId = 'session--package-of-documents';
+  let thisId = "session--package-of-documents";
   let _lng = {};
-  lng.subscribe(value => (_lng = value));
+  lng.subscribe((value) => (_lng = value));
 
   $: statusesList = _lng.packageOfDocuments.socialScholarship.statusesList;
-  let data = {subgroups: [], kuratorNom: null, kuratorGen: null, percentage: null, semesterStart: null, semesterEnd: null};
+  let data = {
+    subgroups: [],
+    kuratorNom: null,
+    kuratorGen: null,
+    percentage: null,
+    semesterStart: null,
+    semesterEnd: null,
+  };
   let studentNamesByCode = {};
   let socialyList = [];
   let increasedList = [];
   let list = [];
-  let currentList = 'socialy';
+  let currentList = "socialy";
   let uploadedFile = null;
-  let this_
-  let eList, eStudentsBySpecialty, eStatusList, ePercentage, eKuratorNom, eKuratorGen;
+  let this_;
+  let eList,
+    eStudentsBySpecialty,
+    eStatusList,
+    ePercentage,
+    eKuratorNom,
+    eKuratorGen;
   let semesterStart, semesterEnd;
   let currentStudentRow;
   let studentListMoveProcessing = false;
@@ -29,8 +50,8 @@
   $: if ($selectedSection) {
     if (this_) {
       if ($selectedSection === thisId) {
-        this_.style.zIndex = '1';
-      } else if (this_.style.zIndex !== '-1') {
+        this_.style.zIndex = "1";
+      } else if (this_.style.zIndex !== "-1") {
         setTimeout(() => {
           this_.style.zIndex = -1;
         }, 200);
@@ -41,51 +62,58 @@
   // Tracking commands from the global store to manage the form state
   $: if ($clearInformation) {
     if ($clearInformation === thisId) {
-      clearAll()
+      clearAll();
       setTimeout(() => {
-        clearInformation.set(null)
-      }, 50)
+        clearInformation.set(null);
+      }, 50);
     }
   }
   $: if ($saveInformation) {
     if ($saveInformation === thisId) {
-      saveAll()
-      saveInformation.set(null)
+      saveAll();
+      saveInformation.set(null);
     }
   }
 
   function clearAll() {
-    data = {subgroups: [], kuratorNom: null, kuratorGen: null, percentage: null, semesterStart: null, semesterEnd: null};
+    data = {
+      subgroups: [],
+      kuratorNom: null,
+      kuratorGen: null,
+      percentage: null,
+      semesterStart: null,
+      semesterEnd: null,
+    };
     increasedList = [];
     socialyList = [];
     list = [];
     uploadedFile = null;
-    eKuratorGen.value = '';
+    eKuratorGen.value = "";
   }
 
   async function saveAll() {
     // Saving the current active list before general saving
-    if (currentList === 'socialy') {
+    if (currentList === "socialy") {
       socialyList = list;
-    } else if (currentList === 'increased') {
+    } else if (currentList === "increased") {
       increasedList = list;
     }
-    
+
     // Validation: checking all required data and the absence of empty rows in student lists
     if (
       data.subgroups.length === 0 ||
       data.percentage === null ||
       uploadedFile === null ||
-      eKuratorNom.value === '' ||
-      eKuratorGen.value === '' ||
-      semesterStart === '' ||
-      semesterEnd === '' ||
+      eKuratorNom.value === "" ||
+      eKuratorGen.value === "" ||
+      semesterStart === "" ||
+      semesterEnd === "" ||
       strToDate(semesterEnd) <= strToDate(semesterStart) ||
-      increasedList.some(item => item.studentName === null) ||
-      socialyList.some(item => item.studentName === null) ||
-      socialyList.some(item => item.status === null)
+      increasedList.some((item) => item.studentName === null) ||
+      socialyList.some((item) => item.studentName === null) ||
+      socialyList.some((item) => item.status === null)
     ) {
-      message.set({type: 'error', text: 'packageOfDocuments.notAllData'});
+      message.set({ type: "error", text: "packageOfDocuments.notAllData" });
       return;
     }
 
@@ -98,108 +126,108 @@
       kuratorNom: eKuratorNom.value,
       kuratorGen: eKuratorGen.value,
       semesterStart: semesterStart,
-      semesterEnd: semesterEnd
-    }
+      semesterEnd: semesterEnd,
+    };
 
-    console.log(endInformation)
-    endInformation = await window.electron.sessionPackageDataSupplement(endInformation);
-    console.log(endInformation)
-    
+    console.log(endInformation);
+    endInformation =
+      await window.electron.sessionPackageDataSupplement(endInformation);
+    console.log(endInformation);
+
     savedInformation.set(endInformation);
   }
 
   // Management of positioning and animation of custom dropdown lists with prevention of timing conflicts
   function stylesLoadedSet(type, value, top = null, left = null) {
-    if (type === 'student' && !studentListMoveProcessing) {
+    if (type === "student" && !studentListMoveProcessing) {
       studentListMoveProcessing = true;
       if (value) {
-        if (!eStudentsBySpecialty.classList.contains('showed')) {
+        if (!eStudentsBySpecialty.classList.contains("showed")) {
           eStudentsBySpecialty.style.top = top;
           eStudentsBySpecialty.style.left = left;
-          eStudentsBySpecialty.style.zIndex = '1';
+          eStudentsBySpecialty.style.zIndex = "1";
           setTimeout(() => {
-            eStudentsBySpecialty.style.transition = '0.2s';
-            eStudentsBySpecialty.classList.add('showed');
+            eStudentsBySpecialty.style.transition = "0.2s";
+            eStudentsBySpecialty.classList.add("showed");
           }, 10);
         } else {
-          eStudentsBySpecialty.style.transition = '0.4s';
+          eStudentsBySpecialty.style.transition = "0.4s";
           eStudentsBySpecialty.style.top = top;
           eStudentsBySpecialty.style.left = left;
-        };
+        }
         setTimeout(() => {
           eStudentsBySpecialty.style.transition = null;
           studentListMoveProcessing = false;
         }, 400);
-        stylesLoadedSet('status', false);
-        showedStudentList = true
-
+        stylesLoadedSet("status", false);
+        showedStudentList = true;
       } else {
-        if (!eStudentsBySpecialty.classList.contains('showed')) {
+        if (!eStudentsBySpecialty.classList.contains("showed")) {
           studentListMoveProcessing = false;
           return;
         }
-        eStudentsBySpecialty.style.transition = '0.2s';
-        eStudentsBySpecialty.classList.remove('showed');
+        eStudentsBySpecialty.style.transition = "0.2s";
+        eStudentsBySpecialty.classList.remove("showed");
         setTimeout(() => {
           eStudentsBySpecialty.style.transition = null;
           setTimeout(() => {
-            eStudentsBySpecialty.style.zIndex = '-1';
+            eStudentsBySpecialty.style.zIndex = "-1";
           }, 10);
           studentListMoveProcessing = false;
         }, 400);
-        showedStudentList = false
+        showedStudentList = false;
       }
-
-    } else if (type === 'status' && !statusListMoveProcessing) {
+    } else if (type === "status" && !statusListMoveProcessing) {
       statusListMoveProcessing = true;
       if (value) {
-        if (!eStatusList.classList.contains('showed')) {
+        if (!eStatusList.classList.contains("showed")) {
           eStatusList.style.top = top;
           eStatusList.style.left = left;
-          eStatusList.style.zIndex = '1';
+          eStatusList.style.zIndex = "1";
           setTimeout(() => {
-            eStatusList.style.transition = '0.2s';
-            eStatusList.classList.add('showed');
+            eStatusList.style.transition = "0.2s";
+            eStatusList.classList.add("showed");
           }, 10);
         } else {
-          eStatusList.style.transition = '0.4s';
+          eStatusList.style.transition = "0.4s";
           eStatusList.style.top = top;
           eStatusList.style.left = left;
-        };
+        }
         setTimeout(() => {
           eStatusList.style.transition = null;
           statusListMoveProcessing = false;
         }, 400);
-        stylesLoadedSet('student', false);
-        showedStatusList = true
-
+        stylesLoadedSet("student", false);
+        showedStatusList = true;
       } else {
-        if (!eStatusList.classList.contains('showed')) {
+        if (!eStatusList.classList.contains("showed")) {
           statusListMoveProcessing = false;
           return;
         }
-        eStatusList.style.transition = '0.2s';
-        eStatusList.classList.remove('showed');
+        eStatusList.style.transition = "0.2s";
+        eStatusList.classList.remove("showed");
         setTimeout(() => {
           eStatusList.style.transition = null;
           setTimeout(() => {
-            eStatusList.style.zIndex = '-1';
+            eStatusList.style.zIndex = "-1";
           }, 10);
           statusListMoveProcessing = false;
         }, 400);
-        showedStatusList = false
+        showedStatusList = false;
       }
     }
   }
-  
+
   async function handleFileInputChange(detail) {
     if (!window.electron) return;
-    if (detail.id === 'session--package-of-documents--statements') {
-      data = await window.electron.sessionPackageGetInformation(detail.file.path);
-      console.log(data)
+    if (detail.id === "session--package-of-documents--statements") {
+      data = await window.electron.sessionPackageGetInformation(
+        detail.file.path,
+      );
+      console.log(data);
       if (!data) {
-        message.set({type: 'error', text: 'inputFile.error'});
-        clearInformation.set(thisId)
+        message.set({ type: "error", text: "inputFile.error" });
+        clearInformation.set(thisId);
         return;
       }
       uploadedFile = detail.file;
@@ -208,7 +236,7 @@
       studentNamesByCode = data.subgroups.reduce((acc, specialty, index) => {
         acc[specialty.specialityCode] = {
           specialityIndex: index,
-          students: specialty.students.map(s => s.studentName)
+          students: specialty.students.map((s) => s.studentName),
         };
         return acc;
       }, {});
@@ -218,17 +246,25 @@
 
   function handleFileRemove(detail) {
     if (!window.electron) return;
-    if (detail.id === 'session--package-of-documents--statements') {
+    if (detail.id === "session--package-of-documents--statements") {
       clearAll();
     }
   }
 
   function handleAddRow() {
-    if (currentList === 'socialy') {
-      list.push({ studentName: null, studentIndex: null, specialityIndex: null, status: null });
-    }
-    else if (currentList === 'increased') {
-      list.push({ studentName: null, studentIndex: null, specialityIndex: null });
+    if (currentList === "socialy") {
+      list.push({
+        studentName: null,
+        studentIndex: null,
+        specialityIndex: null,
+        status: null,
+      });
+    } else if (currentList === "increased") {
+      list.push({
+        studentName: null,
+        studentIndex: null,
+        specialityIndex: null,
+      });
     }
     list = [...list];
   }
@@ -243,35 +279,35 @@
       currentStudentRow = index;
 
       // Dynamic calculation of coordinates to display the list below the selected row
-      const element = document.querySelector('#row-' + index);
+      const element = document.querySelector("#row-" + index);
       const rect = element.getBoundingClientRect();
       const top = `${rect.top + element.offsetHeight}px`;
       const left = `${rect.left + 25}px`;
-      stylesLoadedSet('student', true, top, left);
+      stylesLoadedSet("student", true, top, left);
     } else {
       currentStudentRow = null;
-      stylesLoadedSet('student', false);
+      stylesLoadedSet("student", false);
     }
   }
 
   function handleOpenStatusesList(index) {
     const row = document.getElementById(`row-${index}`);
-    const status = row.querySelector('.status');
-    if (!status.hasAttribute('readonly')) {
+    const status = row.querySelector(".status");
+    if (!status.hasAttribute("readonly")) {
       return;
     }
     if (!showedStatusList || currentStudentRow !== index) {
       currentStudentRow = index;
 
       // Dynamic calculation of coordinates for the status list
-      const element = document.querySelector('#row-' + index);
+      const element = document.querySelector("#row-" + index);
       const rect = element.getBoundingClientRect();
       const top = `${rect.top + element.offsetHeight}px`;
       const left = `${rect.left + 25 + 285}px`;
-      stylesLoadedSet('status', true, top, left);
+      stylesLoadedSet("status", true, top, left);
     } else {
       currentStudentRow = null;
-      stylesLoadedSet('status', false);
+      stylesLoadedSet("status", false);
     }
   }
 
@@ -282,7 +318,7 @@
       list[currentStudentRow].specialityIndex = specialityIndex;
       list = [...list];
       currentStudentRow = null;
-      stylesLoadedSet('student', false);
+      stylesLoadedSet("student", false);
     }
   }
 
@@ -291,202 +327,267 @@
       list[currentStudentRow].status = status;
       list = [...list];
       currentStudentRow = null;
-      stylesLoadedSet('status', false);
+      stylesLoadedSet("status", false);
     }
   }
 
   function handleGlobalClick(event) {
     const target = event.target;
-    if (target.classList[0] === 'student' || target.classList[0] === 'status') return;
+    if (target.classList[0] === "student" || target.classList[0] === "status")
+      return;
 
     // Closing lists when clicking outside their boundaries
     if (currentStudentRow !== null) {
       if (showedStudentList) {
         currentStudentRow = null;
-        stylesLoadedSet('student', false);
+        stylesLoadedSet("student", false);
       } else if (showedStatusList) {
         currentStudentRow = null;
-        stylesLoadedSet('status', false);
+        stylesLoadedSet("status", false);
       }
     }
   }
 
   function handleStatusEnter(index) {
     const row = document.getElementById(`row-${index}`);
-    const editStatus = row.querySelector('.edit-status');
-    editStatus.style.display = 'block';
+    const editStatus = row.querySelector(".edit-status");
+    editStatus.style.display = "block";
   }
   function handleStatusLeave(index) {
     const row = document.getElementById(`row-${index}`);
-    const editStatus = row.querySelector('.edit-status');
-    editStatus.style.display = 'none';
+    const editStatus = row.querySelector(".edit-status");
+    editStatus.style.display = "none";
   }
 
   function handleEditStatusEnter(index) {
     const row = document.getElementById(`row-${index}`);
-    const editStatus = row.querySelector('.edit-status');
-    editStatus.style.display = 'block';
+    const editStatus = row.querySelector(".edit-status");
+    editStatus.style.display = "block";
   }
   function handleEditStatusLeave(index) {
     const row = document.getElementById(`row-${index}`);
-    const editStatus = row.querySelector('.edit-status');
-    editStatus.style.display = 'none';
+    const editStatus = row.querySelector(".edit-status");
+    editStatus.style.display = "none";
   }
   function handleEditStatusClick(index) {
     currentStudentRow = index;
 
     // Switching input from readonly mode to manual text entry
     const row = document.getElementById(`row-${index}`);
-    const status = row.querySelector('.status');
-    const editStatus = row.querySelector('.edit-status');
-    status.style.cursor = 'text';
-    status.removeAttribute('readonly');
+    const status = row.querySelector(".status");
+    const editStatus = row.querySelector(".edit-status");
+    status.style.cursor = "text";
+    status.removeAttribute("readonly");
     status.focus();
     setTimeout(() => status.select(), 0);
 
     // Automatic return to readonly after losing focus
-    status.addEventListener('blur', () => {
-      status.setAttribute('readonly', true);
-      status.setSelectionRange(0, 0);
-      status.style.cursor = 'pointer';
-      if (currentStudentRow !== null) {
-        list[currentStudentRow].status = status.value;
-        list = [...list];
-        currentStudentRow = null;
-      }
-    }, { once: true });
-    editStatus.style.display = 'none';
+    status.addEventListener(
+      "blur",
+      () => {
+        status.setAttribute("readonly", true);
+        status.setSelectionRange(0, 0);
+        status.style.cursor = "pointer";
+        if (currentStudentRow !== null) {
+          list[currentStudentRow].status = status.value;
+          list = [...list];
+          currentStudentRow = null;
+        }
+      },
+      { once: true },
+    );
+    editStatus.style.display = "none";
   }
 
   function handleLabelClick(label) {
-    const choiceMark = document.querySelector(`.social-scholarship .choice-mark`);
-    if (label === 'label1' && choiceMark.style.left !== '429px') {
-      
+    const choiceMark = document.querySelector(
+      `.social-scholarship .choice-mark`,
+    );
+    if (label === "label1" && choiceMark.style.left !== "429px") {
       // We save the current list and display the social scholarship
       increasedList = list;
       list = socialyList;
-      currentList = 'socialy';
-      
-      choiceMark.style.left = '429px';
-      choiceMark.style.width = '551px';
+      currentList = "socialy";
+
+      choiceMark.style.left = "429px";
+      choiceMark.style.width = "551px";
       setTimeout(() => {
-        choiceMark.style.width = '270px';
+        choiceMark.style.width = "270px";
       }, 200);
-    } else if (label === 'label2' && choiceMark.style.left !== '710px') {
-      
+    } else if (label === "label2" && choiceMark.style.left !== "710px") {
       // We save the current list and display the increased scholarship
       socialyList = list;
       list = increasedList;
-      currentList = 'increased';
-      
-      choiceMark.style.width = '551px';
+      currentList = "increased";
+
+      choiceMark.style.width = "551px";
       setTimeout(() => {
-        choiceMark.style.left = '710px';
-        choiceMark.style.width = '270px';
+        choiceMark.style.left = "710px";
+        choiceMark.style.width = "270px";
       }, 200);
     }
   }
 
   onMount(() => {
-    const choiceMark = document.querySelector(`.social-scholarship .choice-mark`);
-    choiceMark.style.left = '429px';
-    choiceMark.style.width = '270px';
-    window.addEventListener('click', handleGlobalClick);
+    const choiceMark = document.querySelector(
+      `.social-scholarship .choice-mark`,
+    );
+    choiceMark.style.left = "429px";
+    choiceMark.style.width = "270px";
+    window.addEventListener("click", handleGlobalClick);
   });
   onDestroy(() => {
-    window.removeEventListener('click', handleGlobalClick);
+    window.removeEventListener("click", handleGlobalClick);
   });
-
 </script>
 
-<div class='gui' id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
-  
-  <FileInput eId='session--package-of-documents--statements' extensions={['.xlsx']} type='excel'
-    on:fileSelected={event => handleFileInputChange(event.detail)}
-    on:fileRemoved={event => handleFileRemove(event.detail)}
+<div
+  class="gui"
+  id={thisId}
+  style:opacity={$selectedSection === thisId ? 1 : 0}
+  bind:this={this_}
+>
+  <FileInput
+    eId="session--package-of-documents--statements"
+    extensions={[".xlsx"]}
+    type="excel"
+    on:fileSelected={(event) => handleFileInputChange(event.detail)}
+    on:fileRemoved={(event) => handleFileRemove(event.detail)}
     isLoaded={uploadedFile !== null}
   />
 
-  <div class='social-scholarship'>
-    <div class='choice-mark'/>
-    <div class='label1' on:click={() => handleLabelClick('label1')}>{_lng.packageOfDocuments.socialScholarship.label1}</div>
-    <div class='label2' on:click={() => handleLabelClick('label2')}>{_lng.packageOfDocuments.socialScholarship.label2}</div>
-    <div class='list' bind:this={eList}>
+  <div class="social-scholarship">
+    <div class="choice-mark" />
+    <div class="label1" on:click={() => handleLabelClick("label1")}>
+      {_lng.packageOfDocuments.socialScholarship.label1}
+    </div>
+    <div class="label2" on:click={() => handleLabelClick("label2")}>
+      {_lng.packageOfDocuments.socialScholarship.label2}
+    </div>
+    <div class="list" bind:this={eList}>
       {#each list as item, index}
-        <div class='row' id={'row-' + index} class:unavailable={uploadedFile === null}
-          style='grid-template-columns: {currentList === "socialy" ? "25px 1fr 240px" : "25px 1fr 0px"};'
+        <div
+          class="row"
+          id={"row-" + index}
+          class:unavailable={uploadedFile === null}
+          style="grid-template-columns: {currentList === 'socialy'
+            ? '25px 1fr 240px'
+            : '25px 1fr 0px'};"
         >
-          <div class='remove' on:click={() => handleRemoveRow(index)}>✕</div> 
-          <div class='student' on:click={() => handleOpenStudentsList(index)}>
-            {item.studentName ? item.studentName : _lng.packageOfDocuments.list.student}
+          <div class="remove" on:click={() => handleRemoveRow(index)}>✕</div>
+          <div class="student" on:click={() => handleOpenStudentsList(index)}>
+            {item.studentName
+              ? item.studentName
+              : _lng.packageOfDocuments.list.student}
           </div>
-          <input class='status' type='text' readonly 
-            value={currentList === 'socialy' ? item.status ? (statusesList?.[item.status] || item.status) : _lng.packageOfDocuments.list.status : ''}
-            on:click={() => handleOpenStatusesList(index)} on:mouseenter={() => handleStatusEnter(index)} on:mouseleave={() => handleStatusLeave(index)}/>
-          <div class='edit-status' on:click={() => handleEditStatusClick(index)} on:mouseenter={() => handleEditStatusEnter(index)} on:mouseleave={() => handleEditStatusLeave(index)}></div>
+          <input
+            class="status"
+            type="text"
+            readonly
+            value={currentList === "socialy"
+              ? item.status
+                ? statusesList?.[item.status] || item.status
+                : _lng.packageOfDocuments.list.status
+              : ""}
+            on:click={() => handleOpenStatusesList(index)}
+            on:mouseenter={() => handleStatusEnter(index)}
+            on:mouseleave={() => handleStatusLeave(index)}
+          />
+          <div
+            class="edit-status"
+            on:click={() => handleEditStatusClick(index)}
+            on:mouseenter={() => handleEditStatusEnter(index)}
+            on:mouseleave={() => handleEditStatusLeave(index)}
+          ></div>
         </div>
       {/each}
     </div>
-    <ul class='students-by-specialty' bind:this={eStudentsBySpecialty}>
+    <ul class="students-by-specialty" bind:this={eStudentsBySpecialty}>
       {#each Object.entries(studentNamesByCode) as [specialityCode, object]}
-        <div class='speciality-code'>----- {specialityCode} -----</div>
-       
-        <ul class='students'>
-          {#each object.students as studentName, studentIndex} 
-            <li on:click={() => handleSetStudent(studentName, studentIndex, object.specialityIndex)}>
+        <div class="speciality-code">----- {specialityCode} -----</div>
+
+        <ul class="students">
+          {#each object.students as studentName, studentIndex}
+            <li
+              on:click={() =>
+                handleSetStudent(
+                  studentName,
+                  studentIndex,
+                  object.specialityIndex,
+                )}
+            >
               {studentName}
             </li>
           {/each}
         </ul>
       {/each}
     </ul>
-    <ul class='status-list' bind:this={eStatusList}>
-      
+    <ul class="status-list" bind:this={eStatusList}>
       {#each Object.entries(statusesList || {}) as [key, text]}
         <li on:click={() => handleSetStatus(key)}>
           {text}
         </li>
       {/each}
     </ul>
-    <div class='add' on:click={handleAddRow} class:unavailable={uploadedFile === null}></div>
+    <div
+      class="add"
+      on:click={handleAddRow}
+      class:unavailable={uploadedFile === null}
+    ></div>
   </div>
 
-  <div class='percentage-of-scholarship'>
+  <div class="percentage-of-scholarship">
     <div>{_lng.packageOfDocuments.percentageOfScholarship}</div>
-    <input type='text' bind:this={ePercentage} value={data.percentage} class:unavailable={uploadedFile === null}/>
+    <input
+      type="text"
+      bind:this={ePercentage}
+      value={data.percentage}
+      class:unavailable={uploadedFile === null}
+    />
   </div>
 
-  <div class='data-block' id='semester-dates'>
-    <div class='label'>{_lng.packageOfDocuments.semesterDates.label}</div>
-    <div class='row' id='start'>
+  <div class="data-block" id="semester-dates">
+    <div class="label">{_lng.packageOfDocuments.semesterDates.label}</div>
+    <div class="row" id="start">
       <div>{_lng.packageOfDocuments.semesterDates.start}</div>
-    
-      <CustomDateInput 
-        bind:value={data.semesterStart} 
-        class={uploadedFile === null ? 'unavailable' : ''}
+
+      <CustomDateInput
+        bind:value={data.semesterStart}
+        class={uploadedFile === null ? "unavailable" : ""}
       />
     </div>
-    <div class='row' id='end'>
+    <div class="row" id="end">
       <div>{_lng.packageOfDocuments.semesterDates.end}</div>
-      <CustomDateInput 
-        bind:value={data.semesterEnd} 
-        class={uploadedFile === null ? 'unavailable' : ''}
+      <CustomDateInput
+        bind:value={data.semesterEnd}
+        class={uploadedFile === null ? "unavailable" : ""}
       />
     </div>
   </div>
 
-  <div class='data-block' id='class-teacher-name'>
-    <div class='label'>{_lng.packageOfDocuments.classTeacherName.label}</div>
-    <div class='row' id='nominative'>
+  <div class="data-block" id="class-teacher-name">
+    <div class="label">{_lng.packageOfDocuments.classTeacherName.label}</div>
+    <div class="row" id="nominative">
       <div>{_lng.packageOfDocuments.classTeacherName.nominative}</div>
-      <input type='text' bind:this={eKuratorNom} value={data.kuratorNom} class:unavailable={uploadedFile === null} on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}/>
+      <input
+        type="text"
+        bind:this={eKuratorNom}
+        value={data.kuratorNom}
+        class:unavailable={uploadedFile === null}
+        on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}
+      />
     </div>
-    <div class='row' id='genitive'>
+    <div class="row" id="genitive">
       <div>{_lng.packageOfDocuments.classTeacherName.genitive}</div>
-      <input type='text' bind:this={eKuratorGen} value={data.kuratorGen} class:unavailable={uploadedFile === null} on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}/>
+      <input
+        type="text"
+        bind:this={eKuratorGen}
+        value={data.kuratorGen}
+        class:unavailable={uploadedFile === null}
+        on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}
+      />
     </div>
   </div>
-
 </div>
 
 <style>
@@ -550,7 +651,7 @@
   .list::-webkit-scrollbar {
     display: none; /* Chrome, Safari и Edge */
   }
-  
+
   .list .row {
     position: relative;
     display: grid;
@@ -580,7 +681,7 @@
   .list .remove:active {
     background-color: var(--button-active-background-color1);
   }
-  
+
   .list .student {
     padding: 0px 5px 0px 5px;
   }
@@ -590,7 +691,7 @@
   .list .student:active {
     background-color: var(--button-active-background-color1);
   }
-  
+
   .list .status {
     padding: 0px 5px 0px 5px;
     background-color: transparent;
@@ -611,9 +712,9 @@
     overflow: hidden;
     white-space: nowrap;
   }
-  
+
   ul {
-    position: fixed
+    position: fixed;
   }
   .students {
     position: relative;
@@ -622,8 +723,7 @@
     border-width: 0px;
     background-color: transparent;
   }
-  .students li
-  .students li:last-child {
+  .students li .students li:last-child {
     border-width: 0px;
     border-top-width: 1px;
   }
@@ -634,7 +734,7 @@
     border-top-width: 1px;
     display: flex;
     justify-content: center; /* горизонтально */
-    align-items: center;     /* вертикально */
+    align-items: center; /* вертикально */
   }
   :global(.social-scholarship .students-by-specialty) {
     overflow: auto;
@@ -717,7 +817,7 @@
     grid-template-columns: 160px 230px;
   }
 
-  #class-teacher-name{
+  #class-teacher-name {
     right: 30px;
   }
 
@@ -737,5 +837,4 @@
   .edit-status:active {
     background-color: var(--button-active-background-color1);
   }
-
-</style> 
+</style>

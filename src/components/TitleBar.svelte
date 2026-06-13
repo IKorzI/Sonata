@@ -1,51 +1,62 @@
 <script>
-  import { onMount, onDestroy } from 'svelte';
-  import { availableLngs, changeLanguage, lng, transition, themeSwap, hide } from '../lib/store.js'
-  
+  import { onMount, onDestroy } from "svelte";
+  import {
+    availableLngs,
+    changeLanguage,
+    lng,
+    transition,
+    themeSwap,
+    hide,
+  } from "../lib/store.js";
+
   let _lng = {};
-  lng.subscribe(value => (_lng = value));
+  lng.subscribe((value) => (_lng = value));
   let languageListIsOpen = false;
-  
+
   function handleGlobalClick(event) {
-    if (!event.target.className.includes('language') && event.target.tagName !== 'LI' && languageListIsOpen) {
-      const languageList = document.querySelector('.title-bar .language-list');
-      languageList.style.opacity = '';
-      languageList.style.zIndex = '';
+    if (
+      !event.target.className.includes("language") &&
+      event.target.tagName !== "LI" &&
+      languageListIsOpen
+    ) {
+      const languageList = document.querySelector(".title-bar .language-list");
+      languageList.style.opacity = "";
+      languageList.style.zIndex = "";
       languageListIsOpen = false;
     }
   }
 
   onMount(() => {
-    const languageList = document.querySelector('.title-bar .language-list');
+    const languageList = document.querySelector(".title-bar .language-list");
     availableLngs.forEach((lng, index) => {
-      const li = document.createElement('li');
+      const li = document.createElement("li");
       li.textContent = lng;
       if (index === availableLngs.length - 1) {
-        li.className = 'last';
+        li.className = "last";
       }
-      li.addEventListener('click', function (event) {
-        changeLanguage(event.target.textContent)
-        
-        languageList.style.opacity = '';
-        languageList.style.zIndex = '';
+      li.addEventListener("click", function (event) {
+        changeLanguage(event.target.textContent);
+
+        languageList.style.opacity = "";
+        languageList.style.zIndex = "";
         languageListIsOpen = false;
-      })
+      });
       languageList.appendChild(li);
     });
 
-    window.addEventListener('click', handleGlobalClick);
+    window.addEventListener("click", handleGlobalClick);
   });
   onDestroy(() => {
-    window.removeEventListener('click', handleGlobalClick);
+    window.removeEventListener("click", handleGlobalClick);
   });
-  
+
   // Flag to block repeated clicks on window control elements during animation playback
   let isProcess = false;
-  
+
   function handleMinimize() {
     if (isProcess) return;
     isProcess = true;
-    transition.set('0.2s');
+    transition.set("0.2s");
 
     hide.set(true);
     // We allow 200ms for the CSS fade-out animation to play before minimizing the window at the OS level
@@ -53,14 +64,13 @@
       if (window.electron) {
         window.electron.minimize();
       }
-      
+
       // Restore visibility immediately after minimizing so that the window isn't transparent when restored from the taskbar
       setTimeout(() => {
         hide.set(false);
       }, 100);
-      
-  
-      transition.set('0s');
+
+      transition.set("0s");
       isProcess = false;
     }, 200);
   }
@@ -68,7 +78,7 @@
   function handleClose() {
     if (isProcess) return;
     isProcess = true;
-    transition.set('0.2s');
+    transition.set("0.2s");
 
     hide.set(true);
     // A similar delay for a smooth fade-out before completely closing the application
@@ -76,7 +86,7 @@
       if (window.electron) {
         window.electron.close();
       }
-      transition.set('0s');
+      transition.set("0s");
       isProcess = false;
     }, 200);
   }
@@ -84,38 +94,37 @@
   function handleThemeSwap() {
     if (isProcess) return;
     isProcess = true;
-    transition.set('0.2s');
+    transition.set("0.2s");
 
     themeSwap();
     setTimeout(() => {
-      transition.set('0s');
+      transition.set("0s");
       isProcess = false;
     }, 200);
   }
 
   function showLngList() {
-    const languageList = document.querySelector('.title-bar .language-list');
+    const languageList = document.querySelector(".title-bar .language-list");
     if (!languageListIsOpen) {
-      languageList.style.zIndex = '999';
-      languageList.style.opacity = '1';
+      languageList.style.zIndex = "999";
+      languageList.style.opacity = "1";
       languageListIsOpen = true;
     } else {
-      languageList.style.opacity = '';
-      languageList.style.zIndex = '';
+      languageList.style.opacity = "";
+      languageList.style.zIndex = "";
       languageListIsOpen = false;
     }
   }
-  
 </script>
 
-<div class='title-bar'>
-  <div class='program-icon'></div>
-  <button class='language' on:click={showLngList}>{_lng.lng}</button>
-  <ul class='language-list'></ul>
-  <div class='program-name'>Sonata</div>
-  <button class='theme-swap' on:click={handleThemeSwap}></button>
-  <button class='minimize' on:click={handleMinimize}>—</button>
-  <button class='close' on:click={handleClose}>✕</button>
+<div class="title-bar">
+  <div class="program-icon"></div>
+  <button class="language" on:click={showLngList}>{_lng.lng}</button>
+  <ul class="language-list"></ul>
+  <div class="program-name">Sonata</div>
+  <button class="theme-swap" on:click={handleThemeSwap}></button>
+  <button class="minimize" on:click={handleMinimize}>—</button>
+  <button class="close" on:click={handleClose}>✕</button>
 </div>
 
 <style>
@@ -153,7 +162,7 @@
 
   .program-icon {
     border-top-left-radius: 7.5px;
-    background-image: url('../icon.png');
+    background-image: url("../icon.png");
   }
 
   /* Збільшення специфічності селектора, щоб перевизначити font-weight: bold з .title-bar > *:not(.language-list) */

@@ -1,44 +1,52 @@
 <script>
-  import { message, lng } from '../lib/store.js'
+  import { message, lng } from "../lib/store.js";
 
   let _lng = {};
-  lng.subscribe(value => (_lng = value));
-  let errorText = '';
-  let errorType = '';
+  lng.subscribe((value) => (_lng = value));
+  let errorText = "";
+  let errorType = "";
 
   function getTranslation(dict, path) {
-    if (!path) return '';
-    return path.split('.').reduce((acc, part) => acc && acc[part], dict) || path;
+    if (!path) return "";
+    return (
+      path.split(".").reduce((acc, part) => acc && acc[part], dict) || path
+    );
   }
 
   function parseBackendText(dict, text) {
-    if (!text) return '';
+    if (!text) return "";
     // Search and replace placeholders of the {{key.path}} format with the corresponding localized strings [cite: 5]
     return text.replace(/\{\{([a-zA-Z0-9_\.]+)\}\}/g, (match, key) => {
       const translated = getTranslation(dict, key);
-      return (translated && typeof translated !== 'object' && translated !== key) ? translated : match;
+      return translated && typeof translated !== "object" && translated !== key
+        ? translated
+        : match;
     });
   }
 
   $: if ($message) {
-    const isMessageEmpty = $message.text === '' && !$message.params?.messageFromTheBackendData;
+    const isMessageEmpty =
+      $message.text === "" && !$message.params?.messageFromTheBackendData;
     if (isMessageEmpty) {
       // The delay before clearing the text allows the CSS fade-out animation to finish without abruptly cutting off the content [cite: 7]
       setTimeout(() => {
-        errorText = '';
-        errorType = '';
+        errorText = "";
+        errorType = "";
       }, 400);
     } else {
-      errorType = $message.type === 'warning' 
-        ?
-        $lng.errorWindow.errorWindow.title.warning 
-        : $lng.errorWindow.errorWindow.title.error;
+      errorType =
+        $message.type === "warning"
+          ? $lng.errorWindow.errorWindow.title.warning
+          : $lng.errorWindow.errorWindow.title.error;
       if ($message.params?.messageFromTheBackendData) {
         const backendData = $message.params.messageFromTheBackendData;
         let combinedParts = [];
         // Separate formatting for file lists (e.g., during save conflicts in the workspace) [cite: 11]
         if (backendData.filesText) {
-          const filesTitle = getTranslation($lng, 'workspace.saveWithADifferentName');
+          const filesTitle = getTranslation(
+            $lng,
+            "workspace.saveWithADifferentName",
+          );
           combinedParts.push(`${filesTitle}\n${backendData.filesText}`);
         }
 
@@ -46,14 +54,14 @@
           combinedParts.push(parseBackendText($lng, backendData.customText));
         }
 
-        errorText = combinedParts.join('\n\n');
+        errorText = combinedParts.join("\n\n");
       } else {
         let text = getTranslation($lng, $message.text);
         if ($message.params) {
           // Dynamic substitution of parameters into the translation text (replacing templates like {paramName} with actual values) [cite: 15]
           for (const [key, value] of Object.entries($message.params)) {
-            if (typeof value === 'string' || typeof value === 'number') {
-              text = text.replace(new RegExp(`{${key}}`, 'g'), value);
+            if (typeof value === "string" || typeof value === "number") {
+              text = text.replace(new RegExp(`{${key}}`, "g"), value);
             }
           }
         }
@@ -63,24 +71,25 @@
   }
 
   function handlerClickOK() {
-    message.set({type: '', text: ''});
+    message.set({ type: "", text: "" });
   }
-
 </script>
 
-<div class='error-area' class:showed={$message.text || $message.params?.messageFromTheBackendData}>
-  
-  <div class='error-window' class:showed={$message.text ||
-$message.params?.messageFromTheBackendData}>
-    <div class='title'>{errorType}</div>
-    <div class='text-area'>{errorText}</div>
-    <button class='ok' on:click={handlerClickOK}>OK</button>
+<div
+  class="error-area"
+  class:showed={$message.text || $message.params?.messageFromTheBackendData}
+>
+  <div
+    class="error-window"
+    class:showed={$message.text || $message.params?.messageFromTheBackendData}
+  >
+    <div class="title">{errorType}</div>
+    <div class="text-area">{errorText}</div>
+    <button class="ok" on:click={handlerClickOK}>OK</button>
   </div>
-
 </div>
 
 <style>
-
   .error-area {
     position: absolute;
     top: 27px;
@@ -159,5 +168,4 @@ $message.params?.messageFromTheBackendData}>
   .text-area::-webkit-scrollbar-thumb:hover {
     background-color: var(--button-hover-background-color1);
   }
-
 </style>

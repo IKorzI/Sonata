@@ -1,19 +1,26 @@
 <script>
-  import { selectedSection, clearInformation, saveInformation, savedInformation, message, lng } from '../../lib/store.js'
-  import FileInput from '../FileInput.svelte';
+  import {
+    selectedSection,
+    clearInformation,
+    saveInformation,
+    savedInformation,
+    message,
+    lng,
+  } from "../../lib/store.js";
+  import FileInput from "../FileInput.svelte";
 
-  let thisId = 'session--debtors';
+  let thisId = "session--debtors";
   let _lng = {};
-  lng.subscribe(value => (_lng = value));
-  
+  lng.subscribe((value) => (_lng = value));
+
   let this_;
   let loadedGroups = [];
 
   $: if ($selectedSection) {
     if (this_) {
       if ($selectedSection === thisId) {
-        this_.style.zIndex = '1';
-      } else if (this_.style.zIndex !== '-1') {
+        this_.style.zIndex = "1";
+      } else if (this_.style.zIndex !== "-1") {
         // The z-index delay is needed to wait for the CSS animation (opacity) to finish before hiding the element
         setTimeout(() => {
           this_.style.zIndex = -1;
@@ -45,7 +52,7 @@
 
   async function saveAll() {
     if (loadedGroups.length === 0) {
-      message.set({type: 'error', text: 'debtors.notAllData'});
+      message.set({ type: "error", text: "debtors.notAllData" });
       return;
     }
 
@@ -55,20 +62,23 @@
       groups: loadedGroups,
     };
     // Interaction via IPC: sending the object to Electron to supplement data before final saving
-    endInformation = await window.electron.sessionDebtorsDataSupplement(endInformation);
+    endInformation =
+      await window.electron.sessionDebtorsDataSupplement(endInformation);
     savedInformation.set(endInformation);
   }
 
   async function handleFileInputChange(detail) {
     if (!window.electron) return;
 
-    if (detail.id === 'session--debtors--statements') {
+    if (detail.id === "session--debtors--statements") {
       const uploadedFile = detail.file;
       // Interaction via IPC: parsing the loaded Excel file
-      const data = await window.electron.sessionDebtorsGetInformation(uploadedFile.path);
+      const data = await window.electron.sessionDebtorsGetInformation(
+        uploadedFile.path,
+      );
 
       if (!data) {
-        message.set({type: 'error', text: 'inputFile.error'});
+        message.set({ type: "error", text: "inputFile.error" });
         clearInformation.set(thisId);
         return;
       }
@@ -77,15 +87,18 @@
       for (const group of loadedGroups) {
         if (group.groupCode === data.groupCode) {
           message.set({
-            type: 'error', 
-            text: 'debtors.groupAlreadyLoaded',
-            params: { groupCode: group.groupCode } 
+            type: "error",
+            text: "debtors.groupAlreadyLoaded",
+            params: { groupCode: group.groupCode },
           });
           return;
         }
       }
 
-      loadedGroups = [...loadedGroups, {...data, filePath: uploadedFile.path}];
+      loadedGroups = [
+        ...loadedGroups,
+        { ...data, filePath: uploadedFile.path },
+      ];
     }
   }
 
@@ -98,33 +111,42 @@
     // Reassigning the array via the spread operator is mandatory for Svelte reactivity to trigger
     loadedGroups = [...loadedGroups];
   }
-
 </script>
 
-<div class='gui' id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
-
-  <FileInput eId='session--debtors--statements' extensions={['.xlsx']} type='excel'
-    on:fileSelected={event => handleFileInputChange(event.detail)}
-    on:fileRemoved={event => handleFileRemove(event.detail)}
+<div
+  class="gui"
+  id={thisId}
+  style:opacity={$selectedSection === thisId ? 1 : 0}
+  bind:this={this_}
+>
+  <FileInput
+    eId="session--debtors--statements"
+    extensions={[".xlsx"]}
+    type="excel"
+    on:fileSelected={(event) => handleFileInputChange(event.detail)}
+    on:fileRemoved={(event) => handleFileRemove(event.detail)}
   />
 
-  <div class='loaded-groups'>
-    <div class='label'>{_lng.debtors.loadedGroups}</div>
-    <div class='list'>
+  <div class="loaded-groups">
+    <div class="label">{_lng.debtors.loadedGroups}</div>
+    <div class="list">
       {#each loadedGroups as group}
-        <div class='row' id={group.groupCode}>
-          <div class='groupCode'>{group.groupCode}</div>
-          <div class='specialityCodes'>{group.specialityCodes.join(', ')}</div>
-          <div class='remove' on:click={() => handleRemoveRow(loadedGroups.indexOf(group))}>✕</div> 
+        <div class="row" id={group.groupCode}>
+          <div class="groupCode">{group.groupCode}</div>
+          <div class="specialityCodes">{group.specialityCodes.join(", ")}</div>
+          <div
+            class="remove"
+            on:click={() => handleRemoveRow(loadedGroups.indexOf(group))}
+          >
+            ✕
+          </div>
         </div>
       {/each}
     </div>
   </div>
-
 </div>
 
 <style>
-  
   :global(.file-input#session--debtors--statements) {
     position: absolute;
   }
@@ -159,7 +181,7 @@
   .loaded-groups::-webkit-scrollbar {
     display: none;
   }
-  
+
   .list .row {
     position: relative;
     display: grid;
@@ -199,5 +221,4 @@
   .list .remove:active {
     background-color: var(--button-active-background-color1);
   }
-  
 </style>

@@ -1,10 +1,10 @@
-import { styles, unflattenStyles } from './store.js';
-import stylesData from './styles.json';
+import { styles, unflattenStyles } from "./store.js";
+import stylesData from "./styles.json";
 
-let theme = 'dark';
+let theme = "dark";
 
 export function themeSwap() {
-  theme = theme === 'light' ? 'dark' : 'light';
+  theme = theme === "light" ? "dark" : "light";
   styles.set(unflattenStyles(stylesData[theme]));
 }
 

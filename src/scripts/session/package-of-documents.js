@@ -1,15 +1,15 @@
-import { ipcMain } from 'electron';
-import XlsxPopulate from 'xlsx-populate';
-import { findCell } from '../utils.js';
-import shevchenko from 'shevchenko';
+import { ipcMain } from "electron";
+import XlsxPopulate from "xlsx-populate";
+import { findCell } from "../utils.js";
+import shevchenko from "shevchenko";
 
 // Converting full name to genitive case (whom/whose)
 async function convertToGenitive(fullNameString) {
   try {
     const parts = fullNameString.trim().split(/\s+/);
-    
+
     if (parts.length < 2) {
-      throw new Error('Строка должна содержать как минимум имя и фамилию');
+      throw new Error("Строка должна содержать как минимум имя и фамилию");
     }
 
     const givenName = parts[0];
@@ -17,20 +17,19 @@ async function convertToGenitive(fullNameString) {
 
     // Gender detection for correct declension
     const detectedGender = await shevchenko.detectGender({ givenName });
-    const gender = detectedGender || 'masculine'; 
+    const gender = detectedGender || "masculine";
 
     const person = {
       gender,
       givenName,
-      familyName
+      familyName,
     };
 
     const declined = await shevchenko.inGenitive(person);
 
     return `${declined.givenName} ${declined.familyName}`;
-    
   } catch (error) {
-    return '';
+    return "";
   }
 }
 
@@ -40,70 +39,86 @@ async function getInfo(filePath) {
   let match;
 
   const workbook = await XlsxPopulate.fromFileAsync(filePath);
-  const sheetNames = workbook.sheets().map(s => s.name());
-  
+  const sheetNames = workbook.sheets().map((s) => s.name());
+
   // Selecting sheets with names starting with "Зведена"
-  const filteredSheetNames = sheetNames.filter(name => name.startsWith('Зведена'));
+  const filteredSheetNames = sheetNames.filter((name) =>
+    name.startsWith("Зведена"),
+  );
 
   const sheet = workbook.sheet(filteredSheetNames[0]);
-  
+
   // Determining the semester number, year, and start/end dates from the text
   const semesterCellV = sheet.cell(6, 3).value();
   match = semesterCellV.match(/За\s+([IІ]+)/i);
-  const semesterNumberRoman = match[1].toUpperCase().replace('І', 'I');
-  const semesterNumber = semesterNumberRoman === 'I' ? 1 : 2;
-  const semesterNumberWord = semesterNumber === 1 ? 'першого' : 'другого'
+  const semesterNumberRoman = match[1].toUpperCase().replace("І", "I");
+  const semesterNumber = semesterNumberRoman === "I" ? 1 : 2;
+  const semesterNumberWord = semesterNumber === 1 ? "першого" : "другого";
   match = semesterCellV.match(/семестр\s+(\d{4})/i);
   const yearNumber = parseInt(match[1], 10);
-  const semesterStart = semesterNumber === 1 ? `01.01.${yearNumber + 1}`: `01.09.${yearNumber}`;
-  const semesterEnd = semesterNumber === 1 ? `30.06.${yearNumber + 1}` : `31.12.${yearNumber}`;
-  const years = semesterNumber === 1 ? `${yearNumber}-${yearNumber + 1}` : `${yearNumber - 1}-${yearNumber}`
+  const semesterStart =
+    semesterNumber === 1 ? `01.01.${yearNumber + 1}` : `01.09.${yearNumber}`;
+  const semesterEnd =
+    semesterNumber === 1 ? `30.06.${yearNumber + 1}` : `31.12.${yearNumber}`;
+  const years =
+    semesterNumber === 1
+      ? `${yearNumber}-${yearNumber + 1}`
+      : `${yearNumber - 1}-${yearNumber}`;
 
   // Finding the "Average grade" column and reading the list of subjects and teachers
-  findedCell = findCell(sheet, 'Середній бал', 'right', {row: 8, column: 5});
+  findedCell = findCell(sheet, "Середній бал", "right", { row: 8, column: 5 });
   const avgGradeColumn = findedCell.column;
   const subjects = [];
   for (let col = 6; col <= avgGradeColumn - 1; col++) {
     const text = sheet.cell(9, col).value();
     const lines = text.split(/\r?\n/);
     subjects.push({
-      'subjectName': lines[0],
-      'teacherName': lines[1]
+      subjectName: lines[0],
+      teacherName: lines[1],
     });
   }
-  
-  const groupCode = sheet.cell(7, 3).value().split(' ')[1];
-  
+
+  const groupCode = sheet.cell(7, 3).value().split(" ")[1];
+
   // Calculation of the scholarship holders' percentage based on the Excel formula
-  findedCell = findCell(sheet, undefined, 'down', {row: 10, column: 4});
+  findedCell = findCell(sheet, undefined, "down", { row: 10, column: 4 });
   const percentageF = sheet.cell(findedCell.row + 8, 6).formula();
   match = percentageF.match(/ROUNDDOWN\([^*]+\*([0-9.]+),0\)/);
   const percentage = parseFloat(match[1]) * 100;
-  
+
   // Finding and declining the full name of the curator (homeroom teacher)
-  findedCell = findCell(sheet, 'Класний керівник', 'right', {row: findedCell.row + 6, column: 7});
-  findedCell = findCell(sheet, true, 'right', {row: findedCell.row, column: findedCell.column + 1});
+  findedCell = findCell(sheet, "Класний керівник", "right", {
+    row: findedCell.row + 6,
+    column: 7,
+  });
+  findedCell = findCell(sheet, true, "right", {
+    row: findedCell.row,
+    column: findedCell.column + 1,
+  });
   const kuratorNom = sheet.cell(findedCell.row, findedCell.column).value();
   const kuratorGen = await convertToGenitive(kuratorNom);
 
   // Reading student data for each subgroup (specialty)
   const subgroups = [];
-  filteredSheetNames.forEach(sheetName => {
+  filteredSheetNames.forEach((sheetName) => {
     const students = [];
     const sheet = workbook.sheet(sheetName);
     const cells = {
       C5: sheet.cell(5, 3).value(),
       C6: sheet.cell(6, 3).value(),
-      C7: sheet.cell(7, 3).value()
-    }
+      C7: sheet.cell(7, 3).value(),
+    };
 
-    match = sheet.cell(5, 3).value().match(/спеціальності\s+([A-Z]\d+)\s+(«[^»]+»)/i);
+    match = sheet
+      .cell(5, 3)
+      .value()
+      .match(/спеціальності\s+([A-Z]\d+)\s+(«[^»]+»)/i);
     const specialityCode = match[1];
     const specialityName = match[2];
 
-    findedCell = findCell(sheet, undefined, 'down', {row: 10, column: 4});
+    findedCell = findCell(sheet, undefined, "down", { row: 10, column: 4 });
     const endRow = findedCell.row - 1;
-    
+
     // Reading grades and data for each student
     for (let row = 10; row <= endRow; row++) {
       const studentName = sheet.cell(row, 5).value();
@@ -115,8 +130,8 @@ async function getInfo(filePath) {
       }
 
       let avgGrade = sheet.cell(row, avgGradeColumn).value();
-      if (avgGrade !== ' - ' && avgGrade !== '-') {
-        avgGrade = parseFloat(Number(avgGrade).toFixed(2))
+      if (avgGrade !== " - " && avgGrade !== "-") {
+        avgGrade = parseFloat(Number(avgGrade).toFixed(2));
       }
 
       students.push({
@@ -126,7 +141,7 @@ async function getInfo(filePath) {
         bc: bc,
         socialStatus: null,
         scholarship: false,
-        increased: false
+        increased: false,
       });
     }
 
@@ -137,7 +152,7 @@ async function getInfo(filePath) {
       cells: cells,
       specialityCode: specialityCode,
       specialityName: specialityName,
-      scholarshipNumber: scholarshipNumber
+      scholarshipNumber: scholarshipNumber,
     });
   });
 
@@ -152,34 +167,40 @@ async function getInfo(filePath) {
     semesterStart: semesterStart,
     semesterEnd: semesterEnd,
     subjects: subjects,
-    percentage: percentage
+    percentage: percentage,
   };
 }
 
 // Processing, supplementing data, and ranking (scholarships, benefits)
 function dataSupplement(data) {
   const subgroups = data.subgroups;
-  
+
   // Adding social status to students
-  for (const item of (data.socialyList || [])) {
+  for (const item of data.socialyList || []) {
     const { specialityIndex, studentIndex, status } = item;
-    if (subgroups[specialityIndex] && subgroups[specialityIndex].students[studentIndex]) {
+    if (
+      subgroups[specialityIndex] &&
+      subgroups[specialityIndex].students[studentIndex]
+    ) {
       subgroups[specialityIndex].students[studentIndex].socialStatus = status;
     }
   }
-  
+
   // Marking students with an increased scholarship
-  for (const item of (data.increasedList || [])) {
+  for (const item of data.increasedList || []) {
     const { specialityIndex, studentIndex } = item;
-    if (subgroups[specialityIndex] && subgroups[specialityIndex].students[studentIndex]) {
+    if (
+      subgroups[specialityIndex] &&
+      subgroups[specialityIndex].students[studentIndex]
+    ) {
       subgroups[specialityIndex].students[studentIndex].increased = true;
     }
   }
 
   // Helper function for correct grade parsing
   const parseGrade = (grade) => {
-    if (grade === '-' || grade === ' - ') return -1;
-    const parsed = parseFloat(String(grade).replace(',', '.'));
+    if (grade === "-" || grade === " - ") return -1;
+    const parsed = parseFloat(String(grade).replace(",", "."));
     return isNaN(parsed) ? -1 : parsed;
   };
 
@@ -199,31 +220,31 @@ function dataSupplement(data) {
       const a = students[aIndex];
       const b = students[bIndex];
 
-      if (a.bc === 'Б' && b.bc !== 'Б') return -1;
-      if (a.bc !== 'Б' && b.bc === 'Б') return 1;
+      if (a.bc === "Б" && b.bc !== "Б") return -1;
+      if (a.bc !== "Б" && b.bc === "Б") return 1;
 
       const gradeA = parseGrade(a.avgGrade);
       const gradeB = parseGrade(b.avgGrade);
       if (gradeA !== gradeB) return gradeB - gradeA;
 
-      return (a.studentName || '').localeCompare(b.studentName || '');
+      return (a.studentName || "").localeCompare(b.studentName || "");
     });
 
     specialityData.sortedList = indices;
 
     let currentGrade = null;
     let currentIndices = [];
-    
+
     // Grouping state-funded students with the same average grade (to resolve tie-breaking issues)
     const flushIndices = () => {
       if (currentIndices.length > 1) {
         specialityData.sameScoresList.push(currentIndices);
       }
     };
-    
+
     indices.forEach((originalIndex, sortedIndex) => {
       const student = students[originalIndex];
-      if (student.bc === 'Б') {
+      if (student.bc === "Б") {
         const grade = parseGrade(student.avgGrade);
         if (grade !== -1) {
           if (currentGrade === grade) {
@@ -236,18 +257,18 @@ function dataSupplement(data) {
         }
       }
     });
-    flushIndices(); 
+    flushIndices();
 
     // Forming the list for an academic scholarship
     const scholarshipList = indices
-      .filter(originalIndex => {
+      .filter((originalIndex) => {
         const s = students[originalIndex];
-        return s.avgGrade !== '-' && s.avgGrade !== ' - ' && s.bc !== 'К';
+        return s.avgGrade !== "-" && s.avgGrade !== " - " && s.bc !== "К";
       })
-      .map(originalIndex => {
+      .map((originalIndex) => {
         return {
           index: originalIndex,
-          score: parseFloat(students[originalIndex].avgGrade) 
+          score: parseFloat(students[originalIndex].avgGrade),
         };
       });
 
@@ -261,10 +282,10 @@ function dataSupplement(data) {
     // Selecting students who pass the scholarship limit
     const scholarshipFilteredIndices = scholarshipList
       .slice(0, specialityData.scholarshipNumber)
-      .map(item => item.index);
+      .map((item) => item.index);
 
     if (scholarshipFilteredIndices.length !== 0) {
-      scholarshipFilteredIndices.forEach(studIndex => {
+      scholarshipFilteredIndices.forEach((studIndex) => {
         students[studIndex].scholarship = true;
       });
     }
@@ -279,17 +300,17 @@ function dataSupplement(data) {
       }
     });
   }
-  
+
   // Cleaning up temporary input data
   delete data.socialyList;
   delete data.increasedList;
   delete data.kurator;
-  
+
   return data;
 }
 
 // Registering IPC handlers for interaction with the frontend
-ipcMain.handle('sessionPackageGetInformation', async (event, path) => {
+ipcMain.handle("sessionPackageGetInformation", async (event, path) => {
   try {
     return await getInfo(path);
   } catch (error) {
@@ -297,6 +318,6 @@ ipcMain.handle('sessionPackageGetInformation', async (event, path) => {
     return false;
   }
 });
-ipcMain.handle('sessionPackageDataSupplement', async (event, data) => {
+ipcMain.handle("sessionPackageDataSupplement", async (event, data) => {
   return dataSupplement(data);
 });

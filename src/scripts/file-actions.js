@@ -1,12 +1,12 @@
-import { ipcMain, dialog } from 'electron';
-import path from 'path';
-import fs from 'fs';
-import { fileURLToPath } from 'url';
+import { ipcMain, dialog } from "electron";
+import path from "path";
+import fs from "fs";
+import { fileURLToPath } from "url";
 
 // Getting the absolute path to the project's root directory
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.join(path.dirname(__filename), '../..');
-console.log(__dirname)
+const __dirname = path.join(path.dirname(__filename), "../..");
+console.log(__dirname);
 
 // Searching for a file by its base name in the directory, ignoring files with the .png extension
 export function findFileWithExtension(dir, baseName) {
@@ -14,10 +14,10 @@ export function findFileWithExtension(dir, baseName) {
 
   const files = fs.readdirSync(fullDir);
 
-  const found = files.find(file => {
-    if (!file.startsWith(baseName + '.')) return false;
+  const found = files.find((file) => {
+    if (!file.startsWith(baseName + ".")) return false;
     const ext = path.extname(file).toLowerCase();
-    return ext !== '.png';
+    return ext !== ".png";
   });
 
   if (!found) return null;
@@ -31,9 +31,9 @@ export function findFileWithExtension(dir, baseName) {
 // Calling the system dialog window to save a file
 async function saveDialog(fileName, extension) {
   const { filePath, canceled } = await dialog.showSaveDialog({
-    title: 'Сохранить файл как',
+    title: "Сохранить файл как",
     defaultPath: `${fileName}${extension}`,
-    filters: [{ name: 'Файлы', extensions: [extension.replace('.', '')] }],
+    filters: [{ name: "Файлы", extensions: [extension.replace(".", "")] }],
   });
 
   if (canceled || !filePath) return null;
@@ -43,12 +43,12 @@ async function saveDialog(fileName, extension) {
 // Registering IPC handlers for interaction with the frontend part of Electron
 
 // Handler for calling the save dialog window
-ipcMain.handle('save-dialog', async (event, fileName, extension) => {
+ipcMain.handle("save-dialog", async (event, fileName, extension) => {
   return saveDialog(fileName, extension);
 });
 
 // Handler for physical copying (saving) of a file
-ipcMain.handle('save-file', async (event, sourcePath, targetPath) => {
+ipcMain.handle("save-file", async (event, sourcePath, targetPath) => {
   try {
     fs.copyFileSync(sourcePath, targetPath);
     return { success: true };
@@ -58,15 +58,15 @@ ipcMain.handle('save-file', async (event, sourcePath, targetPath) => {
 });
 
 // Handler for searching a file in the public project directory
-ipcMain.handle('find-file', async (event, dir, baseName) => {
-  const fullDir = path.join(__dirname, 'public/', dir);
+ipcMain.handle("find-file", async (event, dir, baseName) => {
+  const fullDir = path.join(__dirname, "public/", dir);
   return findFileWithExtension(fullDir, baseName);
 });
 
 // Checking file accessibility for reading (whether it is locked by another process)
-ipcMain.handle('check-file-access', async (event, filePath) => {
+ipcMain.handle("check-file-access", async (event, filePath) => {
   try {
-    const fd = fs.openSync(filePath, 'r');
+    const fd = fs.openSync(filePath, "r");
     fs.closeSync(fd);
     return true;
   } catch (err) {

@@ -1,18 +1,20 @@
 <script>
-  import { transition, styles, hide } from './lib/store.js';
+  import { transition, styles, hide } from "./lib/store.js";
   let _styles = {};
   let _transition;
-  styles.subscribe(value => (_styles = value));
-  transition.subscribe(value => (_transition = value));
+  styles.subscribe((value) => (_styles = value));
+  transition.subscribe((value) => (_transition = value));
 
-  import TitleBar from './components/TitleBar.svelte';
-  import ProgramMenu from './components/ProgramMenu.svelte';
-  import Workspace from './components/Workspace.svelte';
-  import ExampleWindows from './components/ExampleWindow.svelte';
-  import ErrorWindows from './components/ErrorWindow.svelte';
+  import TitleBar from "./components/TitleBar.svelte";
+  import ProgramMenu from "./components/ProgramMenu.svelte";
+  import Workspace from "./components/Workspace.svelte";
+  import ExampleWindows from "./components/ExampleWindow.svelte";
+  import ErrorWindows from "./components/ErrorWindow.svelte";
 </script>
 
-<main class="program {$hide ? 'hide' : ''}" style='
+<main
+  class="program {$hide ? 'hide' : ''}"
+  style="
 
   --transition: {_transition};
 
@@ -26,23 +28,37 @@
   --startProcess-background-image: {_styles.startProcess.background.image};
 
   --ExampleArea-background-color: {_styles.ExampleArea.background.color};
-  --ExampleArea-window-background-color: {_styles.ExampleArea.window.background.color};
-  --ExampleArea-window-download-background-image: {_styles.ExampleArea.window.download.background.image};
-  --ExampleArea-window-scaleUp-background-image: {_styles.ExampleArea.window.scaleUp.background.image};
-  --ExampleArea-window-scaleByWidth-background-image: {_styles.ExampleArea.window.scaleByWidth.background.image};
-  --ExampleArea-window-scaleDown-background-image: {_styles.ExampleArea.window.scaleDown.background.image};
-  --ExampleArea-window-button-background-color: {_styles.ExampleArea.window.button.background.color};
-  --ExampleArea-window-button-hover-background-color: {_styles.ExampleArea.window.button.hover.background.color};
-  --ExampleArea-window-button-active-background-color: {_styles.ExampleArea.window.button.active.background.color};
-  --ExampleArea-window-close-background-color: {_styles.ExampleArea.window.close.background.color};
-  --ExampleArea-window-close-hover-background-color: {_styles.ExampleArea.window.close.hover.background.color};
-  --ExampleArea-window-close-active-background-color: {_styles.ExampleArea.window.close.active.background.color};
-  --ExampleArea-tabArea-background-color: {_styles.ExampleArea.tabArea.background.color};
+  --ExampleArea-window-background-color: {_styles.ExampleArea.window.background
+    .color};
+  --ExampleArea-window-download-background-image: {_styles.ExampleArea.window
+    .download.background.image};
+  --ExampleArea-window-scaleUp-background-image: {_styles.ExampleArea.window
+    .scaleUp.background.image};
+  --ExampleArea-window-scaleByWidth-background-image: {_styles.ExampleArea
+    .window.scaleByWidth.background.image};
+  --ExampleArea-window-scaleDown-background-image: {_styles.ExampleArea.window
+    .scaleDown.background.image};
+  --ExampleArea-window-button-background-color: {_styles.ExampleArea.window
+    .button.background.color};
+  --ExampleArea-window-button-hover-background-color: {_styles.ExampleArea
+    .window.button.hover.background.color};
+  --ExampleArea-window-button-active-background-color: {_styles.ExampleArea
+    .window.button.active.background.color};
+  --ExampleArea-window-close-background-color: {_styles.ExampleArea.window.close
+    .background.color};
+  --ExampleArea-window-close-hover-background-color: {_styles.ExampleArea.window
+    .close.hover.background.color};
+  --ExampleArea-window-close-active-background-color: {_styles.ExampleArea
+    .window.close.active.background.color};
+  --ExampleArea-tabArea-background-color: {_styles.ExampleArea.tabArea
+    .background.color};
 
   --ErrorArea-background-color: {_styles.ErrorArea.background.color};
-  --ErrorArea-window-background-color: {_styles.ErrorArea.window.background.color};
+  --ErrorArea-window-background-color: {_styles.ErrorArea.window.background
+    .color};
 
-  --inputFile-delete-background-image: {_styles.inputFile.delete.background.image};
+  --inputFile-delete-background-image: {_styles.inputFile.delete.background
+    .image};
   --inputFile-what-background-image: {_styles.inputFile.what.background.image};
 
   --background-color: {_styles.background.color};
@@ -69,17 +85,17 @@
   --ul-border-color: {_styles.ul.border.color};
   --li-hover-background-color: {_styles.li.hover.background.color};
   --li-active-background-color: {_styles.li.active.background.color};
-'>
+"
+>
   <TitleBar />
 
   <ProgramMenu />
-  
+
   <Workspace />
 
   <ExampleWindows />
 
   <ErrorWindows />
-
 </main>
 
 <style>
@@ -88,7 +104,7 @@
     top: 0px;
     left: 0px;
     overflow: hidden;
-    width: 1000px; 
+    width: 1000px;
     min-width: 1000px;
     aspect-ratio: 5/3;
     border-radius: 10px;
@@ -100,11 +116,11 @@
   .program.hide {
     opacity: 0;
   }
-  
+
   :global(.program, .program *) {
     user-select: none;
     cursor: default;
-    font-family: 'Calibri';
+    font-family: "Calibri";
     font-size: 17px;
     color: var(--text-color);
     transition: var(--transition);
@@ -124,7 +140,7 @@
   :global(.program img, .program .img) {
     border-radius: 0px;
   }
-  
+
   :global(.program .gui) {
     position: absolute;
     transition: 0.2s;
@@ -170,7 +186,7 @@
     background-color: var(--input-hover-background-color);
     outline: none;
   }
-  
+
   :global(.program ul) {
     list-style: none;
     background-color: var(--ul-background-color);
@@ -203,5 +219,4 @@
   :global(.program .unavailable) {
     pointer-events: none;
   }
-
-</style> 
+</style>
