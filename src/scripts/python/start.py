@@ -8,52 +8,53 @@ from hours import hours_BasedOnTheFirstMonth, hours_SummaryOfTeachers
 from other import extend_image, other_NumDenStart
 
 def test_save_info(data):
-    # Определяем путь: берем папку, где лежит сам скрипт, и добавляем имя файла
+    """
+    Saves data to a local JSON file for testing.
+
+    Args:
+        data (dict): The data to be saved.
+    """
     file_path = os.path.join(os.path.dirname(__file__), 'data.json')
 
-    # Записываем данные в файл
     try:
         with open(file_path, 'w', encoding='utf-8') as f:
-            # indent=4 делает файл читаемым для человека
-            # ensure_ascii=False позволяет сохранять кириллицу корректно
             json.dump(data, f, indent=4, ensure_ascii=False)
         
-        print(f'Файл успешно сохранен по адресу: {file_path}')
+        print(f'File successfully saved at: {file_path}')
     except Exception as e:
-        print(f'Произошла ошибка при сохранении: {e}')
+        print(f'An error occurred while saving: {e}')
 
 def camel_to_snake(name):
     """
-    Переводит строку из camelCase в snake_case.
-    Добавлено исключение: если строка пустая или начинается не с английской буквы, 
-    возвращаем ее без изменений.
+    Converts a string from camelCase to snake_case, handling specific abbreviations.
+
+    Args:
+        name (str): The string to convert.
+    Returns:
+        str: The converted string in snake_case format (or original if no change is needed).
     """
     if not name:
         return name
 
-    # НОВОЕ: Проверка на первый символ (должен быть английской буквой)
     if not re.match(r'^[a-zA-Z]', name):
         return name
 
-    # Если строка состоит только из заглавных букв и цифр (например, "C5", "ID"), 
-    # оставляем её без изменений
+    # Keep strings consisting only of uppercase letters and digits unchanged
     if re.match(r'^[A-Z0-9]+$', name):
         return name
         
-    # 1. Отделяем строчные от заглавных (nameZXC -> name_ZXC, sAnd -> s_And)
+    # Separate lowercase letters from uppercase
     name = re.sub(r'([a-z])([A-Z])', r'\1_\2', name)
     
-    # 2. Отделяем строчные от цифр (name123 -> name_123, ZXs1 -> ZXs_1)
+    # Separate lowercase letters from digits
     name = re.sub(r'([a-z])([0-9])', r'\1_\2', name)
     
-    # 3. Отделяем цифры от заглавных (например, ZX1And -> ZX1_And)
+    # Separate digits from uppercase letters
     name = re.sub(r'([0-9])([A-Z])', r'\1_\2', name)
     
-    # 4. Разделяем склеенные аббревиатуры и новые слова (ZXCv -> ZX_Cv)
-    # Исключение: мы НЕ разделяем, если новое слово — это ровно одна буква 's' (ZXCs)
+    # Separate abbreviations (except cases where the new word is just the letter 's')
     name = re.sub(r'([A-Z]+)([A-Z][a-z]{2,}|[A-Z][a-rt-z])', r'\1_\2', name)
     
-    # Разбиваем строку по '_' и применяем правила сохранения регистра
     parts = name.split('_')
     processed_parts = []
     
@@ -61,22 +62,29 @@ def camel_to_snake(name):
         if not part:
             continue
             
-        # Правило 2.2 и 1.1: Сохраняем регистр для аббревиатур и связок с цифрами
+        # Keep original case for abbreviations and digit combinations
         if part.isupper() and len(part) >= 2:
             processed_parts.append(part)
             
-        # Правило 1.3 и 2.4: Серия заглавных букв и 's' на конце (ZXCs, ZX1s)
+        # Keep original case for plural abbreviations (e.g., ZXCs)
         elif re.match(r'^([A-Z]{2,}|[A-Z]+[0-9]+)s$', part):
             processed_parts.append(part)
             
-        # Во всех остальных случаях переводим в нижний регистр
+        # Convert the rest to lowercase
         else:
             processed_parts.append(part.lower())
             
     return '_'.join(processed_parts)
 
 def decamelize_dict(data):
-    """Рекурсивно переводит все ключи словаря/списка в snake_case"""
+    """
+    Recursively converts all dictionary keys or list items to snake_case.
+
+    Args:
+        data (dict | list | any): The data structure to process.
+    Returns:
+        dict | list | any: Data with converted keys.
+    """
     if isinstance(data, dict):
         return {camel_to_snake(key): decamelize_dict(value) for key, value in data.items()}
     elif isinstance(data, list):
@@ -89,14 +97,11 @@ if __name__ == '__main__':
     import json
     import traceback
 
-    # Настраиваем кодировку
     sys.stdout.reconfigure(encoding='utf-8')
     sys.stdin.reconfigure(encoding='utf-8') 
 
-    # Читаем аргументы один раз при старте сервера
     up2 = sys.argv[1] if len(sys.argv) > 1 else None
 
-    # Запускаем бесконечный цикл прослушивания
     while True:
         try:
             line = sys.stdin.readline()
@@ -108,22 +113,18 @@ if __name__ == '__main__':
             if not line:
                 continue
 
-            # ИЗМЕНЕНИЕ ЗДЕСЬ: Парсим конверт целиком
             raw_request = json.loads(line)
             request = decamelize_dict(raw_request)
             
-            # Достаем ID, флаг теста и чистый data
             req_id = request.get('req_id')
             is_test = request.get('is_test', False)
             data = request.get('data', {})
             
-            # Сохраняем data в файл для отладки только если получен флаг isTest
             if is_test:
                 test_save_info(data)
 
             result = None
 
-            # Дальше всё работает с чистым data, как и раньше
             if data['id'] == 'session--package-of-documents':
                 result = session_PackageOfDocuments(data, up2)
             elif data['id'] == 'session--empty-statements':
@@ -143,14 +144,12 @@ if __name__ == '__main__':
             elif data['id'] == 'other--other--num-den':
                 result = other_NumDenStart(data, up2)
 
-            # Отправляем ответ, прикрепляя req_id
             response_data = {'req_id': req_id, 'result': result}
             
             print(json.dumps(response_data, ensure_ascii=False), flush=True)
 
         except Exception as e:
             error_data = {
-                # Безопасно достаем req_id даже при ошибке
                 'req_id': raw_request.get('req_id') if 'raw_request' in locals() and isinstance(raw_request, dict) else None,
                 'result': None,
                 'error': str(e),

@@ -6,7 +6,6 @@
 
   let _lng = {};
   lng.subscribe(value => (_lng = value));
-
   $: label = {
     'statements': _lng.fileOutput.label.statements,
     'hours': _lng.fileOutput.label.hours,
@@ -29,20 +28,19 @@
   }
 
   let eArea;
-
   $: backgroundImageUrl =
     type === 'excel' ? 'excel.png'
-    : type === 'word' ? 'word.png'
+    : type === 'word' ?
+    'word.png'
     : '';
 
   async function handleDownload() {
-    // Перевірка на запуск у режимі vite-серверу без Electron
     if (!window.electron) return;
 
     const baseName = names[eId].filePathToSave;
     const basePath = 'examples/save/';
     
-    // Пошук файлу шаблону в директорії examples та визначення його розширення
+    // Accessing the Electron IPC bridge to find the actual file in the system
     const fileInfo = await window.electron.findFileWithExtension(basePath, baseName);
     if (!fileInfo) {
       alert('File not found.');
@@ -52,11 +50,10 @@
     const { fullPath, extension } = fileInfo;
     const fileName = names[eId].fileNameToSave
 
-    // Відкриття системного діалогу для вибору місця збереження файлу користувачем
+    // Calling the native OS dialog to select the save location
     const targetPath = await window.electron.saveDialog(fileName, extension);
     if (!targetPath) return;
-
-    // Фізичне копіювання файлу шаблону за обраним шляхом
+    
     const result = await window.electron.saveFile(fullPath, targetPath);
     if (!result.success) {
       alert('Error saving file: ' + result.error);
@@ -68,7 +65,6 @@
   }
 
   onMount(() => {
-    // Лічильник для уникнення мерехтіння (flickering) при наведенні курсора на дочірні елементи
     let mouseCounter = 0;
 
     eArea.addEventListener('mouseenter', (e) => {
@@ -77,16 +73,18 @@
     });
 
     eArea.addEventListener('mouseleave', (e) => {
+      // A delay (10ms) and a counter prevent the hovered class from flickering when moving the cursor between child elements inside eArea
       setTimeout(() => {
         mouseCounter--;
-        if (mouseCounter <= 0) {
+        if 
+        (mouseCounter <= 0) {
           mouseCounter = 0;
+       
           eArea.classList.remove('hovered');
         }
       }, 10)
     });
   });
-
   onDestroy(() => {
     eArea.removeEventListener('mouseenter');
     eArea.removeEventListener('mouseleave');

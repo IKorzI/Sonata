@@ -14,6 +14,7 @@
       if ($selectedSection === thisId) {
         this_.style.zIndex = '1';
       } else if (this_.style.zIndex !== '-1') {
+        // The z-index delay is needed to wait for the CSS animation (opacity) to finish before hiding the element
         setTimeout(() => {
           this_.style.zIndex = -1;
         }, 200);
@@ -24,6 +25,7 @@
   $: if ($clearInformation) {
     if ($clearInformation === thisId) {
       clearAll();
+      // We clear the store with a delay to avoid race conditions in subscriptions
       setTimeout(() => {
         clearInformation.set(null);
       }, 50);
@@ -52,18 +54,17 @@
       filePath: loadedGroups[0].filePath,
       groups: loadedGroups,
     };
-
-    // Фінальне доповнення даних перед відправкою до бекенду
+    // Interaction via IPC: sending the object to Electron to supplement data before final saving
     endInformation = await window.electron.sessionDebtorsDataSupplement(endInformation);
     savedInformation.set(endInformation);
   }
 
   async function handleFileInputChange(detail) {
-    // Перевірка на запуск у режимі vite-серверу без Electron
     if (!window.electron) return;
 
     if (detail.id === 'session--debtors--statements') {
       const uploadedFile = detail.file;
+      // Interaction via IPC: parsing the loaded Excel file
       const data = await window.electron.sessionDebtorsGetInformation(uploadedFile.path);
 
       if (!data) {
@@ -72,7 +73,7 @@
         return;
       }
 
-      // Перевірка, чи не була ця група вже завантажена раніше
+      // Checking to prevent duplication of already loaded groups
       for (const group of loadedGroups) {
         if (group.groupCode === data.groupCode) {
           message.set({
@@ -84,7 +85,6 @@
         }
       }
 
-      // Додавання нової групи до загального списку
       loadedGroups = [...loadedGroups, {...data, filePath: uploadedFile.path}];
     }
   }
@@ -93,10 +93,10 @@
     return;
   }
 
-  // Видалення групи зі списку завантажених
   function handleRemoveRow(index) {
     loadedGroups.splice(index, 1);
-    loadedGroups = [...loadedGroups]; // Переприсвоєння для спрацювання реактивності Svelte
+    // Reassigning the array via the spread operator is mandatory for Svelte reactivity to trigger
+    loadedGroups = [...loadedGroups];
   }
 
 </script>

@@ -9,29 +9,27 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const pathStart = path.resolve(__dirname, '../start.exe');
 
-// Глобальные переменные управления состоянием
 let isSaving = false;
 let isDialogOpen = false;
 let excelMonitorInterval = null;
 let lastClipboardText = '';
-let isExcelGloballyLocked = false; // НОВЫЙ ФЛАГ
+let isExcelGloballyLocked = false;
 
-// === Вызов C# EXE вместо нативного диалога Electron ===
 async function spawnCustomSaveDialog(defaultName) {
   isDialogOpen = true;
 
   return new Promise((resolve) => {
+    // Using an external C# dialog instead of the standard dialog.showSaveDialog.
+    // Allows bypassing potential native UI limitations and implementing specific window logic.
     const exePath = path.join(__dirname, 'CustomSaveDialog.exe'); 
-    console.log('Попытка запуска EXE по пути:', exePath); // ЛОГ 1: Проверяем точный путь
 
     const child = spawn(exePath, [defaultName]);
     let output = '';
 
     child.stdout.on('data', (data) => output += data.toString('utf8'));
     
-    // ЛОГ 2: Выводим системные ошибки самого процесса
     child.on('error', (spawnError) => {
-      console.error('Критическая ошибка запуска процесса EXE:', spawnError);
+      console.error('Error:', spawnError);
     });
 
     child.stderr.on('data', (data) => {
@@ -40,13 +38,13 @@ async function spawnCustomSaveDialog(defaultName) {
 
     child.on('close', (code) => {
       isDialogOpen = false;
-      console.log(`Процесс EXE завершился с кодом: ${code}. Вывод:`, output.trim()); // ЛОГ 3
+      console.log(`Exit with code: ${code}. Output:`, output.trim());
       
       try {
         const result = JSON.parse(output.trim());
         resolve(result);
       } catch (e) {
-        console.error('Ошибка парсинга ответа от EXE. Вывод:', output);
+        console.error('Error parsing JSON. Output:', output);
         resolve({ canceled: true });
       }
     });
@@ -55,6 +53,8 @@ async function spawnCustomSaveDialog(defaultName) {
 
 async function lockExcel() {
   return new Promise((resolve) => {
+    // Blocking user interaction with Excel via the COM object ($app.Interactive = $false).
+    // Prevents accidental user clicks that could disrupt the copy/export process.
     const ps = spawn('powershell.exe', [
       '-NoProfile',
       '-Command',
@@ -65,7 +65,7 @@ async function lockExcel() {
     ps.on('close', () => {
       const result = output.trim();
       if (result.includes('LOCKED')) {
-        isExcelGloballyLocked = true; // Фиксируем успешную блокировку
+        isExcelGloballyLocked = true;
       }
       resolve(result);
     });
@@ -80,35 +80,34 @@ async function unlockExcel() {
       `try { $app = [System.Runtime.InteropServices.Marshal]::GetActiveObject('Excel.Application'); if ($app) { $app.Interactive = $true } } catch {}`
     ]);
     ps.on('close', () => {
-      isExcelGloballyLocked = false; // Снимаем флаг
+      isExcelGloballyLocked = false;
       resolve();
     });
   });
 }
 
-// === Синхронная разблокировка для экстренного завершения ===
 function emergencyUnlockExcelSync() {
   if (!isExcelGloballyLocked) return; 
   
   try {
+    // A synchronous call (execSync) is critically necessary here. 
+    // This ensures that Excel unlocking completes before the Node.js process fully terminates (crashes).
     execSync(`powershell.exe -NoProfile -Command "try { $app = [System.Runtime.InteropServices.Marshal]::GetActiveObject('Excel.Application'); if ($app) { $app.Interactive = $true } } catch {}"`, { 
-      stdio: 'ignore', // Игнорируем вывод, чтобы не засорять консоль при падении
-      timeout: 3000    // Защита от зависания самого PowerShell
+      stdio: 'ignore',
+      timeout: 3000
     });
     isExcelGloballyLocked = false;
-    console.log('Excel был экстренно разблокирован перед закрытием процесса.');
+    console.log('Excel був экстренно разблокирован перед закрытием процесса.');
   } catch (err) {
-    // Тихо глотаем ошибку, так как приложение уже в процессе краша
+    // Ignoring the error since the application is already in the process of crashing
   }
 }
 
-// Функция для вывода окон MessageBox гарантированно поверх всех окон БЕЗ активации Electron
 async function showTopMostMessageBox(options) {
   return new Promise((resolve) => {
     const isError = options.type === 'error';
     const icon = isError ? 'Error' : 'Information';
     
-    // Очищаем строки от двойных кавычек и экранируем слэши для PowerShell
     const safeTitle = (options.title || '').replace(/"/g, "'");
     const safeMessage = (options.message || '').replace(/"/g, "'");
     const safeDetail = (options.detail || '').replace(/"/g, "'").replace(/\\/g, "\\\\");
@@ -124,14 +123,15 @@ async function showTopMostMessageBox(options) {
   });
 }
 
-// === Экспорт выделенного диапазона ячеек с блокировкой Excel ===
 async function renderAndTransform(finalPath, scale = 5) {
   const tempImgPath = path.join(app.getPath('temp'), `excel-temp-img-${Date.now()}.png`);
   const tempScriptPath = path.join(app.getPath('temp'), `export-excel-${Date.now()}.ps1`);
   let isExcelLocked = false;
 
   try {
-    // PowerShell-скрипт с проверкой процесса и блокировкой ввода
+    // The script uses a workaround for the Excel COM object:
+    // copies the selection as a picture (CopyPicture), creates a temporary hidden chart (Chart),
+    // pastes the picture into it, and exports it to the disk.
     const psScript = `
       param([string]$savePath, [double]$scale)
       [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
@@ -139,7 +139,6 @@ async function renderAndTransform(finalPath, scale = 5) {
       $activeExcel = $null
 
       try {
-          # Проверяем, запущен ли Excel
           try {
               $activeExcel = [System.Runtime.InteropServices.Marshal]::GetActiveObject('Excel.Application')
           } catch {
@@ -152,14 +151,12 @@ async function renderAndTransform(finalPath, scale = 5) {
               exit 0
           }
 
-          # БЛОКИРУЕМ интерфейс Excel для пользователя
           $activeExcel.Interactive = $false
           Write-Host 'LOCKED'
 
           $sel = $activeExcel.Selection
           if ($null -eq $sel) { throw 'No selection in active Excel.' }
 
-          # Копируем текущее выделение ячеек
           [void]$sel.CopyPicture(1, -4147)
 
           $baseW = $sel.Width
@@ -187,7 +184,6 @@ async function renderAndTransform(finalPath, scale = 5) {
           $w = $baseW * $scale
           $h = $baseH * $scale
 
-          # Создаем полностью скрытый экземпляр Excel для рендеринга
           $hiddenExcel = New-Object -ComObject Excel.Application
           $hiddenExcel.Visible = $false
           $hiddenExcel.DisplayAlerts = $false
@@ -246,7 +242,6 @@ async function renderAndTransform(finalPath, scale = 5) {
 
     fs.writeFileSync(tempScriptPath, '\ufeff' + psScript, 'utf8');
 
-    // Запускаем PowerShell и ждем выполнения экспорта
     const psResult = await new Promise((resolve) => {
       const ps = spawn('powershell.exe', [
         '-ExecutionPolicy', 'Bypass',
@@ -262,10 +257,9 @@ async function renderAndTransform(finalPath, scale = 5) {
       ps.on('close', () => resolve(output));
     });
 
-    // Проверка наличия Excel процесса после закрытия диалога
     if (psResult.includes('NO_EXCEL')) {
       console.log('Скрипт остановлен: активный процесс Excel не найден.');
-      return; // Выходим молча, без вывода окон
+      return;
     }
 
     if (psResult.includes('LOCKED')) {
@@ -276,7 +270,6 @@ async function renderAndTransform(finalPath, scale = 5) {
       throw new Error('Ошибка выполнения экспорта в PowerShell: ' + psResult);
     }
 
-    // Вызываем Python бекенд для финального кадрирования/редактирования
     await startBackendFunc({
       id: 'other--other--screenshot--transform',
       tempPath: tempImgPath,
@@ -285,20 +278,16 @@ async function renderAndTransform(finalPath, scale = 5) {
 
     console.log('Изображение успешно создано:', finalPath);
 
-    // Чистим временные файлы
     fs.unlink(tempScriptPath, () => {});
     fs.unlink(tempImgPath, () => {});
 
-    // Очищаем буфер обмена
     clipboard.clear();
     lastClipboardText = '';
 
-    // СНИМАЕМ БЛОКИРОВКУ с Excel, если она была установлена
     if (isExcelLocked) {
       await unlockExcel();
     }
 
-    // Вывод сообщения об успехе, когда всё полностью готово
     await showTopMostMessageBox({
       type: 'info',
       title: 'Экспорт завершен',
@@ -308,15 +297,12 @@ async function renderAndTransform(finalPath, scale = 5) {
     });
 
   } catch (err) {
-    // Чистим временные файлы
     fs.unlink(tempScriptPath, () => {});
     fs.unlink(tempImgPath, () => {});
 
-    // Очищаем буфер обмена
     clipboard.clear();
     lastClipboardText = '';
 
-    // СНИМАЕМ БЛОКИРОВКУ с Excel, если она была установлена
     if (isExcelLocked) {
       await unlockExcel();
     }
@@ -332,13 +318,11 @@ async function renderAndTransform(finalPath, scale = 5) {
   }
 }
 
-// === Мониторинг буфера обмена ===
 function startExcelMonitor(intervalMs = 800) { 
   if (excelMonitorInterval) return;
   
   excelMonitorInterval = setInterval(() => {
     try {
-      // Если процесс сохранения уже идет, полностью игнорируем триггеры
       if (isSaving) return;
 
       const currentText = clipboard.readText();
@@ -358,6 +342,8 @@ function startExcelMonitor(intervalMs = 800) {
               const htmlStartIndex = htmlString.indexOf('<html');
               const currentHtml = htmlString.substring(htmlStartIndex);
 
+              // Heuristic check: trying to determine if the copied HTML belongs specifically to Excel,
+              // by checking for the presence of specific classes and namespaces generated by MS Office.
               const isFromExcel = (
                 /<td[^>]*class=['"]?xl/i.test(currentHtml) ||
                 currentHtml.includes('mso-') ||
@@ -368,32 +354,28 @@ function startExcelMonitor(intervalMs = 800) {
 
               if (isFromExcel) {
                 isSaving = true;
-                let isLockedBeforeDialog = false; // Флаг контроля блокировки
+                let isLockedBeforeDialog = false;
                 
                 try {
-                  // 1. Блокируем Excel ДО появления окна
                   const lockStatus = await lockExcel();
                   if (lockStatus.includes('NO_EXCEL')) {
                     console.log('Excel закрыт или недоступен.');
-                    return; // Блок finally сбросит isSaving
+                    return;
                   }
                   isLockedBeforeDialog = true;
 
-                  // 2. Вызываем окно сохранения
                   const defaultName = `Скриншот.png`;
                   const dialogResult = await spawnCustomSaveDialog(defaultName);
 
                   if (dialogResult.path && !dialogResult.canceled) {
-                    // Передаем эстафету функции сохранения (она САМА снимет блокировку в конце)
                     await renderAndTransform(dialogResult.path, dialogResult.scale);
-                    isLockedBeforeDialog = false; // Снимаем ответственность с этого блока
+                    isLockedBeforeDialog = false;
                   } else {
                     console.log('Сохранение отменено пользователем.');
                   }
                 } catch (dialogErr) {
                   console.error('Ошибка диалогового окна:', dialogErr);
                 } finally {
-                  // Если пользователь нажал "Отмена" или произошла ошибка до вызова renderAndTransform
                   if (isLockedBeforeDialog) {
                     await unlockExcel();
                   }
@@ -421,12 +403,10 @@ async function screenshotMode(isMode) {
   }
 }
 
-// === IPC ===
 ipcMain.handle('screenshotMode', async (event, isMode) => {
   screenshotMode(isMode);
 });
 
-// Ручной вызов (адаптирован под новые условия синхронности)
 ipcMain.on('excel-html', async (event, html) => {
   if (isSaving) return;
   isSaving = true;
@@ -443,7 +423,6 @@ ipcMain.on('excel-html', async (event, html) => {
       isLockedBeforeDialog = false;
     }
   } finally {
-    // Разблокировка в случае отмены диалогового окна
     if (isLockedBeforeDialog) {
       await unlockExcel();
     }
@@ -451,11 +430,11 @@ ipcMain.on('excel-html', async (event, html) => {
   }
 });
 
-// 1. Необработанные исключения в коде Node.js (самые частые причины крашей)
+// Global error and OS signal handlers for guaranteed Excel unlocking.
 process.on('uncaughtException', (error) => {
   console.error('Критическая ошибка (uncaughtException):', error);
   emergencyUnlockExcelSync();
-  process.exit(1); // Принудительно завершаем с кодом ошибки
+  process.exit(1);
 });
 
 process.on('unhandledRejection', (reason) => {
@@ -464,7 +443,6 @@ process.on('unhandledRejection', (reason) => {
   process.exit(1); 
 });
 
-// 2. Сигналы прерывания системы (закрытие через Диспетчер задач, Ctrl+C в консоли)
 ['SIGINT', 'SIGTERM', 'SIGQUIT'].forEach((signal) => {
   process.on(signal, () => {
     emergencyUnlockExcelSync();
@@ -472,7 +450,6 @@ process.on('unhandledRejection', (reason) => {
   });
 });
 
-// 3. Штатное закрытие Electron приложения
 app.on('before-quit', () => {
   emergencyUnlockExcelSync();
 });

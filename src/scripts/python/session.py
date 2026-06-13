@@ -6,9 +6,7 @@ from openpyxl.utils import get_column_letter
 from openpyxl.cell.text import InlineFont
 from openpyxl.cell.rich_text import TextBlock, CellRichText
 from docx import Document
-from docx.document import Document as WordDocument
 import os
-from collections import defaultdict
 from pathlib import Path
 
 from utils import MONTH_NAMES_GEN, EDUCATIONAL_PROGRAMS, SUBJECT_WITH_2_PROGRAMS, FILL_GRAY
@@ -16,41 +14,40 @@ from utils import save_file, delete_page, replace_text, insert_row, short_name, 
 
 def filling_out_the_summary_sheet(sheet: Worksheet, students: list, cells: list, social_len: int, subjects: list, kurator: str, percentage: int):
     """
-    Заполнение сводной ведомости.
+    Filling out the summary sheet.
 
     Args:
-        sheet (Worksheet): Лист Excel, который нужно заполнить.
-        students (list): Список студентов, которые заполняются.
-        cells (list): Значения ячеек "C5", "C6", "C7".
-        social_len (int): Количество социальщиков.
-        subjects (list): Список предметов.
-        kurator (str): Имя куратора.
+        sheet (Worksheet): The Excel sheet to be filled out.
+        students (list): The list of students.
+        cells (list): The values of cells "C5", "C6", "C7".
+        social_len (int): The number of students in privileged categories.
+        subjects (list): The list of subjects.
+        kurator (str): The name of the curator.
+        percentage (int): The percentage for calculations.
     """
 
-    student_len = len(students) # Количество студентов
-    subject_len = len(subjects) # Количество предметов
+    student_len = len(students)
+    subject_len = len(subjects)
 
-    delete_row_start = 9 + student_len + 1           # Начало удаления строк
-    delete_row_count = 109 - delete_row_start + 1    # Кол-во удалений строк
-    end_row = delete_row_start - 1                   # Строка крайнего студента
+    delete_row_start = 9 + student_len + 1
+    delete_row_count = 109 - delete_row_start + 1
+    end_row = delete_row_start - 1
     
-    delete_col_start = 5 + subject_len + 1           # Начало удаления столбцов
-    delete_col_count = 26 - delete_col_start         # Кол-во удаления столбцов
-    end_col = delete_col_start - 1                   # Столбец крайнего предмета
-    end_col_letter = get_column_letter(end_col)      # Буква столбца крайнего предмета
-    end_col_plus_1_letter = get_column_letter(end_col + 1)      # Буква столбца последнего предмета + 1 (столбец с формулами)
+    delete_col_start = 5 + subject_len + 1
+    delete_col_count = 26 - delete_col_start
+    end_col = delete_col_start - 1
+    end_col_letter = get_column_letter(end_col)
+    end_col_plus_1_letter = get_column_letter(end_col + 1)
 
     dims = sheet.column_dimensions
 
     # =============================================================================================================
-    # ПОДГОТОВКА ЛИСТА ПЕРЕД ЗАПОЛНЕНИЕМ
+    # PREPARING THE SHEET BEFORE FILLING
 
-    # --- Удаление строк ---
     sheet.delete_rows(delete_row_start, amount=delete_row_count)
     for row in range(delete_row_start + 11, delete_row_start + 11 + delete_row_count):
         sheet.row_dimensions[row].hidden = True
-        
-    # --- Удаление стобцов ---
+    
     for row in [3, 4, 5, 6, 7]:
         sheet.unmerge_cells(start_row=row, start_column=3, end_row=row, end_column=26)
     sheet.unmerge_cells(start_row=8, start_column=6, end_row=8, end_column=25)
@@ -65,12 +62,10 @@ def filling_out_the_summary_sheet(sheet: Worksheet, students: list, cells: list,
     dims[get_column_letter(delete_col_start)].width = 11.3
     dims[get_column_letter(delete_col_start + 1)].width = 2.7
     dims[get_column_letter(delete_col_start + 2)].width = 2.7
-        
-    # --- Установка области печати ---
+    
     col_letter = get_column_letter(end_col + 1)
     sheet.print_area = f'C3:{col_letter}{end_row + 9}'
 
-    # --- Возвращение формул ---
     for col in range(6, end_col + 1):
         col_letter = get_column_letter(col)
         row = end_row + 1
@@ -101,7 +96,7 @@ def filling_out_the_summary_sheet(sheet: Worksheet, students: list, cells: list,
         )
 
     sheet.cell(row=end_row + 1, column=end_col + 1).value = f'=IFERROR(AVERAGE($F{end_row + 1}:{end_col_letter}{end_row + 1}),"Очікую")'
-    # Нижняя часть таблицы
+    
     sheet.cell(row=end_row + 4, column=6).value = f'=IFERROR(AVERAGE(F{end_row + 2}:{end_col_letter}{end_row + 2}),"Очікую")'
     sheet.cell(row=end_row + 5, column=6).value = f'=IFERROR(AVERAGE($F{end_row + 3}:{end_col_letter}{end_row + 3}),"Очікую")'
     sheet.cell(row=end_row + 6, column=6).value = f'=IF(COUNTIF($C$10:$C{end_row},"=Б")=0,IF(COUNTIF($C$10:$C{end_row},"=К")=0,"Очікую",0),COUNTIF($C$10:$C{end_row},"=Б"))'
@@ -109,9 +104,8 @@ def filling_out_the_summary_sheet(sheet: Worksheet, students: list, cells: list,
     sheet.cell(row=end_row + 9, column=6).value = f'=IF(F{end_row + 6}="Очікую","Очікую",IF(F{end_row + 6}-COUNTIF(${end_col_plus_1_letter}$10:${end_col_plus_1_letter}{end_row}," - ")<ROUNDDOWN(F{end_row + 6}*{percentage / 100},0),F{end_row + 6}-COUNTIF(${end_col_plus_1_letter}$10:${end_col_plus_1_letter}{end_row}," - "),ROUNDDOWN(F{end_row + 6}*{percentage / 100},0)))'
     
     # =============================================================================================================
-    # ЗАПОЛНЕНИЕ ЛИСТА
+    # FILLING THE SHEET
 
-    # --- Фиксированные значения ---
     sheet.cell(row=5, column=3).value = cells['C5']
     sheet.cell(row=6, column=3).value = cells['C6']
     sheet.cell(row=7, column=3).value = cells['C7']
@@ -123,11 +117,9 @@ def filling_out_the_summary_sheet(sheet: Worksheet, students: list, cells: list,
         sheet.cell(row=end_row + 7, column=21 - delete_col_count).value = kurator
         sheet.cell(row=end_row + 9, column=21 - delete_col_count).value = f'Маргарита БРІТІКОВА'
 
-    # --- Названия предметов ---
     for i, subject in enumerate(subjects):
         sheet.cell(row=9, column=i + 6).value = f'{subject['subject_name']}\n{subject['teacher_name']}'
     
-    # --- Имена студентов и их оценки ---
     for i, student in enumerate(students):
         sheet.cell(row=i + 10, column=3).value = student['bc']
         sheet.cell(row=i + 10, column=5).value = student['student_name']
@@ -136,38 +128,38 @@ def filling_out_the_summary_sheet(sheet: Worksheet, students: list, cells: list,
 
 def filling_out_the_rating_sheet(sheet: Worksheet, s_title: str, scholarship_number: int, students: list, sorted_list: list, subjects: list):
     """
-    Заполнение рейтинговой ведомости.
+    Filling out the rating sheet.
 
     Args:
-        sheet (Worksheet): Лист Excel, который нужно заполнить.
-        students (list): Список студентов, которые заполняются.
-        sorted_list (list): Отсортированный список студентов.
-        subjects (list): Список предметов.
+        sheet (Worksheet): The Excel sheet to be filled out.
+        s_title (str): The name of the summary sheet for references.
+        scholarship_number (int): The number of scholarships.
+        students (list): The list of students.
+        sorted_list (list): The sorted list of student indices.
+        subjects (list): The list of subjects.
     """
 
-    student_len = sum(1 for s in students if s['bc'] == 'Б' and s['avg_grade'] not in ('-', ' - ')) # Количество студентов
-    subject_len = len(subjects) # Количество предметов
+    student_len = sum(1 for s in students if s['bc'] == 'Б' and s['avg_grade'] not in ('-', ' - '))
+    subject_len = len(subjects)
 
-    delete_row_start = 9 + student_len + 1           # Начало удаления строк
-    delete_row_count = 109 - delete_row_start + 1    # Кол-во удалений строк
-    end_row = delete_row_start - 1                   # Строка крайнего студента
+    delete_row_start = 9 + student_len + 1
+    delete_row_count = 109 - delete_row_start + 1
+    end_row = delete_row_start - 1
     
-    delete_col_start = 5 + subject_len + 1           # Начало удаления столбцов
-    delete_col_count = 26 - delete_col_start         # Кол-во удаления столбцов
-    end_col = delete_col_start - 1                   # Столбец крайнего предмета
-    end_col_letter = get_column_letter(end_col)      # Буква столбца крайнего предмета
+    delete_col_start = 5 + subject_len + 1
+    delete_col_count = 26 - delete_col_start
+    end_col = delete_col_start - 1
+    end_col_letter = get_column_letter(end_col)
 
     dims = sheet.column_dimensions
 
     # =============================================================================================================
-    # ПОДГОТОВКА ЛИСТА ПЕРЕД ЗАПОЛНЕНИЕМ
+    # PREPARING THE SHEET BEFORE FILLING
 
-    # --- Удаление строк ---
     sheet.delete_rows(delete_row_start, amount=delete_row_count)
     for row in range(delete_row_start + 6, delete_row_start + 6 + delete_row_count):
         sheet.row_dimensions[row].hidden = True
-        
-    # --- Удаление стобцов ---
+    
     for row in [3, 4, 5, 6, 7]:
         sheet.unmerge_cells(start_row=row, start_column=3, end_row=row, end_column=27)
     sheet.unmerge_cells(start_row=8, start_column=6, end_row=8, end_column=25)
@@ -185,12 +177,10 @@ def filling_out_the_rating_sheet(sheet: Worksheet, s_title: str, scholarship_num
     dims[get_column_letter(delete_col_start + 1)].width = 11.3
     dims[get_column_letter(delete_col_start + 2)].width = 2.7
     dims[get_column_letter(delete_col_start + 3)].width = 2.7
-        
-    # --- Установка области печати ---
+    
     col_letter = get_column_letter(end_col + 2)
     sheet.print_area = f'C3:{col_letter}{end_row + 4}'
 
-    # --- Возвращение формул ---
     for row in range(10, end_row + 1):
         sheet.cell(row=row, column=end_col + 1).value = (
             f'=IF(COUNTIF($F{row}:{end_col_letter}{row},"=*")>0,IF($C{row}="К","-"," - "),'
@@ -201,7 +191,6 @@ def filling_out_the_rating_sheet(sheet: Worksheet, s_title: str, scholarship_num
         sheet.cell(row=row, column=end_col + 2).value = (
             f'=IFERROR({col_letter}{row}/12*90,"Очікую")'
         )
-    # Нижняя часть таблицы
     summary_end_row = 9 + len(sorted_list)
     sheet.cell(row=end_row + 1, column=6).value = f"='{s_title}'!F{summary_end_row + 6}"
     sheet.cell(row=end_row + 2, column=6).value = f"='{s_title}'!F{summary_end_row + 7}"
@@ -209,9 +198,8 @@ def filling_out_the_rating_sheet(sheet: Worksheet, s_title: str, scholarship_num
     sheet.cell(row=end_row + 4, column=6).value = f"='{s_title}'!F{summary_end_row + 9}"
 
     # =============================================================================================================
-    # ЗАПОЛНЕНИЕ ЛИСТА (формулы)
+    # FILLING THE SHEET (formulas)
 
-    # --- Фиксированные значения ---
     sheet.cell(row=5, column=3).value = f"='{s_title}'!C5"
     sheet.cell(row=6, column=3).value = f"='{s_title}'!C6"
     sheet.cell(row=7, column=3).value = f"='{s_title}'!C7"
@@ -225,12 +213,10 @@ def filling_out_the_rating_sheet(sheet: Worksheet, s_title: str, scholarship_num
         sheet.cell(row=end_row + 2, column=21 - delete_col_count).value = f"='{s_title}'!{kurator_col_letter}{summary_kurator_row}"
         sheet.cell(row=end_row + 4, column=21 - delete_col_count).value = f'Маргарита БРІТІКОВА'
 
-    # --- Названия предметов ---
     for i in range(subject_len):
         col = get_column_letter(i + 6)
         sheet.cell(row=9, column=i + 6).value = f"='{s_title}'!{col}9"
 
-    # --- Имена студентов и их оценки ---
     row = 10
     for i in range(student_len):
         index = sorted_list[i]
@@ -241,14 +227,23 @@ def filling_out_the_rating_sheet(sheet: Worksheet, s_title: str, scholarship_num
             sheet.cell(row=row, column=j + 6).value = f"='{s_title}'!{col}{index + 10}"
         row += 1
 
-    # --- Покраска стипендиальщиков ---
     for i in range(scholarship_number):
         for j in range(subject_len + 5):
             sheet.cell(row=i + 10, column=3 + j).fill = FILL_GRAY
 
 def session_PackageOfDocuments(info, app_path):
+    """
+    Forms a package of documents for the session for all necessary specialties.
+
+    Args:
+        info (dict): A dictionary with data (specialties, students, curator, semester, etc.).
+        app_path (str): The path to the application directory.
+    
+    Returns:
+        answer (dict): A dictionary with keys 'success' (execution status) and 'files' (paths to generated files).
+    """
+
     path_to_save = Path(info['file_path']).parent
-    # col_letter = get_column_letter(len(subjects) + 6)
 
     answer = {'success': True, 'files': []}
     directory_to_save = os.path.dirname(info['file_path'])
@@ -256,7 +251,7 @@ def session_PackageOfDocuments(info, app_path):
     path = f'{app_path}/public/examples/work'
 
     # =============================================================================================================
-    # СОЗДАНИЕ ПАКЕТА ДОКУМЕНТОВ ПО СПЕЦИАЛЬНОСТЯМ
+    # CREATING A PACKAGE OF DOCUMENTS BY SPECIALTIES
 
     statements = load_workbook(f'{path}/statements.xlsx')
     step = 0
@@ -268,22 +263,17 @@ def session_PackageOfDocuments(info, app_path):
 
         socialy_len = sum(1 for student in subgroup['students'] if student.get('social_status'))
 
-        # === Сводная ведомость ===
         s_sheet = statements[f'ЛЗ{step}']
         s_sheet.title = f'Зведена {speciality_code}'
         filling_out_the_summary_sheet(s_sheet, subgroup['students'], subgroup['cells'], socialy_len, info['subjects'], info['kurator_nom'], info['percentage'])
         
-        # Если нет стипендии - пропуск группы
         if subgroup['scholarship_number'] == 0:
             continue
 
-        # === Рейтинговая ведомость ===
         r_sheet = statements[f'ЛР{step}']
         r_sheet.title = f'Рейтингова {speciality_code}'
         filling_out_the_rating_sheet(r_sheet, s_sheet.title, subgroup['scholarship_number'], subgroup['students'], subgroup['sorted_list'], info['subjects'])
 
-        # === Переменные ===
-        # Даты семестра
         _semester_start_split = info['semester_start'].split('.')
         _semester_end_split = info['semester_end'].split('.')
         _semester_start_month = MONTH_NAMES_GEN[int(_semester_start_split[1]) - 1]
@@ -291,28 +281,20 @@ def session_PackageOfDocuments(info, app_path):
         semester_dates_start = f'«{_semester_start_split[0]}» {_semester_start_month} {_semester_start_split[2]} р.'
         semester_dates_end = f'«{_semester_end_split[0]}» {_semester_end_month} {_semester_end_split[2]} р.'
 
-        # === Определение страниц для удаления ===
-        # Если нет повышенной стипендии
         del_increased = len(subgroup['increased_scholarship_list']) == 0
-        # Если нет социальной стипендии
         del_social = len(subgroup['social_scholarship_list']) == 0
 
-        # === Удаление страниц ===
         doc_petition = Document(f'{path}/petition.docx')
         doc_website = Document(f'{path}/website-rating.docx')
-        # Если нет повышенной стипендии
         if del_social:
             doc_petition = delete_page(doc_petition, 3)
         if del_increased:
             doc_petition = delete_page(doc_petition, 1)
 
-        # === Определение индексов таблиц ===
         table_index_increased = None if del_increased else 0
         table_index_scholarship = 0 if del_increased else 1
         table_index_social = None if del_social else (1 if del_increased else 2)
 
-        # === Заполнение страниц всех документов ===
-        # Стипендия
         doc_petition = replace_text(doc_petition, 'group_code_2', info['group_code'])
         doc_petition = replace_text(doc_petition, 'speciality_2', f'{speciality_code} {speciality_name}')
         doc_petition = replace_text(doc_petition, 'kurator_21', info['kurator_gen'])
@@ -334,7 +316,6 @@ def session_PackageOfDocuments(info, app_path):
             increased = '+' if not del_increased and student['increased'] else ''
             doc_petition = insert_row(doc_petition, table_index_scholarship, [student_name, avg, increased], insert=i > 0)
             doc_website = insert_row(doc_website, 0, [student_name, avg, increased], insert=i > 0, color=True)
-        # дозаполнение таблицы для сайта
         for i in range(subgroup['scholarship_number'], len(subgroup['students'])):
             index = subgroup['sorted_list'][i]
             student = subgroup['students'][index]
@@ -344,7 +325,6 @@ def session_PackageOfDocuments(info, app_path):
             avg = f'{float(student['avg_grade']):.2f}'.replace('.', ',')
             doc_website = insert_row(doc_website, 0, [student_name, avg, ''])
 
-        # Социальная стипендия
         if not del_social:
             doc_petition = replace_text(doc_petition, 'group_code_3', info['group_code'])
             doc_petition = replace_text(doc_petition, 'speciality_3', f'{speciality_code} {speciality_name}')
@@ -362,7 +342,6 @@ def session_PackageOfDocuments(info, app_path):
                 social_status = student['social_status']
                 doc_petition = insert_row(doc_petition, table_index_social, [student_name, avg, social_status], insert=el_index > 0)
 
-        # Повышенная стипендия
         if not del_increased:
             doc_submission = Document(f'{path}/submission.docx')
             doc_petition = replace_text(doc_petition, 'group_code_1', info['group_code'])
@@ -389,7 +368,6 @@ def session_PackageOfDocuments(info, app_path):
                 submission_text = f'{short_name(student_name)} –' if el_index == 0 else f'{submission_text}\n{short_name(student_name)} –'
             doc_submission = explanation_insert(doc_submission, 'submission', submission_text)
         
-        # Одинаковые баллы
         if len(subgroup['same_scores_list']) > 0:
             doc_explanation = Document(f'{path}/explanation.docx')
             doc_explanation = replace_text(doc_explanation, 'group_code_1', info['group_code'])
@@ -421,7 +399,6 @@ def session_PackageOfDocuments(info, app_path):
                     explanation_text = f'{explanation_text}\n{same_score_text_part_1} – {grade}: {same_score_text_part_2}'
             doc_explanation = explanation_insert(doc_explanation, 'explanation', explanation_text)
 
-        # Сохранение документов
         doc_petition_path = save_file(doc_petition, f'{path_to_save}/Клопотання {speciality_code}.docx')
         if doc_petition_path != True:
             answer['files'].append(doc_petition_path)
@@ -451,6 +428,17 @@ def session_PackageOfDocuments(info, app_path):
 
 
 def filling_out_the_empty_teacher_statement(sheet: Worksheet, semester: str, year: str, students: list, subgroups: list, group_code: str):
+    """
+    Fills out the empty teacher statement.
+
+    Args:
+        sheet (Worksheet): The sheet to be filled out.
+        semester (str): The semester (e.g., '1' or 'year').
+        year (str): The year of the assessment.
+        students (list): The list of students.
+        subgroups (list): The list of subgroups (specialties).
+        group_code (str): The name or code of the group.
+    """
 
     default_font = InlineFont(rFont='Times New Roman', sz=12)
     underline_font = InlineFont(rFont='Times New Roman', sz=12, u='single')
@@ -604,23 +592,22 @@ def filling_out_the_empty_teacher_statement(sheet: Worksheet, semester: str, yea
     }
     
     # =============================================================================================================
-    # СПЕЦИАЛЬНОСТИ И ОБРАЗОВАТЕЛЬНЫЕ ПРОГРАММЫ
+    # SPECIALTIES AND EDUCATIONAL PROGRAMS
 
-    # Размер строки
     line_size = 11299
-    # "Спеціальність "     1448
-    # "Освітня програма "  1825
+    # "Specialty "         1448
+    # "Educational program "  1825
 
-    max_specs_width = line_size - 1448 - 200 # line_size - размер "Спеціальність " - отступ от правого края на запас для запятых и пробелов
-    max_educational_programs_width = line_size - 1825 - 200 # line_size - размер "Освітні програми " - отступ от правого края на запас для запятых и пробелов
+    max_specs_width = line_size - 1448 - 200
+    max_educational_programs_width = line_size - 1825 - 200
 
-    # Вспомогательная функция для подсчета ширины
     def get_width(text):
         return sum(letter_sizes.get(char, 100) for char in text)
 
     comma_width = get_width(', ')
     space_width = get_width(' ')
 
+    # Helper function to split text into lines of a given width
     def append_to_lines(items, max_width):
         lines = []
         current_line = ''
@@ -660,22 +647,18 @@ def filling_out_the_empty_teacher_statement(sheet: Worksheet, semester: str, yea
         if current_line:
             lines.append(current_line)
             
-        # 200 пробелов в конец каждой строки
         padding = ' ' * 200
         return [line + padding for line in lines]
 
-    # Собираем списки строк, которые нужно отформатировать
     spec_strings = [f'{subgroup['speciality_code']} {subgroup['speciality_name']}' for subgroup in subgroups]
     edu_strings = [EDUCATIONAL_PROGRAMS[subgroup['speciality_code']] for subgroup in subgroups if EDUCATIONAL_PROGRAMS.get(subgroup['speciality_code'], '')]
 
-    # Обрабатываем их через функцию
     specs_text = append_to_lines(spec_strings, max_specs_width)
     educational_programs_text = append_to_lines(edu_strings, max_educational_programs_width)
 
     # =============================================================================================================
-    # ПОДГОТОВКА ЛИСТА ПЕРЕД ЗАПОЛНЕНИЕМ
+    # PREPARING THE SHEET BEFORE FILLING
 
-    # --- Удаление строк ---
     start = len(students) + 20 + 1
     delete_count = 120 - start + 1
 
@@ -793,7 +776,7 @@ def filling_out_the_empty_teacher_statement(sheet: Worksheet, semester: str, yea
     sheet.row_dimensions[start + 23].height = 21
 
     # =============================================================================================================
-    # ЗАПОЛНЕНИЕ ЛИСТА
+    # FILLING THE SHEET
 
     sheet.cell(row=10, column=3).value = CellRichText(
         TextBlock(default_font, 'Курс '),
@@ -898,30 +881,39 @@ def filling_out_the_empty_teacher_statement(sheet: Worksheet, semester: str, yea
         sheet.print_area = f'C3:L{20 + studLen + 2 + 22}'
 
 def filling_out_the_empty_sheet(sheet: Worksheet, cells: list, students: list, subject_len: int, last_student_row: int, percentage: int):
+    """
+    Fills out an empty grade statement sheet for a subgroup.
 
-    student_len = len(students)                      # Количество студентов
+    Args:
+        sheet (Worksheet): The sheet that needs to be filled.
+        cells (list): A list of values for the header cells (e.g., C5, C6).
+        students (list): A list of students in the subgroup.
+        subject_len (int): The number of subjects.
+        last_student_row (int): The index of the last row containing a student on the general sheet.
+        percentage (int): The percentage for performance calculations.
+    """
 
-    delete_row_start = 9 + student_len + 1           # Начало удаления строк
-    delete_row_count = 109 - delete_row_start + 1    # Кол-во удалений строк
-    end_row = delete_row_start - 1                   # Последняя строка студента
+    student_len = len(students)
+
+    delete_row_start = 9 + student_len + 1
+    delete_row_count = 109 - delete_row_start + 1
+    end_row = delete_row_start - 1
     
-    delete_col_start = 5 + subject_len + 1           # Начало удаления столбцов
-    delete_col_count = 26 - delete_col_start         # Кол-во удаления столбцов
-    end_col = delete_col_start - 1                   # Столбец последнего предмета
-    end_col_letter = get_column_letter(end_col)      # Буква столбца последнего предмета
-    end_col_plus_1_letter = get_column_letter(end_col + 1)      # Буква столбца последнего предмета + 1 (столбец с формулами)
+    delete_col_start = 5 + subject_len + 1
+    delete_col_count = 26 - delete_col_start
+    end_col = delete_col_start - 1
+    end_col_letter = get_column_letter(end_col)
+    end_col_plus_1_letter = get_column_letter(end_col + 1)
 
     dims = sheet.column_dimensions
 
     # =============================================================================================================
-    # ПОДГОТОВКА ЛИСТА ПЕРЕД ЗАПОЛНЕНИЕМ
+    # PREPARING THE SHEET BEFORE FILLING
 
-    # --- Удаление строк ---
     sheet.delete_rows(delete_row_start, amount=delete_row_count)
     for row in range(delete_row_start + 11, delete_row_start + 11 + delete_row_count):
         sheet.row_dimensions[row].hidden = True
 
-    # --- Удаление стобцов ---
     for row in [3, 4, 5, 6, 7]:
         sheet.unmerge_cells(start_row=row, start_column=3, end_row=row, end_column=26)
     sheet.unmerge_cells(start_row=8, start_column=6, end_row=8, end_column=25)
@@ -937,106 +929,109 @@ def filling_out_the_empty_sheet(sheet: Worksheet, cells: list, students: list, s
     dims[get_column_letter(delete_col_start + 1)].width = 2.7
     dims[get_column_letter(delete_col_start + 2)].width = 2.7
 
-    # --- Установка области печати ---
     col_letter = get_column_letter(end_col)
     sheet.print_area = f'C3:{col_letter}{end_row + 9}'
 
-    # --- Возвращение формул ---
     for col in range(6, end_col + 1):
         col_letter = get_column_letter(col)
         row = end_row + 1
         sheet.cell(row=row, column=col).value = (
             f'=IF(SUM({col_letter}$10:{col_letter}{end_row})=0,'
-            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Очікую",0),'
+            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Waiting",0),'
             f'SUM({col_letter}$10:{col_letter}{end_row})/$D{end_row})'
         )
         row = end_row + 2
         sheet.cell(row=row, column=col).value = (
             f'=IF(SUM({col_letter}$10:{col_letter}{end_row})=0,'
-            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Очікую",0),'
+            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Waiting",0),'
             f'IF(COUNTIF({col_letter}$10:{col_letter}{end_row},">=4")=0,0,'
             f'COUNTIF({col_letter}$10:{col_letter}{end_row},">=4")/$D{end_row}*100))'
         )
         row = end_row + 3
         sheet.cell(row=row, column=col).value = (
             f'=IF(SUM({col_letter}$10:{col_letter}{end_row})=0,'
-            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Очікую",0),'
+            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Waiting",0),'
             f'IF(COUNTIF({col_letter}$10:{col_letter}{end_row},">=7")=0,0,'
             f'COUNTIF({col_letter}$10:{col_letter}{end_row},">=7")/$D{end_row}*100))'
         )
     for row in range(10, end_row + 1):
         sheet.cell(row=row, column=end_col + 1).value = (
-            f'=IF(COUNTIF($F{row}:{end_col_letter}{row},"=*")>0,IF($C{row}="К","-"," - "),'
-            f'IF(COUNTIF($F{row}:{end_col_letter}{row},"<4")>0,IF(C{row}="К","-"," - "),'
-            f'(IFERROR(AVERAGE($F{row}:{end_col_letter}{row}),"Очікую"))))'
+            f'=IF(COUNTIF($F{row}:{end_col_letter}{row},"=*")>0,IF($C{row}="K","-"," - "),'
+            f'IF(COUNTIF($F{row}:{end_col_letter}{row},"<4")>0,IF(C{row}="K","-"," - "),'
+            f'(IFERROR(AVERAGE($F{row}:{end_col_letter}{row}),"Waiting"))))'
         )
-    sheet.cell(row=end_row + 1, column=end_col + 1).value = f'=IFERROR(AVERAGE($F{end_row + 1}:{end_col_letter}{end_row + 1}),"Очікую")'
-    # Нижняя часть таблицы
-    sheet.cell(row=end_row + 4, column=6).value = f'=IFERROR(AVERAGE(F{end_row + 2}:{end_col_letter}{end_row + 2}),"Очікую")'
-    sheet.cell(row=end_row + 5, column=6).value = f'=IFERROR(AVERAGE($F{end_row + 3}:{end_col_letter}{end_row + 3}),"Очікую")'
-    sheet.cell(row=end_row + 6, column=6).value = f'=IF(COUNTIF($C$10:$C{end_row},"=Б")=0,IF(COUNTIF($C$10:$C{end_row},"=К")=0,"Очікую",0),COUNTIF($C$10:$C{end_row},"=Б"))'
-    sheet.cell(row=end_row + 7, column=6).value = f'=IF(COUNTIF($C$10:$C{end_row},"=К")=0,IF(COUNTIF($C$10:$C{end_row},"=Б")=0,"Очікую",0),COUNTIF($C$10:$C{end_row},"=К"))'
-    sheet.cell(row=end_row + 9, column=6).value = f'=IF(F{end_row + 6}="Очікую","Очікую",IF(F{end_row + 6}-COUNTIF(${end_col_plus_1_letter}$10:${end_col_plus_1_letter}{end_row}," - ")<ROUNDDOWN(F{end_row + 6}*{percentage / 100},0),F{end_row + 6}-COUNTIF(${end_col_plus_1_letter}$10:${end_col_plus_1_letter}{end_row}," - "),ROUNDDOWN(F{end_row + 6}*{percentage / 100},0)))'
+    sheet.cell(row=end_row + 1, column=end_col + 1).value = f'=IFERROR(AVERAGE($F{end_row + 1}:{end_col_letter}{end_row + 1}),"Waiting")'
+    
+    sheet.cell(row=end_row + 4, column=6).value = f'=IFERROR(AVERAGE(F{end_row + 2}:{end_col_letter}{end_row + 2}),"Waiting")'
+    sheet.cell(row=end_row + 5, column=6).value = f'=IFERROR(AVERAGE($F{end_row + 3}:{end_col_letter}{end_row + 3}),"Waiting")'
+    sheet.cell(row=end_row + 6, column=6).value = f'=IF(COUNTIF($C$10:$C{end_row},"=B")=0,IF(COUNTIF($C$10:$C{end_row},"=K")=0,"Waiting",0),COUNTIF($C$10:$C{end_row},"=B"))'
+    sheet.cell(row=end_row + 7, column=6).value = f'=IF(COUNTIF($C$10:$C{end_row},"=K")=0,IF(COUNTIF($C$10:$C{end_row},"=B")=0,"Waiting",0),COUNTIF($C$10:$C{end_row},"=K"))'
+    sheet.cell(row=end_row + 9, column=6).value = f'=IF(F{end_row + 6}="Waiting","Waiting",IF(F{end_row + 6}-COUNTIF(${end_col_plus_1_letter}$10:${end_col_plus_1_letter}{end_row}," - ")<ROUNDDOWN(F{end_row + 6}*{percentage / 100},0),F{end_row + 6}-COUNTIF(${end_col_plus_1_letter}$10:${end_col_plus_1_letter}{end_row}," - "),ROUNDDOWN(F{end_row + 6}*{percentage / 100},0)))'
     
     # =============================================================================================================
-    # ЗАПОЛНЕНИЕ ЛИСТА
+    # FILLING THE SHEET
 
-    # --- Фиксированные значения ---
     sheet.cell(row=5, column=3).value = cells['C5']
     sheet.cell(row=6, column=3).value = cells['C6']
     sheet.cell(row=7, column=3).value = cells['C7']
     if subject_len >= 14:
         kurator_col_letter = get_column_letter(16)
-        sheet.cell(row=end_row + 7, column=16).value = f"='Загальна'!{kurator_col_letter}{last_student_row + 7}"
-        sheet.cell(row=end_row + 9, column=16).value = f'Маргарита БРІТІКОВА'
+        sheet.cell(row=end_row + 7, column=16).value = f"='General'!{kurator_col_letter}{last_student_row + 7}"
+        sheet.cell(row=end_row + 9, column=16).value = f'Margarita BRITIKOVA'
     else:
         kurator_col_letter = get_column_letter(21 - delete_col_count)
-        sheet.cell(row=end_row + 7, column=21 - delete_col_count).value = f"='Загальна'!{kurator_col_letter}{last_student_row + 7}"
-        sheet.cell(row=end_row + 9, column=21 - delete_col_count).value = f'Маргарита БРІТІКОВА'
+        sheet.cell(row=end_row + 7, column=21 - delete_col_count).value = f"='General'!{kurator_col_letter}{last_student_row + 7}"
+        sheet.cell(row=end_row + 9, column=21 - delete_col_count).value = f'Margarita BRITIKOVA'
 
-    # --- Названия предметов ---
     start_col = 6
     end_col = 6 + subject_len
     for col in range(start_col, end_col):
         fcol_letter = get_column_letter(col)
-        sheet.cell(row=9, column=col).value = f"='Загальна'!{fcol_letter}9"
+        sheet.cell(row=9, column=col).value = f"='General'!{fcol_letter}9"
     
-    # --- Студенты и их оценки ---
     for el_index, student_index in enumerate(students):
         row = el_index + 10
         frow = student_index + 10
-        sheet.cell(row=row, column=3).value = f"='Загальна'!C{frow}"
-        sheet.cell(row=row, column=5).value = f"='Загальна'!E{frow}"
+        sheet.cell(row=row, column=3).value = f"='General'!C{frow}"
+        sheet.cell(row=row, column=5).value = f"='General'!E{frow}"
         for col in range(start_col, end_col):
             fcol_letter = get_column_letter(col)
-            sheet.cell(row=row, column=col).value = f"='Загальна'!{fcol_letter}{frow}"
+            sheet.cell(row=row, column=col).value = f"='General'!{fcol_letter}{frow}"
 
 def filling_out_the_general_empty_sheet(sheet: Worksheet, students: list, subjects: list, kurator: str, percentage: int):
+    """
+    Fills out the general empty grade statement sheet for the entire group.
 
-    student_len = len(students)                      # Количество студентов
-    subject_len = len(subjects)                      # Количество предметов
+    Args:
+        sheet (Worksheet): The sheet that needs to be filled.
+        students (list): A list of all students in the group.
+        subjects (list): The general list of subjects.
+        kurator (str): The full name of the group curator.
+        percentage (int): The percentage for calculations (e.g., for scholarships).
+    """
 
-    delete_row_start = 9 + student_len + 1           # Начало удаления строк
-    delete_row_count = 109 - delete_row_start + 1    # Кол-во удалений строк
-    end_row = delete_row_start - 1                   # Последняя строка студента
+    student_len = len(students)
+    subject_len = len(subjects)
+
+    delete_row_start = 9 + student_len + 1
+    delete_row_count = 109 - delete_row_start + 1
+    end_row = delete_row_start - 1
     
-    delete_col_start = 5 + subject_len + 1           # Начало удаления столбцов
-    delete_col_count = 26 - delete_col_start         # Кол-во удаления столбцов
-    end_col = delete_col_start - 1                   # Столбец последнего предмета
-    end_col_letter = get_column_letter(end_col)      # Буква столбца последнего предмета
-    end_col_plus_1_letter = get_column_letter(end_col + 1)      # Буква столбца последнего предмета + 1 (столбец с формулами)
+    delete_col_start = 5 + subject_len + 1
+    delete_col_count = 26 - delete_col_start
+    end_col = delete_col_start - 1
+    end_col_letter = get_column_letter(end_col)
+    end_col_plus_1_letter = get_column_letter(end_col + 1)
 
     dims = sheet.column_dimensions
 
     # =============================================================================================================
-    # ПОДГОТОВКА ЛИСТА ПЕРЕД ЗАПОЛНЕНИЕМ
+    # PREPARING THE SHEET BEFORE FILLING
 
-    # --- Удаление строк ---
     sheet.delete_rows(delete_row_start, amount=delete_row_count)
     for row in range(delete_row_start + 11, delete_row_start + 11 + delete_row_count):
         sheet.row_dimensions[row].hidden = True
 
-    # --- Удаление стобцов ---
     sheet.unmerge_cells(start_row=3, start_column=3, end_row=7, end_column=26)
     sheet.unmerge_cells(start_row=8, start_column=6, end_row=8, end_column=25)
     sheet.unmerge_cells(start_row=8, start_column=26, end_row=9, end_column=26)
@@ -1050,94 +1045,94 @@ def filling_out_the_general_empty_sheet(sheet: Worksheet, students: list, subjec
     dims[get_column_letter(delete_col_start + 1)].width = 2.7
     dims[get_column_letter(delete_col_start + 2)].width = 2.7
 
-    # --- Установка области печати ---
     col_letter = get_column_letter(end_col)
     sheet.print_area = f'C3:{col_letter}{end_row + 9}'
 
-    # --- Возвращение формул ---
     for col in range(6, end_col + 1):
         col_letter = get_column_letter(col)
         row = end_row + 1
         sheet.cell(row=row, column=col).value = (
             f'=IF(SUM({col_letter}$10:{col_letter}{end_row})=0,'
-            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Очікую",0),'
+            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Waiting",0),'
             f'SUM({col_letter}$10:{col_letter}{end_row})/$D{end_row})'
         )
         row = end_row + 2
         sheet.cell(row=row, column=col).value = (
             f'=IF(SUM({col_letter}$10:{col_letter}{end_row})=0,'
-            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Очікую",0),'
+            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Waiting",0),'
             f'IF(COUNTIF({col_letter}$10:{col_letter}{end_row},">=4")=0,0,'
             f'COUNTIF({col_letter}$10:{col_letter}{end_row},">=4")/$D{end_row}*100))'
         )
         row = end_row + 3
         sheet.cell(row=row, column=col).value = (
             f'=IF(SUM({col_letter}$10:{col_letter}{end_row})=0,'
-            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Очікую",0),'
+            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Waiting",0),'
             f'IF(COUNTIF({col_letter}$10:{col_letter}{end_row},">=7")=0,0,'
             f'COUNTIF({col_letter}$10:{col_letter}{end_row},">=7")/$D{end_row}*100))'
         )
     for row in range(10, end_row + 1):
         sheet.cell(row=row, column=end_col + 1).value = (
-            f'=IF(COUNTIF($F{row}:{end_col_letter}{row},"=*")>0,IF($C{row}="К","-"," - "),'
-            f'IF(COUNTIF($F{row}:{end_col_letter}{row},"<4")>0,IF($C{row}="К","-"," - "),'
-            f'(IFERROR(AVERAGE($F{row}:{end_col_letter}{row}),"Очікую"))))'
+            f'=IF(COUNTIF($F{row}:{end_col_letter}{row},"=*")>0,IF($C{row}="K","-"," - "),'
+            f'IF(COUNTIF($F{row}:{end_col_letter}{row},"<4")>0,IF($C{row}="K","-"," - "),'
+            f'(IFERROR(AVERAGE($F{row}:{end_col_letter}{row}),"Waiting"))))'
         )
-    sheet.cell(row=end_row + 1, column=end_col + 1).value = f'=IFERROR(AVERAGE($F{end_row + 1}:{end_col_letter}{end_row + 1}),"Очікую")'
-    # Нижняя часть таблицы
-    sheet.cell(row=end_row + 4, column=6).value = f'=IFERROR(AVERAGE(F{end_row + 2}:{end_col_letter}{end_row + 2}),"Очікую")'
-    sheet.cell(row=end_row + 5, column=6).value = f'=IFERROR(AVERAGE($F{end_row + 3}:{end_col_letter}{end_row + 3}),"Очікую")'
-    sheet.cell(row=end_row + 6, column=6).value = f'=IF(COUNTIF($C$10:$C{end_row},"=Б")=0,IF(COUNTIF($C$10:$C{end_row},"=К")=0,"Очікую",0),COUNTIF($C$10:$C{end_row},"=Б"))'
-    sheet.cell(row=end_row + 7, column=6).value = f'=IF(COUNTIF($C$10:$C{end_row},"=К")=0,IF(COUNTIF($C$10:$C{end_row},"=Б")=0,"Очікую",0),COUNTIF($C$10:$C{end_row},"=К"))'
-    sheet.cell(row=end_row + 9, column=6).value = f'=IF(F{end_row + 6}="Очікую","Очікую",IF(F{end_row + 6}-COUNTIF(${end_col_plus_1_letter}$10:${end_col_plus_1_letter}{end_row}," - ")<ROUNDDOWN(F{end_row + 6}*{percentage / 100},0),F{end_row + 6}-COUNTIF(${end_col_plus_1_letter}$10:${end_col_plus_1_letter}{end_row}," - "),ROUNDDOWN(F{end_row + 6}*{percentage / 100},0)))'
+    sheet.cell(row=end_row + 1, column=end_col + 1).value = f'=IFERROR(AVERAGE($F{end_row + 1}:{end_col_letter}{end_row + 1}),"Waiting")'
+    
+    sheet.cell(row=end_row + 4, column=6).value = f'=IFERROR(AVERAGE(F{end_row + 2}:{end_col_letter}{end_row + 2}),"Waiting")'
+    sheet.cell(row=end_row + 5, column=6).value = f'=IFERROR(AVERAGE($F{end_row + 3}:{end_col_letter}{end_row + 3}),"Waiting")'
+    sheet.cell(row=end_row + 6, column=6).value = f'=IF(COUNTIF($C$10:$C{end_row},"=B")=0,IF(COUNTIF($C$10:$C{end_row},"=K")=0,"Waiting",0),COUNTIF($C$10:$C{end_row},"=B"))'
+    sheet.cell(row=end_row + 7, column=6).value = f'=IF(COUNTIF($C$10:$C{end_row},"=K")=0,IF(COUNTIF($C$10:$C{end_row},"=B")=0,"Waiting",0),COUNTIF($C$10:$C{end_row},"=K"))'
+    sheet.cell(row=end_row + 9, column=6).value = f'=IF(F{end_row + 6}="Waiting","Waiting",IF(F{end_row + 6}-COUNTIF(${end_col_plus_1_letter}$10:${end_col_plus_1_letter}{end_row}," - ")<ROUNDDOWN(F{end_row + 6}*{percentage / 100},0),F{end_row + 6}-COUNTIF(${end_col_plus_1_letter}$10:${end_col_plus_1_letter}{end_row}," - "),ROUNDDOWN(F{end_row + 6}*{percentage / 100},0)))'
     
     # =============================================================================================================
-    # ЗАПОЛНЕНИЕ ЛИСТА
+    # FILLING THE SHEET
 
-    # --- Фиксированные значения ---
     if subject_len >= 14:
         sheet.cell(row=end_row + 7, column=16).value = kurator
-        sheet.cell(row=end_row + 9, column=16).value = f'Маргарита БРІТІКОВА'
+        sheet.cell(row=end_row + 9, column=16).value = f'Margarita BRITIKOVA'
     else:
         sheet.cell(row=end_row + 7, column=21 - delete_col_count).value = kurator
-        sheet.cell(row=end_row + 9, column=21 - delete_col_count).value = f'Маргарита БРІТІКОВА'
+        sheet.cell(row=end_row + 9, column=21 - delete_col_count).value = f'Margarita BRITIKOVA'
 
-    # --- Названия предметов ---
     for i, subj in enumerate(subjects):
         sheet.cell(row=9, column=i + 6).value = f'{subj['subject_name']}\n{subj['teacher_name']}'
     
-    # --- Имена студентов ---
     for i, student in enumerate(students):
         sheet.cell(row=i + 10, column=3).value = student['bc']
         sheet.cell(row=i + 10, column=5).value = student['student_name']
 
 def filling_out_the_journal_sheet(sheet: Worksheet, subjects: list, start_index: int, group_name: str):
+    """
+    Fills out a journal sheet with a list of subjects.
 
-    subjects_len = len(subjects) # Количество предметов
+    Args:
+        sheet (Worksheet): The sheet that needs to be filled.
+        subjects (list): A list of subjects.
+        start_index (int): The starting index for numbering.
+        group_name (str): The name of the group.
+    """
 
-    delete_row_start = 4 + subjects_len + 1          # Начало удаления строк
-    delete_row_count = 24 - delete_row_start + 1     # Кол-во удалений строк
-    end_row = delete_row_start - 1                   # Строка крайнего предмета
+    subjects_len = len(subjects)
+
+    delete_row_start = 4 + subjects_len + 1
+    delete_row_count = 24 - delete_row_start + 1
+    end_row = delete_row_start - 1
 
     # =============================================================================================================
-    # ПОДГОТОВКА ЛИСТА ПЕРЕД ЗАПОЛНЕНИЕМ
+    # PREPARING THE SHEET BEFORE FILLING
 
-    # --- Удаление строк ---
     sheet.delete_rows(delete_row_start, amount=delete_row_count)
     for row in range(delete_row_start + 2, delete_row_start + 3 + delete_row_count):
         sheet.row_dimensions[row].hidden = True
 
-    # --- Установка области печати ---
     col_letter = get_column_letter(10)
     sheet.print_area = f'C3:{col_letter}{end_row}'
 
     # =============================================================================================================
-    # ЗАПОЛНЕНИЕ ЛИСТА
+    # FILLING THE SHEET
 
-    # Шапка
     sheet.cell(row=3, column=3).value = group_name
 
-    # Названия предметов и преподавателей
     for index, subject in enumerate(subjects):
         row = 5 + index
         sheet.cell(row=row, column=4).value = start_index + index
@@ -1146,17 +1141,26 @@ def filling_out_the_journal_sheet(sheet: Worksheet, subjects: list, start_index:
 
 
 def session_EmptyCreate(info, app_path, path_to_save, semester, subcject_index = None):
+    """
+    Creates empty grade statements and journals for the session.
+
+    Args:
+        info (dict): Dictionary with information about groups, students, and subjects.
+        app_path (str): Path to the application directory.
+        path_to_save (str): Path to save the generated files.
+        semester (str): Semester ('I', 'II', or 'year').
+        subcject_index (int, optional): Starting index for subject numbering.
+    Returns:
+        list/dict: List of saved files or a dictionary with the subject index and files (for the II semester).
+    """
     files = []
     path = f'{app_path}/public/examples/work/'
 
-    # =============================================================================================================
-    # СОЗДАНИЕ ПУСТЫХ ДОКУМЕНТОВ ПО ГРУППАМ И СПЕЦИАЛЬНОСТЯМ
-
-    # === Документы ===
+    # Loading document templates
     journal = load_workbook(f'{path}/journal.xlsx')
     teacher_statements = load_workbook(f'{path}/teacher-statements.xlsx')
 
-    # === Заполнение титульной страницы журнала выдачи ===
+    # Configuring the journal title page
     sheet = journal[f'Титульна']
     if semester == 'рік': 
         text = f'рік'
@@ -1165,28 +1169,28 @@ def session_EmptyCreate(info, app_path, path_to_save, semester, subcject_index =
     sheet.cell(row=9, column=3).value = text
     sheet.cell(row=11, column=3).value = f'{info['years']} н.р.'
 
-    # === Проход по каждой группе ===
     group_index = -1
     if not subcject_index:
         subcject_index = info['first_index']
+        
+    # Processing each group
     for group in info['groups']:
         group_index += 1
         subject_len = len(group['subjects'])
         group_code = group['group_code']
 
-        # === Журнал ===
         sheet = journal[f'Л{group_index + 1}']
         sheet.title = group_code
         filling_out_the_journal_sheet(sheet, group['subjects'], subcject_index, group_code)
         subcject_index += subject_len
 
-        # === Общая страница ведомости ===
+        # Loading and filling the general statement
         statements = load_workbook(f'{path}/statements.xlsx')
         sheet = statements[f'Л_Загальна']
         sheet.title = 'Загальна'
         filling_out_the_general_empty_sheet(sheet, group['students'], group['subjects'], group['kurator_nom'], info['percentage'])
 
-        # === Заполнение страниц ведомости по специальностям ===
+        # Filling statements for each subgroup
         for subgroup_index, subgroup in enumerate(group['subgroups']):
             cells = {
                 'C5': f'Успішності студентів спеціальності {subgroup['speciality_code']} «{subgroup['speciality_name']}»',
@@ -1198,7 +1202,7 @@ def session_EmptyCreate(info, app_path, path_to_save, semester, subcject_index =
             last_student_row = 9 + len(group['students'])
             filling_out_the_empty_sheet(sheet, cells, subgroup['student_IDs'], subject_len, last_student_row, info['percentage'])
 
-        # === Ведомости преподавателей ===
+        # Filling statements for teachers
         sheet = teacher_statements[f'Л{group_index + 1}']
         sheet.title = f'{group_code}'
         subgroups = []
@@ -1206,10 +1210,11 @@ def session_EmptyCreate(info, app_path, path_to_save, semester, subcject_index =
             subgroups.append({'speciality_code': subgroup['speciality_code'], 'speciality_name': subgroup['speciality_name']})
         filling_out_the_empty_teacher_statement(sheet, semester, info['year'], group['students'], subgroups, group_code)
 
-        # === Сохранение ведомости по группе ===
+        # Creating a directory to save group files
         pathToGroupSave = os.path.join(path_to_save, group_code)
         os.makedirs(pathToGroupSave, exist_ok=True)
 
+        # Deleting unnecessary template sheets before saving
         for sheet_name in statements.sheetnames:
             if sheet_name and sheet_name[0] in ['Л']:
                 del statements[sheet_name]
@@ -1218,6 +1223,7 @@ def session_EmptyCreate(info, app_path, path_to_save, semester, subcject_index =
         if workbook_path != True:
             files.append(workbook_path)
 
+    # Deleting unnecessary templates in the journal
     for sheet_name in journal.sheetnames:
         if sheet_name and sheet_name[0] in ['Л']:
             del journal[sheet_name]
@@ -1226,6 +1232,7 @@ def session_EmptyCreate(info, app_path, path_to_save, semester, subcject_index =
     if workbook_path != True:
         files.append(workbook_path)
 
+    # Deleting unnecessary templates in teacher statements
     for sheet_name in teacher_statements.sheetnames:
         if sheet_name and sheet_name[0] in ['Л']:
             del teacher_statements[sheet_name]
@@ -1234,6 +1241,7 @@ def session_EmptyCreate(info, app_path, path_to_save, semester, subcject_index =
     if workbook_path != True:
         files.append(workbook_path)
 
+    # Returning results depending on the current semester
     if semester == 'II':
         return {
             'subcject_index': subcject_index,
@@ -1243,10 +1251,20 @@ def session_EmptyCreate(info, app_path, path_to_save, semester, subcject_index =
         return files
 
 def session_EmptyStart(info, app_path):
+    """
+    Entry point for starting the generation of empty session documents.
+
+    Args:
+        info (dict): Main dictionary with information about groups, semester, etc.
+        app_path (str): Path to the application directory.
+    Returns:
+        dict: Dictionary with execution status, generated files, and possible warning text.
+    """
     answer = {'success': True, 'files': [], 'customText': ''}
     parent_dir = Path(info['file_path']).parent
     path_to_save = None
 
+    # Forming a warning text if there are specialties with multiple programs
     for group in info['groups']:
         for subgroup in group['subgroups']:
             if subgroup['speciality_code'] in SUBJECT_WITH_2_PROGRAMS:
@@ -1254,6 +1272,7 @@ def session_EmptyStart(info, app_path):
                     answer['customText'] = '{{python.session.emptyStart.customText}}'
                 answer['customText'] = f'{answer['customText']}\n  –  [{group['group_code']}] {subgroup['speciality_code']}: {EDUCATIONAL_PROGRAMS[subgroup['speciality_code']]}'
 
+    # Generation logic for the I semester
     if info['semester_number'] == 1:
         path_to_save = os.path.join(parent_dir, 'I семестр')
         os.makedirs(path_to_save, exist_ok=True)
@@ -1262,6 +1281,7 @@ def session_EmptyStart(info, app_path):
             for file in files:
                 answer['files'].append(file)
 
+    # Generation logic for the II semester and annual statements
     else:
         path_to_save = os.path.join(parent_dir, 'II семестр')
         os.makedirs(path_to_save, exist_ok=True)
@@ -1283,6 +1303,15 @@ def session_EmptyStart(info, app_path):
 
 
 def session_ReportStart(info, app_path):
+    """
+    Forms and saves a general report (PZSO) based on group data.
+
+    Args:
+        info (dict): Dictionary with information about groups (performance statistics, budget/contract, etc.).
+        app_path (str): Path to the application root directory.
+    Returns:
+        answer (dict): Dictionary with execution status ('success') and list of saving errors ('files').
+    """
     path_to_save = Path(info['file_path']).parent
 
     answer = {'success': True, 'files': []}
@@ -1291,13 +1320,14 @@ def session_ReportStart(info, app_path):
     path = f'{app_path}/public/examples/work'
 
     # =============================================================================================================
-    # СОЗДАНИЕ ОТЧЕТА
+    # REPORT CREATION
 
     report = load_workbook(f'{path}/report.xlsx')
     sheet = report['Дані']
     step = 0
     general_amount = 0
-    # Заполнение строк данными по группам
+    
+    # Iterating through each group to populate statistics
     for group in info['groups']:
         row = 6 + step
         general_amount += group['amount']
@@ -1313,6 +1343,7 @@ def session_ReportStart(info, app_path):
         sheet.cell(row=row, column=8).value = group['amount']
         sheet.cell(row=row, column=9).value = 0
 
+        # Filling performance data (high, sufficient, middle, low levels)
         sheet.cell(row=row, column=12).value = group['achievement']['hight']
         sheet.cell(row=row, column=13).value = group['achievement']['sufficient']
         sheet.cell(row=row, column=14).value = group['achievement']['middle']
@@ -1322,85 +1353,10 @@ def session_ReportStart(info, app_path):
 
         step += 1
 
+    # Recording the total number of students
     sheet.cell(row=4, column=22).value = general_amount
 
-    # Сохранение документа
     doc_path = save_file(report, f'{path_to_save}/ПЗСО.xlsx')
-    if doc_path != True:
-        answer['files'].append(doc_path)
-
-    return answer
-
-
-def session_DebtorsStart(info, app_path):
-    path_to_save = Path(info['file_path']).parent
-
-    answer = {'success': True, 'files': []}
-    directory_to_save = os.path.dirname(info['file_path'])
-    os.makedirs(directory_to_save, exist_ok=True)
-    path = f'{app_path}/public/examples/work'
-    
-    # =============================================================================================================
-    # СОЗДАНИЕ ТАБЛИЦЫ ДОЛЖНИКОВ
-
-    debtors = load_workbook(f'{path}/debtors.xlsx')
-
-    step = 0
-    for group in info['groups']:
-        step += 1
-
-        debrost_sheet = debtors[f'Л{step}']
-        debrost_sheet.title = group['group_code']
-        debrost_sheet.cell(row=4, column=3).value = group['group_code']
-
-        debrost_row = 5
-        debrost_step = 1
-        for student in group['students']:
-            subject_step = 0
-            student_row = 0
-            for grade in student['grades']:
-                if student_row == 0:
-                    debrost_sheet.cell(row=debrost_row, column=3).value = debrost_step
-                    debrost_sheet.cell(row=debrost_row, column=4).value = student['bc']
-                    debrost_sheet.cell(row=debrost_row, column=5).value = student['student_name']
-                    student_row = 1
-                elif student_row == 1:
-                    debrost_sheet.merge_cells(start_row=debrost_row - 1, start_column=3, end_row=debrost_row, end_column=3)
-                    debrost_sheet.merge_cells(start_row=debrost_row - 1, start_column=4, end_row=debrost_row, end_column=4)
-                    debrost_sheet.merge_cells(start_row=debrost_row - 1, start_column=5, end_row=debrost_row, end_column=5)
-                    student_row = 2
-                else:
-                    debrost_sheet.unmerge_cells(start_row=debrost_row - student_row, start_column=3, end_row=debrost_row - 1, end_column=3)
-                    debrost_sheet.unmerge_cells(start_row=debrost_row - student_row, start_column=4, end_row=debrost_row - 1, end_column=4)
-                    debrost_sheet.unmerge_cells(start_row=debrost_row - student_row, start_column=5, end_row=debrost_row - 1, end_column=5)
-                    debrost_sheet.merge_cells(start_row=debrost_row - student_row, start_column=3, end_row=debrost_row, end_column=3)
-                    debrost_sheet.merge_cells(start_row=debrost_row - student_row, start_column=4, end_row=debrost_row, end_column=4)
-                    debrost_sheet.merge_cells(start_row=debrost_row - student_row, start_column=5, end_row=debrost_row, end_column=5)
-                    student_row += 1
-                debrost_sheet.cell(row=debrost_row, column=6).value = grade['grade']
-                debrost_sheet.cell(row=debrost_row, column=7).value = grade['subject_name']
-                debrost_sheet.cell(row=debrost_row, column=8).value = grade['teacher_name']
-                debrost_row += 1
-                subject_step += 1
-            debrost_step += 1
-
-        # --- Удаление строк ---
-        delete_row_start = debrost_row
-        delete_row_count = 104 - debrost_row + 1
-        debrost_sheet.delete_rows(delete_row_start, amount=delete_row_count)
-        for row in range(delete_row_start + 2, delete_row_start + 2 + delete_row_count):
-            debrost_sheet.row_dimensions[row].hidden = True
-        debrost_sheet.row_dimensions[delete_row_start].height = 14.1
-        debrost_sheet.row_dimensions[delete_row_start + 1].height = 14.1
-        
-        debrost_sheet.print_area = f'C3:H{delete_row_start - 1}'
-
-    for i in range(1, 21):
-        if f'Л{i}' in debtors.sheetnames:
-            debtors.remove(debtors[f'Л{i}'])
-
-    # Сохранение документа
-    doc_path = save_file(debtors, f'{path_to_save}/Боржники.xlsx')
     if doc_path != True:
         answer['files'].append(doc_path)
 

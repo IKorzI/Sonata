@@ -6,7 +6,6 @@
   lng.subscribe(value => (_lng = value));
   let languageListIsOpen = false;
   
-  // Закриття списку мов при кліку поза його межами
   function handleGlobalClick(event) {
     if (!event.target.className.includes('language') && event.target.tagName !== 'LI' && languageListIsOpen) {
       const languageList = document.querySelector('.title-bar .language-list');
@@ -17,7 +16,6 @@
   }
 
   onMount(() => {
-    // Динамічна генерація пунктів меню для вибору мови
     const languageList = document.querySelector('.title-bar .language-list');
     availableLngs.forEach((lng, index) => {
       const li = document.createElement('li');
@@ -27,6 +25,7 @@
       }
       li.addEventListener('click', function (event) {
         changeLanguage(event.target.textContent)
+        
         languageList.style.opacity = '';
         languageList.style.zIndex = '';
         languageListIsOpen = false;
@@ -36,28 +35,31 @@
 
     window.addEventListener('click', handleGlobalClick);
   });
-
   onDestroy(() => {
     window.removeEventListener('click', handleGlobalClick);
   });
-
-  // Прапорець для запобігання повторним клікам під час виконання анімації
+  
+  // Flag to block repeated clicks on window control elements during animation playback
   let isProcess = false;
-
+  
   function handleMinimize() {
     if (isProcess) return;
     isProcess = true;
     transition.set('0.2s');
 
-    // Плавне приховування контенту перед згортанням вікна в Electron
     hide.set(true);
+    // We allow 200ms for the CSS fade-out animation to play before minimizing the window at the OS level
     setTimeout(() => {
       if (window.electron) {
         window.electron.minimize();
       }
+      
+      // Restore visibility immediately after minimizing so that the window isn't transparent when restored from the taskbar
       setTimeout(() => {
         hide.set(false);
       }, 100);
+      
+  
       transition.set('0s');
       isProcess = false;
     }, 200);
@@ -68,8 +70,8 @@
     isProcess = true;
     transition.set('0.2s');
 
-    // Плавне приховування контенту перед повним закриттям програми
     hide.set(true);
+    // A similar delay for a smooth fade-out before completely closing the application
     setTimeout(() => {
       if (window.electron) {
         window.electron.close();

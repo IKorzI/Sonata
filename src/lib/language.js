@@ -1,19 +1,19 @@
-import { lng } from './store.js';
+import { lng, unflattenStyles } from './store.js';
 
 export const availableLngs = ['en', 'ru', 'uk'];
 import lng_ru from './language/ru.json';
 import lng_uk from './language/uk.json';
 import lng_en from './language/en.json';
+
+// Expand flat keys (e.g. "header.title") into nested objects during initialization
 const lngs = {
   'ru': unflattenStyles(lng_ru),
   'uk': unflattenStyles(lng_uk),
   'en': unflattenStyles(lng_en)
 }
 
-// Загружаем данные по умолчанию (uk)
 const defaultLng = lngs['uk'];
 
-// Функция для смены языка
 export async function changeLanguage(language) {
     if (!availableLngs.includes(language)) {
         console.warn(`Language ${language} is not available.`);
@@ -22,10 +22,9 @@ export async function changeLanguage(language) {
 
     let newLng = lngs[language];
 
-    // Мержим данные: если в новом языке отсутствует ключ, оставляем значение из украинского
+    // We use the default language (uk) as a fallback to fill in missing translations
     newLng = deepMerge(defaultLng, newLng);
 
-    // Обновляем store
     lng.set(newLng);
 }
 
@@ -41,23 +40,7 @@ function deepMerge(target, source) {
   return result;
 }
 
-// Функция для преобразования данных из "плоской" структуры в вложенную
-function unflattenStyles(flat) {
-  const result = {};
-  for (const key in flat) {
-    const keys = key.split('.');
-    keys.reduce((acc, part, index) => {
-      if (index === keys.length - 1) {
-        acc[part] = flat[key];
-      } else {
-        acc[part] = acc[part] || {};
-      }
-      return acc[part];
-    }, result);
-  }
-  return result;
-}
-
+// Default language
 export function start() {
   lng.set(defaultLng);
 }

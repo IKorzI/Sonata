@@ -10,7 +10,6 @@
   import Workspace from './components/Workspace.svelte';
   import ExampleWindows from './components/ExampleWindow.svelte';
   import ErrorWindows from './components/ErrorWindow.svelte';
-  // import ScreenshotWindow from './components/ScreenshotWindow.svelte';
 </script>
 
 <main class="program {$hide ? 'hide' : ''}" style='
@@ -81,8 +80,6 @@
 
   <ErrorWindows />
 
-  <!-- <ScreenshotWindow /> -->
-
 </main>
 
 <style>
@@ -91,7 +88,6 @@
     top: 0px;
     left: 0px;
     overflow: hidden;
-    /* width: 100%;  */
     width: 1000px; 
     min-width: 1000px;
     aspect-ratio: 5/3;

@@ -1,14 +1,14 @@
 <script>
   import { selectedSection, clearInformation, saveInformation, savedInformation, message, lng } from '../../lib/store.js'
   import FileInput from '../FileInput.svelte';
-
+  
   let thisId = 'session--report';
   let _lng = {};
   lng.subscribe(value => (_lng = value));
 
   let this_;
   let loadedGroups = [];
-
+  
   $: if ($selectedSection) {
     if (this_) {
       if ($selectedSection === thisId) {
@@ -52,27 +52,27 @@
       filePath: loadedGroups[0].filePath,
       groups: loadedGroups,
     };
-
-    // Фінальне доповнення даних перед відправкою до бекенду
+    
+    // Final data supplementation before sending to the backend
     endInformation = await window.electron.sessionReportDataSupplement(endInformation);
     savedInformation.set(endInformation);
   }
 
   async function handleFileInputChange(detail) {
-    // Перевірка на запуск у режимі vite-серверу без Electron
+    // Check for running in vite-server mode without Electron
     if (!window.electron) return;
-
+    
     if (detail.id === 'session--report--statements') {
       const uploadedFile = detail.file;
       const data = await window.electron.sessionReportGetInformation(uploadedFile.path);
-
+      
       if (!data) {
         message.set({type: 'error', text: 'inputFile.error'});
         clearInformation.set(thisId);
         return;
       }
 
-      // Перевірка, чи не була ця група вже завантажена раніше
+      // Checking if this group has already been loaded
       for (const group of loadedGroups) {
         if (group.groupCode === data.groupCode) {
           message.set({
@@ -84,7 +84,7 @@
         }
       }
 
-      // Додавання нової групи до загального списку
+      // Adding a new group to the general list
       loadedGroups = [...loadedGroups, {...data, filePath: uploadedFile.path}];
     }
   }
@@ -93,10 +93,11 @@
     return;
   }
 
-  // Видалення групи зі списку завантажених
+  // Removing a group from the loaded list
   function handleRemoveRow(index) {
     loadedGroups.splice(index, 1);
-    loadedGroups = [...loadedGroups]; // Переприсвоєння для спрацювання реактивності Svelte
+    loadedGroups = [...loadedGroups];
+    // Reassigning to trigger Svelte reactivity
   }
 
 </script>

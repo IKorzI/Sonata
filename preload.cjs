@@ -1,10 +1,6 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electron', {
-  onFromBackend: (callback) => ipcRenderer.on('fromBackend', callback),
-
-  checkFileAccess: (filePath) => ipcRenderer.invoke('check-file-access', filePath),
-
   minimize: () => ipcRenderer.send('window-action', 'minimize'),
   close: () => ipcRenderer.send('window-action', 'close'),
 
@@ -33,8 +29,5 @@ contextBridge.exposeInMainWorld('electron', {
   startBackendFunc: (data) => ipcRenderer.invoke('startBackendFunc', data),
 
   screenshotMode: flag => ipcRenderer.invoke('screenshotMode', flag),
-  onExcelHtml: callback => ipcRenderer.on('excel-html', (event, html) => callback(html)),
-  sendToMain: (channel, data) => ipcRenderer.send(channel, data),
-  otherNumDenStart: (data) => ipcRenderer.invoke('otherNumDenStart', data)
 });
 

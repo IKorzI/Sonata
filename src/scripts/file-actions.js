@@ -3,20 +3,21 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 
+// Getting the absolute path to the project's root directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.join(path.dirname(__filename), '../..');
 console.log(__dirname)
 
+// Searching for a file by its base name in the directory, ignoring files with the .png extension
 export function findFileWithExtension(dir, baseName) {
-  const fullDir = path.resolve(dir); // абсолютный путь
+  const fullDir = path.resolve(dir);
 
   const files = fs.readdirSync(fullDir);
 
-  // Фильтруем все файлы, которые начинаются с baseName + '.' и не являются .png
   const found = files.find(file => {
     if (!file.startsWith(baseName + '.')) return false;
     const ext = path.extname(file).toLowerCase();
-    return ext !== '.png'; // пропускаем .png
+    return ext !== '.png';
   });
 
   if (!found) return null;
@@ -27,6 +28,7 @@ export function findFileWithExtension(dir, baseName) {
   return { extension, fullPath };
 }
 
+// Calling the system dialog window to save a file
 async function saveDialog(fileName, extension) {
   const { filePath, canceled } = await dialog.showSaveDialog({
     title: 'Сохранить файл как',
@@ -38,10 +40,14 @@ async function saveDialog(fileName, extension) {
   return filePath;
 }
 
+// Registering IPC handlers for interaction with the frontend part of Electron
+
+// Handler for calling the save dialog window
 ipcMain.handle('save-dialog', async (event, fileName, extension) => {
   return saveDialog(fileName, extension);
 });
 
+// Handler for physical copying (saving) of a file
 ipcMain.handle('save-file', async (event, sourcePath, targetPath) => {
   try {
     fs.copyFileSync(sourcePath, targetPath);
@@ -51,18 +57,19 @@ ipcMain.handle('save-file', async (event, sourcePath, targetPath) => {
   }
 });
 
+// Handler for searching a file in the public project directory
 ipcMain.handle('find-file', async (event, dir, baseName) => {
   const fullDir = path.join(__dirname, 'public/', dir);
   return findFileWithExtension(fullDir, baseName);
 });
 
+// Checking file accessibility for reading (whether it is locked by another process)
 ipcMain.handle('check-file-access', async (event, filePath) => {
   try {
-    // Пробуем открыть файл на чтение и запись
     const fd = fs.openSync(filePath, 'r');
     fs.closeSync(fd);
-    return true; // файл доступен
+    return true;
   } catch (err) {
-    return false; // файл недоступен
+    return false;
   }
 });

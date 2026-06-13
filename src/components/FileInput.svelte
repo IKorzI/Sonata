@@ -10,6 +10,7 @@
   export let isLoaded = false;
   let prevIsLoaded = false;
   $: {
+    // We track the state change (prevIsLoaded) so that the styles function triggers only at the moment of transition, not on every update
     if (isLoaded === true && prevIsLoaded === false) {
       stylesLoadedSet(true);
       prevIsLoaded = isLoaded;
@@ -21,11 +22,9 @@
   
   let _lng = {};
   lng.subscribe(value => (_lng = value));
-
   let file = null;
   let fileInputEl;
-  let fileName = ''; 
-
+  let fileName = '';
   $: label = {
     'session--package-of-documents--statements': _lng.fileInput.label.session.packageOfDocuments.statements,
     'session--empty-statements--hours': _lng.fileInput.label.session.emptyStatements.hours,
@@ -38,16 +37,13 @@
   }
 
   let eArea, eText, eName, eExtensions, eDelete, eWhat;
-
   $: backgroundImageUrl =
     type === 'excel' ? 'excel.png'
-    : type === 'word' ? 'word.png'
+    : type === 'word' ?
+    'word.png'
     : '';
 
-  // Обрізка довгого імені файлу для збереження коректної верстки компоненту
   $: truncatedFileName = fileName.length > 15 ? fileName.substring(0, 15) + '...' : fileName;
-
-  // Лічильники для усунення мерехтіння (flickering) при подіях наведення та перетягування (drag & drop) над дочірніми елементами
   let mouseCounter = 0;
   let dragCounter = 0;
 
@@ -65,7 +61,7 @@
   }
 
   function fileSelect(inputFile) {
-    // Компоненти звітів та боржників не фіксують файл візуально, оскільки дані одразу обробляються бекендом
+    // For these identifiers, the file is passed further via dispatch, but is not visually attached to the input
     if (eId !== 'session--report--statements' && eId !== 'session--debtors--statements') {
       file = inputFile;
       fileName = file.name;
@@ -80,12 +76,11 @@
     dispatch('fileRemoved', { id: eId });
   }
 
-  // Послідовна зміна CSS-класів та z-index з затримками для коректного відпрацювання анімації 
-  // появи/зникнення елементів (назва, іконка видалення, розширення)
   function stylesLoadedSet(type) {
     if (type) {
       eArea.classList.add('unavailable')
 
+      // A micro-delay is needed so that the browser has time to render the initial classes before starting the CSS transition
       setTimeout(() => {
         eArea.style.transition = '0.4s';
         eArea.classList.add('loaded');
@@ -94,6 +89,7 @@
         eText.classList.add('loaded');
 
         eName.style.zIndex = '0';
+      
         eName.style.transition = '0.4s';
         eName.classList.add('loaded');
 
@@ -107,6 +103,8 @@
         eWhat.style.transition = '0.4s';
         eWhat.classList.add('loaded');
 
+        // 400ms corresponds to the duration of the CSS animation (0.4s). We clear the transition styles after it completes
+     
         setTimeout(() => {
           eArea.classList.remove('unavailable')
           eArea.style.transition = null;
@@ -135,7 +133,8 @@
         eName.classList.remove('loaded');
 
         eExtensions.style.zIndex = '0';
-        eExtensions.style.transition = '0.4s';
+        eExtensions.style.transition = 
+        '0.4s';
         eExtensions.classList.remove('loaded');
 
         eWhat.style.zIndex = '0';
@@ -149,6 +148,7 @@
           eArea.classList.remove('unavailable')
           eArea.style.transition = null;
           eText.style.transition = null;
+  
           eName.style.transition = null;
           eName.style.zIndex = '-1';
           eExtensions.style.transition = null;
@@ -206,6 +206,7 @@
   }
 
   onMount(() => {
+    // Counters (mouseCounter, dragCounter) and delays prevent the hovered state from "flickering" when crossing child elements inside eArea
     eArea.addEventListener('mouseenter', (e) => {
       if (file !== null) return;
       mouseCounter++;
@@ -215,8 +216,10 @@
     eArea.addEventListener('mouseleave', (e) => {
       if (file !== null) return;
       setTimeout(() => {
+       
         mouseCounter--;
         if (mouseCounter <= 0) {
+      
           mouseCounter = 0;
           eArea.classList.remove('hovered');
         }
@@ -230,28 +233,27 @@
     });
 
     eArea.addEventListener('dragleave', (e) => {
+    
       e.preventDefault();
       setTimeout(() => {
         dragCounter--;
+       
         if (dragCounter <= 0) {
           dragCounter = 0;
           eArea.classList.remove('hovered');
         }
       }, 10)
     });
-
     eArea.addEventListener('drop', (e) => {
       e.preventDefault();
       dragCounter = 0;
       mouseCounter = 0;
       eArea.classList.remove('hovered');
     });
-
     eArea.addEventListener('dragover', (e) => {
       e.preventDefault();
     });
   });
-
   onDestroy(() => {
     eArea.removeEventListener('mouseenter');
     eArea.removeEventListener('mouseleave');

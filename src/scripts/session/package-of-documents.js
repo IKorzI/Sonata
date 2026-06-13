@@ -3,68 +3,63 @@ import XlsxPopulate from 'xlsx-populate';
 import { findCell } from '../utils.js';
 import shevchenko from 'shevchenko';
 
+// Converting full name to genitive case (whom/whose)
 async function convertToGenitive(fullNameString) {
   try {
-    // 1. Разбиваем строку по пробелам и убираем лишние пробелы
     const parts = fullNameString.trim().split(/\s+/);
     
     if (parts.length < 2) {
-      // Теперь эта ошибка не уронит приложение, а сразу перенаправит в блок catch
       throw new Error('Строка должна содержать как минимум имя и фамилию');
     }
 
     const givenName = parts[0];
     const familyName = parts[1];
 
-    // 2. Получаем пол (с защитой от падения самого метода detectGender)
+    // Gender detection for correct declension
     const detectedGender = await shevchenko.detectGender({ givenName });
     const gender = detectedGender || 'masculine'; 
 
-    // 3. Формируем объект для склонения
     const person = {
       gender,
       givenName,
       familyName
     };
 
-    // Склоняем в родительный падеж
     const declined = await shevchenko.inGenitive(person);
 
-    // Возвращаем склеенную строку в том же порядке, что и на входе
     return `${declined.givenName} ${declined.familyName}`;
     
   } catch (error) {
-    // Если что-то пошло не так (неверный формат, сбой библиотеки shevchenko и т.д.),
-    // глушим ошибку и возвращаем пустую строку
     return '';
   }
 }
 
+// Reading and parsing data from the Excel file
 async function getInfo(filePath) {
   let findedCell;
   let match;
 
-  // --- Загрузка книги ---
   const workbook = await XlsxPopulate.fromFileAsync(filePath);
-  // Получаем список названий листов начинающиеся на "Зведена"
   const sheetNames = workbook.sheets().map(s => s.name());
+  
+  // Selecting sheets with names starting with "Зведена"
   const filteredSheetNames = sheetNames.filter(name => name.startsWith('Зведена'));
 
-  // --- Получение одинаковых данных во всех листах ---
   const sheet = workbook.sheet(filteredSheetNames[0]);
-  // Номер семестра, слово семестра и год
+  
+  // Determining the semester number, year, and start/end dates from the text
   const semesterCellV = sheet.cell(6, 3).value();
   match = semesterCellV.match(/За\s+([IІ]+)/i);
   const semesterNumberRoman = match[1].toUpperCase().replace('І', 'I');
   const semesterNumber = semesterNumberRoman === 'I' ? 1 : 2;
   const semesterNumberWord = semesterNumber === 1 ? 'першого' : 'другого'
   match = semesterCellV.match(/семестр\s+(\d{4})/i);
-  const yearNumber = parseInt(match[1], 10); // число 2025
-  // Даты начала и конца семестра, года учебного года
+  const yearNumber = parseInt(match[1], 10);
   const semesterStart = semesterNumber === 1 ? `01.01.${yearNumber + 1}`: `01.09.${yearNumber}`;
   const semesterEnd = semesterNumber === 1 ? `30.06.${yearNumber + 1}` : `31.12.${yearNumber}`;
   const years = semesterNumber === 1 ? `${yearNumber}-${yearNumber + 1}` : `${yearNumber - 1}-${yearNumber}`
-  // Средний бал и предметы
+
+  // Finding the "Average grade" column and reading the list of subjects and teachers
   findedCell = findCell(sheet, 'Середній бал', 'right', {row: 8, column: 5});
   const avgGradeColumn = findedCell.column;
   const subjects = [];
@@ -76,21 +71,22 @@ async function getInfo(filePath) {
       'teacherName': lines[1]
     });
   }
-  // Куратор и процент на стипендию
+  
   const groupCode = sheet.cell(7, 3).value().split(' ')[1];
-  // строка под последним студентом
+  
+  // Calculation of the scholarship holders' percentage based on the Excel formula
   findedCell = findCell(sheet, undefined, 'down', {row: 10, column: 4});
   const percentageF = sheet.cell(findedCell.row + 8, 6).formula();
   match = percentageF.match(/ROUNDDOWN\([^*]+\*([0-9.]+),0\)/);
   const percentage = parseFloat(match[1]) * 100;
-  // колонка "Класний керівник"
+  
+  // Finding and declining the full name of the curator (homeroom teacher)
   findedCell = findCell(sheet, 'Класний керівник', 'right', {row: findedCell.row + 6, column: 7});
-  // первая непустая ячейка справа от "Класний керівник"
   findedCell = findCell(sheet, true, 'right', {row: findedCell.row, column: findedCell.column + 1});
   const kuratorNom = sheet.cell(findedCell.row, findedCell.column).value();
   const kuratorGen = await convertToGenitive(kuratorNom);
 
-  // Итерируем по отфильтрованным листам
+  // Reading student data for each subgroup (specialty)
   const subgroups = [];
   filteredSheetNames.forEach(sheetName => {
     const students = [];
@@ -102,11 +98,13 @@ async function getInfo(filePath) {
     }
 
     match = sheet.cell(5, 3).value().match(/спеціальності\s+([A-Z]\d+)\s+(«[^»]+»)/i);
-    const specialityCode = match[1];   // "G1"
-    const specialityName = match[2];   // "«Хімічні технології та інженерія»"
+    const specialityCode = match[1];
+    const specialityName = match[2];
 
     findedCell = findCell(sheet, undefined, 'down', {row: 10, column: 4});
     const endRow = findedCell.row - 1;
+    
+    // Reading grades and data for each student
     for (let row = 10; row <= endRow; row++) {
       const studentName = sheet.cell(row, 5).value();
       const bc = sheet.cell(row, 3).value();
@@ -158,10 +156,11 @@ async function getInfo(filePath) {
   };
 }
 
+// Processing, supplementing data, and ranking (scholarships, benefits)
 function dataSupplement(data) {
   const subgroups = data.subgroups;
   
-  // 1. Присвоение статусов по изначальным индексам (теперь используем specialityIndex)
+  // Adding social status to students
   for (const item of (data.socialyList || [])) {
     const { specialityIndex, studentIndex, status } = item;
     if (subgroups[specialityIndex] && subgroups[specialityIndex].students[studentIndex]) {
@@ -169,6 +168,7 @@ function dataSupplement(data) {
     }
   }
   
+  // Marking students with an increased scholarship
   for (const item of (data.increasedList || [])) {
     const { specialityIndex, studentIndex } = item;
     if (subgroups[specialityIndex] && subgroups[specialityIndex].students[studentIndex]) {
@@ -176,28 +176,25 @@ function dataSupplement(data) {
     }
   }
 
-  // Вспомогательная функция
+  // Helper function for correct grade parsing
   const parseGrade = (grade) => {
     if (grade === '-' || grade === ' - ') return -1;
     const parsed = parseFloat(String(grade).replace(',', '.'));
     return isNaN(parsed) ? -1 : parsed;
   };
 
-  // Проходим по массиву специальностей
   for (let specIndex = 0; specIndex < subgroups.length; specIndex++) {
     const specialityData = subgroups[specIndex];
     const students = specialityData.students;
 
-    // Инициализируем массивы списков внутри текущей специальности
     specialityData.socialScholarshipList = [];
     specialityData.increasedScholarshipList = [];
     specialityData.sameScoresList = [];
     specialityData.sortedList = [];
 
-    // Создаем массив оригинальных индексов: [0, 1, 2, ..., N]
     const indices = students.map((_, index) => index);
 
-    // 2. Сортируем ТОЛЬКО массив индексов, сверяясь с данными из students
+    // Sorting: 1. State-funded students higher; 2. By average grade (descending); 3. Alphabetical order
     indices.sort((aIndex, bIndex) => {
       const a = students[aIndex];
       const b = students[bIndex];
@@ -212,27 +209,24 @@ function dataSupplement(data) {
       return (a.studentName || '').localeCompare(b.studentName || '');
     });
 
-    // Сохраняем отсортированный список оригинальных индексов
     specialityData.sortedList = indices;
 
-    // --- БЛОК: Поиск одинаковых баллов ---
     let currentGrade = null;
     let currentIndices = [];
     
+    // Grouping state-funded students with the same average grade (to resolve tie-breaking issues)
     const flushIndices = () => {
       if (currentIndices.length > 1) {
         specialityData.sameScoresList.push(currentIndices);
       }
     };
-
-    // Проходим по отсортированным индексам
+    
     indices.forEach((originalIndex, sortedIndex) => {
       const student = students[originalIndex];
       if (student.bc === 'Б') {
         const grade = parseGrade(student.avgGrade);
         if (grade !== -1) {
           if (currentGrade === grade) {
-            // Записываем sortedIndex, чтобы значения оставались как в старом коде
             currentIndices.push(sortedIndex);
           } else {
             flushIndices();
@@ -243,9 +237,8 @@ function dataSupplement(data) {
       }
     });
     flushIndices(); 
-    // -----------------------------------------------------------
 
-    // Собираем тех, кто имеет право на стипендию
+    // Forming the list for an academic scholarship
     const scholarshipList = indices
       .filter(originalIndex => {
         const s = students[originalIndex];
@@ -258,7 +251,6 @@ function dataSupplement(data) {
         };
       });
 
-    // Сортируем: score по убыванию, при равенстве — index по возрастанию
     scholarshipList.sort((a, b) => {
       if (b.score === a.score) {
         return a.index - b.index;
@@ -266,19 +258,18 @@ function dataSupplement(data) {
       return b.score - a.score;
     });
 
-    // Достаем первые scholarshipNumber студентов и оставляем только их индексы
+    // Selecting students who pass the scholarship limit
     const scholarshipFilteredIndices = scholarshipList
       .slice(0, specialityData.scholarshipNumber)
       .map(item => item.index);
 
-    // Назначаем обычную стипендию
     if (scholarshipFilteredIndices.length !== 0) {
       scholarshipFilteredIndices.forEach(studIndex => {
         students[studIndex].scholarship = true;
       });
     }
 
-    // Заполняем списки социальных и повышенных стипендий
+    // Distributing students into social and increased scholarship lists
     students.forEach((student, studIndex) => {
       if (student.socialStatus && !student.scholarship) {
         specialityData.socialScholarshipList.push(studIndex);
@@ -289,7 +280,7 @@ function dataSupplement(data) {
     });
   }
   
-  // Очистка глобальных свойств
+  // Cleaning up temporary input data
   delete data.socialyList;
   delete data.increasedList;
   delete data.kurator;
@@ -297,6 +288,7 @@ function dataSupplement(data) {
   return data;
 }
 
+// Registering IPC handlers for interaction with the frontend
 ipcMain.handle('sessionPackageGetInformation', async (event, path) => {
   try {
     return await getInfo(path);

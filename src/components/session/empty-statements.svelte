@@ -59,7 +59,7 @@
       return;
     }
     
-    // Запит у користувача шляху для збереження кінцевого файлу
+    // Prompt the user for the path to save the final file
     const targetPath = await window.electron.saveDialog('Зберегти', '.txt');
     if (!targetPath) return;
 
@@ -72,13 +72,13 @@
       contingentData: contingentData
     };
 
-    // Фінальне доповнення даних перед відправкою до бекенду
+    // Final data supplementation before sending to the backend
     endInformation = await window.electron.sessionEmptyDataSupplement(endInformation);
     savedInformation.set(endInformation);
   }
 
   async function handleFileInputChange(detail) {
-    // Перевірка на запуск у режимі vite-серверу без Electron
+    // Check for running in vite-server mode without Electron
     if (!window.electron) return;
 
     if (detail.id === 'session--empty-statements--hours') {
@@ -89,7 +89,7 @@
         uploadedFileHours = null;
         hoursData = null;
         
-        // Очищення конкретного компоненту FileInput у разі помилки читання файлу
+        // Clearing the specific FileInput component in case of a file reading error
         clearInformation.set('session--empty-statements--hours');
         setTimeout(() => {
           clearInformation.set(null);
@@ -106,7 +106,7 @@
         uploadedFileContingent = null;
         contingentData = null;
         
-        // Очищення конкретного компоненту FileInput у разі помилки читання файлу
+        // Clearing the specific FileInput component in case of a file reading error
         clearInformation.set('session--empty-statements--contingent');
         setTimeout(() => {
           clearInformation.set(null);

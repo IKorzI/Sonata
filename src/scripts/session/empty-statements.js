@@ -2,7 +2,7 @@ import { ipcMain } from 'electron';
 import XlsxPopulate from 'xlsx-populate';
 import { specNames } from '../utils.js';
 
-// Функция для проверки, входит ли ячейка в объединенный диапазон
+// Checks if a cell belongs to a merged range
 function getMergeRangeForCell(sheet, cell) {
   const merges = sheet._mergeCells; 
   
@@ -11,33 +11,30 @@ function getMergeRangeForCell(sheet, cell) {
   const cellRow = cell.rowNumber();
   const cellCol = cell.columnNumber();
 
-  // Перебираем ключи (адреса диапазонов, например "A1:B2")
   for (const address in merges) {
-    // ИСПРАВЛЕНИЕ: Создаем официальный объект Range из адреса
     const range = sheet.range(address);
 
-    // Теперь методы .startCell() и .endCell() гарантированно существуют
     const startRow = range.startCell().rowNumber();
     const startCol = range.startCell().columnNumber();
     const endRow = range.endCell().rowNumber();
     const endCol = range.endCell().columnNumber();
 
-    // Проверяем, попадает ли наша ячейка в координаты диапазона
     if (cellRow >= startRow && cellRow <= endRow &&
       cellCol >= startCol && cellCol <= endCol) {
       
-      return range; // Возвращаем найденный диапазон
+      return range;
     }
   }
   
-  return null; // Ячейка не объединена
+  return null;
 }
 
+// Getting contingent data (students, specialties, subgroups)
 async function getInfoContingent(filePath) {
-  // --- Загрузка книги ---
   const workbook = await XlsxPopulate.fromFileAsync(filePath);
-  // Получаем список названий листов кроме "Приклад" и "Зведена"
   const sheetNames = workbook.sheets().map(s => s.name());
+  
+  // Filtering sheets, ignoring system ones
   const filteredSheetNames = sheetNames.filter(name => name !== 'Приклад' && name !== 'Зведена');
 
   const groups = {};
@@ -55,13 +52,14 @@ async function getInfoContingent(filePath) {
     let step = -1;
     let specCode = '';
 
+    // Reading data row by row
     while (true) {
-      const cell4 = sheet.cell(row, 4); // Колонка D
-      const cell5 = sheet.cell(row, 5); // Колонка E
+      const cell4 = sheet.cell(row, 4);
+      const cell5 = sheet.cell(row, 5);
 
-      // Проверка на объединенную ячейку
       const mergedRange = getMergeRangeForCell(sheet, cell4);
 
+      // If the cell is merged, it's a row with a specialty code
       if (mergedRange) {
         newSpec = true;
         step++;
@@ -73,7 +71,7 @@ async function getInfoContingent(filePath) {
       const cell4Val = cell4.value();
       const cell5Val = cell5.value();
 
-      // Проверка на конец списка
+      // Stopping if the data has ended
       if (cell4Val === undefined || cell4Val === null) {
         break;
       }
@@ -87,25 +85,19 @@ async function getInfoContingent(filePath) {
         });
       }
 
-      // --- ИЗМЕНЕНИЯ НАЧИНАЮТСЯ ЗДЕСЬ ---
-
-      // 1. Создаем объект студента
       const studentObj = { 'studentName': cell4Val, 'bc': cell5Val };
 
-      // 2. Добавляем объект во временный список внутри специальности
       if (groups[sheetName].subgroups[step]) {
         groups[sheetName].subgroups[step].studentIDs.push(studentObj);
       }
 
-      // 3. Добавляем ТОТ ЖЕ объект в общий список
       groups[sheetName].students.push(studentObj);
 
       row++;
-      // Важно: используем break вместо return, чтобы код дошел до сортировки внизу
-      if (row >= 200) break; 
+      if (row >= 200) break; // Failsafe against an infinite loop
     }
 
-    // Получаем куратора
+    // Getting the curator's full name under the main table
     const kuratorCellText = sheet.cell(row + 1, 4).value();
     
     if (kuratorCellText && typeof kuratorCellText === 'string') {
@@ -115,25 +107,21 @@ async function getInfoContingent(filePath) {
       }
     }
 
-    // --- ПОСТ-ОБРАБОТКА И ИНДЕКСАЦИЯ ---
-
-    // 1. Сортируем общий список объектов по имени
+    // Sorting students by the Ukrainian alphabet
     groups[sheetName].students.sort((a, b) => a.studentName.localeCompare(b.studentName, 'uk'));
 
-    // 2. Создаем Map для быстрого поиска индекса по ссылке на объект
-    // Так как мы пушили один и тот же объект в оба списка, ссылки будут идентичны
+    // Binding indices of the sorted array to subgroups
     const studentIndexMap = new Map();
     groups[sheetName].students.forEach((student, index) => {
       studentIndexMap.set(student, index);
     });
 
-    // 3. Заменяем объекты внутри subgroups на индексы из отсортированного общего списка
     groups[sheetName].subgroups.forEach(spec => {
-      // map вернет новый массив, состоящий только из индексов
       spec.studentIDs = spec.studentIDs.map(studentObj => studentIndexMap.get(studentObj));
     });
   });
 
+  // Determining the current academic year and semester based on the date
   const currentDate = new Date();
   const yearNumber = currentDate.getFullYear();
   const monthNumber = currentDate.getMonth();
@@ -151,10 +139,9 @@ async function getInfoContingent(filePath) {
   };
 }
 
+// Getting hours data (subjects and teachers)
 async function getInfoHours(filePath) {
-  // --- Загрузка книги ---
   const workbook = await XlsxPopulate.fromFileAsync(filePath);
-  // Получаем список названий листов кроме "Приклад" и "Зведена"
   const sheetNames = workbook.sheets().map(s => s.name());
   const filteredSheetNames = sheetNames.filter(name => name !== 'Приклад' && name !== 'Зведена');
 
@@ -167,11 +154,9 @@ async function getInfoHours(filePath) {
     let row = 12;
     
     while (true) {
-      // Получаем значения ячеек (колонки D=4, E=5)
       const cell4Val = sheet.cell(row, 4).value();
       const cell5Val = sheet.cell(row, 5).value();
 
-      // Если значение undefined или null - выходим
       if (cell5Val === undefined || cell5Val === null) {
         break;
       }
@@ -182,13 +167,14 @@ async function getInfoHours(filePath) {
       });
 
       row++;
-      if (row >= 50) return;
+      if (row >= 50) return; // Failsafe against an infinite loop
     }
   });
 
   return groups;
 }
 
+// Entry point for file processing depending on the data type
 async function getInfo(filePath, type) {
   if (type === 'contingent') {
     return await getInfoContingent(filePath);
@@ -197,34 +183,31 @@ async function getInfo(filePath, type) {
   }
 }
 
+// Merging contingent and hours data into a single structure
 function dataSupplement(data) {
-  // 1 та 2 крок: Перебираємо об'єкт groups, додаємо hoursData, groupCode і формуємо масив
   const transformedGroups = Object.entries(data.contingentData.groups).map(([groupCode, groupInfo]) => {
-    // Отримуємо дані з hoursData для поточної групи (якщо вони існують)
     const hoursInfo = data.hoursData[groupCode] || {};
     
     return {
-      groupCode: groupCode, // Додаємо назву ключа як окреме поле
-      ...groupInfo,         // Розгортаємо існуючі дані групи (kuratorNom, subgroups, students)
-      ...hoursInfo          // Додаємо інформацію з hoursData (subjects)
+      groupCode: groupCode,
+      ...groupInfo,
+      ...hoursInfo
     };
   });
 
-  // 3 крок: Видаляємо hoursData та contingentData, виносимо все на верхній рівень
-  // Використовуємо деструктуризацію для відокремлення непотрібних полів
   const { hoursData, contingentData, ...rootLevelData } = data;
   const { groups, ...contingentLevelData } = contingentData;
 
-  // Збираємо фінальний об'єкт
   const result = {
-    ...rootLevelData,         // id, filePath, percentage
-    ...contingentLevelData,   // semesterNumber, semesterRoman, years, year
-    groups: transformedGroups // Оновлений масив груп
+    ...rootLevelData,
+    ...contingentLevelData,
+    groups: transformedGroups
   };
 
   return result;
 }
 
+// Registering IPC handlers for interaction with the frontend part of Electron
 ipcMain.handle('sessionEmptyGetInformation', async (event, path, type) => {
   try {
     return await getInfo(path, type);

@@ -4,15 +4,11 @@
   import CustomDateInput from '../CustomDateInput.svelte';
   import { selectedSection, clearInformation, saveInformation, savedInformation, lng, message, handleInput, strToDate } from '../../lib/store.js'
 
-  // ========== ЗАПОЛНИТЬ ==========
   let thisId = 'session--package-of-documents';
-  // ===============================
-
   let _lng = {};
   lng.subscribe(value => (_lng = value));
 
   $: statusesList = _lng.packageOfDocuments.socialScholarship.statusesList;
-
   let data = {subgroups: [], kuratorNom: null, kuratorGen: null, percentage: null, semesterStart: null, semesterEnd: null};
   let studentNamesByCode = {};
   let socialyList = [];
@@ -20,7 +16,6 @@
   let list = [];
   let currentList = 'socialy';
   let uploadedFile = null;
-
   let this_
   let eList, eStudentsBySpecialty, eStatusList, ePercentage, eKuratorNom, eKuratorGen;
   let semesterStart, semesterEnd;
@@ -30,6 +25,7 @@
   let showedStudentList = false;
   let showedStatusList = false;
 
+  // Smooth display/hiding of the component using z-index to avoid layout jumping
   $: if ($selectedSection) {
     if (this_) {
       if ($selectedSection === thisId) {
@@ -41,6 +37,8 @@
       }
     }
   }
+
+  // Tracking commands from the global store to manage the form state
   $: if ($clearInformation) {
     if ($clearInformation === thisId) {
       clearAll()
@@ -66,12 +64,14 @@
   }
 
   async function saveAll() {
+    // Saving the current active list before general saving
     if (currentList === 'socialy') {
       socialyList = list;
     } else if (currentList === 'increased') {
       increasedList = list;
     }
     
+    // Validation: checking all required data and the absence of empty rows in student lists
     if (
       data.subgroups.length === 0 ||
       data.percentage === null ||
@@ -108,10 +108,10 @@
     savedInformation.set(endInformation);
   }
 
+  // Management of positioning and animation of custom dropdown lists with prevention of timing conflicts
   function stylesLoadedSet(type, value, top = null, left = null) {
     if (type === 'student' && !studentListMoveProcessing) {
       studentListMoveProcessing = true;
-
       if (value) {
         if (!eStudentsBySpecialty.classList.contains('showed')) {
           eStudentsBySpecialty.style.top = top;
@@ -204,7 +204,7 @@
       }
       uploadedFile = detail.file;
 
-      // Получение списка имён студентов по коду специальности
+      // Grouping the student list by specialty code for rendering
       studentNamesByCode = data.subgroups.reduce((acc, specialty, index) => {
         acc[specialty.specialityCode] = {
           specialityIndex: index,
@@ -230,7 +230,7 @@
     else if (currentList === 'increased') {
       list.push({ studentName: null, studentIndex: null, specialityIndex: null });
     }
-    list = [...list]; // создаём новый массив для реактивности
+    list = [...list];
   }
 
   function handleRemoveRow(index) {
@@ -241,6 +241,8 @@
   function handleOpenStudentsList(index) {
     if (!showedStudentList || currentStudentRow !== index) {
       currentStudentRow = index;
+
+      // Dynamic calculation of coordinates to display the list below the selected row
       const element = document.querySelector('#row-' + index);
       const rect = element.getBoundingClientRect();
       const top = `${rect.top + element.offsetHeight}px`;
@@ -260,6 +262,8 @@
     }
     if (!showedStatusList || currentStudentRow !== index) {
       currentStudentRow = index;
+
+      // Dynamic calculation of coordinates for the status list
       const element = document.querySelector('#row-' + index);
       const rect = element.getBoundingClientRect();
       const top = `${rect.top + element.offsetHeight}px`;
@@ -295,6 +299,7 @@
     const target = event.target;
     if (target.classList[0] === 'student' || target.classList[0] === 'status') return;
 
+    // Closing lists when clicking outside their boundaries
     if (currentStudentRow !== null) {
       if (showedStudentList) {
         currentStudentRow = null;
@@ -329,6 +334,8 @@
   }
   function handleEditStatusClick(index) {
     currentStudentRow = index;
+
+    // Switching input from readonly mode to manual text entry
     const row = document.getElementById(`row-${index}`);
     const status = row.querySelector('.status');
     const editStatus = row.querySelector('.edit-status');
@@ -336,6 +343,8 @@
     status.removeAttribute('readonly');
     status.focus();
     setTimeout(() => status.select(), 0);
+
+    // Automatic return to readonly after losing focus
     status.addEventListener('blur', () => {
       status.setAttribute('readonly', true);
       status.setSelectionRange(0, 0);
@@ -352,18 +361,24 @@
   function handleLabelClick(label) {
     const choiceMark = document.querySelector(`.social-scholarship .choice-mark`);
     if (label === 'label1' && choiceMark.style.left !== '429px') {
+      
+      // We save the current list and display the social scholarship
       increasedList = list;
       list = socialyList;
       currentList = 'socialy';
+      
       choiceMark.style.left = '429px';
       choiceMark.style.width = '551px';
       setTimeout(() => {
         choiceMark.style.width = '270px';
       }, 200);
     } else if (label === 'label2' && choiceMark.style.left !== '710px') {
+      
+      // We save the current list and display the increased scholarship
       socialyList = list;
       list = increasedList;
       currentList = 'increased';
+      
       choiceMark.style.width = '551px';
       setTimeout(() => {
         choiceMark.style.left = '710px';
@@ -378,16 +393,11 @@
     choiceMark.style.width = '270px';
     window.addEventListener('click', handleGlobalClick);
   });
-
   onDestroy(() => {
     window.removeEventListener('click', handleGlobalClick);
   });
 
 </script>
-
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 
 <div class='gui' id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
   
@@ -411,8 +421,7 @@
             {item.studentName ? item.studentName : _lng.packageOfDocuments.list.student}
           </div>
           <input class='status' type='text' readonly 
-            value={currentList === 'socialy' ?
-            item.status ? (statusesList?.[item.status] || item.status) : _lng.packageOfDocuments.list.status : ''}
+            value={currentList === 'socialy' ? item.status ? (statusesList?.[item.status] || item.status) : _lng.packageOfDocuments.list.status : ''}
             on:click={() => handleOpenStatusesList(index)} on:mouseenter={() => handleStatusEnter(index)} on:mouseleave={() => handleStatusLeave(index)}/>
           <div class='edit-status' on:click={() => handleEditStatusClick(index)} on:mouseenter={() => handleEditStatusEnter(index)} on:mouseleave={() => handleEditStatusLeave(index)}></div>
         </div>
@@ -421,6 +430,7 @@
     <ul class='students-by-specialty' bind:this={eStudentsBySpecialty}>
       {#each Object.entries(studentNamesByCode) as [specialityCode, object]}
         <div class='speciality-code'>----- {specialityCode} -----</div>
+       
         <ul class='students'>
           {#each object.students as studentName, studentIndex} 
             <li on:click={() => handleSetStudent(studentName, studentIndex, object.specialityIndex)}>
@@ -431,6 +441,7 @@
       {/each}
     </ul>
     <ul class='status-list' bind:this={eStatusList}>
+      
       {#each Object.entries(statusesList || {}) as [key, text]}
         <li on:click={() => handleSetStatus(key)}>
           {text}
@@ -449,6 +460,7 @@
     <div class='label'>{_lng.packageOfDocuments.semesterDates.label}</div>
     <div class='row' id='start'>
       <div>{_lng.packageOfDocuments.semesterDates.start}</div>
+    
       <CustomDateInput 
         bind:value={data.semesterStart} 
         class={uploadedFile === null ? 'unavailable' : ''}

@@ -22,28 +22,24 @@ async function getInfo(filePath) {
   let col = 0
   let findedCell;
 
-  // --- Загрузка книги ---
   const workbook = await XlsxPopulate.fromFileAsync(filePath);
   const sheetNames = workbook.sheets().map(s => s.name());
-  // фильтрация по "Приклад"
   const filteredSheetNames = sheetNames.filter(name => name !== 'Приклад');
 
-  // --- Получение одинаковых данных во всех листах ---
   const sheet = workbook.sheet(filteredSheetNames[0]);
   let cell = sheet.cell(7, 3).value();
   let parts = cell.split(' ');
-  const startDay = sheet.cell(11, 6).value();  // день
-  const startMonth = monthNames[parts[1]];     // месяц
-  const year = parseInt(parts[2], 10);         // год
+  const startDay = sheet.cell(11, 6).value();
+  const startMonth = monthNames[parts[1]];
+  const year = parseInt(parts[2], 10);
 
-  // Последняя строка
+  // Finding dynamic table borders (bottom and right)
   findedCell = findCell(sheet, undefined, 'down', {row: 12, column: 5});
   const endRow = findedCell.row - 1;
-  // Последний столбец
   findedCell = findCell(sheet, 'Примітка', 'right', {row: 10, column: 5});
   const endCol = findedCell.column - 2
 
-  // Поиск первой 12-ячейковой последовательности (парная, непарная недели)
+  // Background color pattern to find the start of the schedule: 5 working days (white), 2 days off (gray), 5 working days
   const pattern = [
     ...Array(5).fill('FFFFFFFF'),
     ...Array(2).fill('FFBFBFBF'),
@@ -81,23 +77,23 @@ async function getInfo(filePath) {
   const start12Col = col;
   const hoursStartDay = sheet.cell(11, start12Col).value();
 
-  // --- Чтение часов по группам ---
   const groups = []; 
   for (const sheetName of filteredSheetNames) {
     const sheet = workbook.sheet(sheetName);
-    const cellC8 = sheet.cell(8, 3).value(); // Получаем cellC8 напрямую
+    const cellC8 = sheet.cell(8, 3).value();
     
     const groupData = { 
       groupCode: sheetName, 
-      cellC8: cellC8, // Упаковываем в объект группы
+      cellC8: cellC8,
       subjects: [] 
     };
 
     for (row = 12; row <= endRow; row++) {
-      const subject = sheet.cell(row, 4).value(); // D
-      const teacher = sheet.cell(row, 5).value(); // E
+      const subject = sheet.cell(row, 4).value();
+      const teacher = sheet.cell(row, 5).value();
       const values = []
       for (col = start12Col; col < start12Col + 12; col++) {
+        // Skipping columns with weekends in Excel
         if (col === start12Col + 5) col = start12Col + 7;
         values.push(sheet.cell(row, col).value() ?? null);
       }
@@ -111,6 +107,7 @@ async function getInfo(filePath) {
     groups.push(groupData);
   }
 
+  // Setting the end date depending on whether it is the autumn (>=8) or spring semester
   let endDay, endMonth
   if (startMonth >= 8) {
     endDay = 31;
@@ -131,7 +128,7 @@ async function getInfo(filePath) {
   const hoursStartDate = `${hoursStartDayStr}.${startMonthStr}.${year}`;
 
   return {
-    groups, // Возвращаем только groups (без cellsC8)
+    groups,
     semesterStartDate,
     semesterEndDate,
     hoursStartDate,
@@ -153,15 +150,16 @@ function getSemesterMonths(startStr, endStr) {
     };
 
     const adjustBusinessDay = (date, isStart) => {
+        // Shifting the date so that the month always starts/ends on a business day
         const d = new Date(date);
         const dayOfWeek = d.getDay(); 
 
         if (isStart) {
-            if (dayOfWeek === 6) d.setDate(d.getDate() + 2); // Сб -> Пн
-            if (dayOfWeek === 0) d.setDate(d.getDate() + 1); // Вс -> Пн
+            if (dayOfWeek === 6) d.setDate(d.getDate() + 2);
+            if (dayOfWeek === 0) d.setDate(d.getDate() + 1);
         } else {
-            if (dayOfWeek === 6) d.setDate(d.getDate() - 1); // Сб -> Пт
-            if (dayOfWeek === 0) d.setDate(d.getDate() - 2); // Вс -> Пт
+            if (dayOfWeek === 6) d.setDate(d.getDate() - 1);
+            if (dayOfWeek === 0) d.setDate(d.getDate() - 2);
         }
         return d;
     };
@@ -227,6 +225,7 @@ function getScheduleRange(pattern, patternStartStr, rangeStartStr, rangeEndStr) 
         if (dayOfWeek === 0 || dayOfWeek === 6) {
             result.push(null);
         } else {
+            // Calculation of the index (0-9) in the two-week pattern (numerator/denominator) taking into account the week offset
             const diffTime = current - patternStart;
             const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
 
@@ -268,7 +267,7 @@ function dataSupplement(data) {
     for (const group of dataGroups) {
       const groupSchedule = {
         groupCode: group.groupCode,
-        cellC8: group.cellC8, // Передаем cellC8 внутрь структуры месяца
+        cellC8: group.cellC8,
         subjects: []
       };
 
@@ -284,14 +283,14 @@ function dataSupplement(data) {
     months.push(monthData);
   }
 
-  // Очистка старых полей
   if (data.hours) delete data.hours;
   if (data.days) delete data.days; 
   if (data.groups) delete data.groups;
-  if (data.cellsC8) delete data.cellsC8; // Удаляем рудимент, если вдруг он был в старых данных
+  if (data.cellsC8) delete data.cellsC8;
   
   data.months = months;
   
+  // Converting the array of objects into a dictionary { "Subject": hours } for easier access
   const result = Object.fromEntries(
     data.hoursPerSubject.map(item => [item.subjectName, item.hours])
   );

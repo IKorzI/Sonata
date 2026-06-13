@@ -8,6 +8,7 @@ from docx.oxml import OxmlElement
 from docx.text.paragraph import Paragraph
 from openpyxl.styles import PatternFill
 
+# Dictionaries for working with month names in different cases and formats
 MONTH_NAMES = {
     'січень':   1,      'січня':     1,     1:  'січень',      '01': 'січень',
     'лютий':    2,      'лютого':    2,     2:  'лютий',       '02': 'лютий',
@@ -109,11 +110,20 @@ SUBJECT_WITH_2_PROGRAMS = ['G1', 'G5']
 FILL_GRAY = PatternFill(start_color='BFBFBF', end_color='BFBFBF', fill_type='solid')
 
 def save_file(file, path):
+    """
+    Saves a file, appending an index in case of a name collision.
+
+    Args:
+        file (object): The file to be saved (e.g., Word or Excel document).
+        path (str): The base path for saving the file.
+    Returns:
+        result (bool|str): True if saved with the original name, or the new filename (str).
+    """
     for i in range(10):
-        # Формируем имя файла
         if i == 0:
             file_path = path
         else:
+            # Form a new filename with an index if the file already exists
             base, ext = os.path.splitext(path)
             file_path = f'{base} ({i}){ext}'
 
@@ -123,20 +133,28 @@ def save_file(file, path):
                 return True
             return os.path.basename(file_path)
         except Exception:
-            continue  # Игнорируем ошибку и пробуем снова
+            continue
 
-    raise RuntimeError(f'Не удалось сохранить файл {path}.')
+    raise RuntimeError(f'Could not save file {path}.')
 
 def cleaning_and_save_workbook(workbook, path_to_save):
+    """
+    Cleans an Excel workbook of temporary sheets and saves it.
+
+    Args:
+        workbook (Workbook): Excel workbook object.
+        path_to_save (str): Path to save the file.
+    Returns:
+        answer (str|None): Filename if it was changed, or None.
+    """
     answer = None
 
-    # Удаляем лишние листы
+    # Delete all sheets whose names start with the letter 'Л'
     sheets_to_delete = [name for name in workbook.sheetnames if name.startswith('Л')]
     for sheet_name in sheets_to_delete:
         sheet = workbook[sheet_name]
         workbook.remove(sheet)
 
-    # Пытаемся сохранить лист
     saved_workbook_name = save_file(workbook, path_to_save)
     if saved_workbook_name != True:
         answer = saved_workbook_name
@@ -144,6 +162,16 @@ def cleaning_and_save_workbook(workbook, path_to_save):
     return answer
 
 def replace_text(doc, old_text, new_text):
+    """
+    Replaces text in all paragraphs of a Word document.
+
+    Args:
+        doc (Document): Word document.
+        old_text (str): Text to be found and replaced.
+        new_text (str): New text to insert.
+    Returns:
+        doc (Document): Document with replaced text.
+    """
     for paragraph in doc.paragraphs:
         if old_text not in paragraph.text:
             continue
@@ -151,78 +179,99 @@ def replace_text(doc, old_text, new_text):
         for run in paragraph.runs:
             if old_text in run.text:
                 run.text = run.text.replace(old_text, new_text)
-        # после замены внутри runs можно выйти
     return doc
 
 def explanation_insert(doc, old_text, new_text):
+    """
+    Inserts multi-line explanation text instead of specified text while preserving formatting.
+
+    Args:
+        doc (Document): Word document.
+        old_text (str): Key text to replace.
+        new_text (str): New text (may contain line breaks).
+    Returns:
+        doc (Document): Updated document.
+    """
     lines = new_text.split('\n')
 
     for paragraph in doc.paragraphs:
         if old_text in paragraph.text:
-            # Очищаем весь текст абзаца и заменяем содержимое
-            paragraph.text = ''  
+            paragraph.text = ''  # Clear current paragraph
 
             for i, line in enumerate(lines):
                 if i == 0:
-                    # Первый абзац — тот же, что содержал old_text
                     run = paragraph.add_run(line)
                     p = paragraph
                 else:
-                    # Следующие строки — новые абзацы
+                    # Add a new paragraph for each subsequent line
                     new_p = OxmlElement('w:p')
                     paragraph._element.addnext(new_p)
                     p = Paragraph(new_p, paragraph._parent)
                     run = p.add_run(line)
 
-                # Настройка стиля
+                # Configure styles and formatting
                 run.font.name = 'Times New Roman'
                 run.font.size = Pt(14)
                 p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
                 p.paragraph_format.space_after = Pt(0)
                 p.paragraph_format.first_line_indent = Cm(1.25)
 
-                # Обновляем "текущий" абзац для корректного добавления следующих
                 paragraph = p
             break
     return doc
 
 def short_name(full_name):
+    """
+    Forms a short name with initials based on a full name.
+
+    Args:
+        full_name (str): Full name (e.g., "Ivanov Ivan Ivanovych").
+    Returns:
+        short (str): Shortened name (e.g., "Ivanov I.I.").
+    """
     parts = full_name.split()
 
-    # Проверяем, что ровно 3 части
     if len(parts) == 3:
         surname, name, patronymic = parts
         short = f'{surname} {name[0]}.{patronymic[0]}.'
         return short
     else:
-        # Если частей не 3 — возвращаем как есть
         return full_name
 
 def insert_row(doc, table_index, text, insert=True, color=False):
-    # Получаем список индексов
+    """
+    Inserts or fills a row in the specified document table with border and style settings.
+
+    Args:
+        doc (Document): Word document.
+        table_index (int): Index of the table in the document.
+        text (list): List of values for row cells.
+        insert (bool): If True, adds a new row, otherwise uses the last one.
+        color (bool): If True, colors the first cell green.
+    Returns:
+        doc (Document): Updated document.
+    """
     table_indices = list(range(len(doc.tables)))
 
     table = doc.tables[table_index]
 
-    # Добавляем или выбираем последнюю строку
     if insert:
         row = table.add_row()
     else:
         row = table.rows[-1]
 
-    # Номер строки
     row_number = len(table.rows) - 1
 
     for i, cell in enumerate(row.cells):
         paragraph = cell.paragraphs[0]
 
+        # Background shading if specified
         if color:
-            # Добавляем заливку ячейки
             cell._tc.get_or_add_tcPr().append(
                 parse_xml(f'<w:shd {nsdecls('w')} w:fill="#92D050"/>')
             )
 
-        # Устанавливаем границы ячейки (все стороны)
+        # Draw cell borders
         tc_pr = cell._tc.get_or_add_tcPr()
         tc_pr.append(parse_xml(
             f"""
@@ -235,25 +284,21 @@ def insert_row(doc, table_index, text, insert=True, color=False):
             """
         ))
 
-        # Убираем интервал после абзаца и задаем междустрочный интервал 1.0
         paragraph.paragraph_format.space_after = Pt(0)
         paragraph.paragraph_format.line_spacing = 1.0
 
-        # Устанавливаем высоту строки (0,25 см, минимум)
         row.height = Cm(0.25)
 
-        # Добавляем текст
+        # Write the sequence number in the first cell, then the text
         if i == 0:
             run = paragraph.add_run(str(row_number))
         else:
             run = paragraph.add_run(str(text[i - 1]) if i - 1 < len(text) else '')
 
-        # Настройка шрифта
         font = run.font
         font.name = 'Times New Roman'
         font.size = Pt(14)
 
-        # Центрирование текста
         if i in [0, 2, 3]:
             paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
         cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
@@ -261,6 +306,16 @@ def insert_row(doc, table_index, text, insert=True, color=False):
     return doc
 
 def color_table_row(doc, table_index, rowIndex):
+    """
+    Colors a specified table row green.
+
+    Args:
+        doc (Document): Word document.
+        table_index (int): Table index.
+        rowIndex (int): Index of the row to color.
+    Returns:
+        doc (Document): Updated document.
+    """
     color='#92D050'
     table = doc.tables[table_index]
 
@@ -268,7 +323,6 @@ def color_table_row(doc, table_index, rowIndex):
     row = table.rows[rowIndex]
 
     for cell in row.cells:
-        # Добавляем/обновляем заливку ячейки
         cell._tc.get_or_add_tcPr().append(
             parse_xml(f'<w:shd {nsdecls('w')} w:fill="{fill_color}"/>')
         )
@@ -276,6 +330,15 @@ def color_table_row(doc, table_index, rowIndex):
     return doc
 
 def delete_page(doc, page_to_delete):
+    """
+    Deletes a specified page from a Word document based on page breaks.
+
+    Args:
+        doc (Document): Word document.
+        page_to_delete (int): Number of the page to delete.
+    Returns:
+        doc (Document): Document without the specified page.
+    """
     current_page = 1
     elements_to_delete = []
     
@@ -284,19 +347,17 @@ def delete_page(doc, page_to_delete):
     for element in body.iterchildren():
         has_page_break = False
         
-        # Проверка на наличие разрыва страницы
+        # Check for page break
         if element.tag.endswith('p'):
             if element.xpath('.//w:br[@w:type="page"]'):
                 has_page_break = True
         
-        # --- СЦЕНАРИЙ 1: Удаление первой страницы ---
         if page_to_delete == 1:
             if current_page == 1:
                 elements_to_delete.append(element)
                 if has_page_break:
                     break 
 
-        # --- СЦЕНАРИЙ 2: Удаление страницы N > 1 ---
         else:
             if current_page < page_to_delete - 1:
                 if has_page_break:
@@ -316,6 +377,7 @@ def delete_page(doc, page_to_delete):
     if page_to_delete != 1:
         del elements_to_delete[-1]
 
+    # Delete all collected elements
     for el in elements_to_delete:
         if el.getparent() is not None:
             el.getparent().remove(el)
@@ -323,7 +385,14 @@ def delete_page(doc, page_to_delete):
     return doc
 
 def ukrainian_sort_key(s):
-    # Эталонный алфавит (нижний регистр)
+    """
+    Creates a sort key for correct ordering according to the Ukrainian alphabet.
+
+    Args:
+        s (str): String to sort.
+    Returns:
+        result (list): List of numeric values corresponding to letter positions in the alphabet.
+    """
     alphabet = 'абвгґдеєжзиіїйклмнопрстуфхцчшщьюя'
     
     result = []
@@ -332,7 +401,6 @@ def ukrainian_sort_key(s):
         if index != -1:
             result.append(index)
         else:
-            # Если символа нет в алфавите (пробел, цифра, спецсимвол), 
-            # отправляем его в конец таблицы ASCII
+            # If the character is not found in the alphabet, push it to the end
             result.append(ord(char) + 100) 
     return result

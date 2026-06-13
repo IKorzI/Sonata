@@ -14,14 +14,11 @@
   let containerEl;
   let areaEl;
 
-  // Посилання на DOM-елементи зображень та їхні оригінальні розміри для точного розрахунку масштабу
   let imgRefs = {};
-  let imageDimensions = {}; 
-
+  let imageDimensions = {};
   let imageNaturalWidth = 0;
   let imageNaturalHeight = 0;
 
-  // Статична структура файлів (базові імена), яка не залежить від обраної мови інтерфейсу
   const FILE_STRUCTURE = {
     'hours--based-on-the-first-month': [
       'based-on-the-first-month--september',
@@ -55,9 +52,9 @@
     'session--debtors--statements': ['statements']
   };
 
+  // Forming a flat list of all unique images for their pre-rendering (caching) in the DOM
   const uniqueImageNames = [...new Set(Object.values(FILE_STRUCTURE).flat())];
 
-  // Реактивний об'єкт конфігурації для рендеру підписів та назв файлів, залежить від мовного стору $lng
   $: names = {
     'hours--based-on-the-first-month': {
       downloadable: false,
@@ -169,8 +166,7 @@
     }
   }
 
-  $: currentImages = $whatDocument && names[$whatDocument] ?
-    names[$whatDocument].filesToDisplay : [];
+  $: currentImages = $whatDocument && names[$whatDocument] ? names[$whatDocument].filesToDisplay : [];
 
   let activeImgName = null;
   let prevDocument = null;
@@ -180,8 +176,7 @@
   
   $: {
     if ($whatDocument !== prevDocument) {
-      clearTimeout(imageTimeout); // Обов'язково скидаємо таймер для запобігання мерехтінню при швидкому кліку
-
+      clearTimeout(imageTimeout);
       if ($whatDocument) {
         if (currentImages.length > 0) {
           activeImgName = currentImages[0].filePath;
@@ -189,7 +184,7 @@
           activeImgName = null;
         }
       } else {
-        // Затримуємо приховування картинки, щоб анімація закриття вікна встигла програтися без "стрибків" контенту
+        // A 500ms delay keeps the image active while the CSS animation of closing the modal window plays
         imageTimeout = setTimeout(() => {
           activeImgName = null;
         }, 500);
@@ -218,7 +213,6 @@
     if ($whatDocument) {
       stylesLoadedSet(true);
       if (activeImgName && imageDimensions[activeImgName]) {
-        // Відкладаємо виконання на наступний тік, щоб DOM встиг застосувати клас .visible перед розрахунками
         setTimeout(() => initTransformForActiveImage(activeImgName), 0);
       }
     } else {
@@ -235,6 +229,8 @@
 
       containerEl.style.transition = '0.4s';
       containerEl.classList.add('loaded');
+
+      // Temporarily disabling transition (null) after the window appears prevents it from "twitching" during subsequent resizing or dragging
       setTimeout(() => {
         if(areaEl) areaEl.style.transition = null;
         if(containerEl) containerEl.style.transition = null;
@@ -278,7 +274,8 @@
     const imageHeight = imageNaturalHeight * scale;
 
     translateX = (containerWith - imageWidth) / 2;
-    translateY = imageHeight > containerHeight ? 0 : (containerHeight - imageHeight) / 2;
+    translateY = imageHeight > containerHeight ?
+      0 : (containerHeight - imageHeight) / 2;
 
     updateTransform();
   }
@@ -321,14 +318,13 @@
         ? minTranslateY
         : 0;
 
+      // Clamping the coordinates, preventing a large image from being dragged outside the visible area of the container
       translateX = Math.min(maxTranslateX, Math.max(minTranslateX, translateX));
       translateY = Math.min(maxTranslateY, Math.max(minTranslateY, translateY));
 
-      // Встановлюємо фізичні розміри ширини/висоти. Якщо масштабувати через transform: scale, текст на картинці може блюритись.
       activeImgEl.style.width = `${imageWidth}px`;
       activeImgEl.style.height = `${imageHeight}px`;
       
-      // У властивості transform залишаємо виключно X/Y координати переміщення для плавності.
       activeImgEl.style.transform = `translate(${translateX}px, ${translateY}px)`;
     });
   }
@@ -345,7 +341,8 @@
       const containerRect = containerEl.getBoundingClientRect();
       const mouseX = event.clientX - containerRect.left;
       const mouseY = event.clientY - containerRect.top;
-
+      
+      // Math for "Zoom to pointer" — calculating the offset so that the point under the cursor remains in place when changing the scale
       const dx = (mouseX - translateX) / scale;
       const dy = (mouseY - translateY) / scale;
 
@@ -368,12 +365,10 @@
     const containerRect = containerEl.getBoundingClientRect();
     const containerWith = containerRect.width - 4;
     const containerHeight = containerRect.height - 4;
-    
     scale = containerWith / imageNaturalWidth;
 
     const imageWidth = imageNaturalWidth * scale;
     const imageHeight = imageNaturalHeight * scale;
-    
     translateX = (containerWith - imageWidth) / 2;
     translateY = imageHeight > containerHeight ? 0 : (containerHeight - imageHeight) / 2;
     updateTransform();
@@ -418,6 +413,8 @@
 
     const baseName = names[$whatDocument].filePathToSave;
     const basePath = 'examples/save/';
+    
+    // Calling the Electron IPC bridge to find the actual file in the OS
     const fileInfo = await window.electron.findFileWithExtension(basePath, baseName);
     if (!fileInfo) {
       alert('File not found');
@@ -467,6 +464,7 @@
     
     <button class='scale-up' on:click|stopPropagation={handleScaleUp}></button>
     <button class='scale-by-width' on:click|stopPropagation={handleScaleByWidth}></button>
+    
     <button class='scale-down' on:click|stopPropagation={handleScaleDown}></button>
     
     {#each uniqueImageNames as imgName (imgName)}

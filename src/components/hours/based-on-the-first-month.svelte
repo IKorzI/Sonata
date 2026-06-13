@@ -8,7 +8,7 @@
   let _lng = {};
   lng.subscribe(value => (_lng = value));
 
-  // Години по предметах за 1-й та 2-й семестри
+  // Array of standard hours: index 0 – for the 1st semester, index 1 – for the 2nd semester
   const hoursPerSubject = [
     {
         'Біологія':               34,
@@ -47,21 +47,16 @@
 
   let this_;
   let uploadedFile = null;
-  // semesterEndDate внесено для коректного відображення пустого значення на сторінці
   let data = {semesterEndDate: null};
   let semesterEnd;
   let subjectsAndHours = [];
 
   $: if ($selectedSection) {
-    // Якщо компонент вже завантажено
     if (this_) {
-      // Якщо ідентифікатор обраної сецкції, це ідентифікатор компоненту
       if ($selectedSection === thisId) {
-        // зробити доступним для користувача
         this_.style.zIndex = '1';
-      // Якщо ідентифікатор обраної сецкції, це не ідентифікатор компоненту
       } else if (this_.style.zIndex !== '-1') {
-        // зробити недоступним для користувача з затримкою для виконання усіх анімацій
+        // The delay is necessary so that the CSS disappearance animation (opacity) has time to finish
         setTimeout(() => {
           this_.style.zIndex = -1;
         }, 200);
@@ -70,7 +65,6 @@
   }
 
   $: if ($clearInformation) {
-    // Якщо ідентифікатор очищення внесених даних, це ідентифікатор компоненту
     if ($clearInformation === thisId) {
       clearAll();
       setTimeout(() => {
@@ -80,29 +74,24 @@
   }
 
   $: if ($saveInformation) {
-    // Якщо ідентифікатор збереження внесених даних, це ідентифікатор компоненту
     if ($saveInformation === thisId) {
       saveAll();
       saveInformation.set(null);
     }
   }
 
-  // Очищення внесених даних
   function clearAll() {
     uploadedFile = null;
     subjectsAndHours = [];
     data = {semesterEndDate: null};
   }
 
-  // Збереження внесених даних
   async function saveAll() {
-    // Перевірка, чи все, що потрібно, внесено
     if (uploadedFile === null || semesterEnd === '' || subjectsAndHours.length === 0) {
       message.set({type: 'error', text: 'basedOnTheFirstMonth.notAllData'});
       return;
     }
 
-    // Збирання усієї внесеної інформації в одне ціле
     let endInformation = {
       ...data,
       semesterEndDate: semesterEnd,
@@ -110,16 +99,14 @@
       filePath: uploadedFile.path,
       hoursPerSubject: subjectsAndHours
     };
-
+    
+    // We receive the supplemented data via Electron API before final saving
     endInformation = await window.electron.hoursBasedDataSupplement(endInformation);
     savedInformation.set(endInformation);
   }
 
-  // Обробка завантаження файлу
   async function handleFileInputChange(detail) {
-    // Перевірка на запуск у режимі vite-серверу без Electron
     if (!window.electron) return;
-
     data = await window.electron.hoursBasedGetInformation(detail.file.path);
 
     if (!data) {
@@ -132,6 +119,7 @@
 
     const parts = data.semesterStartDate.split('.');
     const month = parseInt(parts[1], 10);
+    // If the starting month is August or later (> 7) – it is the 1st semester, otherwise – the 2nd
     const semesterNumber = month > 7 ? 1 : 2;
 
     subjectsAndHours = [];
@@ -140,7 +128,6 @@
 
     for (const subject of subjects) {
       const hours = hoursPerSubject[semesterNumber - 1][subject.subjectName];
-      
       if (hours) {
         subjectsAndHours.push({subjectName: subject.subjectName, hours: hours});
       } else {
@@ -159,9 +146,7 @@
     }
   }
 
-  // Обробка видалення файлу
   function handleFileRemove(detail) {
-    // Якщо window не ініціалізована (додаток запущено у режимі vite-серверу без Electron) повернутися
     if (!window.electron) return;
     uploadedFile = null;
   }
@@ -174,20 +159,19 @@
     const cleanValue = textFilter(originalValue, { numbers: true });
     subjectsAndHours[subjectIndex].hours = cleanValue;
     input.value = cleanValue;
-
-    // Збереження позиції курсору після фільтрації вводу
+    
+    // We calculate the new cursor position so that it does not "jump" to the end after filtering out invalid characters
     const diff = originalValue.length - cleanValue.length;
     const newCursorPos = cursorStart - diff;
     
+    // We wait for the DOM to update before forcing the cursor to the correct place
     await tick();
     input.setSelectionRange(newCursorPos, newCursorPos);
   }
 </script>
 
-<!-- Компонент -->
 <div class='gui' id={thisId} style:opacity={$selectedSection === thisId ? 1 : 0} bind:this={this_}>
 
-  <!-- Компонент FileInput для завантаження файлів -->
   <FileInput eId='hours--based-on-the-first-month--hours' extensions={['.xlsx']} type='excel'
     on:fileSelected={event => handleFileInputChange(event.detail)}
     on:fileRemoved={event => handleFileRemove(event.detail)}
@@ -202,11 +186,9 @@
     />
   </div>
 
-  <!-- Таблиця елементів предмет-години -->
   <div class='hours-per-subject'>
     <div class='label'>{_lng.basedOnTheFirstMonth.hoursPerSubject}</div>
     <div class='list'>
-      <!-- Автоматичне створення елементів відносно списку subjectsAndHours -->
       {#each subjectsAndHours as subject, subjectIndex}
         <div class='row' id={subject.subjectName}>
           <div class='subject'>{subject.subjectName}</div>
@@ -219,7 +201,6 @@
 </div>
 
 <style>
-  /* Індивідуальні стилі для компоненту FileInput */
   :global(.file-input#hours--based-on-the-first-month--hours) {
     position: absolute;
   }
@@ -229,7 +210,6 @@
     left: -10px;
   }
 
-  /* Інші стилі */
   .semester-end {
     position: absolute;
     top: 240px;

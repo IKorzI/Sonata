@@ -41,34 +41,29 @@ export const specNames = {
 }
 
 /**
- * Возвращает координаты первой ячейки, содержащей указанное значение (для xlsx-populate).
- * @param {Object} sheet - Объект листа xlsx-populate.
- * @param {string|number|boolean|Date} searchValue - Значение для поиска.
- * @param {string} direction - Направление поиска: 'up', 'down', 'left', 'right'.
- * @param {string | {row: number, column: number}} startAddress - Адрес начальной ячейки (например, "A1" или {row: 1, column: 1}).
- * @returns {{row: number, column: number}|null} Объект с координатами (1-based) или null.
+ * Returns the coordinates of the first cell containing the specified value (for xlsx-populate).
+ * @param {Object} sheet - The xlsx-populate sheet object.
+ * @param {string|number|boolean|Date} searchValue - The value to search for.
+ * @param {string} direction - The search direction: 'up', 'down', 'left', 'right'.
+ * @param {string | {row: number, column: number}} startAddress - The address of the starting cell (e.g., "A1" or {row: 1, column: 1}).
+ * @returns {{row: number, column: number}|null} An object with coordinates (starting from 1) or null.
  */
 export function findCell(sheet, searchValue, direction, startAddress) {
-    // 1. Получаем используемый диапазон (чтобы знать границы поиска)
     const usedRange = sheet.usedRange();
-    if (!usedRange) return null; // Лист пустой
+    if (!usedRange) return null;
 
     const endRow = usedRange.endCell().rowNumber();
     const endColumn = usedRange.endCell().columnNumber();
-    // Начало используемого диапазона (обычно 1, 1, но может быть смещено)
     const minRow = usedRange.startCell().rowNumber();
     const minColumn = usedRange.startCell().columnNumber();
 
-    // 2. Нормализуем стартовую позицию в координаты {row, column} (1-based)
     let startR, startC;
 
     if (typeof startAddress === 'string') {
-        // xlsx-populate умеет получать ячейку по адресу, достаем из неё координаты
         const cell = sheet.cell(startAddress);
         startR = cell.rowNumber();
         startC = cell.columnNumber();
     } else if (typeof startAddress === 'object') {
-        // Поддержка и {row, column} (1-based), и {r, c} (0-based - на всякий случай, если прилетит из старого кода)
         if ('r' in startAddress && 'c' in startAddress) {
             startR = startAddress.r + 1;
             startC = startAddress.c + 1;
@@ -80,11 +75,7 @@ export function findCell(sheet, searchValue, direction, startAddress) {
 
     const dir = direction.toLowerCase();
 
-    // 3. Логика поиска
-    // ВАЖНО: xlsx-populate использует (row, column) начиная с 1.
     if (dir === 'down') {
-        // Ищем от стартовой строки до конца используемого диапазона
-        // Если startR уже ниже endRow, цикл не запустится (корректно)
         for (let r = startR; r <= endRow; r++) {
             const val = sheet.cell(r, startC).value();
             if (val === searchValue) {
@@ -95,8 +86,6 @@ export function findCell(sheet, searchValue, direction, startAddress) {
         }
     } 
     else if (dir === 'up') {
-        // Ищем от стартовой строки вверх до минимальной используемой (или до 1)
-        // Math.max(minRow, 1) гарантирует, что мы не уйдем в 0 или минус
         for (let r = startR; r >= Math.max(minRow, 1); r--) {
             const val = sheet.cell(r, startC).value();
             if (val === searchValue) {
@@ -107,7 +96,6 @@ export function findCell(sheet, searchValue, direction, startAddress) {
         }
     } 
     else if (dir === 'right') {
-        // Ищем вправо до конца диапазона
         for (let c = startC; c <= endColumn; c++) {
             const val = sheet.cell(startR, c).value();
             if (val === searchValue) {
@@ -118,7 +106,6 @@ export function findCell(sheet, searchValue, direction, startAddress) {
         }
     } 
     else if (dir === 'left') {
-        // Ищем влево до начала диапазона
         for (let c = startC; c >= Math.max(minColumn, 1); c--) {
             const val = sheet.cell(startR, c).value();
             if (val === searchValue) {
@@ -133,16 +120,17 @@ export function findCell(sheet, searchValue, direction, startAddress) {
 }
 
 let pyProcess = null;
-let requestCounter = 0; // Счётчик для генерации уникальных ID
-const pendingRequests = new Map(); // Хранилище ожидающих Promise
+let requestCounter = 0;
+const pendingRequests = new Map();
 
+/**
+ * Initializes the child process of the Python server and sets up response handling.
+ */
 export function initPythonServer() {
     if (pyProcess) return; 
 
-    // Запускаем твой скомпилированный .exe файл напрямую
     pyProcess = spawn(pathStart, [up2], { cwd: './' });
 
-    // Настраиваем построчное чтение из stdout
     const rl = readline.createInterface({
         input: pyProcess.stdout,
         terminal: false
@@ -150,13 +138,10 @@ export function initPythonServer() {
 
     rl.on('line', (line) => {
         try {
-            // 1. Парсим сырую строку от Python
             const rawResponse = JSON.parse(line);
             
-            // 2. Сразу переводим ВСЕ ключи объекта в camelCase
             const response = camelizeKeys(rawResponse);
 
-            // 3. Теперь здесь гарантированно будет reqId, а не req_id!
             const { reqId } = response;
 
             if (pendingRequests.has(reqId)) {
@@ -165,14 +150,11 @@ export function initPythonServer() {
                 if (response.error) {
                     reject(new Error(`Python Error: ${response.error}`));
                 } else {
-                    // response.success тоже уже прошел через camelizeKeys,
-                    // так что все вложенные данные будут в camelCase
                     resolve(response.result);
                 }
                 
                 pendingRequests.delete(reqId);
             } else {
-                // Добавим лог для отладки, если вдруг ID не совпал
                 console.warn('Получен ответ для неизвестного reqId:', reqId, '\n',response);
             }
         } catch (e) {
@@ -197,14 +179,18 @@ export function initPythonServer() {
 initPythonServer()
 
 /**
- * Переводит строку из snake_case в camelCase
+ * Converts a string from snake_case format to camelCase.
+ * @param {string} str - The input string.
+ * @returns {string} The string in camelCase format.
  */
 function snakeToCamel(str) {
     return str.replace(/_([a-z0-9])/g, (match, letter) => letter.toUpperCase());
 }
 
 /**
- * Рекурсивно переводит все ключи объекта/массива в camelCase
+ * Recursively converts all keys of an object (or array) from snake_case to camelCase.
+ * @param {any} data - The input data (object, array, or primitive).
+ * @returns {any} Data with converted keys.
  */
 function camelizeKeys(data) {
     if (Array.isArray(data)) {
@@ -216,37 +202,34 @@ function camelizeKeys(data) {
             return result;
         }, {});
     }
-    // Если это примитив (строка, число, boolean, null), возвращаем как есть
     return data;
 }
 
+/**
+ * Sends a request to the Python server and returns a promise with the result.
+ * @param {Object} data - The data to send.
+ * @returns {Promise<Object>} The response from the server.
+ */
 export async function startBackendFunc(data) {
     if (!pyProcess) {
         throw new Error('Python server is not running. Call initPythonServer first.');
     }
     
     return new Promise((resolve, reject) => {
-        // Генерируем уникальный ID
         const reqId = ++requestCounter;
 
-        // ИЗМЕНЕНИЕ ЗДЕСЬ: Создаем кастомный resolve, который сначала
-        // переведет ответ из snake_case в camelCase, а потом отдаст наружу.
         const customResolve = (responseData) => {
             const camelizedData = camelizeKeys(responseData);
             resolve(camelizedData);
         };
 
-        // Сохраняем функции resolve/reject (передаем наш customResolve)
         pendingRequests.set(reqId, { resolve: customResolve, reject });
 
-        // Оборачиваем запрос в конверт!
-        // Оригинальный data остается нетронутым.
         const payloadObj = {
             reqId: reqId,
             data: data
         };
 
-        // Отправляем конверт в Python
         const payload = JSON.stringify(payloadObj) + '\n';
         
         try {
@@ -258,16 +241,21 @@ export async function startBackendFunc(data) {
     });
 }
 
+/**
+ * Searches for a file by its base name in the specified directory, ignoring .png files.
+ * @param {string} dir - The relative directory to search in.
+ * @param {string} baseName - The base name of the file without the extension.
+ * @returns {{extension: string, fullPath: string}|null} An object with the extension and full path, or null.
+ */
 function findFileWithExtension(dir, baseName) {
   const fullDir = path.join(up2, 'public/', dir);
 
   const files = fs.readdirSync(fullDir);
 
-  // Фильтруем все файлы, которые начинаются с baseName + '.' и не являются .png
   const found = files.find(file => {
     if (!file.startsWith(baseName + '.')) return false;
     const ext = path.extname(file).toLowerCase();
-    return ext !== '.png'; // пропускаем .png
+    return ext !== '.png';
   });
 
   if (!found) return null;
@@ -278,6 +266,12 @@ function findFileWithExtension(dir, baseName) {
   return { extension, fullPath };
 }
 
+/**
+ * Opens a system dialog window to save a file.
+ * @param {string} fileName - The default file name.
+ * @param {string} extension - The allowed file extension.
+ * @returns {Promise<string|null>} The path to the saved file or null if canceled.
+ */
 async function saveDialog(fileName, extension) {
   const { filePath, canceled } = await dialog.showSaveDialog({
     title: 'Сохранить файл как',
@@ -308,12 +302,11 @@ ipcMain.handle('findFileWithExtension', async (event, dir, baseName) => {
 
 ipcMain.handle('check-file-access', async (event, filePath) => {
   try {
-    // Пробуем открыть файл на чтение и запись
     const fd = fs.openSync(filePath, 'r');
     fs.closeSync(fd);
-    return true; // файл доступен
+    return true;
   } catch (err) {
-    return false; // файл недоступен
+    return false;
   }
 });
 

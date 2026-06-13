@@ -21,3 +21,20 @@ import { start as startTheme } from './theme.js';
 import { start as startLanguage } from './language.js';
 startTheme();
 startLanguage();
+
+// Перетворює ключі з крапками на ієрархію об'єктів: { "a.b": "val" } -> { a: { b: "val" } }
+export function unflattenStyles(flat) {
+  const result = {};
+  for (const key in flat) {
+    const keys = key.split('.');
+    keys.reduce((acc, part, index) => {
+      if (index === keys.length - 1) {
+        acc[part] = flat[key];
+      } else {
+        acc[part] = acc[part] || {};
+      }
+      return acc[part];
+    }, result);
+  }
+  return result;
+}

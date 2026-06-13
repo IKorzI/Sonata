@@ -2,31 +2,27 @@
   import { onMount } from 'svelte';
   import { selectedSection, lng } from '../lib/store.js'
   import SectionButton from './SectionButton.svelte';
-
   let _lng = {};
   lng.subscribe(value => (_lng = value));
 
   let choiceMark, choiseMarkIsVisible = false;
   
-  // Скидання обраної секції при ініціалізації компоненту
   selectedSection.set('');
-
   function selectSection(event) {
     const { id, parentId } = event.detail;
-    // Знаходимо DOM-елемент натиснутої кнопки для точного розрахунку позиції повзунка
     const button = document.querySelector(`.program-menu #${parentId} #${id}`);
     
     moveChoiceMark(button);
     selectedSection.set(`${parentId}--${id}`);
   }
 
-  // Анімація повзунка: створення ефекту "гумки" (розтягування в бік нової цілі та стискання)
   function moveChoiceMark(button) {
     if (!choiseMarkIsVisible) {
-      // Перша поява повзунка: без розтягування, просто плавна поява (opacity)
       choiceMark.style.top = button.offsetTop - 3 + 'px';
       choiceMark.style.height = '21px';
       choiceMark.style.zIndex = '1';
+      
+      // A micro-delay allows the browser to apply the initial positions (top, height) before enabling the transition for a smooth appearance
       setTimeout(() => {
         choiceMark.style.transition = '0.2s';
         choiceMark.style.opacity = '1';
@@ -34,19 +30,20 @@
       choiseMarkIsVisible = true;
     } else {
       if (parseInt(choiceMark.style.top) < button.offsetTop) {
-        // Рух ВНИЗ: фіксуємо верхній край, розтягуємо висоту до нової кнопки
+        // Downward movement animation: first, we stretch the height of the marker so that it reaches the new button...
         choiceMark.style.height = (button.offsetTop + 18 - parseInt(choiceMark.style.top)) + 'px';
+        // ...and after 200ms (the duration of the CSS transition itself), we "pull up" its top part and restore the standard height
         setTimeout(() => {
-          // Підтягуємо верхній край до нової кнопки, повертаючи стандартну висоту
           choiceMark.style.top = button.offsetTop - 3 + 'px';
           choiceMark.style.height = '21px';
         }, 200);
       } else if (parseInt(choiceMark.style.top) > button.offsetTop) {
-        // Рух ВГОРУ: розтягуємо висоту вгору та зміщуємо верхній край до нової кнопки
+        // Upward movement animation: we instantly move the top edge to the new button, stretching the marker down to its previous position...
         choiceMark.style.height = (parseInt(choiceMark.style.top) - button.offsetTop + 24) + 'px';
         choiceMark.style.top = button.offsetTop - 3 + 'px';
+        
+        // ...and after 200ms, we compress it to the standard size
         setTimeout(() => {
-          // Відпускаємо нижній край, повертаючи стандартну висоту
           choiceMark.style.height = '21px';
         }, 200);
       }
@@ -54,7 +51,6 @@
   }
 
   onMount(() => {
-    // Початкова ініціалізація повзунка
     choiceMark = document.querySelector(`.program-menu .choice-mark`);
     choiceMark.style.top = '23px';
     choiceMark.style.height = '21px';
@@ -78,6 +74,8 @@
 
     <div class='group-of-sections' id='hours'>
       <div class='line-with-text'>
+       
+ 
         <span class='section-title'>{_lng.programMenu.hours.sectionTitle}</span>
       </div>
       <SectionButton on:sectionclick={selectSection} id='based-on-the-first-month' text={_lng.programMenu.hours.basedOnTheFirstMonth} />
@@ -109,7 +107,6 @@
     opacity: 0;
   }
 
-  /* Оформлення заголовків груп (горизонтальні лінії з боків від тексту) */
   .line-with-text {
     display: flex;
     align-items: center;

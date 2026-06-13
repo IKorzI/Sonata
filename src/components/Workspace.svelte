@@ -1,7 +1,6 @@
 <script>
   import { selectedSection, clearInformation, saveInformation, savedInformation, message, whatDocument, lng } from '../lib/store.js'
   import { tick } from 'svelte';
-
   import SessionPackageOfDocuments from './session/package-of-documents.svelte';
   import SessionEmptyStatements from './session/empty-statements.svelte';
   import SessionReport from './session/report.svelte';
@@ -16,17 +15,15 @@
   let _lng = {};
   lng.subscribe(value => (_lng = value));
 
-  // Автоматичний запуск обробки після того, як активний компонент зібрав та зберіг свої дані у стор
   $: if($savedInformation) {
+    // Reactive trigger: when data is collected and saved to the store (after clicking "Start"), we automatically start processing
     start()
   }
 
   let isProcessing = false;
-  let isComleting = false; // Прапорець стану анімації завершення
+  let isComleting = false;
   let isDone = true;
   let elComplete;
-
-  // Перелік ідентифікаторів секцій, які підтримують централізовані кнопки дій
   const startSections = [
     'session--empty-statements',
     'session--package-of-documents',
@@ -36,7 +33,6 @@
     'hours--summary-of-teachers'
   ]
   $: isVisible = startSections.includes($selectedSection);
-
   function completeAnimation() {
     if (isDone) {
       elComplete.style.transition = 'clip-path 0s';
@@ -50,11 +46,12 @@
           elComplete.style.clipPath = 'inset(0 0 0 0)';
         }, 50);
       }, 50);
-
       setTimeout(() => {
         elComplete.style.zIndex = '';
         elComplete.style.display = '';
         elComplete.style.transition = '';
+
+        isComleting = false;
       }, 3100);
     } else {
       console.log('1')
@@ -64,13 +61,11 @@
       elComplete.style.display = 'block';
       elComplete.style.zIndex = '1';
       elComplete.style.opacity = '0';
-      
       setTimeout(() => {
         elComplete.style.transition = 'transform 0.4s ease-in-out, opacity 0.2s ease';
         elComplete.style.opacity = '1';
         elComplete.style.transform = 'scale(1)';
       }, 50);
-      
       setTimeout(() => {
         elComplete.style.transformOrigin = '';
         elComplete.style.transition = '';
@@ -79,23 +74,21 @@
         elComplete.style.display = '';
         elComplete.style.opacity = '';
         elComplete.style.transition = '';
+
+        isComleting = false;
       }, 3050);
     }
 
-    isComleting = false;
   }
 
-  // Головний метод взаємодії з бекендом
   async function start() {
     if (isProcessing || $savedInformation?.id === undefined) return;
     isProcessing = true;
     isDone = true;
 
     try {
-      // Виклик основної функції Python-бекенду через міст Electron
+      // Sending the collected data to the Python server via Electron's IPC bridge
       let backendResponse = await window.electron.startBackendFunc($savedInformation);
-
-      // 1. Перевірка наявності помилок рівня Python (traceback)
       if (backendResponse.error) {
         const errorText = `Error: ${backendResponse.error}\n\nTracing:\n${backendResponse.traceback}`;
         message.set({
@@ -106,13 +99,10 @@
         return; 
       }
 
-      // 2. Вилучення корисного навантаження (результату виконання)
       let result = backendResponse.result || backendResponse;
-
-      // Обробка кастомних текстових повідомлень або ситуацій, коли файли потрібно зберігати під іншими іменами
       if (result.success === true && (result.files?.length > 0 || result.customText)) {
         let messageFromTheBackendData = {};
-        
+        // Creating an object to display the list of generated files or warnings in a modal window
         if (result.files?.length > 0) {
           const filesText = `  –  ${result.files.join(';\n  –  ')}`;
           messageFromTheBackendData.filesText = filesText;
@@ -127,14 +117,11 @@
           text: '',
           params: { messageFromTheBackendData: messageFromTheBackendData }
         });
-        
-      // Повідомлення про предмети/групи, які не вдалося знайти у базі
       } else if (result.success === true && result.notFoundSubjects?.length > 0) {
         let notFoundSubjectsText = '';
         result.notFoundSubjects.forEach(group => {
           notFoundSubjectsText += `\n  – ${group.group}: ${group.subjects.join(', ')}`;
         });
-        
         message.set({
           type: 'warning',
           text: 'workspace.unfoundSubjects',
@@ -143,14 +130,12 @@
       }
 
     } catch (err) {
-      // 3. Перехоплення системних помилок JS/Electron
       message.set({
         type: 'error',
         text: `Системна помилка JS: ${err.message}`
       });
       isDone = false;
     } finally {
-      // Зняття блокування інтерфейсу та запуск анімації успіху незалежно від результату
       isComleting = true;
       isProcessing = false;
       await tick();
@@ -166,7 +151,6 @@
     clearInformation.set($selectedSection)
   }
 
-  // Ініціатор процесу. Дає команду поточній активній секції зібрати та надіслати свої дані у store
   async function save() {
     if (!window.electron) return;
     saveInformation.set($selectedSection)

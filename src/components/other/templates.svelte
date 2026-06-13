@@ -37,7 +37,6 @@
     align-content: flex-start;
   }
 
-  /* Глобальні стилі для підпису конкретного компонента FileOutput */
   :global(.file-output#hours--based-on-the-first-month--hours .label) {
     position: relative;
     width: calc(100% + 20px);

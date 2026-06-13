@@ -14,16 +14,12 @@
   let elComplete, isProcessing = false, isComleting = false;
   let isDone = true;
 
+  // The z-index hiding delay is needed for the CSS disappearance animation of the component to work correctly
   $: if ($selectedSection) {
-    // Якщо компонент вже завантажено
     if (this_) {
-      // Якщо ідентифікатор обраної сецкції, це ідентифікатор компоненту
       if ($selectedSection === thisId) {
-        // зробити доступним для користувача
         this_.style.zIndex = '1';
-      // Якщо ідентифікатор обраної сецкції, це не ідентифікатор компоненту
       } else if (this_.style.zIndex !== '-1') {
-        // зробити недоступним для користувача з затримкою для виконання усіх анімацій
         setTimeout(() => {
           this_.style.zIndex = -1;
         }, 200);
@@ -31,17 +27,14 @@
     }
   }
 
-  // Зміна режиму скріншота
   function screenshotMode() {
-    // Перевірка на запуск у режимі vite-серверу без Electron
     if (!window.electron) return;
-    // Зміна режиму у бекенді
     window.electron.screenshotMode(!isScreenshotMode);
     isScreenshotMode = !isScreenshotMode;
   }
 
-  // При завантаженні компоненту у DOM
   onMount(() => {
+    // Automatic determination of the current academic year and semester boundaries based on the current month
     const now = new Date();
     const year = now.getFullYear();
     const month = now.getMonth() + 1;
@@ -53,8 +46,8 @@
     semester2End = semNum === 1  ?  `30.06.${year + 1}`  :  `30.06.${year}`;
   });
 
-  // Анімація успіху
   function completeAnimation() {
+    // Direct DOM element manipulation for complex animation (success/error) bypassing reactivity
     if (isDone) {
       elComplete.style.transition = 'clip-path 0s';
       elComplete.style.clipPath = 'inset(0 100% 0 0)';
@@ -72,7 +65,10 @@
         elComplete.style.zIndex = '';
         elComplete.style.display = '';
         elComplete.style.transition = '';
+        
+        isComleting = false;
       }, 3100);
+
     } else {
       console.log('1')
       elComplete.style.transition = 'transform 0s';
@@ -81,13 +77,13 @@
       elComplete.style.display = 'block';
       elComplete.style.zIndex = '1';
       elComplete.style.opacity = '0';
-      
+
       setTimeout(() => {
         elComplete.style.transition = 'transform 0.4s ease-in-out, opacity 0.2s ease';
         elComplete.style.opacity = '1';
         elComplete.style.transform = 'scale(1)';
       }, 50);
-      
+
       setTimeout(() => {
         elComplete.style.transformOrigin = '';
         elComplete.style.transition = '';
@@ -96,15 +92,15 @@
         elComplete.style.display = '';
         elComplete.style.opacity = '';
         elComplete.style.transition = '';
-      }, 3050);
-    }
 
-    isComleting = false;
+        isComleting = false;
+      }, 3050);
+
+    }
   }
 
-  // Індивідуальна обробка натискання на кнопку "Старт"
   async function numDenStart() {
-    // Перевірка, чи все, що потрібно, внесено
+    // Checking if fields are filled and the logical sequence of dates (start precedes end)
     if (
       semester1Start === '' ||
       semester1End === '' ||
@@ -118,17 +114,13 @@
       return;
     }
     
-    // Запит у користувача шляху для збереження
     const targetPath = await window.electron.saveDialog(_lng.other.numDen.saveName, '.xlsx');
-    // Якщо відмова – повернутися
     if (!targetPath) return;
 
-    // Якщо вже виконується робота – повернутися
     if (isProcessing) return;
-    isProcessing = true; // Виконується процес
+    isProcessing = true;
     isDone = true;
 
-    // Збирання усієї інформації в одне ціле
     const data = {
       id: `${thisId}--num-den`,
       semester1Start: semester1Start,
@@ -138,10 +130,9 @@
       filePath: targetPath
     };
 
-    // Запуск функції у бекенді і очікування відповіді
+    // Starting processing on the backend side via IPC and handling possible errors
     let result = await window.electron.startBackendFunc(data);
     
-    // Перевірка наявності помилок рівня Python (traceback)
     if (result.error) {
       const errorText = `Error: ${result.error}\n\nTracing:\n${result.traceback}`;
       message.set({
@@ -157,7 +148,6 @@
     completeAnimation();
   }
 
-  // Обробка натискання на знак питання
   function handleWhat() {
     whatDocument.set(`${thisId}--num-den`);
   }
@@ -185,6 +175,7 @@
       <CustomDateInput bind:value={semester2Start} />
     </div>
     <div class='input-block' id='end2'>
+    
       <div>{_lng.other.numDen.end2}</div>
       <CustomDateInput bind:value={semester2End} />
     </div>

@@ -49,10 +49,10 @@ function createWindow() {
     transparent: true,
     icon: path.join(__dirname, 'public/icon.ico'),
     webPreferences: {
-      backgroundThrottling: false, // Отключает замедление фоновых процессов
+      backgroundThrottling: false,
       nodeIntegration: false,
       contextIsolation: true,
-      enableRemoteModule: false, // Исправлено: должно быть false для безопасности
+      enableRemoteModule: false,
       preload: path.join(__dirname, 'preload.cjs')
     }
   });
@@ -61,10 +61,10 @@ function createWindow() {
     console.log('================(Development mode)================');
     mainWindow.loadURL('http://localhost:5173');
     mainWindow.webContents.once('did-finish-load', () => {
-      mainWindow.webContents.openDevTools({ mode: 'right' }); // можно 'right', 'bottom', 'detach'
+      mainWindow.webContents.openDevTools({ mode: 'right' });
     });
 
-    // Обработка контекстного меню
+    // Context menu handling
     mainWindow.webContents.on('context-menu', (event, params) => {
       const menu = Menu.buildFromTemplate([
         {
