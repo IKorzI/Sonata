@@ -1,22 +1,23 @@
-import { defineConfig } from 'vite';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { defineConfig } from "vite";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
 
 export default defineConfig({
   plugins: [svelte()],
   server: {
     port: 5173,
     strictPort: true,
-    sourcemap: true, // ← важная строка
+    sourcemap: true,
     minify: false,
   },
-  base: './', // важно для Electron!
+  base: "./",
   build: {
     rollupOptions: {
-      external: ['electron']
+      external: ["electron"],
     },
-    outDir: 'dist/win-unpacked/resources/app/dist', // путь, куда будет собрана сборка
+    outDir: "dist-vite",
+    emptyOutDir: true,
   },
   optimizeDeps: {
-    exclude: ['electron']
-  }
-}); 
+    exclude: ["electron"],
+  },
+});

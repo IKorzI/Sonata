@@ -77,7 +77,6 @@
         isComleting = false;
       }, 3100);
     } else {
-      console.log("1");
       elComplete.style.transition = "transform 0s";
       elComplete.style.transformOrigin = "center";
       elComplete.style.transform = "scale(0.2)";

@@ -75,7 +75,7 @@
     }
 
     // Prompt the user for the path to save the final file
-    const targetPath = await window.electron.saveDialog("Зберегти", ".txt");
+    const targetPath = await window.electron.saveDialog(_lng.save, ".txt");
     if (!targetPath) return;
 
     let endInformation = {

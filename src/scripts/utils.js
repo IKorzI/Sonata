@@ -4,11 +4,11 @@ import path from "path";
 import { spawn } from "child_process";
 import fs from "fs";
 import readline from "readline";
+import { lng } from "./language.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const pathStart = path.resolve(__dirname, "./python/start.exe");
 const up2 = path.resolve(__dirname, "../../");
 
 export const monthNames = {
@@ -140,6 +140,14 @@ export function findCell(sheet, searchValue, direction, startAddress) {
   return null;
 }
 
+const isDev = process.env.NODE_ENV?.trim() === "development";
+
+const pythonBasePath = isDev
+  ? path.join(process.cwd(), "src", "scripts", "python")
+  : path.join(process.resourcesPath, "python-backend");
+
+const pathStart = path.join(pythonBasePath, "start.exe");
+
 let pyProcess = null;
 let requestCounter = 0;
 const pendingRequests = new Map();
@@ -150,7 +158,7 @@ const pendingRequests = new Map();
 export function initPythonServer() {
   if (pyProcess) return;
 
-  pyProcess = spawn(pathStart, [up2], { cwd: "./" });
+  pyProcess = spawn(pathStart, [up2], { cwd: pythonBasePath });
 
   const rl = readline.createInterface({
     input: pyProcess.stdout,
@@ -177,7 +185,7 @@ export function initPythonServer() {
         pendingRequests.delete(reqId);
       } else {
         console.warn(
-          "Получен ответ для неизвестного reqId:",
+          "Response received for unknown reqId:",
           reqId,
           "\n",
           response,
@@ -302,9 +310,8 @@ function findFileWithExtension(dir, baseName) {
  */
 async function saveDialog(fileName, extension) {
   const { filePath, canceled } = await dialog.showSaveDialog({
-    title: "Сохранить файл как",
     defaultPath: `${fileName}${extension}`,
-    filters: [{ name: "Файлы", extensions: [extension.replace(".", "")] }],
+    filters: [{ name: lng.files, extensions: [extension.replace(".", "")] }],
   });
 
   if (canceled || !filePath) return null;

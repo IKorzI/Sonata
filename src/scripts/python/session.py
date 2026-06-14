@@ -193,9 +193,7 @@ def filling_out_the_rating_sheet(
         subjects (list): The list of subjects.
     """
 
-    student_len = sum(
-        1 for s in students if s["bc"] == "Б" and s["avg_grade"] not in ("-", " - ")
-    )
+    student_len = sum(1 for s in students if s["rating_grade"] != None)
     subject_len = len(subjects)
 
     delete_row_start = 9 + student_len + 1
@@ -418,29 +416,29 @@ def session_PackageOfDocuments(info, app_path):
             index = subgroup["sorted_list"][i]
             student = subgroup["students"][index]
             student_name = student["student_name"]
-            avg = f"{float(student['avg_grade']):.2f}".replace(".", ",")
+            grade = student["rating_grade"]
             increased = "+" if not del_increased and student["increased"] else ""
             doc_petition = insert_row(
                 doc_petition,
                 table_index_scholarship,
-                [student_name, avg, increased],
+                [student_name, grade, increased],
                 insert=i > 0,
             )
             doc_website = insert_row(
-                doc_website, 0, [student_name, avg, increased], insert=i > 0, color=True
+                doc_website,
+                0,
+                [student_name, grade, increased],
+                insert=i > 0,
+                color=True,
             )
         for i in range(subgroup["scholarship_number"], len(subgroup["students"])):
             index = subgroup["sorted_list"][i]
             student = subgroup["students"][index]
-            if (
-                student["bc"] != "Б"
-                or student["avg_grade"] == " - "
-                or student["avg_grade"] == "-"
-            ):
+            if student["rating_grade"] != None:
                 continue
             student_name = student["student_name"]
-            avg = f"{float(student['avg_grade']):.2f}".replace(".", ",")
-            doc_website = insert_row(doc_website, 0, [student_name, avg, ""])
+            grade = student["rating_grade"]
+            doc_website = insert_row(doc_website, 0, [student_name, grade, ""])
 
         if not del_social:
             doc_petition = replace_text(
@@ -461,16 +459,18 @@ def session_PackageOfDocuments(info, app_path):
             doc_petition = replace_text(
                 doc_petition, "semester_date_end_3", semester_dates_end
             )
+
             for el_index, i in enumerate(subgroup["social_scholarship_list"]):
-                index = subgroup["sorted_list"][i]
-                student = subgroup["students"][index]
+                student = subgroup["students"][i]
+                if student["rating_grade"] == None:
+                    continue
                 student_name = student["student_name"]
-                avg = f"{float(student['avg_grade']):.2f}".replace(".", ",")
+                grade = student["rating_grade"]
                 social_status = student["social_status"]
                 doc_petition = insert_row(
                     doc_petition,
                     table_index_social,
-                    [student_name, avg, social_status],
+                    [student_name, grade, social_status],
                     insert=el_index > 0,
                 )
 
@@ -517,15 +517,11 @@ def session_PackageOfDocuments(info, app_path):
             for el_index, i in enumerate(subgroup["increased_scholarship_list"]):
                 student = subgroup["students"][i]
                 student_name = student["student_name"]
-                avg = (
-                    "-"
-                    if student["avg_grade"] == " - " or student["avg_grade"] == "-"
-                    else f"{float(student['avg_grade']):.2f}".replace(".", ",")
-                )
+                grade = student["rating_grade"]
                 doc_petition = insert_row(
                     doc_petition,
                     table_index_increased,
-                    [student_name, avg, "+"],
+                    [student_name, grade, "+"],
                     insert=el_index > 0,
                 )
                 submission_text = (
@@ -561,7 +557,7 @@ def session_PackageOfDocuments(info, app_path):
             explanation_text = ""
             for same_score_index, same_score in enumerate(subgroup["same_scores_list"]):
                 index = subgroup["sorted_list"][same_score[0]]
-                grade = subgroup["students"][index]["avg_grade"]
+                grade = subgroup["students"][index]["rating_grade"]
                 same_score_text_part_1 = ""
                 same_score_text_part_2 = ""
                 for el_index, i in enumerate(same_score):
@@ -1768,6 +1764,130 @@ def session_ReportStart(info, app_path):
     sheet.cell(row=4, column=22).value = general_amount
 
     doc_path = save_file(report, f"{path_to_save}/ПЗСО.xlsx")
+    if doc_path != True:
+        answer["files"].append(doc_path)
+
+    return answer
+
+
+def session_DebtorsStart(info, app_path):
+    path_to_save = Path(info["file_path"]).parent
+
+    answer = {"success": True, "files": []}
+    directory_to_save = os.path.dirname(info["file_path"])
+    os.makedirs(directory_to_save, exist_ok=True)
+    path = f"{app_path}/public/examples/work"
+
+    # =============================================================================================================
+    # CREATING A TABLE OF DEBTORS
+
+    debtors = load_workbook(f"{path}/debtors.xlsx")
+
+    step = 0
+    for group in info["groups"]:
+        step += 1
+
+        debrost_sheet = debtors[f"Л{step}"]
+        debrost_sheet.title = group["group_code"]
+        debrost_sheet.cell(row=4, column=3).value = group["group_code"]
+
+        debrost_row = 5
+        debrost_step = 1
+        for student in group["students"]:
+            subject_step = 0
+            student_row = 0
+            for grade in student["grades"]:
+                if student_row == 0:
+                    debrost_sheet.cell(row=debrost_row, column=3).value = debrost_step
+                    debrost_sheet.cell(row=debrost_row, column=4).value = student["bc"]
+                    debrost_sheet.cell(row=debrost_row, column=5).value = student[
+                        "student_name"
+                    ]
+                    student_row = 1
+                elif student_row == 1:
+                    debrost_sheet.merge_cells(
+                        start_row=debrost_row - 1,
+                        start_column=3,
+                        end_row=debrost_row,
+                        end_column=3,
+                    )
+                    debrost_sheet.merge_cells(
+                        start_row=debrost_row - 1,
+                        start_column=4,
+                        end_row=debrost_row,
+                        end_column=4,
+                    )
+                    debrost_sheet.merge_cells(
+                        start_row=debrost_row - 1,
+                        start_column=5,
+                        end_row=debrost_row,
+                        end_column=5,
+                    )
+                    student_row = 2
+                else:
+                    debrost_sheet.unmerge_cells(
+                        start_row=debrost_row - student_row,
+                        start_column=3,
+                        end_row=debrost_row - 1,
+                        end_column=3,
+                    )
+                    debrost_sheet.unmerge_cells(
+                        start_row=debrost_row - student_row,
+                        start_column=4,
+                        end_row=debrost_row - 1,
+                        end_column=4,
+                    )
+                    debrost_sheet.unmerge_cells(
+                        start_row=debrost_row - student_row,
+                        start_column=5,
+                        end_row=debrost_row - 1,
+                        end_column=5,
+                    )
+                    debrost_sheet.merge_cells(
+                        start_row=debrost_row - student_row,
+                        start_column=3,
+                        end_row=debrost_row,
+                        end_column=3,
+                    )
+                    debrost_sheet.merge_cells(
+                        start_row=debrost_row - student_row,
+                        start_column=4,
+                        end_row=debrost_row,
+                        end_column=4,
+                    )
+                    debrost_sheet.merge_cells(
+                        start_row=debrost_row - student_row,
+                        start_column=5,
+                        end_row=debrost_row,
+                        end_column=5,
+                    )
+                    student_row += 1
+                debrost_sheet.cell(row=debrost_row, column=6).value = grade["grade"]
+                debrost_sheet.cell(row=debrost_row, column=7).value = grade[
+                    "subject_name"
+                ]
+                debrost_sheet.cell(row=debrost_row, column=8).value = grade[
+                    "teacher_name"
+                ]
+                debrost_row += 1
+                subject_step += 1
+            debrost_step += 1
+
+        delete_row_start = debrost_row
+        delete_row_count = 104 - debrost_row + 1
+        debrost_sheet.delete_rows(delete_row_start, amount=delete_row_count)
+        for row in range(delete_row_start + 2, delete_row_start + 2 + delete_row_count):
+            debrost_sheet.row_dimensions[row].hidden = True
+        debrost_sheet.row_dimensions[delete_row_start].height = 14.1
+        debrost_sheet.row_dimensions[delete_row_start + 1].height = 14.1
+
+        debrost_sheet.print_area = f"C3:H{delete_row_start - 1}"
+
+    for i in range(1, 21):
+        if f"Л{i}" in debtors.sheetnames:
+            debtors.remove(debtors[f"Л{i}"])
+
+    doc_path = save_file(debtors, f"{path_to_save}/Боржники.xlsx")
     if doc_path != True:
         answer["files"].append(doc_path)
 

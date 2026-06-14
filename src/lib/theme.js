@@ -8,7 +8,7 @@ export function themeSwap() {
   styles.set(unflattenStyles(stylesData[theme]));
 }
 
-// Тема за замовчуванням
+// Default theme
 export function start() {
   styles.set(unflattenStyles(stylesData[theme]));
 }

@@ -152,7 +152,6 @@
     cursor: pointer;
   }
 
-  /* Стилізація скроллбару */
   .text-area::-webkit-scrollbar {
     width: 8px;
   }

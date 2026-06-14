@@ -1,0 +1,133 @@
+{
+  "frontend": {
+    "lng": "en",
+
+    "workspace.example": "Example of output document(s)",
+    "workspace.clear": "Clear",
+    "workspace.start": "Start",
+    "workspace.saveWithADifferentName": "A file or multiple files are open and locked for editing.\nSuch files were saved with these names:",
+    "workspace.unfoundSubjects": "The following subjects were not found and the hours were left empty:",
+
+    "basedOnTheFirstMonth.semesterEnd": "End date of the semester",
+    "basedOnTheFirstMonth.hoursPerSubject": "Hours by subject",
+    "basedOnTheFirstMonth.unfoundSubjects": "There are unknown subjects that require personal filling in the \"Hours by subject\" table:\n{notFoundSubjects}",
+
+    "other.screenshotMode": "Screenshot mode",
+    "other.numDen.title": "Numerator/Denominator",
+    "other.numDen.start1": "Start of semester 1",
+    "other.numDen.end1": "End of semester 1",
+    "other.numDen.start2": "Start of semester 2",
+    "other.numDen.end2": "End of semester 2",
+    "other.numDen.saveName": "Numerator Denominator",
+    "other.start": "Start",
+
+    "debtors.loadedGroups": "Loaded groups",
+    "debtors.groupAlreadyLoaded": "Group {groupCode} is already loaded.",
+
+    "emptyStatements.percentage": "% of scholarship budget",
+    "emptyStatements.firstIndex": "Number of the first statement in the issue journal",
+
+    "packageOfDocuments.socialScholarship.statusesList": {
+      "vpo": "Internally displaced person",
+      "combatantChild": "Child of combatant",
+      "orphanOrFoster": "Child deprived of parental care",
+      "disabledChild": "Disabled child",
+      "poorLargeFamily": "Large low-income family family"
+    },
+    "packageOfDocuments.socialScholarship.label1": "Social statuses of students",
+    "packageOfDocuments.socialScholarship.label2": "Students on increased scholarship",
+    "packageOfDocuments.list.student": "Select student",
+    "packageOfDocuments.list.status": "Select status",
+    "packageOfDocuments.percentageOfScholarship": "% of the scholarship budget",
+    "packageOfDocuments.semesterDates.label": "Scholarship assignment dates",
+    "packageOfDocuments.semesterDates.start": "Start date",
+    "packageOfDocuments.semesterDates.end": "End date",
+    "packageOfDocuments.classTeacherName.label": "First and last name of the class teacher",
+    "packageOfDocuments.classTeacherName.nominative": "Nominative case",
+    "packageOfDocuments.classTeacherName.genitive": "Genitive case",
+
+    "report.loadedGroups": "Loaded groups",
+    "report.groupAlreadyLoaded": "Group {groupCode} is already loaded.",
+
+    "errorWindow.errorWindow.title.error": "Error",
+    "errorWindow.errorWindow.title.warning": "Warning",
+
+    "fileInput.area.text": "Select file",
+    "fileInput.label.session.packageOfDocuments.statements": "Summary",
+    "fileInput.label.session.emptyStatements.hours": "Hours by group\nfor the month",
+    "fileInput.label.session.emptyStatements.contingent": "Contingent",
+    "fileInput.label.session.report.statements": "Summary",
+    "fileInput.label.session.debtors.statements": "Summary",
+    "fileInput.label.hours.basedOnTheFirstMonth.hours": "Hours by group for the first month of the semester",
+    "fileInput.label.hours.summaryOfTeachers.hours": "Hours by group\nfor the month",
+
+    "fileOutput.area.text": "Click to save file",
+    "fileOutput.label.statements": "Statements",
+    "fileOutput.label.hours": "Hours by group",
+    "fileOutput.label.contingent": "Contingent",
+    "fileOutput.names.statements": "Statements",
+    "fileOutput.names.hours": "Hours",
+    "fileOutput.names.contingent": "Contingent",
+
+    "programMenu.session.sectionTitle": "Session",
+    "programMenu.session.packageOfDocuments": "Document Package",
+    "programMenu.session.emptyStatements": "Empty Statements",
+    "programMenu.session.report": "Semester Report",
+    "programMenu.session.debtors": "Debtors",
+    "programMenu.hours.sectionTitle": "Hours",
+    "programMenu.hours.basedOnTheFirstMonth": "Based on 1st month",
+    "programMenu.hours.summaryOfTeachers": "By teachers",
+    "programMenu.other.sectionTitle": "Other",
+    "programMenu.other.templates": "Document Templates",
+    "programMenu.other.other": "Other",
+
+    "exampleWindow.names.basedOnTheFirstMonth.september": "September",
+    "exampleWindow.names.basedOnTheFirstMonth.october": "October",
+    "exampleWindow.names.basedOnTheFirstMonth.november": "November",
+    "exampleWindow.names.basedOnTheFirstMonth.december": "December",
+    "exampleWindow.names.basedOnTheFirstMonth.total": "Total",
+    "exampleWindow.names.summaryOfTeachers": "Hours",
+    "exampleWindow.names.emptyStatements.general": "General",
+    "exampleWindow.names.emptyStatements.statements": "Summary",
+    "exampleWindow.names.packageOfDocuments.summary": "Summary",
+    "exampleWindow.names.packageOfDocuments.rating": "Rating",
+    "exampleWindow.names.packageOfDocuments.petition": "Petition",
+    "exampleWindow.names.packageOfDocuments.submission": "Submission",
+    "exampleWindow.names.packageOfDocuments.explanation": "Explanation",
+    "exampleWindow.names.packageOfDocuments.ratingOnWebsite": "Site Rating",
+    "exampleWindow.names.report": "Report",
+    "exampleWindow.names.debtors": "Debtors",
+    "exampleWindow.names.numDen": "Numerator Denominator",
+    "exampleWindow.names.hours.fileNameToSave": "Hours",
+    "exampleWindow.names.hours.displayName": "Hours",
+    "exampleWindow.names.contingent.fileNameToSave": "Contingent",
+    "exampleWindow.names.contingent.displayName": "Contingent",
+    "exampleWindow.names.statements.fileNameToSave": "Statements",
+    "exampleWindow.names.statements.displayName": "Statements",
+
+    "python.session.emptyStart.customText": "The groups contain specialties with multiple OPPs.\nThe following OPPs were recorded in the information for instructors for these specialties:",
+
+    "packageOfDocuments.notAllData": "The data is incorrect for one of the reasons:\n  –  file not uploaded;\n  –  scholarship assignment dates not entered (or entered incorrectly);\n  –  class teacher's last name not entered;\n  –  in the lists for social and increased scholarships the value is \"Select student\" or \"Select status\".",
+    "emptyStatements.notAllData": "The data is incorrect for one of the following reasons:\n  –  files not uploaded;\n  –  the \"% of scholarship budget\" field is not filled in;\n  –  the \"Number of the first statement in the issuance journal\" field is not filled in.",
+    "report.notAllData": "The data is incorrect for one of the reasons:\n  –  groups uploaded 0.",
+    "debtors.notAllData": "The data is incorrect for one of the reasons:\n  –  groups uploaded 0.",
+    "basedOnTheFirstMonth.notAllData": "The data is incorrect for one of the reasons:\n  –  file not uploaded;\n  –  no last date of study in the semester has been entered.",
+    "summaryOfTeachers.notAllData": "The data is incorrect for one of the reasons:\n  –  no file has been uploaded.",
+    "other.numDen.notAllData": "The data is incorrect for one of the reasons:\n  –  all start and end dates of the semesters have not been entered (or entered incorrectly).",
+    "inputFile.error": "Error retrieving information from the file. Check the correctness of the selected file.",
+
+    "save": "Save"
+  },
+  "backend": {
+    "renderAndTransform.done.title": "Export complete",
+    "renderAndTransform.done.message": "Image saved successfully!",
+    "renderAndTransform.done.detail": "File saved to:",
+    "renderAndTransform.undone.title": "Error",
+    "renderAndTransform.undone.message": "Failed to save image",
+
+    "customSaveDialog.defaultName": "Screenshot",
+    "customSaveDialog.dialogTitle": "Save Excel screenshot",
+    "customSaveDialog.qualityText": "Quality (scale)",
+    "files": "Files"
+  }
+}

@@ -4,6 +4,7 @@ import fs from "fs";
 import { fileURLToPath } from "url";
 
 import "./src/scripts/utils.js";
+import "./src/scripts/language.js";
 import "./src/scripts/session/package-of-documents.js";
 import "./src/scripts/session/empty-statements.js";
 import "./src/scripts/session/report.js";
@@ -68,7 +69,7 @@ function createWindow() {
     mainWindow.webContents.on("context-menu", (event, params) => {
       const menu = Menu.buildFromTemplate([
         {
-          label: "Проверить",
+          label: "Inspect the element",
           click: () => {
             mainWindow.webContents.openDevTools({ mode: "right" });
             setTimeout(() => {
@@ -77,13 +78,13 @@ function createWindow() {
           },
         },
         {
-          label: "Перезагрузить",
+          label: "Reload the interface",
           click: () => {
             mainWindow.webContents.reload();
           },
         },
         {
-          label: "Перезапустить",
+          label: "Restart the program",
           click: () => {
             const restartFile = path.join(__dirname, "restart.flag");
             fs.writeFileSync(restartFile, Date.now().toString());

@@ -22,7 +22,7 @@ import { start as startLanguage } from "./language.js";
 startTheme();
 startLanguage();
 
-// Перетворює ключі з крапками на ієрархію об'єктів: { "a.b": "val" } -> { a: { b: "val" } }
+// Converts dotted keys to an object hierarchy: { "a.b": "val" } -> { a: { b: "val" } }
 export function unflattenStyles(flat) {
   const result = {};
   for (const key in flat) {

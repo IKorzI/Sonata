@@ -1,0 +1,5 @@
+openpyxl
+pywin32
+Pillow
+python-docx
+pyinstaller

@@ -165,7 +165,6 @@
     background-image: url("../icon.png");
   }
 
-  /* Збільшення специфічності селектора, щоб перевизначити font-weight: bold з .title-bar > *:not(.language-list) */
   .title-bar .language {
     font-weight: normal;
   }
@@ -184,7 +183,6 @@
   }
 
   .program-name {
-    /* Дозволяє користувачу перетягувати вікно програми за цю область (Electron) */
     -webkit-app-region: drag;
     font-weight: normal;
     font-size: 20px;

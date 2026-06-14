@@ -10,7 +10,7 @@ namespace CustomSaveDialog
 {
     class Program
     {
-        // Ищем окно по имени класса (XLMAIN - это главный класс окна Excel)
+        // Find the window by class name (XLMAIN is the main class of the Excel window)
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
@@ -59,7 +59,9 @@ namespace CustomSaveDialog
 
             try
             {
-                string defaultName = args.Length > 0 ? args[0] : "Скриншот.png";
+                string defaultName = args.Length > 0 ? args[0] : "Screenshot.png";
+                string dialogTitle = args.Length > 1 ? args[1] : "Save Excel screenshot";
+                string qualityText = args.Length > 2 ? args[2] : "Quality (scale)";
 
                 using (Form topMostForm = new Form())
                 {
@@ -75,7 +77,7 @@ namespace CustomSaveDialog
 
                     using (CommonSaveFileDialog dialog = new CommonSaveFileDialog())
                     {
-                        dialog.Title = "Сохранить скриншот Excel";
+                        dialog.Title = dialogTitle;
                         dialog.DefaultExtension = "png";
                         dialog.Filters.Add(new CommonFileDialogFilter("PNG Image", "*.png"));
                         dialog.DefaultFileName = defaultName;
@@ -87,7 +89,7 @@ namespace CustomSaveDialog
                         }
                         scaleComboBox.SelectedIndex = 4;
 
-                        CommonFileDialogGroupBox groupBox = new CommonFileDialogGroupBox("Качество (масштаб)");
+                        CommonFileDialogGroupBox groupBox = new CommonFileDialogGroupBox(qualityText);
                         groupBox.Items.Add(scaleComboBox);
                         dialog.Controls.Add(groupBox);
 
@@ -103,7 +105,7 @@ namespace CustomSaveDialog
                         }
                     }
 
-                    // Прячем форму ДО того, как процесс завершится
+                    // Hide the form BEFORE the process is complete
                     topMostForm.Hide();
                 }
             }
@@ -114,13 +116,13 @@ namespace CustomSaveDialog
             }
             finally
             {
-                // Находим Excel и вбиваем фокус в него
+                // Find Excel and enter focus into it
                 IntPtr excelWindow = FindWindow("XLMAIN", null);
                 if (excelWindow != IntPtr.Zero)
                 {
                     ForceForeground(excelWindow);
-                    // Эта микро-задержка предотвращает активацию Electron
-                    // Она дает Windows время обработать смену фокуса до смерти процесса
+                    // This micro-delay prevents Electron from activating.
+                    // It gives Windows time to process the focus change before the process dies.
                     Thread.Sleep(50);
                 }
             }

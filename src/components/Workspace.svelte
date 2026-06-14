@@ -62,7 +62,6 @@
         isComleting = false;
       }, 3100);
     } else {
-      console.log("1");
       elComplete.style.transition = "transform 0s";
       elComplete.style.transformOrigin = "center";
       elComplete.style.transform = "scale(0.2)";
@@ -146,7 +145,7 @@
     } catch (err) {
       message.set({
         type: "error",
-        text: `Системна помилка JS: ${err.message}`,
+        text: `System error JS: ${err.message}`,
       });
       isDone = false;
     } finally {

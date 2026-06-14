@@ -1,1273 +1,1568 @@
 {
-    "id": "session--empty-statements",
-    "file_path": "D:\\Мои документы\\JavaScript\\Sonata\\test\\1\\Зберегти.txt",
-    "percentage": 40,
-    "first_index": 71,
-    "semester_number": 2,
-    "semester_roman": "II",
-    "years": "2025-2026",
-    "year": "2025",
-    "groups": [
+    "group_code": "26-1",
+    "subgroups": [
         {
-            "group_code": "25-1",
-            "kurator_nom": "Вєра МЄШКОВА",
-            "subgroups": [
+            "students": [
                 {
-                    "speciality_code": "D5",
-                    "speciality_name": "«Маркетинг»",
-                    "student_IDs": [
-                        0,
-                        2,
-                        3,
+                    "student_name": "Бондаренко Андрій Миколайович",
+                    "grades": [
+                        4,
                         5,
                         9,
+                        4,
+                        5,
+                        7,
+                        8,
+                        "н/а",
                         10,
-                        12,
-                        13,
-                        15,
-                        18,
-                        19,
-                        20,
-                        22,
-                        23,
-                        25,
-                        30,
-                        31,
-                        33,
-                        34,
-                        35
-                    ]
+                        8,
+                        7,
+                        8,
+                        9,
+                        5
+                    ],
+                    "avg_grade": " - ",
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
                 },
                 {
-                    "speciality_code": "E2",
-                    "speciality_name": "«Екологія»",
-                    "student_IDs": [
-                        1,
+                    "student_name": "Гриценко Світлана Анатоліївна",
+                    "grades": [
+                        8,
+                        5,
+                        7,
+                        9,
+                        6,
+                        9,
+                        11,
+                        "н/а",
+                        8,
+                        7,
+                        7,
+                        11,
+                        4,
+                        5
+                    ],
+                    "avg_grade": " - ",
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Карєва Анастасія Сергіївна",
+                    "grades": [
+                        11,
+                        5,
+                        4,
+                        "н/а",
+                        4,
+                        10,
+                        11,
+                        6,
+                        8,
+                        9,
+                        10,
+                        10,
+                        "н/а",
+                        9
+                    ],
+                    "avg_grade": "-",
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Ковальчук Наталія Петрівна",
+                    "grades": [
+                        5,
+                        6,
+                        6,
+                        10,
+                        7,
+                        9,
+                        5,
+                        8,
+                        10,
+                        5,
+                        8,
+                        6,
+                        11,
+                        11
+                    ],
+                    "avg_grade": 7.64,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Кравченко Денис Юрійович",
+                    "grades": [
+                        6,
+                        7,
+                        4,
+                        6,
+                        7,
+                        "н/а",
+                        6,
+                        11,
+                        10,
+                        "н/а",
+                        5,
+                        10,
+                        10,
+                        5
+                    ],
+                    "avg_grade": " - ",
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Лєрманова Олена Євгенівна",
+                    "grades": [
+                        8,
+                        4,
+                        5,
+                        11,
+                        6,
+                        8,
+                        8,
+                        10,
+                        7,
+                        "н/а",
+                        5,
+                        "н/а",
+                        11,
+                        "н/а"
+                    ],
+                    "avg_grade": "-",
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Лисенко Олена Володимирівна",
+                    "grades": [
+                        8,
+                        8,
+                        "н/а",
+                        10,
+                        8,
+                        8,
                         4,
                         8,
+                        8,
+                        "н/а",
+                        "н/а",
+                        5,
+                        10,
+                        10
+                    ],
+                    "avg_grade": " - ",
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Мельниченко Софія Ігорівна",
+                    "grades": [
+                        8,
+                        7,
+                        8,
                         11,
-                        14,
-                        16,
-                        17,
-                        21,
-                        24,
-                        26,
-                        27,
-                        32,
-                        36
-                    ]
+                        9,
+                        10,
+                        10,
+                        9,
+                        6,
+                        5,
+                        7,
+                        8,
+                        10,
+                        4
+                    ],
+                    "avg_grade": 8,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
                 },
                 {
-                    "speciality_code": "G13",
-                    "speciality_name": "«Харчові технології»",
-                    "student_IDs": [
-                        28
-                    ]
+                    "student_name": "Мороз Віктор Васильович",
+                    "grades": [
+                        9,
+                        4,
+                        "н/а",
+                        9,
+                        6,
+                        "н/а",
+                        11,
+                        11,
+                        10,
+                        8,
+                        11,
+                        9,
+                        7,
+                        11
+                    ],
+                    "avg_grade": "-",
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
                 },
                 {
-                    "speciality_code": "J2",
-                    "speciality_name": "«Готельно-ресторанна справа та кейтеринг»",
-                    "student_IDs": [
+                    "student_name": "Поліщук Артем Валерійович",
+                    "grades": [
+                        4,
+                        7,
+                        9,
+                        9,
+                        6,
+                        8,
+                        8,
+                        10,
+                        4,
+                        11,
+                        7,
+                        8,
+                        10,
+                        8
+                    ],
+                    "avg_grade": 7.79,
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": true,
+                    "increased": false,
+                    "rating_grade": "58,42"
+                },
+                {
+                    "student_name": "Присяжнюк Аміна Михайлівна",
+                    "grades": [
+                        11,
+                        4,
+                        10,
+                        5,
+                        8,
+                        11,
+                        9,
+                        5,
+                        8,
+                        4,
+                        7,
+                        11,
+                        8,
+                        5
+                    ],
+                    "avg_grade": 7.57,
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": true,
+                    "increased": false,
+                    "rating_grade": "56,78"
+                },
+                {
+                    "student_name": "Савельєв Олександр Вячеславович",
+                    "grades": [
+                        8,
+                        11,
+                        5,
+                        8,
+                        5,
+                        5,
+                        8,
+                        6,
+                        11,
+                        9,
+                        8,
+                        8,
+                        8,
+                        8
+                    ],
+                    "avg_grade": 7.71,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Савченко Марія Олегівна",
+                    "grades": [
+                        6,
+                        "н/а",
+                        9,
+                        9,
+                        "н/а",
+                        8,
+                        11,
+                        5,
+                        6,
+                        4,
+                        11,
+                        9,
+                        6,
+                        8
+                    ],
+                    "avg_grade": "-",
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Самойлова Яна Вячеславівна",
+                    "grades": [
+                        8,
+                        4,
+                        9,
+                        7,
+                        5,
+                        8,
+                        5,
+                        9,
+                        4,
+                        8,
+                        8,
+                        6,
+                        9,
+                        9
+                    ],
+                    "avg_grade": 7.07,
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": true,
+                    "increased": false,
+                    "rating_grade": "53,03"
+                },
+                {
+                    "student_name": "Стегарь Евеліна Сергіївна",
+                    "grades": [
+                        5,
+                        6,
+                        6,
+                        "н/а",
+                        10,
+                        9,
+                        11,
+                        11,
+                        11,
+                        10,
+                        11,
+                        10,
+                        11,
+                        8
+                    ],
+                    "avg_grade": " - ",
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Ткаченко Ірина Сергіївна",
+                    "grades": [
+                        10,
+                        10,
+                        8,
+                        9,
+                        9,
+                        9,
+                        4,
+                        9,
+                        8,
+                        10,
+                        8,
+                        11,
+                        8,
+                        8
+                    ],
+                    "avg_grade": 8.64,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Цвєтков Андрій Геннадійович",
+                    "grades": [
+                        7,
+                        "н/а",
+                        4,
+                        7,
+                        8,
+                        5,
+                        10,
+                        4,
+                        8,
+                        8,
+                        6,
+                        4,
+                        7,
+                        10
+                    ],
+                    "avg_grade": " - ",
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Шевченко Олександр Іванович",
+                    "grades": [
+                        9,
+                        7,
+                        11,
+                        "н/а",
+                        10,
+                        8,
+                        8,
+                        5,
+                        7,
+                        7,
+                        4,
+                        8,
+                        4,
+                        8
+                    ],
+                    "avg_grade": " - ",
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                }
+            ],
+            "cells": {
+                "C5": "Успішності студентів спеціальності D5 «Маркетинг»",
+                "C6": "За І семестр 2025-2026 н.р.",
+                "C7": "Група 26-1 курс І"
+            },
+            "speciality_code": "D5",
+            "speciality_name": "«Маркетинг»",
+            "scholarship_number": 3,
+            "social_scholarship_list": [],
+            "increased_scholarship_list": [],
+            "same_scores_list": [],
+            "sorted_list": [
+                9,
+                10,
+                13,
+                0,
+                1,
+                4,
+                6,
+                14,
+                16,
+                17,
+                15,
+                7,
+                11,
+                3,
+                2,
+                5,
+                8,
+                12
+            ]
+        },
+        {
+            "students": [
+                {
+                    "student_name": "Безуглий Юрій Віталійович",
+                    "grades": [
+                        10,
+                        11,
+                        6,
+                        9,
+                        4,
+                        8,
+                        5,
+                        6,
+                        6,
+                        5,
+                        9,
+                        8,
+                        7,
+                        5
+                    ],
+                    "avg_grade": 7.07,
+                    "bc": "Б",
+                    "social_status": "Дитина учасника бойових дій",
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": "53,03"
+                },
+                {
+                    "student_name": "Білан Інна Євгенівна",
+                    "grades": [
+                        11,
+                        8,
+                        6,
+                        6,
+                        5,
+                        6,
+                        8,
+                        10,
+                        7,
+                        5,
+                        4,
+                        8,
+                        4,
                         7
-                    ]
+                    ],
+                    "avg_grade": 6.79,
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": "50,92"
                 },
                 {
-                    "speciality_code": "J3",
-                    "speciality_name": "«Туризм та рекреація»",
-                    "student_IDs": [
+                    "student_name": "Білик Анастасія Павлівна",
+                    "grades": [
                         6,
-                        29
-                    ]
-                }
-            ],
-            "students": [
-                {
-                    "student_name": "Бернік Поліна Костянтинівна",
-                    "bc": "Б"
+                        5,
+                        8,
+                        "н/а",
+                        "н/а",
+                        6,
+                        7,
+                        7,
+                        10,
+                        5,
+                        9,
+                        6,
+                        8,
+                        7
+                    ],
+                    "avg_grade": "-",
+                    "bc": "К",
+                    "social_status": "Дитина-інвалід",
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
                 },
                 {
-                    "student_name": "Брітіков Сергій Сергійович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Бучацька Олександра",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Важельський Серафим Олександрович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Вальчук Богдан Олександрович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Варивода Станіслава Михайлівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Господарюк Юрій Михайлович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Дзюбка Мирослава Володимирівна",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Єсипович Володимир Іванович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Жумайло Дар'я Юріївна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Залогін Володимир Євгенійович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Катеринюк Юрій Юрійович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Кірон Ангеліна Петрівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Кісельова Аріна Вадимівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Криворучко Олександр Степанович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Леженко Серафим Русланович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Маркітан Станіслав Ігорович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Новицький Руслан Віталійович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Овсяннікова Анастасія Віталіївна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Полягошко Вероніка Миколаївна",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Поляков Михайло Олександрович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Помазан Валерій Миколайович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Поплавських Єлизавета Іванівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Примаченко Інга Антонівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Примха Павло Павлович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Проценко Микита Сергійович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Ракович Дмитро Вікторович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Рибинський Іван Іванович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Рижиков Василь Володимирович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Русєв Дмитро Георгійович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Русу Альона Ігорівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Соценко Ольга Олександрівна",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Станчєв Віталій Васильович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Тимошенко Владислав Романович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Черепаха Арсеній Андрійович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Шкут Іван Андрійович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Шрамов'ят Михайло Ігорович",
-                    "bc": "К"
-                }
-            ],
-            "subjects": [
-                {
-                    "subject_name": "Біологія",
-                    "teacher_name": "Богданенко О.В."
-                },
-                {
-                    "subject_name": "Всесвітня Історія",
-                    "teacher_name": "Мельничук С.А."
-                },
-                {
-                    "subject_name": "Географія",
-                    "teacher_name": "Наговська Т.С."
-                },
-                {
-                    "subject_name": "Зарубіжна література",
-                    "teacher_name": "Бабенко Л.Е."
-                },
-                {
-                    "subject_name": "Захист України",
-                    "teacher_name": "Лазар В.І."
-                },
-                {
-                    "subject_name": "Іноземна мова",
-                    "teacher_name": "Нічик Н.О."
-                },
-                {
-                    "subject_name": "Інформатика",
-                    "teacher_name": "Андрльє І.О."
-                },
-                {
-                    "subject_name": "Історія України",
-                    "teacher_name": "Левчук Т.Г."
-                },
-                {
-                    "subject_name": "Математика",
-                    "teacher_name": "Бондаренко О.С."
-                },
-                {
-                    "subject_name": "Українська література",
-                    "teacher_name": "Юрченко О.Б."
-                },
-                {
-                    "subject_name": "Українська мова",
-                    "teacher_name": "Юрченко О.Б."
-                },
-                {
-                    "subject_name": "Фізика",
-                    "teacher_name": "Калюта Н.М."
-                },
-                {
-                    "subject_name": "Фізична культура",
-                    "teacher_name": "Возіян О.Г."
-                },
-                {
-                    "subject_name": "Хімія",
-                    "teacher_name": "Сахно Н.О."
-                }
-            ]
-        },
-        {
-            "group_code": "25-2",
-            "kurator_nom": "Оксана БОНДАРЕНКО",
-            "subgroups": [
-                {
-                    "speciality_code": "D7",
-                    "speciality_name": "«Торгівля»",
-                    "student_IDs": [
-                        1,
+                    "student_name": "Волошин Кирило Миколайович",
+                    "grades": [
+                        9,
+                        8,
+                        8,
+                        4,
+                        4,
                         7,
                         9,
-                        11,
-                        12,
-                        15,
-                        16,
-                        22,
-                        23,
-                        27,
-                        28,
-                        31,
-                        32,
-                        33,
-                        34
-                    ]
-                },
-                {
-                    "speciality_code": "G1",
-                    "speciality_name": "«Хімічні технології та інженерія»",
-                    "student_IDs": [
-                        2,
+                        7,
                         4,
-                        17,
-                        19
-                    ]
+                        8,
+                        8,
+                        5,
+                        10,
+                        8
+                    ],
+                    "avg_grade": 7.07,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
                 },
                 {
-                    "speciality_code": "G16",
-                    "speciality_name": "«Гірництво та нафтогазові технології»",
-                    "student_IDs": [
-                        0,
-                        3,
-                        5,
+                    "student_name": "Гаврилюк Маргарита Тимофіївна",
+                    "grades": [
+                        4,
+                        8,
+                        8,
+                        10,
                         6,
                         8,
                         10,
-                        13,
-                        14,
-                        18,
-                        20,
-                        21,
-                        24,
-                        25,
-                        26,
-                        29,
-                        30
-                    ]
-                }
-            ],
-            "students": [
-                {
-                    "student_name": "Абаржі Юрій Петрович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Бабков Дмитро Юрійович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Бахчиванжи Валентин Іванович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Бондаренко Костянтин Петрович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Верещагін Володимир Миколайович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Гавалко Єва Володимирівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Гайдаржи Ілля Іванович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Гальперина Анастасія Олексіївна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Господінов Дмитро Володимирович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Григорашенко Олександра Олексіївна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Гроздя Роман Георгійович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Дмитришина Поліна Дмитрівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Дмитрієв Міхаіл Олексійович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Дончев Василь Васильович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Дюльгер Данііл Іванович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Здор Денис Володимирович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Карабай Діана Денисівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Князян Карен Ашотович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Коваленко Радислав Михайлович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Константинюк Іван Октавіанович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Літвінов Давид Євгенович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Мазілін Іван Вікторович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Мельничук Даніїл Олександрович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Мусат Микола Володиславович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Нейчев Сергій Федорович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Онофрійчук Андрій Миколайович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Письменний Кирило Віталійович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Подкопаєва Соф'я Андріївна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Пустовіт Дар'я Володимирівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Семков Георгій Іванович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Сікорський Павло Євгенійович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Стрельбицька Аліна Русланівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Чобан Валерія Анатоліївна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Шапатіна Марія Олександрівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Шингілєвич Станіслав Віталійович",
-                    "bc": "Б"
-                }
-            ],
-            "subjects": [
-                {
-                    "subject_name": "Біологія",
-                    "teacher_name": "Богданенко О.В."
-                },
-                {
-                    "subject_name": "Всесвітня Історія",
-                    "teacher_name": "Мельничук С.А."
-                },
-                {
-                    "subject_name": "Географія",
-                    "teacher_name": "Наговська Т.С."
-                },
-                {
-                    "subject_name": "Зарубіжна література",
-                    "teacher_name": "Бабенко Л. Е."
-                },
-                {
-                    "subject_name": "Захист України",
-                    "teacher_name": "Лазар В.І."
-                },
-                {
-                    "subject_name": "Іноземна мова",
-                    "teacher_name": "Нічик Н.О."
-                },
-                {
-                    "subject_name": "Інформатика",
-                    "teacher_name": "Андрльє І.О."
-                },
-                {
-                    "subject_name": "Історія України",
-                    "teacher_name": "Левчук Т.Г."
-                },
-                {
-                    "subject_name": "Математика",
-                    "teacher_name": "Бондаренко О.С."
-                },
-                {
-                    "subject_name": "Українська література",
-                    "teacher_name": "Антропова Л.І."
-                },
-                {
-                    "subject_name": "Українська мова",
-                    "teacher_name": "Антропова Л.І."
-                },
-                {
-                    "subject_name": "Фізика",
-                    "teacher_name": "Калюта Н.М."
-                },
-                {
-                    "subject_name": "Фізична культура",
-                    "teacher_name": "Возіян О.Г."
-                },
-                {
-                    "subject_name": "Хімія",
-                    "teacher_name": "Сахно Н.О."
-                }
-            ]
-        },
-        {
-            "group_code": "25-3",
-            "kurator_nom": "А... ТКАЧЕНКО",
-            "subgroups": [
-                {
-                    "speciality_code": "E2",
-                    "speciality_name": "«Екологія»",
-                    "student_IDs": [
-                        5,
-                        6,
-                        9,
-                        10,
-                        12,
-                        14,
-                        15,
-                        19,
-                        20,
-                        29
-                    ]
-                },
-                {
-                    "speciality_code": "G1",
-                    "speciality_name": "«Хімічні технології та інженерія»",
-                    "student_IDs": [
-                        3,
+                        8,
+                        8,
+                        8,
                         4,
                         8,
-                        11,
-                        16,
-                        22,
-                        26,
-                        32
-                    ]
+                        10,
+                        8
+                    ],
+                    "avg_grade": 7.71,
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": true,
+                    "increased": false,
+                    "rating_grade": "57,82"
                 },
                 {
-                    "speciality_code": "G7",
-                    "speciality_name": "«Автоматизація, комп'ютерно-інтегровані технології та робототехніка»",
-                    "student_IDs": [
-                        0,
-                        1,
-                        2,
-                        7,
-                        13,
-                        17,
-                        18,
-                        21,
-                        23,
-                        24,
-                        25,
-                        27,
-                        28,
-                        30,
-                        31,
-                        33,
-                        34
-                    ]
-                }
-            ],
-            "students": [
-                {
-                    "student_name": "Багаєв Дмитро Михайлович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Бєлов Миколай Михайлович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Богомолов Єгор Русланович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Бондаренко Анна Юріївна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Бондаренко Олександр Сергійович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Буюклі Христина Станіславівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Голам-Сарвар Сабріна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Горевой Костянтин Юрійович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Грідін Олег Володимирович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Гусева Анна Олександрівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Гуткан Алла Павлівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Дімітрова Аделіна Віталіївна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Довгополий Олександр Анатолійович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Єлькін Владислав Леонідович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Єсманчук Дмитро Сергійович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Загіченко Матвій Олександрович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Казанджій Гліб Миколайович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Капістеринський Ілля Сергійович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Краснов Кірілл Олександрович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Ляліна Дар'я Михайлівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Марецький Максим Іванович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Мельник Олександр Дмитрович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Олійник Олег Сергійович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Півоварова Анастасія Володимирівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Півоварова Олександра Володимирівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Погребной Іван Олександрович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Романчук Маргарита Вадимівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Русавський Максим Андрійович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Савкін Макар Максимович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Савчук Станіслав Олександрович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Солтус Денис Віталійович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Стойков Дмитро Геннадійович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Татарчук Антон Сергійович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Чумляр Михайло Володимирович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Янчий Георгій Сергійович",
-                    "bc": "К"
-                }
-            ],
-            "subjects": [
-                {
-                    "subject_name": "Біологія",
-                    "teacher_name": "Богданенко О.В."
-                },
-                {
-                    "subject_name": "Всесвітня Історія",
-                    "teacher_name": "Мельничук С.А."
-                },
-                {
-                    "subject_name": "Географія",
-                    "teacher_name": "Наговська Т.С."
-                },
-                {
-                    "subject_name": "Зарубіжна література",
-                    "teacher_name": "Бабенко Л. Е."
-                },
-                {
-                    "subject_name": "Захист України",
-                    "teacher_name": "Лазар В.І."
-                },
-                {
-                    "subject_name": "Іноземна мова",
-                    "teacher_name": "Нічик Н.О."
-                },
-                {
-                    "subject_name": "Інформатика",
-                    "teacher_name": "Андрльє І.О."
-                },
-                {
-                    "subject_name": "Історія України",
-                    "teacher_name": "Левчук Т.Г."
-                },
-                {
-                    "subject_name": "Математика",
-                    "teacher_name": "Земляна Т.М."
-                },
-                {
-                    "subject_name": "Українська література",
-                    "teacher_name": "Юрченко О.Б."
-                },
-                {
-                    "subject_name": "Українська мова",
-                    "teacher_name": "Юрченко О.Б."
-                },
-                {
-                    "subject_name": "Фізика",
-                    "teacher_name": "Калюта Н.М."
-                },
-                {
-                    "subject_name": "Фізична культура",
-                    "teacher_name": "Галеніна І.С."
-                },
-                {
-                    "subject_name": "Хімія",
-                    "teacher_name": "Сахно Н.О."
-                }
-            ]
-        },
-        {
-            "group_code": "25-4",
-            "kurator_nom": "Олександра ВОЗІЯН",
-            "subgroups": [
-                {
-                    "speciality_code": "G3",
-                    "speciality_name": "«Електрична інженерія»",
-                    "student_IDs": [
-                        0,
-                        1,
-                        2,
+                    "student_name": "Гончар Марія Сергіївна",
+                    "grades": [
+                        "н/а",
+                        8,
                         4,
                         6,
+                        4,
                         7,
                         9,
+                        11,
+                        7,
+                        4,
+                        5,
+                        6,
+                        8,
+                        8
+                    ],
+                    "avg_grade": " - ",
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Дяченко Катерина Дмитрівна",
+                    "grades": [
+                        8,
+                        6,
+                        5,
+                        11,
+                        7,
+                        7,
+                        6,
+                        10,
+                        7,
+                        6,
+                        6,
+                        4,
+                        6,
+                        6
+                    ],
+                    "avg_grade": 6.79,
+                    "bc": "Б",
+                    "social_status": "Внутрішньо переміщена особа",
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": "50,92"
+                },
+                {
+                    "student_name": "Зінченко Богдан Романович",
+                    "grades": [
+                        9,
+                        9,
+                        8,
+                        6,
                         10,
                         11,
-                        12,
-                        14,
-                        18,
-                        17,
-                        19,
-                        22,
-                        26,
-                        27
-                    ]
+                        6,
+                        11,
+                        7,
+                        7,
+                        10,
+                        6,
+                        7,
+                        8
+                    ],
+                    "avg_grade": 8.21,
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": true,
+                    "increased": false,
+                    "rating_grade": "61,58"
                 },
                 {
-                    "speciality_code": "G5",
-                    "speciality_name": "«Електроніка, електронні комунікації, приладобудування та радіотехніка»",
-                    "student_IDs": [
-                        3,
-                        5,
+                    "student_name": "Клименко Алла Михайлівна",
+                    "grades": [
+                        4,
+                        4,
+                        11,
                         8,
-                        13,
-                        15,
-                        16,
-                        20,
-                        21,
-                        23,
-                        24,
-                        25,
-                        28
-                    ]
-                }
-            ],
-            "students": [
-                {
-                    "student_name": "Алексєєв Дмитро Олегович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Бойцов Олексій Валерійович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Бурдіяк Ростислав Сергійович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Висоцький Арсеній Андрійович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Дехтяренко Станіслав Володимирович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Дудник Михайло Олександрович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Жуков Артем Андрійович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Змієвський Іван Максимович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Кабанова Наталія Володимирівна",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Кисіль Артем Сергійович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Коваленко Володимир Олександрович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Ковтонюк Роман Сергійович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Кожукар Степан Степанович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Косяк Антон Васильович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Кукурінчук Євгеній Ігорович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Ляшенко Данііл Євгенович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Мєржан Іван Віталійович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Ненашов Микола Валерійович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Нєдов Дмитро Степанович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Петров Дмитро Ігорович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Половинко Костянтин Ігорович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Рзаєв Біннат Асеф огли",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Рижкін Василь Петрович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Сінькевич Назар Володимирович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Соколов Данііл Михайлович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Фомін Іван Олександрович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Чебан Іван Іванович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Шереметьєв Владислав Артемович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Ясюренко Михайло Сергійович",
-                    "bc": "К"
-                }
-            ],
-            "subjects": [
-                {
-                    "subject_name": "Біологія",
-                    "teacher_name": "Богданенко О.В."
-                },
-                {
-                    "subject_name": "Всесвітня Історія",
-                    "teacher_name": "Мельничук С.А."
-                },
-                {
-                    "subject_name": "Географія",
-                    "teacher_name": "Наговська Т.С."
-                },
-                {
-                    "subject_name": "Зарубіжна література",
-                    "teacher_name": "Бабенко Л. Е."
-                },
-                {
-                    "subject_name": "Захист України",
-                    "teacher_name": "Лазар В.І."
-                },
-                {
-                    "subject_name": "Іноземна мова",
-                    "teacher_name": "Нічик Н.О."
-                },
-                {
-                    "subject_name": "Інформатика",
-                    "teacher_name": "Андрльє І.О."
-                },
-                {
-                    "subject_name": "Історія України",
-                    "teacher_name": "Левчук Т.Г."
-                },
-                {
-                    "subject_name": "Математика",
-                    "teacher_name": "Земляна Т.М."
-                },
-                {
-                    "subject_name": "Українська література",
-                    "teacher_name": "Антропова Л.І."
-                },
-                {
-                    "subject_name": "Українська мова",
-                    "teacher_name": "Антропова Л.І."
-                },
-                {
-                    "subject_name": "Фізика",
-                    "teacher_name": "Калюта Н.М."
-                },
-                {
-                    "subject_name": "Фізична культура",
-                    "teacher_name": "Галеніна І.С."
-                },
-                {
-                    "subject_name": "Хімія",
-                    "teacher_name": "Пономарьов К.М."
-                }
-            ]
-        },
-        {
-            "group_code": "25-5",
-            "kurator_nom": "Дмитро ФЕДОРКАН",
-            "subgroups": [
-                {
-                    "speciality_code": "G13",
-                    "speciality_name": "«Харчові технології»",
-                    "student_IDs": [
-                        3,
                         5,
+                        10,
+                        8,
+                        5,
+                        9,
+                        6,
+                        4,
+                        10,
+                        8,
+                        8
+                    ],
+                    "avg_grade": 7.14,
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": "53,55"
+                },
+                {
+                    "student_name": "Козак Дмитро Вікторович",
+                    "grades": [
+                        9,
+                        10,
+                        8,
+                        8,
+                        4,
+                        6,
+                        8,
+                        6,
+                        6,
+                        10,
+                        6,
+                        6,
+                        11,
+                        7
+                    ],
+                    "avg_grade": 7.5,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Козаченко Роман Анатолійович",
+                    "grades": [
+                        9,
+                        9,
+                        6,
+                        5,
+                        10,
+                        6,
+                        7,
+                        7,
+                        6,
                         7,
                         8,
                         10,
-                        13,
-                        15,
-                        16,
-                        17,
-                        18,
-                        19,
-                        20,
-                        23
-                    ]
+                        6,
+                        7
+                    ],
+                    "avg_grade": 7.36,
+                    "bc": "Б",
+                    "social_status": "Багатодітна малозабезпечена родина",
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": "55,20"
                 },
                 {
-                    "speciality_code": "J2",
-                    "speciality_name": "«Готельно-ресторанна справа та кейтеринг»",
-                    "student_IDs": [
-                        14,
-                        27,
-                        30,
-                        0,
-                        1,
-                        2,
-                        4,
+                    "student_name": "Корнієнко Владислава Іванівна",
+                    "grades": [
+                        10,
+                        6,
+                        5,
+                        "н/а",
+                        5,
+                        8,
+                        6,
+                        7,
+                        8,
+                        10,
+                        5,
+                        9,
+                        8,
+                        5
+                    ],
+                    "avg_grade": " - ",
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Куліш Дарина Олегівна",
+                    "grades": [
+                        7,
+                        8,
                         11,
-                        12,
-                        21,
-                        22,
-                        26,
-                        28
-                    ]
+                        4,
+                        9,
+                        5,
+                        8,
+                        6,
+                        8,
+                        8,
+                        11,
+                        7,
+                        11,
+                        8
+                    ],
+                    "avg_grade": 7.93,
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": true,
+                    "increased": false,
+                    "rating_grade": "59,47"
                 },
                 {
-                    "speciality_code": "J3",
-                    "speciality_name": "«Туризм та рекреація»",
-                    "student_IDs": [
+                    "student_name": "Левченко Вікторія Василівна",
+                    "grades": [
+                        8,
+                        8,
+                        9,
+                        6,
+                        10,
+                        10,
+                        9,
+                        "н/а",
+                        11,
+                        11,
+                        7,
+                        4,
+                        10,
+                        6
+                    ],
+                    "avg_grade": "-",
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Мельничук Людмила Петрівна",
+                    "grades": [
+                        8,
+                        7,
+                        8,
+                        8,
+                        6,
+                        7,
+                        6,
+                        7,
                         6,
                         9,
-                        24,
-                        25,
-                        29
-                    ]
+                        5,
+                        4,
+                        5,
+                        5
+                    ],
+                    "avg_grade": 6.5,
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": "48,75"
+                },
+                {
+                    "student_name": "Нікітенко Владислав Юрійович",
+                    "grades": [
+                        8,
+                        9,
+                        9,
+                        8,
+                        8,
+                        9,
+                        10,
+                        5,
+                        10,
+                        8,
+                        5,
+                        5,
+                        5,
+                        6
+                    ],
+                    "avg_grade": 7.5,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Орленко Арсен Романович",
+                    "grades": [
+                        9,
+                        7,
+                        9,
+                        8,
+                        11,
+                        8,
+                        9,
+                        6,
+                        9,
+                        6,
+                        10,
+                        5,
+                        11,
+                        9
+                    ],
+                    "avg_grade": 8.36,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Остапчук Максим Олександрович",
+                    "grades": [
+                        8,
+                        6,
+                        9,
+                        11,
+                        4,
+                        4,
+                        8,
+                        11,
+                        9,
+                        10,
+                        7,
+                        9,
+                        10,
+                        9
+                    ],
+                    "avg_grade": 8.21,
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": true,
+                    "increased": false,
+                    "rating_grade": "61,58"
+                },
+                {
+                    "student_name": "Паламарчук Оксана Валентинівна",
+                    "grades": [
+                        6,
+                        9,
+                        6,
+                        8,
+                        8,
+                        5,
+                        7,
+                        8,
+                        7,
+                        9,
+                        11,
+                        10,
+                        7,
+                        "н/а"
+                    ],
+                    "avg_grade": "-",
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Панченко Тетяна Ігорівна",
+                    "grades": [
+                        7,
+                        10,
+                        10,
+                        4,
+                        8,
+                        7,
+                        8,
+                        5,
+                        10,
+                        10,
+                        9,
+                        6,
+                        11,
+                        6
+                    ],
+                    "avg_grade": 7.93,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Петренко Назар Борисович",
+                    "grades": [
+                        8,
+                        5,
+                        7,
+                        10,
+                        7,
+                        8,
+                        6,
+                        5,
+                        8,
+                        5,
+                        10,
+                        11,
+                        10,
+                        10
+                    ],
+                    "avg_grade": 7.86,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Романенко Юлія Андріївна",
+                    "grades": [
+                        4,
+                        4,
+                        "н/а",
+                        4,
+                        8,
+                        "н/а",
+                        6,
+                        7,
+                        10,
+                        8,
+                        "н/а",
+                        7,
+                        10,
+                        11
+                    ],
+                    "avg_grade": "-",
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Семенюк Марина Григорівна",
+                    "grades": [
+                        5,
+                        9,
+                        10,
+                        9,
+                        5,
+                        4,
+                        6,
+                        9,
+                        8,
+                        8,
+                        7,
+                        7,
+                        9,
+                        9
+                    ],
+                    "avg_grade": 7.5,
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": "56,25"
+                },
+                {
+                    "student_name": "Сидоренко Ілля Артемович",
+                    "grades": [
+                        8,
+                        9,
+                        9,
+                        8,
+                        10,
+                        5,
+                        10,
+                        8,
+                        10,
+                        10,
+                        8,
+                        8,
+                        10,
+                        10
+                    ],
+                    "avg_grade": 8.79,
+                    "bc": "Б",
+                    "social_status": null,
+                    "scholarship": true,
+                    "increased": false,
+                    "rating_grade": "65,92"
+                },
+                {
+                    "student_name": "Тимченко Олексій Вікторович",
+                    "grades": [
+                        "н/а",
+                        9,
+                        11,
+                        "н/а",
+                        11,
+                        6,
+                        10,
+                        5,
+                        8,
+                        8,
+                        9,
+                        5,
+                        "н/а",
+                        9
+                    ],
+                    "avg_grade": "-",
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Харченко Ганна Олексіївна",
+                    "grades": [
+                        8,
+                        4,
+                        4,
+                        9,
+                        6,
+                        10,
+                        "н/а",
+                        5,
+                        6,
+                        10,
+                        10,
+                        "н/а",
+                        11,
+                        8
+                    ],
+                    "avg_grade": "-",
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Черненко Вадим Павлович",
+                    "grades": [
+                        8,
+                        7,
+                        8,
+                        8,
+                        6,
+                        4,
+                        5,
+                        5,
+                        8,
+                        6,
+                        6,
+                        5,
+                        7,
+                        10
+                    ],
+                    "avg_grade": 6.64,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Чорний Степан Ігорович",
+                    "grades": [
+                        9,
+                        6,
+                        11,
+                        8,
+                        11,
+                        8,
+                        5,
+                        5,
+                        10,
+                        8,
+                        10,
+                        7,
+                        7,
+                        10
+                    ],
+                    "avg_grade": 8.21,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Шаповал Аліна Сергіївна",
+                    "grades": [
+                        11,
+                        6,
+                        8,
+                        11,
+                        6,
+                        9,
+                        8,
+                        6,
+                        9,
+                        8,
+                        10,
+                        8,
+                        8,
+                        11
+                    ],
+                    "avg_grade": 8.5,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
+                },
+                {
+                    "student_name": "Яремчук Євген Степанович",
+                    "grades": [
+                        "н/а",
+                        5,
+                        4,
+                        8,
+                        7,
+                        8,
+                        7,
+                        10,
+                        7,
+                        11,
+                        11,
+                        6,
+                        11,
+                        8
+                    ],
+                    "avg_grade": "-",
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
                 }
             ],
+            "cells": {
+                "C5": "Успішності студентів спеціальності D7 «Торгівля»",
+                "C6": "За І семестр 2025-2026 н.р.",
+                "C7": "Група 26-1 курс І"
+            },
+            "speciality_code": "D7",
+            "speciality_name": "«Торгівля»",
+            "scholarship_number": 5,
+            "social_scholarship_list": [
+                10,
+                0,
+                6,
+                2
+            ],
+            "increased_scholarship_list": [],
+            "same_scores_list": [
+                [
+                    1,
+                    2
+                ],
+                [
+                    9,
+                    10
+                ]
+            ],
+            "sorted_list": [
+                23,
+                7,
+                17,
+                12,
+                4,
+                22,
+                10,
+                8,
+                0,
+                1,
+                6,
+                14,
+                5,
+                11,
+                28,
+                16,
+                27,
+                19,
+                20,
+                9,
+                15,
+                3,
+                26,
+                2,
+                13,
+                18,
+                21,
+                24,
+                25,
+                29
+            ]
+        },
+        {
             "students": [
                 {
-                    "student_name": "Багнич Агата Валеріївна",
-                    "bc": "Б"
+                    "student_name": "Бондарчук Ніна Григорівна",
+                    "grades": [
+                        8,
+                        7,
+                        8,
+                        8,
+                        6,
+                        4,
+                        5,
+                        5,
+                        8,
+                        6,
+                        6,
+                        5,
+                        7,
+                        10
+                    ],
+                    "avg_grade": 6.64,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
                 },
                 {
-                    "student_name": "Балабан Єлизавета Олексіївна",
-                    "bc": "К"
+                    "student_name": "Дубовик Віра Михайлівна",
+                    "grades": [
+                        8,
+                        6,
+                        9,
+                        11,
+                        4,
+                        4,
+                        8,
+                        11,
+                        9,
+                        10,
+                        7,
+                        9,
+                        10,
+                        9
+                    ],
+                    "avg_grade": 8.21,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
                 },
                 {
-                    "student_name": "Басов Костянтин Юрійович",
-                    "bc": "К"
+                    "student_name": "Кушніренко Артем Олександрович",
+                    "grades": [
+                        8,
+                        6,
+                        5,
+                        11,
+                        7,
+                        7,
+                        6,
+                        10,
+                        7,
+                        6,
+                        6,
+                        4,
+                        6,
+                        6
+                    ],
+                    "avg_grade": 6.79,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
                 },
                 {
-                    "student_name": "Білик Катерина Андріївна",
-                    "bc": "Б"
+                    "student_name": "Назаренко Єгор Віталійович",
+                    "grades": [
+                        7,
+                        10,
+                        10,
+                        4,
+                        8,
+                        7,
+                        8,
+                        5,
+                        10,
+                        10,
+                        9,
+                        6,
+                        11,
+                        6
+                    ],
+                    "avg_grade": 7.93,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
                 },
                 {
-                    "student_name": "Бойко Станіслав Володимирович",
-                    "bc": "К"
+                    "student_name": "Рябоконь Софія Юріївна",
+                    "grades": [
+                        9,
+                        9,
+                        8,
+                        6,
+                        10,
+                        11,
+                        6,
+                        11,
+                        7,
+                        7,
+                        10,
+                        6,
+                        7,
+                        8
+                    ],
+                    "avg_grade": 8.21,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
                 },
                 {
-                    "student_name": "Бондаренко Олександр Вікторович",
-                    "bc": "К"
+                    "student_name": "Соловей Микита Ігорович",
+                    "grades": [
+                        4,
+                        4,
+                        11,
+                        8,
+                        5,
+                        10,
+                        8,
+                        5,
+                        9,
+                        6,
+                        4,
+                        10,
+                        8,
+                        8
+                    ],
+                    "avg_grade": 7.14,
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
                 },
                 {
-                    "student_name": "Вілейко Вікторія Віленівна",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Голуб Вероніка Русланівна",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Гроза Вікторія Сергіївна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Гуділіна Олександра Олександрівна",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Денисенко Ярослав Денисович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Змашко Дар'я Сергіївна",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Ілющенко Марія Володимирівна",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Кловак Анастасія Ярославівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Кобелецька Ніколь Олегівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Коцел Єгор Костянтинович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Крижньова Галина Олександрівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Крівцова Анжеліка Олегівна",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Кусенко Данило Сергійович",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Місяць Олександра Миколаївна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Міхней Анна Олександрівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Палій Маргарита Олександрівна",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Померанцев Ілля Артурович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Саркісова Олена Сергіївна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Сумець Вероніка Сергіївна",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Тітаренко Маргарита Олександрівна",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Торкатюк Ілля Сергійович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Чернель Олександра Олегівна",
-                    "bc": "Б"
-                },
-                {
-                    "student_name": "Чомов Максим Андрійович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Шатілов Тимур Максимович",
-                    "bc": "К"
-                },
-                {
-                    "student_name": "Яковенко Крістіна Іванівна",
-                    "bc": "Б"
+                    "student_name": "Тарасенко Леонід Степанович",
+                    "grades": [
+                        4,
+                        4,
+                        "н/а",
+                        4,
+                        8,
+                        "н/а",
+                        6,
+                        7,
+                        10,
+                        8,
+                        "н/а",
+                        7,
+                        10,
+                        11
+                    ],
+                    "avg_grade": "-",
+                    "bc": "К",
+                    "social_status": null,
+                    "scholarship": false,
+                    "increased": false,
+                    "rating_grade": null
                 }
             ],
-            "subjects": [
-                {
-                    "subject_name": "Біологія",
-                    "teacher_name": "Богданенко О.В."
-                },
-                {
-                    "subject_name": "Всесвітня Історія",
-                    "teacher_name": "Мельничук С.А."
-                },
-                {
-                    "subject_name": "Географія",
-                    "teacher_name": "Наговська Т.С."
-                },
-                {
-                    "subject_name": "Зарубіжна література",
-                    "teacher_name": "Бабенко Л. Е."
-                },
-                {
-                    "subject_name": "Захист України",
-                    "teacher_name": "Лазар В.І."
-                },
-                {
-                    "subject_name": "Іноземна мова",
-                    "teacher_name": "Нічик Н.О."
-                },
-                {
-                    "subject_name": "Інформатика",
-                    "teacher_name": "Андрльє І.О."
-                },
-                {
-                    "subject_name": "Історія України",
-                    "teacher_name": "Левчук Т.Г."
-                },
-                {
-                    "subject_name": "Математика",
-                    "teacher_name": "Земляна Т.М."
-                },
-                {
-                    "subject_name": "Українська література",
-                    "teacher_name": "Юрченко О.Б."
-                },
-                {
-                    "subject_name": "Українська мова",
-                    "teacher_name": "Юрченко О.Б."
-                },
-                {
-                    "subject_name": "Фізика",
-                    "teacher_name": "Калюта Н.М."
-                },
-                {
-                    "subject_name": "Фізична культура",
-                    "teacher_name": "Галеніна І.С."
-                },
-                {
-                    "subject_name": "Хімія",
-                    "teacher_name": "Пономарьов К.М."
-                }
+            "cells": {
+                "C5": "Успішності студентів спеціальності G1 «Хімічні технології та інженерія»",
+                "C6": "За І семестр 2025-2026 н.р.",
+                "C7": "Група 26-1 курс І"
+            },
+            "speciality_code": "G1",
+            "speciality_name": "«Хімічні технології та інженерія»",
+            "scholarship_number": 0,
+            "social_scholarship_list": [],
+            "increased_scholarship_list": [],
+            "same_scores_list": [],
+            "sorted_list": [
+                1,
+                4,
+                3,
+                5,
+                2,
+                0,
+                6
             ]
         }
-    ]
+    ],
+    "kurator_nom": "Ірина ДОПІРА",
+    "kurator_gen": "Ірини ДОПІРИ",
+    "years": "2025-2026",
+    "semester_number": "I",
+    "semester_number_word": "першого",
+    "semester_start": "01.01.2026",
+    "semester_end": "30.06.2026",
+    "subjects": [
+        {
+            "subject_name": "Біологія",
+            "teacher_name": "Богданенко О.В."
+        },
+        {
+            "subject_name": "Всесвітня історія",
+            "teacher_name": "Мельничук С.А."
+        },
+        {
+            "subject_name": "Географія",
+            "teacher_name": "Наговська Т.С."
+        },
+        {
+            "subject_name": "Зарубіжна література",
+            "teacher_name": "Сербулова Ю.А."
+        },
+        {
+            "subject_name": "Захист України",
+            "teacher_name": "Лазар В.І."
+        },
+        {
+            "subject_name": "Іноземна мова",
+            "teacher_name": "Сербулова Ю.А."
+        },
+        {
+            "subject_name": "Інформатика",
+            "teacher_name": "Бєльдюгіна С.С."
+        },
+        {
+            "subject_name": "Історія України",
+            "teacher_name": "Левчук Т.Г."
+        },
+        {
+            "subject_name": "Математика",
+            "teacher_name": "Бондаренко О.С."
+        },
+        {
+            "subject_name": "Українська література",
+            "teacher_name": "Антропова Л.І."
+        },
+        {
+            "subject_name": "Українська мова",
+            "teacher_name": "Антропова Л.І."
+        },
+        {
+            "subject_name": "Фізика",
+            "teacher_name": "Калюта Н.М."
+        },
+        {
+            "subject_name": "Фізична культура",
+            "teacher_name": "Возіян О.Г."
+        },
+        {
+            "subject_name": "Хімія",
+            "teacher_name": "Сахно Н.О."
+        }
+    ],
+    "percentage": 40,
+    "id": "session--package-of-documents",
+    "file_path": "D:\\Мои документы\\JavaScript\\Sonata\\test\\1\\statements14.xlsx"
 }

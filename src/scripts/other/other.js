@@ -4,6 +4,7 @@ import path from "path";
 import fs from "fs";
 import { spawn, execSync } from "child_process";
 import { startBackendFunc } from "../utils.js";
+import { lng } from "../language.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,7 +16,7 @@ let excelMonitorInterval = null;
 let lastClipboardText = "";
 let isExcelGloballyLocked = false;
 
-async function spawnCustomSaveDialog(defaultName) {
+async function spawnCustomSaveDialog(params) {
   isDialogOpen = true;
 
   return new Promise((resolve) => {
@@ -23,7 +24,7 @@ async function spawnCustomSaveDialog(defaultName) {
     // Allows bypassing potential native UI limitations and implementing specific window logic.
     const exePath = path.join(__dirname, "CustomSaveDialog.exe");
 
-    const child = spawn(exePath, [defaultName]);
+    const child = spawn(exePath, params);
     let output = "";
 
     child.stdout.on("data", (data) => (output += data.toString("utf8")));
@@ -100,7 +101,7 @@ function emergencyUnlockExcelSync() {
       },
     );
     isExcelGloballyLocked = false;
-    console.log("Excel був экстренно разблокирован перед закрытием процесса.");
+    console.log("Excel was urgently unlocked before closing the process.");
   } catch (err) {
     // Ignoring the error since the application is already in the process of crashing
   }
@@ -275,7 +276,7 @@ async function renderAndTransform(finalPath, scale = 5) {
     });
 
     if (psResult.includes("NO_EXCEL")) {
-      console.log("Скрипт остановлен: активный процесс Excel не найден.");
+      console.log("Script stopped: No active Excel process found..");
       return;
     }
 
@@ -284,7 +285,7 @@ async function renderAndTransform(finalPath, scale = 5) {
     }
 
     if (!psResult.includes("SUCCESS")) {
-      throw new Error("Ошибка выполнения экспорта в PowerShell: " + psResult);
+      throw new Error("Error executing export in PowerShell: " + psResult);
     }
 
     await startBackendFunc({
@@ -292,8 +293,6 @@ async function renderAndTransform(finalPath, scale = 5) {
       tempPath: tempImgPath,
       finalPath: finalPath,
     });
-
-    console.log("Изображение успешно создано:", finalPath);
 
     fs.unlink(tempScriptPath, () => {});
     fs.unlink(tempImgPath, () => {});
@@ -307,9 +306,9 @@ async function renderAndTransform(finalPath, scale = 5) {
 
     await showTopMostMessageBox({
       type: "info",
-      title: "Экспорт завершен",
-      message: "Изображение успешно сохранено!",
-      detail: `Файл сохранен по пути:\n${finalPath}`,
+      title: lng.renderAndTransform.done.title,
+      message: lng.renderAndTransform.done.message,
+      detail: `${lng.renderAndTransform.done.detail}\n${finalPath}`,
       buttons: ["OK"],
     });
   } catch (err) {
@@ -323,11 +322,11 @@ async function renderAndTransform(finalPath, scale = 5) {
       await unlockExcel();
     }
 
-    console.error("Критическая ошибка цепочки сохранения:", err);
+    console.error("Critical save chain error:", err);
     await showTopMostMessageBox({
       type: "error",
-      title: "Ошибка",
-      message: "Не удалось сохранить изображение",
+      title: lng.renderAndTransform.undone.title,
+      message: lng.renderAndTransform.undone.message,
       detail: err.message,
       buttons: ["OK"],
     });
@@ -376,13 +375,19 @@ function startExcelMonitor(intervalMs = 800) {
                 try {
                   const lockStatus = await lockExcel();
                   if (lockStatus.includes("NO_EXCEL")) {
-                    console.log("Excel закрыт или недоступен.");
+                    console.log("Excel is closed or unavailable.");
                     return;
                   }
                   isLockedBeforeDialog = true;
 
-                  const defaultName = `Скриншот.png`;
-                  const dialogResult = await spawnCustomSaveDialog(defaultName);
+                  const defaultName = `${lng.customSaveDialog.defaultName}.png`;
+                  const dialogTitle = lng.customSaveDialog.dialogTitle;
+                  const qualityText = lng.customSaveDialog.qualityText;
+                  const dialogResult = await spawnCustomSaveDialog([
+                    defaultName,
+                    dialogTitle,
+                    qualityText,
+                  ]);
 
                   if (dialogResult.path && !dialogResult.canceled) {
                     await renderAndTransform(
@@ -391,10 +396,10 @@ function startExcelMonitor(intervalMs = 800) {
                     );
                     isLockedBeforeDialog = false;
                   } else {
-                    console.log("Сохранение отменено пользователем.");
+                    console.log("Save cancelled by user.");
                   }
                 } catch (dialogErr) {
-                  console.error("Ошибка диалогового окна:", dialogErr);
+                  console.error("Dialog box error:", dialogErr);
                 } finally {
                   if (isLockedBeforeDialog) {
                     await unlockExcel();
@@ -407,7 +412,7 @@ function startExcelMonitor(intervalMs = 800) {
         }, 400);
       }
     } catch (err) {
-      console.error("Критическая ошибка буфера:", err);
+      console.error("Critical buffer error:", err);
     }
   }, intervalMs);
 }
@@ -427,38 +432,15 @@ ipcMain.handle("screenshotMode", async (event, isMode) => {
   screenshotMode(isMode);
 });
 
-ipcMain.on("excel-html", async (event, html) => {
-  if (isSaving) return;
-  isSaving = true;
-  let isLockedBeforeDialog = false;
-
-  try {
-    const lockStatus = await lockExcel();
-    if (lockStatus.includes("NO_EXCEL")) return;
-    isLockedBeforeDialog = true;
-
-    const dialogResult = await spawnCustomSaveDialog(`Скриншот.png`);
-    if (dialogResult.path && !dialogResult.canceled) {
-      await renderAndTransform(dialogResult.path, dialogResult.scale);
-      isLockedBeforeDialog = false;
-    }
-  } finally {
-    if (isLockedBeforeDialog) {
-      await unlockExcel();
-    }
-    isSaving = false;
-  }
-});
-
 // Global error and OS signal handlers for guaranteed Excel unlocking.
 process.on("uncaughtException", (error) => {
-  console.error("Критическая ошибка (uncaughtException):", error);
+  console.error("Critical error (uncaughtException):", error);
   emergencyUnlockExcelSync();
   process.exit(1);
 });
 
 process.on("unhandledRejection", (reason) => {
-  console.error("Необработанный Promise:", reason);
+  console.error("Raw Promise:", reason);
   emergencyUnlockExcelSync();
   process.exit(1);
 });

@@ -1,15 +1,15 @@
 import { lng, unflattenStyles } from "./store.js";
 
 export const availableLngs = ["en", "ru", "uk"];
-import lng_ru from "./language/ru.json";
-import lng_uk from "./language/uk.json";
-import lng_en from "./language/en.json";
+import lng_ru from "../../locales/ru.json";
+import lng_uk from "../../locales/uk.json";
+import lng_en from "../../locales/en.json";
 
-// Expand flat keys (e.g. "header.title") into nested objects during initialization
+// Extract only the "frontend" key before unpacking (unflatten)
 const lngs = {
-  ru: unflattenStyles(lng_ru),
-  uk: unflattenStyles(lng_uk),
-  en: unflattenStyles(lng_en),
+  ru: unflattenStyles(lng_ru.frontend || {}),
+  uk: unflattenStyles(lng_uk.frontend || {}),
+  en: unflattenStyles(lng_en.frontend || {}),
 };
 
 const defaultLng = lngs["uk"];
@@ -22,10 +22,22 @@ export async function changeLanguage(language) {
 
   let newLng = lngs[language];
 
-  // We use the default language (uk) as a fallback to fill in missing translations
+  // We use the default language (uk) as a fallback
   newLng = deepMerge(defaultLng, newLng);
 
   lng.set(newLng);
+
+  // Notifying the backend via the IPC bridge
+  if (window.electron) {
+    try {
+      await window.electron.languageSet(language);
+    } catch (err) {
+      console.error(
+        "Error notifying the backend about a language change:",
+        err,
+      );
+    }
+  }
 }
 
 function deepMerge(target, source) {
@@ -44,7 +56,7 @@ function deepMerge(target, source) {
   return result;
 }
 
-// Default language
+// Setting the default language when starting the frontend
 export function start() {
   lng.set(defaultLng);
 }

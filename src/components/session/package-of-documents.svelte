@@ -39,7 +39,6 @@
     ePercentage,
     eKuratorNom,
     eKuratorGen;
-  let semesterStart, semesterEnd;
   let currentStudentRow;
   let studentListMoveProcessing = false;
   let statusListMoveProcessing = false;
@@ -99,6 +98,17 @@
       increasedList = list;
     }
 
+    const translatedSocialyList = socialyList.map((item) => {
+      let finalStatus = item.status;
+      if (item.status && statusesList[item.status]) {
+        finalStatus = statusesList[item.status];
+      }
+      return {
+        ...item,
+        status: finalStatus,
+      };
+    });
+
     // Validation: checking all required data and the absence of empty rows in student lists
     if (
       data.subgroups.length === 0 ||
@@ -106,12 +116,12 @@
       uploadedFile === null ||
       eKuratorNom.value === "" ||
       eKuratorGen.value === "" ||
-      semesterStart === "" ||
-      semesterEnd === "" ||
-      strToDate(semesterEnd) <= strToDate(semesterStart) ||
+      data.semesterStart === "" ||
+      data.semesterEnd === "" ||
+      strToDate(data.semesterEnd) <= strToDate(data.semesterStart) ||
       increasedList.some((item) => item.studentName === null) ||
-      socialyList.some((item) => item.studentName === null) ||
-      socialyList.some((item) => item.status === null)
+      translatedSocialyList.some((item) => item.studentName === null) ||
+      translatedSocialyList.some((item) => item.status === null)
     ) {
       message.set({ type: "error", text: "packageOfDocuments.notAllData" });
       return;
@@ -121,18 +131,14 @@
       ...data,
       id: thisId,
       filePath: uploadedFile.path,
-      socialyList: socialyList,
+      socialyList: translatedSocialyList,
       increasedList: increasedList,
       kuratorNom: eKuratorNom.value,
       kuratorGen: eKuratorGen.value,
-      semesterStart: semesterStart,
-      semesterEnd: semesterEnd,
     };
 
-    console.log(endInformation);
     endInformation =
       await window.electron.sessionPackageDataSupplement(endInformation);
-    console.log(endInformation);
 
     savedInformation.set(endInformation);
   }
@@ -224,7 +230,6 @@
       data = await window.electron.sessionPackageGetInformation(
         detail.file.path,
       );
-      console.log(data);
       if (!data) {
         message.set({ type: "error", text: "inputFile.error" });
         clearInformation.set(thisId);
@@ -241,7 +246,6 @@
         return acc;
       }, {});
     }
-    console.log(data);
   }
 
   function handleFileRemove(detail) {
@@ -649,7 +653,7 @@
     overflow-y: auto;
   }
   .list::-webkit-scrollbar {
-    display: none; /* Chrome, Safari и Edge */
+    display: none;
   }
 
   .list .row {
@@ -733,8 +737,8 @@
   .speciality-code {
     border-top-width: 1px;
     display: flex;
-    justify-content: center; /* горизонтально */
-    align-items: center; /* вертикально */
+    justify-content: center;
+    align-items: center;
   }
   :global(.social-scholarship .students-by-specialty) {
     overflow: auto;

@@ -177,7 +177,6 @@
     justify-content: center;
   }
 
-  /* Приховування стандартного скроллбару */
   .loaded-groups::-webkit-scrollbar {
     display: none;
   }

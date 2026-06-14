@@ -9,7 +9,7 @@ async function convertToGenitive(fullNameString) {
     const parts = fullNameString.trim().split(/\s+/);
 
     if (parts.length < 2) {
-      throw new Error("Строка должна содержать как минимум имя и фамилию");
+      throw new Error("The line must contain at least the first and last name");
     }
 
     const givenName = parts[0];
@@ -208,6 +208,15 @@ function dataSupplement(data) {
     const specialityData = subgroups[specIndex];
     const students = specialityData.students;
 
+    students.forEach((student) => {
+      const grade = parseGrade(student.avgGrade);
+      if (student.bc === "Б" && grade !== -1) {
+        student.ratingGrade = ((grade / 12) * 90).toFixed(2).replace(".", ",");
+      } else {
+        student.ratingGrade = null;
+      }
+    });
+
     specialityData.socialScholarshipList = [];
     specialityData.increasedScholarshipList = [];
     specialityData.sameScoresList = [];
@@ -268,7 +277,7 @@ function dataSupplement(data) {
       .map((originalIndex) => {
         return {
           index: originalIndex,
-          score: parseFloat(students[originalIndex].avgGrade),
+          score: parseGrade(students[originalIndex].avgGrade),
         };
       });
 
@@ -298,6 +307,41 @@ function dataSupplement(data) {
       if (student.increased && student.scholarship) {
         specialityData.increasedScholarshipList.push(studIndex);
       }
+    });
+
+    // Sorting the lists socialScholarshipList and increasedScholarshipList by the avgGrade and studentName fields
+    specialityData.socialScholarshipList.sort((indexA, indexB) => {
+      const studentA = students[indexA];
+      const studentB = students[indexB];
+
+      const gradeA = parseGrade(studentA.avgGrade);
+      const gradeB = parseGrade(studentB.avgGrade);
+
+      if (gradeA !== gradeB) {
+        return gradeB - gradeA; // Highest score
+      }
+
+      // Alphabetically from A to Z
+      return (studentA.studentName || "").localeCompare(
+        studentB.studentName || "",
+      );
+    });
+
+    specialityData.increasedScholarshipList.sort((indexA, indexB) => {
+      const studentA = students[indexA];
+      const studentB = students[indexB];
+
+      const gradeA = parseGrade(studentA.avgGrade);
+      const gradeB = parseGrade(studentB.avgGrade);
+
+      if (gradeA !== gradeB) {
+        return gradeB - gradeA; // Highest score
+      }
+
+      // Alphabetically from A to Z
+      return (studentA.studentName || "").localeCompare(
+        studentB.studentName || "",
+      );
     });
   }
 

@@ -9,12 +9,10 @@
     "electron:dev": "nodemon",
     "app:dev": "concurrently -k \"npm run vite:dev\" \"npm run electron:dev\"",
     "py:build": "src\\scripts\\python\\build.bat",
-    "python:build": "src\\scripts\\python\\build.bat",
     "py:test": "src\\scripts\\python\\test.bat",
-    "python:test": "src\\scripts\\python\\test.bat",
     "vite:build": "vite build",
     "electron:build": "electron-builder --config.forceCodeSigning=false --config.generateUpdatesFilesForAllChannels=false",
-    "app:build": "npm run py:build && npm run electron:build && npm run vite:build",
+    "app:build": "npm run py:build && npm run vite:build && npm run electron:build", 
     "vite:preview": "vite preview"
   },
   "dependencies": {
@@ -41,11 +39,26 @@
       "output": "dist"
     },
     "files": [
-      "**/*"
+      "main.cjs",
+      "main.js",
+      "preload.cjs",
+      "src/scripts/**/*.js",
+      "public/**/*",
+      {
+        "from": "dist-vite",
+        "to": "dist",
+        "filter": ["**/*"]
+      },
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "src/scripts/python", 
+        "to": "python-backend",
+        "filter": ["**/*"] 
+      }
     ],
     "asar": false,
-    "forceCodeSigning": false,
-    "generateUpdatesFilesForAllChannels": false,
     "win": {
       "icon": "public/icon.ico",
       "target": "nsis"

@@ -7,7 +7,6 @@
     message,
     lng,
     textFilter,
-    handleInput,
   } from "../../lib/store.js";
   import FileInput from "../FileInput.svelte";
   import CustomDateInput from "../CustomDateInput.svelte";

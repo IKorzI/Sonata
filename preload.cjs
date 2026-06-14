@@ -3,6 +3,7 @@ const { contextBridge, ipcRenderer } = require("electron");
 contextBridge.exposeInMainWorld("electron", {
   minimize: () => ipcRenderer.send("window-action", "minimize"),
   close: () => ipcRenderer.send("window-action", "close"),
+  languageSet: (lng) => ipcRenderer.invoke("languageSet", lng),
 
   saveDialog: (fileName, extension) =>
     ipcRenderer.invoke("save-dialog", fileName, extension),
