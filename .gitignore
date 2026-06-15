@@ -4,3 +4,5 @@ dist-vite/
 *.sublime-project
 *.sublime-workspace
 *.code-workspace
+src/scripts/python/_internal
+src/scripts/python/__pycache__
