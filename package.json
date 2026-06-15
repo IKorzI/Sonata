@@ -10,11 +10,10 @@
     "app:dev": "concurrently -k \"npm run vite:dev\" \"npm run electron:dev\"",
     "C#:build": "src\\scripts\\C#\\CustomSaveDialog\\build.bat",
     "py:build": "src\\scripts\\python\\build.bat",
-    "py:test": "src\\scripts\\python\\test.bat",
     "vite:build": "vite build",
     "electron:build": "electron-builder --config.forceCodeSigning=false --config.generateUpdatesFilesForAllChannels=false",
-    "app:build": "npm run C#:build && npm run py:build && npm run vite:build && npm run electron:build", 
-    "vite:preview": "vite preview"
+    "app:build": "npm run C#:build && npm run py:build && npm run vite:build && npm run electron:build",
+    "py:test": "src\\scripts\\python\\test.bat"
   },
   "dependencies": {
     "fs": "^0.0.1-security",
