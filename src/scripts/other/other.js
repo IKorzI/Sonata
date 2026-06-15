@@ -17,6 +17,14 @@ let lastClipboardText = "";
 let isExcelGloballyLocked = false;
 
 async function spawnCustomSaveDialog(params) {
+  if (process.env.E2E_TEST === 'true') {
+    return {
+      "canceled": false,
+      "path": path.join(__dirname, "..", "..", "..", 'test', params.defaultName), // Убедись, что в объекте params точно есть свойство defaultName
+      "scale": 2
+    };
+  }
+
   isDialogOpen = true;
 
   return new Promise((resolve) => {
