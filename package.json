@@ -8,11 +8,12 @@
     "vite:dev": "vite",
     "electron:dev": "nodemon",
     "app:dev": "concurrently -k \"npm run vite:dev\" \"npm run electron:dev\"",
+    "C#:build": "src\\scripts\\C#\\CustomSaveDialog\\build.bat",
     "py:build": "src\\scripts\\python\\build.bat",
     "py:test": "src\\scripts\\python\\test.bat",
     "vite:build": "vite build",
     "electron:build": "electron-builder --config.forceCodeSigning=false --config.generateUpdatesFilesForAllChannels=false",
-    "app:build": "npm run py:build && npm run vite:build && npm run electron:build", 
+    "app:build": "npm run C#:build && npm run py:build && npm run vite:build && npm run electron:build", 
     "vite:preview": "vite preview"
   },
   "dependencies": {
@@ -42,8 +43,10 @@
       "main.cjs",
       "main.js",
       "preload.cjs",
+      "src/scripts/other/**/*.{exe,dll}",
       "src/scripts/**/*.js",
       "public/**/*",
+      "locales/**/*",
       {
         "from": "dist-vite",
         "to": "dist",
