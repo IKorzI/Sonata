@@ -139,6 +139,7 @@
 
     endInformation =
       await window.electron.sessionPackageDataSupplement(endInformation);
+    console.log(endInformation)
 
     savedInformation.set(endInformation);
   }

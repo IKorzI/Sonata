@@ -533,7 +533,7 @@
                     ],
                     "avgGrade": 6.79,
                     "bc": "Б",
-                    "socialStatus": null,
+                    "socialStatus": "Внутрішньо переміщена особа",
                     "scholarship": false,
                     "increased": false,
                     "ratingGrade": "50,92"
@@ -558,7 +558,7 @@
                     ],
                     "avgGrade": "-",
                     "bc": "К",
-                    "socialStatus": "Дитина-інвалід",
+                    "socialStatus": null,
                     "scholarship": false,
                     "increased": false,
                     "ratingGrade": null
@@ -658,7 +658,7 @@
                     ],
                     "avgGrade": 6.79,
                     "bc": "Б",
-                    "socialStatus": "Внутрішньо переміщена особа",
+                    "socialStatus": null,
                     "scholarship": false,
                     "increased": false,
                     "ratingGrade": "50,92"
@@ -758,7 +758,7 @@
                     ],
                     "avgGrade": 7.36,
                     "bc": "Б",
-                    "socialStatus": "Багатодітна малозабезпечена родина",
+                    "socialStatus": null,
                     "scholarship": false,
                     "increased": false,
                     "ratingGrade": "55,20"
@@ -1085,7 +1085,7 @@
                     "bc": "Б",
                     "socialStatus": null,
                     "scholarship": true,
-                    "increased": false,
+                    "increased": true,
                     "ratingGrade": "65,92"
                 },
                 {
@@ -1248,12 +1248,12 @@
             "specialityName": "«Торгівля»",
             "scholarshipNumber": 5,
             "socialScholarshipList": [
-                10,
                 0,
-                6,
-                2
+                1
             ],
-            "increasedScholarshipList": [],
+            "increasedScholarshipList": [
+                23
+            ],
             "sameScoresList": [
                 [
                     1,

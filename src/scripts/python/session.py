@@ -434,7 +434,7 @@ def session_PackageOfDocuments(info, app_path):
         for i in range(subgroup["scholarship_number"], len(subgroup["students"])):
             index = subgroup["sorted_list"][i]
             student = subgroup["students"][index]
-            if student["rating_grade"] != None:
+            if student["rating_grade"] == None:
                 continue
             student_name = student["student_name"]
             grade = student["rating_grade"]

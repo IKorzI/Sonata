@@ -533,7 +533,7 @@
                     ],
                     "avg_grade": 6.79,
                     "bc": "Б",
-                    "social_status": null,
+                    "social_status": "Внутрішньо переміщена особа",
                     "scholarship": false,
                     "increased": false,
                     "rating_grade": "50,92"
@@ -558,7 +558,7 @@
                     ],
                     "avg_grade": "-",
                     "bc": "К",
-                    "social_status": "Дитина-інвалід",
+                    "social_status": null,
                     "scholarship": false,
                     "increased": false,
                     "rating_grade": null
@@ -658,7 +658,7 @@
                     ],
                     "avg_grade": 6.79,
                     "bc": "Б",
-                    "social_status": "Внутрішньо переміщена особа",
+                    "social_status": null,
                     "scholarship": false,
                     "increased": false,
                     "rating_grade": "50,92"
@@ -758,7 +758,7 @@
                     ],
                     "avg_grade": 7.36,
                     "bc": "Б",
-                    "social_status": "Багатодітна малозабезпечена родина",
+                    "social_status": null,
                     "scholarship": false,
                     "increased": false,
                     "rating_grade": "55,20"
@@ -1085,7 +1085,7 @@
                     "bc": "Б",
                     "social_status": null,
                     "scholarship": true,
-                    "increased": false,
+                    "increased": true,
                     "rating_grade": "65,92"
                 },
                 {
@@ -1248,12 +1248,12 @@
             "speciality_name": "«Торгівля»",
             "scholarship_number": 5,
             "social_scholarship_list": [
-                10,
                 0,
-                6,
-                2
+                1
             ],
-            "increased_scholarship_list": [],
+            "increased_scholarship_list": [
+                23
+            ],
             "same_scores_list": [
                 [
                     1,
