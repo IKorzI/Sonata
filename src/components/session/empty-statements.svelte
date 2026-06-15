@@ -164,7 +164,7 @@
   bind:this={this_}
 >
   <FileInput
-    eId="session--empty-statements--hours"
+    eId={`${thisId}--hours`}
     extensions={[".xlsx"]}
     type="excel"
     on:fileSelected={(event) => handleFileInputChange(event.detail)}
@@ -173,7 +173,7 @@
   />
 
   <FileInput
-    eId="session--empty-statements--contingent"
+    eId={`${thisId}--contingent`}
     extensions={[".xlsx"]}
     type="excel"
     on:fileSelected={(event) => handleFileInputChange(event.detail)}

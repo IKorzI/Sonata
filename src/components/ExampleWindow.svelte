@@ -50,6 +50,10 @@
     "session--package-of-documents--statements": ["statements"],
     "session--report--statements": ["statements"],
     "session--debtors--statements": ["statements"],
+
+    "other--templates--statements": ["statements"],
+    "other--templates--hours": ["hours"],
+    "other--templates--contingent": ["contingent"]
   };
 
   // Forming a flat list of all unique images for their pre-rendering (caching) in the DOM
@@ -228,6 +232,39 @@
         },
       ],
     },
+    "other--templates--statements": {
+      downloadable: true,
+      fileNameToSave: $lng.exampleWindow.names.statements.fileNameToSave,
+      filePathToSave: "statements",
+      filesToDisplay: [
+        {
+          filePath: "statements",
+          displayName: $lng.exampleWindow.names.statements.displayName,
+        },
+      ],
+    },
+    "other--templates--hours": {
+      downloadable: true,
+      fileNameToSave: $lng.exampleWindow.names.hours.fileNameToSave,
+      filePathToSave: "hours",
+      filesToDisplay: [
+        {
+          filePath: "hours",
+          displayName: $lng.exampleWindow.names.hours.displayName,
+        },
+      ],
+    },
+    "other--templates--contingent": {
+      downloadable: true,
+      fileNameToSave: $lng.exampleWindow.names.contingent.fileNameToSave,
+      filePathToSave: "contingent",
+      filesToDisplay: [
+        {
+          filePath: "contingent",
+          displayName: $lng.exampleWindow.names.contingent.displayName,
+        },
+      ],
+    }
   };
 
   $: currentImages =

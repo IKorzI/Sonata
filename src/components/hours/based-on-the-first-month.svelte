@@ -196,7 +196,7 @@
   bind:this={this_}
 >
   <FileInput
-    eId="hours--based-on-the-first-month--hours"
+    eId={`${thisId}--hours`}
     extensions={[".xlsx"]}
     type="excel"
     on:fileSelected={(event) => handleFileInputChange(event.detail)}

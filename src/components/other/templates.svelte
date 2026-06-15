@@ -25,9 +25,9 @@
   style:opacity={$selectedSection === thisId ? 1 : 0}
   bind:this={this_}
 >
-  <FileOutput eId="statements" type="excel" />
-  <FileOutput eId="hours" type="excel" />
-  <FileOutput eId="contingent" type="excel" />
+  <FileOutput eId={`${thisId}--statements`} type="excel" />
+  <FileOutput eId={`${thisId}--hours`} type="excel" />
+  <FileOutput eId={`${thisId}--contingent`} type="excel" />
 </div>
 
 <style>

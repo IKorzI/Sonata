@@ -130,7 +130,6 @@ export async function handleInput(input, params) {
 }
 
 export function strToDate(str) {
-  console.log(str);
   const [day, month, year] = str.split(".").map(Number);
   return new Date(year, month - 1, day); // month - 1 due to zero-based month indexing
 }

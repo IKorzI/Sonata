@@ -97,7 +97,7 @@
   bind:this={this_}
 >
   <FileInput
-    eId="hours--summary-of-teachers--hours"
+    eId={`${thisId}--hours`}
     extensions={[".xlsx"]}
     type="excel"
     on:fileSelected={(event) => handleFileInputChange(event.detail)}

@@ -120,7 +120,7 @@
   bind:this={this_}
 >
   <FileInput
-    eId="session--debtors--statements"
+    eId={`${thisId}--statements`}
     extensions={[".xlsx"]}
     type="excel"
     on:fileSelected={(event) => handleFileInputChange(event.detail)}

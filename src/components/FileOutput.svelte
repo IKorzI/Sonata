@@ -7,21 +7,21 @@
   let _lng = {};
   lng.subscribe((value) => (_lng = value));
   $: label = {
-    statements: _lng.fileOutput.label.statements,
-    hours: _lng.fileOutput.label.hours,
-    contingent: _lng.fileOutput.label.contingent,
+    "other--templates--statements": _lng.fileOutput.label.statements,
+    "other--templates--hours": _lng.fileOutput.label.hours,
+    "other--templates--contingent": _lng.fileOutput.label.contingent,
   };
 
   $: names = {
-    statements: {
+    "other--templates--statements": {
       fileNameToSave: _lng.fileOutput.names.statements,
       filePathToSave: "statements",
     },
-    hours: {
+    "other--templates--hours": {
       fileNameToSave: _lng.fileOutput.names.hours,
       filePathToSave: "hours",
     },
-    contingent: {
+    "other--templates--contingent": {
       fileNameToSave: _lng.fileOutput.names.contingent,
       filePathToSave: "contingent",
     },
