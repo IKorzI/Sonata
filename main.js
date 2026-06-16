@@ -94,6 +94,8 @@ function createWindow() {
 
       menu.popup();
     });
+  } else if (process.env.E2E_TEST === 'true') {
+    mainWindow.loadFile(path.join(__dirname, "dist-vite", "index.html"));
   } else {
     mainWindow.loadFile(path.join(__dirname, "dist", "index.html"));
   }

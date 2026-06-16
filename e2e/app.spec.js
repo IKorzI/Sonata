@@ -14,10 +14,10 @@ test('Успешный клик по кнопкам и проверка созд
 
   const window = await electronApp.firstWindow();
 
-  await window.locator('#other').click();
-  await window.locator('.start').click();
+  await window.locator('.section-button#other').click();
+  await window.locator('#num-den .start').click();
 
-  const expectedFilePath = path.join(__dirname, '../test-output-vedomost.xlsx');
+  const expectedFilePath = path.join(__dirname, '../test/Чисельник Знаменник.xlsx');
 
   await expect.poll(() => fs.existsSync(expectedFilePath), {
     message: 'Файл ведомости не был создан в отведенное время',
