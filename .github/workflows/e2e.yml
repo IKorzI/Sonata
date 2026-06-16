@@ -25,7 +25,8 @@ jobs:
         python-version: '3.12'
 
     - name: Установка зависимостей Python (PyInstaller)
-      run: pip install pyinstaller
+      run: |
+        pip install -r src/scripts/python/requirements.txt
 
     - name: Установка Node-модулей
       run: npm install
