@@ -5,6 +5,7 @@ import { spawn } from "child_process";
 import fs from "fs";
 import readline from "readline";
 import { lng } from "./language.js";
+import { app } from 'electron';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -140,11 +141,13 @@ export function findCell(sheet, searchValue, direction, startAddress) {
   return null;
 }
 
-const isDev = process.env.NODE_ENV?.trim() === "development";
+let pythonBasePath;
 
-const pythonBasePath = isDev
-  ? path.join(process.cwd(), "src", "scripts", "python")
-  : path.join(process.resourcesPath, "python-backend");
+if (app.isPackaged) {
+  pythonBasePath = path.join(process.resourcesPath, 'python-backend');
+} else {
+  pythonBasePath = path.join(up2, "src", "scripts", "python"); 
+}
 
 const pathStart = path.join(pythonBasePath, "start.exe");
 
