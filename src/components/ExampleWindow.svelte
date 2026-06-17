@@ -53,7 +53,7 @@
 
     "other--templates--statements": ["statements"],
     "other--templates--hours": ["hours"],
-    "other--templates--contingent": ["contingent"]
+    "other--templates--contingent": ["contingent"],
   };
 
   // Forming a flat list of all unique images for their pre-rendering (caching) in the DOM
@@ -264,7 +264,7 @@
           displayName: $lng.exampleWindow.names.contingent.displayName,
         },
       ],
-    }
+    },
   };
 
   $: currentImages =
@@ -555,6 +555,9 @@
     updateTransform();
   }
 </script>
+
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 
 <div class="example-area" bind:this={areaEl}>
   <div

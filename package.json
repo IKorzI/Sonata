@@ -14,7 +14,8 @@
     "electron:build": "electron-builder --config.forceCodeSigning=false --config.generateUpdatesFilesForAllChannels=false",
     "app:build": "npm run C#:build && npm run py:build && npm run vite:build && npm run electron:build",
     "py:test": "src\\scripts\\python\\test.bat",
-    "app:test": "npx playwright test"
+    "app:test": "npx playwright test",
+    "app:testDebug": "npx playwright test --debug "
   },
   "dependencies": {
     "fs": "^0.0.1-security",

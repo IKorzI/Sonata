@@ -139,7 +139,7 @@
 
     endInformation =
       await window.electron.sessionPackageDataSupplement(endInformation);
-    console.log(endInformation)
+    console.log(endInformation);
 
     savedInformation.set(endInformation);
   }
@@ -445,6 +445,10 @@
     window.removeEventListener("click", handleGlobalClick);
   });
 </script>
+
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 
 <div
   class="gui"

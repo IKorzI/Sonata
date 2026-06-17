@@ -65,7 +65,7 @@
     if (
       percentageOfScholarship === "" ||
       firstIndex === "" ||
-      contingentData === { semesterNumber: "" } ||
+      contingentData.semesterNumber === "" ||
       hoursData === null ||
       uploadedFileHours === null ||
       uploadedFileContingent === null ||
@@ -86,13 +86,13 @@
       firstIndex: Number(firstIndex),
       hoursData: hoursData,
       contingentData: contingentData,
-      semesterNumber: semesterNumber
+      semesterNumber: semesterNumber,
     };
 
     // Final data supplementation before sending to the backend
     endInformation =
       await window.electron.sessionEmptyDataSupplement(endInformation);
-    console.log(endInformation)
+    console.log(endInformation);
     savedInformation.set(endInformation);
   }
 
@@ -107,7 +107,7 @@
       );
 
       if (result) {
-        hoursData = result
+        hoursData = result;
       } else {
         message.set({ type: "error", text: _lng.inputFile.error });
         uploadedFileHours = null;
@@ -220,7 +220,8 @@
       value={contingentData.semesterNumber}
       class:unavailable={uploadedFileHours === null ||
         uploadedFileContingent === null}
-      on:input={(e) => handleInput(e.target, { numbers: true, minNumber: 1, maxNumber: 2 })}
+      on:input={(e) =>
+        handleInput(e.target, { numbers: true, minNumber: 1, maxNumber: 2 })}
     />
   </div>
 </div>

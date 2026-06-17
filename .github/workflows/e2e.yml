@@ -2,52 +2,52 @@ name: E2E Tests
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build-and-test:
     runs-on: windows-latest
 
     steps:
-    - name: Получение кода
-      uses: actions/checkout@v4
+      - name: Получение кода
+        uses: actions/checkout@v4
 
-    - name: Установка Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
+      - name: Установка Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
-    - name: Установка Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.12'
+      - name: Установка Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
-    - name: Установка зависимостей Python (PyInstaller)
-      run: |
-        pip install -r src/scripts/python/requirements.txt
+      - name: Установка зависимостей Python (PyInstaller)
+        run: |
+          pip install -r src/scripts/python/requirements.txt
 
-    - name: Установка Node-модулей
-      run: npm install
+      - name: Установка Node-модулей
+        run: npm install
 
-    - name: Install System Dependencies (LibreOffice & GraphicsMagick)
-          run: |
-            choco install libreoffice --no-progress -y
-            choco install graphicsmagick --no-progress -y
-            choco install ghostscript --no-progress -y
+      - name: Install System Dependencies (LibreOffice & GraphicsMagick)
+        run: |
+          choco install libreoffice --no-progress -y
+          choco install graphicsmagick --no-progress -y
+          choco install ghostscript --no-progress -y
 
-    - name: Сборка C#
-      run: npm run C#:build
+      - name: Сборка C#
+        run: npm run C#:build
 
-    - name: Сборка Python
-      run: npm run py:build
+      - name: Сборка Python
+        run: npm run py:build
 
-    - name: Сборка Vite (Frontend)
-      run: npm run vite:build
+      - name: Сборка Vite (Frontend)
+        run: npm run vite:build
 
-    - name: Установка браузеров для Playwright (нужно для работы фреймворка)
-      run: npx playwright install --with-deps chromium
+      - name: Установка браузеров для Playwright (нужно для работы фреймворка)
+        run: npx playwright install --with-deps chromium
 
-    - name: Запуск E2E тестов
-      run: npx playwright test
+      - name: Запуск E2E тестов
+        run: npx playwright test
