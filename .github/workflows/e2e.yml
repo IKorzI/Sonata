@@ -31,6 +31,12 @@ jobs:
     - name: Установка Node-модулей
       run: npm install
 
+    - name: Install System Dependencies (LibreOffice & GraphicsMagick)
+          run: |
+            choco install libreoffice --no-progress -y
+            choco install graphicsmagick --no-progress -y
+            choco install ghostscript --no-progress -y
+
     - name: Сборка C#
       run: npm run C#:build
 

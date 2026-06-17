@@ -26,6 +26,7 @@
 
     "emptyStatements.percentage": "% of scholarship budget",
     "emptyStatements.firstIndex": "Number of the first statement in the issue journal",
+    "emptyStatements.semesterNumber": "Semester number",
 
     "packageOfDocuments.socialScholarship.statusesList": {
       "vpo": "Internally displaced person",

@@ -10,7 +10,7 @@ from session import (
     session_DebtorsStart,
 )
 from hours import hours_BasedOnTheFirstMonth, hours_SummaryOfTeachers
-from other import extend_image, other_NumDenStart
+from other import other_extend_image, other_NumDenStart
 
 
 def test_save_info(data):
@@ -151,7 +151,7 @@ if __name__ == "__main__":
             elif data["id"] == "other--other--screenshot--transform":
                 path = data["temp_path"]
                 final_path = data["final_path"]
-                result = extend_image(path, final_path)
+                result = other_extend_image(path, final_path)
             elif data["id"] == "other--other--num-den":
                 result = other_NumDenStart(data, up2)
 

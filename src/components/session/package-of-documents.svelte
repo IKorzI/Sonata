@@ -146,7 +146,7 @@
 
   // Management of positioning and animation of custom dropdown lists with prevention of timing conflicts
   function stylesLoadedSet(type, value, top = null, left = null) {
-    if (type === "student" && !studentListMoveProcessing) {
+    if (type === "student" && (!studentListMoveProcessing || !value)) {
       studentListMoveProcessing = true;
       if (value) {
         if (!eStudentsBySpecialty.classList.contains("showed")) {
@@ -184,7 +184,7 @@
         }, 400);
         showedStudentList = false;
       }
-    } else if (type === "status" && !statusListMoveProcessing) {
+    } else if (type === "status" && (!statusListMoveProcessing || !value)) {
       statusListMoveProcessing = true;
       if (value) {
         if (!eStatusList.classList.contains("showed")) {

@@ -487,7 +487,7 @@ def session_PackageOfDocuments(info, app_path):
             doc_petition = replace_text(
                 doc_petition, "semester_number_1", info["semester_number_word"]
             )
-            doc_petition = replace_text(doc_petition, "years1", info["years"])
+            doc_petition = replace_text(doc_petition, "years_1", info["years"])
             doc_petition = replace_text(
                 doc_petition, "semester_date_start_1", semester_dates_start
             )

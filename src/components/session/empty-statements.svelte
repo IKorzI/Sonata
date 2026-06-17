@@ -17,11 +17,11 @@
   let this_;
   let uploadedFileHours = null;
   let uploadedFileContingent = null;
-  let ePercentage, eFirstIndex;
+  let ePercentage, eFirstIndex, eSemesterNumber;
   let percentageOfScholarship = "";
   let firstIndex = "";
 
-  let contingentData = null;
+  let contingentData = { semesterNumber: "" };
   let hoursData = null;
 
   $: if ($selectedSection) {
@@ -53,7 +53,7 @@
   }
 
   function clearAll() {
-    contingentData = null;
+    contingentData = { semesterNumber: "" };
     hoursData = null;
     uploadedFileHours = null;
     uploadedFileContingent = null;
@@ -63,12 +63,13 @@
 
   async function saveAll() {
     if (
-      ePercentage.value === "" ||
-      eFirstIndex.value === "" ||
-      contingentData === null ||
+      percentageOfScholarship === "" ||
+      firstIndex === "" ||
+      contingentData === { semesterNumber: "" } ||
       hoursData === null ||
       uploadedFileHours === null ||
-      uploadedFileContingent === null
+      uploadedFileContingent === null ||
+      semesterNumber === null
     ) {
       message.set({ type: "error", text: _lng.emptyStatements.notAllData });
       return;
@@ -81,15 +82,17 @@
     let endInformation = {
       id: thisId,
       filePath: targetPath,
-      percentage: Number(ePercentage.value),
-      firstIndex: Number(eFirstIndex.value),
+      percentage: Number(percentageOfScholarship),
+      firstIndex: Number(firstIndex),
       hoursData: hoursData,
       contingentData: contingentData,
+      semesterNumber: semesterNumber
     };
 
     // Final data supplementation before sending to the backend
     endInformation =
       await window.electron.sessionEmptyDataSupplement(endInformation);
+    console.log(endInformation)
     savedInformation.set(endInformation);
   }
 
@@ -98,12 +101,14 @@
     if (!window.electron) return;
 
     if (detail.id === "session--empty-statements--hours") {
-      hoursData = await window.electron.sessionEmptyGetInformation(
+      const result = await window.electron.sessionEmptyGetInformation(
         detail.file.path,
         "hours",
       );
 
-      if (!hoursData) {
+      if (result) {
+        hoursData = result
+      } else {
         message.set({ type: "error", text: _lng.inputFile.error });
         uploadedFileHours = null;
         hoursData = null;
@@ -118,15 +123,17 @@
 
       uploadedFileHours = detail.file;
     } else if (detail.id === "session--empty-statements--contingent") {
-      contingentData = await window.electron.sessionEmptyGetInformation(
+      const result = await window.electron.sessionEmptyGetInformation(
         detail.file.path,
         "contingent",
       );
 
-      if (!contingentData) {
+      if (result) {
+        contingentData = result;
+      } else {
         message.set({ type: "error", text: _lng.inputFile.error });
         uploadedFileContingent = null;
-        contingentData = null;
+        contingentData = { semesterNumber: "" };
 
         // Clearing the specific FileInput component in case of a file reading error
         clearInformation.set("session--empty-statements--contingent");
@@ -152,7 +159,7 @@
       hoursData = null;
     } else if (detail.id === "session--empty-statements--contingent") {
       uploadedFileContingent = null;
-      contingentData = null;
+      contingentData = { semesterNumber: "" };
     }
   }
 </script>
@@ -204,6 +211,18 @@
       on:input={(e) => handleInput(e.target, { numbers: true })}
     />
   </div>
+
+  <div class="semester-number">
+    <div>{_lng.emptyStatements.semesterNumber}</div>
+    <input
+      type="text"
+      bind:this={eSemesterNumber}
+      value={contingentData.semesterNumber}
+      class:unavailable={uploadedFileHours === null ||
+        uploadedFileContingent === null}
+      on:input={(e) => handleInput(e.target, { numbers: true, minNumber: 1, maxNumber: 2 })}
+    />
+  </div>
 </div>
 
 <style>
@@ -245,6 +264,23 @@
     padding-left: 0px;
   }
   .first-index div {
+    text-align: right;
+    padding-right: 15px;
+  }
+
+  .semester-number {
+    position: absolute;
+    top: 330px;
+    display: grid;
+    grid-template-columns: 360px 25px;
+    row-gap: 5px;
+  }
+  .semester-number input {
+    width: 50px;
+    text-align: center;
+    padding-left: 0px;
+  }
+  .semester-number div {
     text-align: right;
     padding-right: 15px;
   }

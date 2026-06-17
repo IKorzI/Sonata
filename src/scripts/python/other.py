@@ -10,55 +10,7 @@ from datetime import datetime, timedelta
 from utils import MONTH_NAMES_CAPITAL
 from utils import save_file
 
-
-def get_clipboard_html():
-    """
-    Returns HTML from the clipboard, if any.
-
-    Returns:
-        str or None: HTML code from the clipboard or None if not found or an error occurred.
-    """
-    # Getting the HTML format from the clipboard
-    fmt = cb.RegisterClipboardFormat("HTML Format")
-    cb.OpenClipboard()
-    try:
-        if cb.IsClipboardFormatAvailable(fmt):
-            data = cb.GetClipboardData(fmt)
-            # data is bytes -> convert to str handling different encodings
-            if isinstance(data, bytes):
-                try:
-                    return data.decode("utf-8", errors="ignore")
-                except:
-                    return data.decode("cp1251", errors="ignore")
-            return data
-    except Exception:
-        pass
-    finally:
-        cb.CloseClipboard()
-
-    return None
-
-
-def other_ScreenshotMode():
-    """
-    Monitors the clipboard for HTML from Microsoft Excel and outputs it.
-    """
-    last_html = None
-
-    # Infinite loop for continuous monitoring of the clipboard
-    while True:
-        html = get_clipboard_html()
-
-        if html and html != last_html and "Microsoft Excel" in html:
-            last_html = html
-
-            print("__PY_READY__", flush=True)
-            print(html, flush=True)
-
-        time.sleep(0.2)
-
-
-def extend_image(path, final_path):
+def other_extend_image(path, final_path):
     """
     Extends the image by adding white margins at the edges.
 

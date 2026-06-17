@@ -13,10 +13,14 @@
     "vite:build": "vite build",
     "electron:build": "electron-builder --config.forceCodeSigning=false --config.generateUpdatesFilesForAllChannels=false",
     "app:build": "npm run C#:build && npm run py:build && npm run vite:build && npm run electron:build",
-    "py:test": "src\\scripts\\python\\test.bat"
+    "py:test": "src\\scripts\\python\\test.bat",
+    "app:test": "npx playwright test"
   },
   "dependencies": {
     "fs": "^0.0.1-security",
+    "pdf2pic": "^3.2.0",
+    "pixelmatch": "^7.2.0",
+    "pngjs": "^7.0.0",
     "shevchenko": "^3.2.2",
     "svelte": "^4.2.7",
     "web-streams-polyfill": "^4.2.0",

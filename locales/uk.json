@@ -26,6 +26,7 @@
 
     "emptyStatements.percentage": "% бюджета на стипендию",
     "emptyStatements.firstIndex": "Номер першої відомості у журналі видачі",
+    "emptyStatements.semesterNumber": "Номер семестру",
 
     "packageOfDocuments.socialScholarship.statusesList": {
       "vpo": "Внутрішньо переміщена особа",
