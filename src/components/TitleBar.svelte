@@ -138,7 +138,7 @@
     grid-template-columns: 25px 25px 1fr 25px 25px 25px;
     background-color: var(--background-color);
     border-radius: 0px;
-    border-color: var(--border-color1);
+    border-color: var(--border-color);
   }
 
   .title-bar > *:not(.language-list) {
@@ -154,10 +154,10 @@
     border-radius: 0px;
   }
   button:hover {
-    background-color: var(--button-hover-background-color2);
+    background-color: var(--button-hover-background-color);
   }
   button:active {
-    background-color: var(--button-active-background-color2);
+    background-color: var(--button-active-background-color);
   }
 
   .program-icon {

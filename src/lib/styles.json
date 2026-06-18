@@ -6,15 +6,18 @@
     "settingsButton.background.image": "url('../light/settings.png')",
     "programMenu.background.image": "url('../light/menu.png')",
     "add.background.image": "url('../light/add.png')",
-    "choiceMark.color": "rgb(158, 174, 177)",
     "editStatus.background.image": "url('../light/edit.png')",
     "startProcess.background.image": "url('../light/loading.png')",
+
+    "text.color": "rgb(18, 18, 18)",
+    "text.shadow": "0px 0 0 currentColor",
 
     "inputFile.delete.background.image": "url('../light/delete-file.png')",
     "inputFile.what.background.image": "url('../light/what.png')",
 
     "ExampleArea.background.color": "rgba(255, 255, 255, 0.5)",
     "ExampleArea.window.background.color": "rgba(0, 0, 0, 0.5)",
+    "ExampleArea.window.border.color": "rgba(155, 155, 155)",
     "ExampleArea.window.download.background.image": "url('../light/download.png')",
     "ExampleArea.window.scaleUp.background.image": "url('../light/scale-up.png')",
     "ExampleArea.window.scaleByWidth.background.image": "url('../light/scale-by-width.png')",
@@ -27,34 +30,31 @@
     "ExampleArea.window.close.active.background.color": "rgb(232, 145, 150)",
     "ExampleArea.tabArea.background.color": "rgba(255, 255, 255, 0.5)",
 
-    "ErrorArea.background.color": "rgba(255, 255, 255, 0.5)",
-    "ErrorArea.window.background.color": "rgba(0, 0, 0, 0.2)",
+    "ErrorArea.background.color": "rgba(155, 155, 155, 0.5)",
+    "ErrorArea.window.background.color": "rgba(255, 255, 255, 0.5)",
 
     "background.color": "rgba(255, 255, 255, 0.5)",
-    "background.reverse.color": "rgba(0, 0, 0, 0.2)",
-    "border.color1": "rgb(255, 255, 255)",
-    "border.color2": "rgb(153, 153, 153)",
-    "text.color": "black",
+    "background.reverse.color": "rgba(255, 255, 255, 0.2)",
+    "border.color": "rgb(255, 255, 255)",
+    "lineWithText.color": "rgb(80, 80, 80)",
+    "choiceMark.color": "rgb(200, 200, 200)",
+    "packageOfDocuments.choiceMark.color": "rgb(255, 255, 255)",
 
-    "button.background.color1": "rgba(255, 255, 255, 0.6)",
-    "button.background.color2": "rgba(0, 0, 0, 0.2)",
-    "button.hover.background.color1": "rgba(255, 255, 255, 0.2)",
-    "button.hover.background.color2": "rgba(0, 0, 0, 0.3)",
-    "button.active.background.color1": "rgba(0, 0, 0, 0.1)",
-    "button.active.background.color2": "rgba(0, 0, 0, 0.25)",
+    "button.background.color": "rgba(255, 255, 255, 0.3)",
+    "button.hover.background.color": "rgba(255, 255, 255, 0.6)",
+    "button.active.background.color": "rgba(255, 255, 255, 0.8)",
     
-    "input.placeholder.color": "rgba(0, 0, 0, 0.5)",
-    "input.background.color": "rgba(0, 0, 0, 0.2)",
-    "input.hover.background.color": "rgba(0, 0, 0, 0.3)",
-    "input.focus.background.color": "rgba(0, 0, 0, 0.25)",
-    "input.border.color": "rgba(153, 153, 153)",
-    "input.focus.border.color": "rgba(0, 0, 0)",
+    "input.placeholder.color": "rgba(255, 255, 255, 0.6)",
+    "input.background.color": "rgba(255, 255, 255, 0.4)",
+    "input.hover.background.color": "rgba(255, 255, 255, 0.6)",
+    "input.focus.background.color": "rgba(255, 255, 255, 0.6)",
+    "input.border.color": "rgba(255, 255, 255, 0.3)",
+    "input.focus.border.color": "rgba(255, 255, 255, 0.8)",
 
-    "ul.background.color": "rgba(255, 255, 255, 0.7)",
-    "ul.border.color": "rgba(0, 0, 0, 0.7)",
-    "li.hover.background.color": "rgba(0, 0, 0, 0.3)",
-    "li.active.background.color": "rgba(0, 0, 0, 0.1)"
-
+    "ul.background.color": "rgba(255, 255, 255, 0.8)",
+    "ul.border.color": "rgba(255, 255, 255, 0.7)",
+    "li.hover.background.color": "rgba(155, 155, 155, 0.3)",
+    "li.active.background.color": "rgba(155, 155, 155, 0.6)"
   },
 
   "dark": {
@@ -64,15 +64,18 @@
     "settingsButton.background.image": "url('../dark/settings.png')",
     "programMenu.background.image": "url('../dark/menu.png')",
     "add.background.image": "url('../dark/add.png')",
-    "choiceMark.color": "rgb(154, 153, 158)",
     "editStatus.background.image": "url('../dark/edit.png')",
     "startProcess.background.image": "url('../dark/loading.png')",
+
+    "text.color": "rgb(255, 255, 255)",
+    "text.shadow": "",
 
     "inputFile.delete.background.image": "url('../dark/delete-file.png')",
     "inputFile.what.background.image": "url('../dark/what.png')",
 
     "ExampleArea.background.color": "rgba(0, 0, 0, 0.7)",
     "ExampleArea.window.background.color": "rgba(255, 255, 255, 0.5)",
+    "ExampleArea.window.border.color": "rgba(155, 155, 155)",
     "ExampleArea.window.download.background.image": "url('../dark/download.png')",
     "ExampleArea.window.scaleUp.background.image": "url('../dark/scale-up.png')",
     "ExampleArea.window.scaleByWidth.background.image": "url('../dark/scale-by-width.png')",
@@ -90,16 +93,14 @@
 
     "background.color": "rgba(0, 0, 0, 0.5)",
     "background.reverse.color": "rgba(255, 255, 255, 0.2)",
-    "border.color1": "rgb(153, 153, 153)",
-    "border.color2": "rgb(153, 153, 153)",
-    "text.color": "white",
+    "border.color": "rgb(153, 153, 153)",
+    "lineWithText.color": "rgb(153, 153, 153)",
+    "choiceMark.color": "rgb(153, 153, 153)",
+    "packageOfDocuments.choiceMark.color": "rgb(153, 153, 153)",
 
-    "button.background.color1": "rgba(255, 255, 255, 0.2)",
-    "button.background.color2": "rgba(255, 255, 255, 0.2)",
-    "button.hover.background.color1": "rgba(255, 255, 255, 0.3)",
-    "button.hover.background.color2": "rgba(255, 255, 255, 0.3)",
-    "button.active.background.color1": "rgba(255, 255, 255, 0.4)",
-    "button.active.background.color2": "rgba(255, 255, 255, 0.4)",
+    "button.background.color": "rgba(255, 255, 255, 0.2)",
+    "button.hover.background.color": "rgba(255, 255, 255, 0.3)",
+    "button.active.background.color": "rgba(255, 255, 255, 0.4)",
 
     "input.placeholder.color": "rgba(255, 255, 255, 0.5)",
     "input.background.color": "rgba(255, 255, 255, 0.3)",

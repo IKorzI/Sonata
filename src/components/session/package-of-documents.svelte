@@ -608,7 +608,7 @@
     height: 3px;
     margin-top: 5px;
     border-radius: 10px;
-    background-color: var(--choiceMark-color);
+    background-color: var(--packageOfDocuments-choiceMark-color);
     transition: 0.2s;
   }
 
@@ -685,20 +685,20 @@
     font-weight: bold;
   }
   .list .remove:hover {
-    background-color: var(--button-hover-background-color1);
+    background-color: var(--button-hover-background-color);
   }
   .list .remove:active {
-    background-color: var(--button-active-background-color1);
+    background-color: var(--button-active-background-color);
   }
 
   .list .student {
     padding: 0px 5px 0px 5px;
   }
   .list .student:hover {
-    background-color: var(--button-hover-background-color1);
+    background-color: var(--button-hover-background-color);
   }
   .list .student:active {
-    background-color: var(--button-active-background-color1);
+    background-color: var(--button-active-background-color);
   }
 
   .list .status {
@@ -707,10 +707,10 @@
     border-width: 0px;
   }
   .list .status:hover {
-    background-color: var(--button-hover-background-color1);
+    background-color: var(--button-hover-background-color);
   }
   .list .status:active {
-    background-color: var(--button-active-background-color1);
+    background-color: var(--button-active-background-color);
   }
   .list .status:focus {
     background-color: transparent;
@@ -772,7 +772,7 @@
     bottom: 0px;
     right: 0px;
     width: 100%;
-    background-color: var(--button-background-color1);
+    background-color: var(--button-background-color);
     background-image: var(--add-background-image);
     background-size: 25px;
     border-bottom-left-radius: 6px;
@@ -781,10 +781,10 @@
     cursor: pointer;
   }
   .add:hover {
-    background-color: var(--button-hover-background-color1);
+    background-color: var(--button-hover-background-color);
   }
   .add:active {
-    background-color: var(--button-active-background-color1);
+    background-color: var(--button-active-background-color);
   }
 
   .percentage-of-scholarship {
@@ -841,9 +841,9 @@
     display: none;
   }
   .edit-status:hover {
-    background-color: var(--button-hover-background-color1);
+    background-color: var(--button-hover-background-color);
   }
   .edit-status:active {
-    background-color: var(--button-active-background-color1);
+    background-color: var(--button-active-background-color);
   }
 </style>

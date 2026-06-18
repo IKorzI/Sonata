@@ -638,6 +638,7 @@
     height: 500px;
     width: 900px;
     background-color: var(--ExampleArea-window-background-color);
+    border-color: var(--ExampleArea-window-border-color);
     overflow: hidden;
     position: relative;
     border-width: 2px;

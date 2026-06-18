@@ -292,10 +292,10 @@
     opacity: 0;
   }
   .what:hover {
-    background-color: var(--button-hover-background-color1);
+    background-color: var(--button-hover-background-color);
   }
   .what:active {
-    background-color: var(--button-active-background-color1);
+    background-color: var(--button-active-background-color);
   }
 
   .start {

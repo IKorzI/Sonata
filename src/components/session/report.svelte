@@ -208,10 +208,10 @@
   }
 
   .list .row *:hover {
-    background-color: var(--button-hover-background-color1);
+    background-color: var(--button-hover-background-color);
   }
   .list .row *:active {
-    background-color: var(--button-active-background-color1);
+    background-color: var(--button-active-background-color);
   }
 
   .list .remove {
@@ -219,9 +219,9 @@
     font-weight: bold;
   }
   .list .remove:hover {
-    background-color: var(--button-hover-background-color1);
+    background-color: var(--button-hover-background-color);
   }
   .list .remove:active {
-    background-color: var(--button-active-background-color1);
+    background-color: var(--button-active-background-color);
   }
 </style>

@@ -23,13 +23,16 @@
   --settingsButton-background-image: {_styles.settingsButton.background.image};
   --programMenu-background-image: {_styles.programMenu.background.image};
   --add-background-image: {_styles.add.background.image};
-  --choiceMark-color: {_styles.choiceMark.color};
   --editStatus-background-image: {_styles.editStatus.background.image};
   --startProcess-background-image: {_styles.startProcess.background.image};
+
+  --text-color: {_styles.text.color};
+  --text-shadow: {_styles.text.shadow};
 
   --ExampleArea-background-color: {_styles.ExampleArea.background.color};
   --ExampleArea-window-background-color: {_styles.ExampleArea.window.background
     .color};
+  --ExampleArea-window-border-color: {_styles.ExampleArea.window.border.color};
   --ExampleArea-window-download-background-image: {_styles.ExampleArea.window
     .download.background.image};
   --ExampleArea-window-scaleUp-background-image: {_styles.ExampleArea.window
@@ -63,16 +66,15 @@
 
   --background-color: {_styles.background.color};
   --background-reverse-color: {_styles.background.reverse.color};
-  --border-color1: {_styles.border.color1};
-  --border-color2: {_styles.border.color2};
-  --text-color: {_styles.text.color};
+  --border-color: {_styles.border.color};
+  --line-with-text-color: {_styles.lineWithText.color};
+  --choiceMark-color: {_styles.choiceMark.color};
+  --packageOfDocuments-choiceMark-color: {_styles.packageOfDocuments.choiceMark
+    .color};
 
-  --button-background-color1: {_styles.button.background.color1};
-  --button-background-color2: {_styles.button.background.color2};
-  --button-hover-background-color1: {_styles.button.hover.background.color1};
-  --button-hover-background-color2: {_styles.button.hover.background.color2};
-  --button-active-background-color1: {_styles.button.active.background.color1};
-  --button-active-background-color2: {_styles.button.active.background.color2};
+  --button-background-color: {_styles.button.background.color};
+  --button-hover-background-color: {_styles.button.hover.background.color};
+  --button-active-background-color: {_styles.button.active.background.color};
 
   --input-placeholder-color: {_styles.input.placeholder.color};
   --input-background-color: {_styles.input.background.color};
@@ -111,7 +113,7 @@
     border-width: 2px;
     background-size: cover;
     background-image: var(--app-background-image);
-    border-color: var(--border-color1);
+    border-color: var(--border-color);
   }
   .program.hide {
     opacity: 0;
@@ -123,8 +125,9 @@
     font-family: "Calibri";
     font-size: 17px;
     color: var(--text-color);
+    text-shadow: var(--text-shadow);
     transition: var(--transition);
-    border-color: var(--border-color1);
+    border-color: var(--border-color);
     border-width: 0px;
     border-style: solid;
     border-radius: 8px;
@@ -151,16 +154,16 @@
 
   :global(.program button) {
     cursor: pointer;
-    background-color: var(--button-background-color1);
+    background-color: var(--button-background-color);
   }
   :global(.program button:hover) {
-    background-color: var(--button-hover-background-color1);
+    background-color: var(--button-hover-background-color);
   }
   :global(.program button.hovered) {
-    background-color: var(--button-hover-background-color1);
+    background-color: var(--button-hover-background-color);
   }
   :global(.program button:active) {
-    background-color: var(--button-active-background-color1);
+    background-color: var(--button-active-background-color);
   }
   :global(.program button.unwork) {
     pointer-events: none;

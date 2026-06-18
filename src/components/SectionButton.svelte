@@ -36,7 +36,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 5px;
-    background-color: var(--button-background-color2);
+    background-color: var(--button-background-color);
   }
 
   .section-icon {
@@ -47,9 +47,9 @@
   }
 
   .section-button:hover {
-    background-color: var(--button-hover-background-color2);
+    background-color: var(--button-hover-background-color);
   }
   .section-button:active {
-    background-color: var(--button-active-background-color2);
+    background-color: var(--button-active-background-color);
   }
 </style>

@@ -159,12 +159,12 @@
     background: transparent;
   }
   .text-area::-webkit-scrollbar-thumb {
-    background-color: var(--button-background-color1);
+    background-color: var(--button-background-color);
     border-radius: 4px;
     border: 2px solid transparent;
     background-clip: content-box;
   }
   .text-area::-webkit-scrollbar-thumb:hover {
-    background-color: var(--button-hover-background-color1);
+    background-color: var(--button-hover-background-color);
   }
 </style>

@@ -130,7 +130,7 @@
     justify-content: center;
   }
   :global(.area.hovered) {
-    background-color: var(--button-background-color1);
+    background-color: var(--button-background-color);
   }
 
   .label {
@@ -169,9 +169,9 @@
     border-radius: 999px;
   }
   .what:hover {
-    background-color: var(--button-hover-background-color1);
+    background-color: var(--button-hover-background-color);
   }
   .what:active {
-    background-color: var(--button-active-background-color1);
+    background-color: var(--button-active-background-color);
   }
 </style>

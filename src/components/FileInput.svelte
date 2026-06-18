@@ -354,7 +354,7 @@
     border-color: green;
   }
   :global(.area.hovered) {
-    background-color: var(--button-background-color1);
+    background-color: var(--button-background-color);
   }
   :global(.area.unavailable) {
     pointer-events: none;
@@ -423,10 +423,10 @@
     opacity: 1;
   }
   .delete:hover {
-    background-color: var(--button-hover-background-color1);
+    background-color: var(--button-hover-background-color);
   }
   .delete:active {
-    background-color: var(--button-active-background-color1);
+    background-color: var(--button-active-background-color);
   }
 
   .what {
@@ -442,9 +442,9 @@
     opacity: 0;
   }
   .what:hover {
-    background-color: var(--button-hover-background-color1);
+    background-color: var(--button-hover-background-color);
   }
   .what:active {
-    background-color: var(--button-active-background-color1);
+    background-color: var(--button-active-background-color);
   }
 </style>

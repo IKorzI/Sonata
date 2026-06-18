@@ -157,7 +157,7 @@
     content: "";
     flex: 1;
     height: 2px;
-    background: rgb(153, 153, 153);
+    background: var(--line-with-text-color);
     border-radius: 2px;
   }
 

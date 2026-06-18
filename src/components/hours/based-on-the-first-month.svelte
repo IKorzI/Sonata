@@ -299,10 +299,10 @@
     padding: 0px 5px 0px 5px;
   }
   .list .subject:hover {
-    background-color: var(--button-hover-background-color1);
+    background-color: var(--button-hover-background-color);
   }
   .list .subject:active {
-    background-color: var(--button-active-background-color1);
+    background-color: var(--button-active-background-color);
   }
 
   .list .hoursCount {
@@ -311,10 +311,10 @@
     border-width: 0px;
   }
   .list .hoursCount:hover {
-    background-color: var(--button-hover-background-color1);
+    background-color: var(--button-hover-background-color);
   }
   .list .hoursCount:active {
-    background-color: var(--button-active-background-color1);
+    background-color: var(--button-active-background-color);
   }
   .list .hoursCount:focus {
     background-color: transparent;
