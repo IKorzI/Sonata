@@ -1,6 +1,0 @@
-builder.OpenFile("D:/test/1.xlsx");
-
-// Передаем настройки напрямую строкой в метод сохранения
-builder.SaveFile("pdf", "D:/test/1.pdf", "{\"allSheets\":true}");
-
-builder.CloseFile();

@@ -1,0 +1,10 @@
+builder.OpenFile("D:/test/1.xlsx");
+var oSheets = Api.GetSheets();
+for (var i = 0; i < oSheets.length; i++) {
+    if (oSheets[i].GetName() === "25-1") {
+        oSheets[i].Active = true;
+        break;
+    }
+}
+builder.SaveFile("pdf", "D:/test/25-1.pdf");
+builder.CloseFile();

@@ -878,9 +878,6 @@ def filling_out_the_empty_teacher_statement(
     # =============================================================================================================
     # SPECIALTIES AND EDUCATIONAL PROGRAMS
 
-    sheet.cell(row=20, column=7).value = "Оцінка за\n12-бальною шкалою"
-    sheet.cell(row=20, column=10).value = "Підпис\nвикладача"
-
     line_size = 11299
     # "Specialty "         1448
     # "Educational program "  1825
@@ -1128,7 +1125,6 @@ def filling_out_the_empty_teacher_statement(
 
     sheet.cell(row=start + 2, column=9).value = "ВСЬОГО\nОЦІНОК"
     sheet.cell(row=start + 2, column=11).value = "Державний\nнорматив ***"
-    sheet.cell(row=start + 3, column=5).value = "За національною\nшкалою"
     sheet.cell(row=start + 4, column=11).value = "Не менше 50"
     sheet.cell(row=start + 7, column=11).value = "Не більше 10%"
 

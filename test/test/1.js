@@ -3,9 +3,9 @@ const path = require('path');
 const { execSync } = require('child_process');
 const XLSX = require('xlsx');
 
-const XLSX_PATH = 'D:/test/1.xlsx';
-const BAT_PATH = 'D:/test/1.bat';
-const TMP_SCRIPT_PATH = 'D:/test/temp_runner.docbuilder';
+const XLSX_PATH = 'D:/Sonata/test/test/1.xlsx';
+const BAT_PATH = 'D:/Sonata/test/test/1.bat';
+const TMP_SCRIPT_PATH = 'D:/Sonata/test/test/temp_runner.docbuilder';
 
 function convertAllSheets() {
     try {
@@ -36,7 +36,11 @@ function convertAllSheets() {
             fs.writeFileSync(TMP_SCRIPT_PATH, builderContent, 'utf8');
             
             // Вызываем батник (передавать аргумент больше не нужно, скрипт уже готов)
-            execSync(`"${BAT_PATH}"`, { stdio: 'inherit', cwd: 'D:\\test' });
+			execSync(`"${BAT_PATH}"`, { 
+				stdio: 'inherit', 
+				cwd: 'D:\\test', 
+				shell: true 
+			});
         });
 
         // Чистим за собой временный файл после окончания всего процесса

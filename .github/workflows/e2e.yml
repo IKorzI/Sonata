@@ -8,6 +8,8 @@ on:
 
 jobs:
   build-and-test:
+    # Указываем таймаут, чтобы процесс не висел бесконечно, если Electron зависнет
+    timeout-minutes: 60
     runs-on: windows-latest
 
     steps:
@@ -31,33 +33,7 @@ jobs:
       - name: Установка Node-модулей
         run: npm install
 
-      - name: Install System Dependencies & Update PATH
-        run: |
-          choco install libreoffice --no-progress -y
-          choco install graphicsmagick --no-progress -y
-          choco install ghostscript --no-progress -y
-
-          # Динамически ищем папку установки GraphicsMagick и добавляем в PATH
-          $gmPath = (Get-ChildItem -Path "C:\Program Files\GraphicsMagick-*" -Directory | Select-Object -First 1).FullName
-          if ($gmPath) { 
-            Write-Output "Found GraphicsMagick at: $gmPath"
-            Add-Content -Path $env:GITHUB_PATH -Value $gmPath 
-          }
-
-          # Динамически ищем папку установки Ghostscript (bin) и добавляем в PATH
-          $gsPath = (Get-ChildItem -Path "C:\Program Files\gs\gs*\bin" -Directory | Select-Object -First 1).FullName
-          if ($gsPath) { 
-            Write-Output "Found Ghostscript at: $gsPath"
-            Add-Content -Path $env:GITHUB_PATH -Value $gsPath 
-          }
-
-      - name: Verify Dependencies (Debug)
-        run: |
-          # Проверяем, что консоль теперь видит команды
-          gm version
-          gswin64c -v
-
-      - name: Установка браузеров для Playwright (нужно для работы фреймворка)
+      - name: Установка браузеров для Playwright
         run: npx playwright install --with-deps chromium
 
       - name: Сборка C#
@@ -71,3 +47,14 @@ jobs:
 
       - name: Запуск E2E тестов
         run: npx playwright test
+        env:
+          CI: true # Явное указание CI окружения
+
+      # Добавленный шаг: Сохранение отчета
+      - name: Загрузка отчета Playwright
+        uses: actions/upload-artifact@v4
+        if: always() # Выполнять всегда, даже если тесты упали
+        with:
+          name: playwright-report
+          path: playwright-report/ # Убедись, что путь совпадает с настройками в playwright.config.js
+          retention-days: 14

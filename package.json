@@ -15,13 +15,11 @@
     "app:build": "npm run C#:build && npm run py:build && npm run vite:build && npm run electron:build",
     "py:test": "src\\scripts\\python\\test.bat",
     "app:test": "npx playwright test",
-    "app:testDebug": "npx playwright test --debug "
+    "app:testDebug": "npx playwright test --debug ",
+    "app:testPreparing": "npm run C#:build && npm run py:build && npm run vite:build"
   },
   "dependencies": {
     "fs": "^0.0.1-security",
-    "pdf2pic": "^3.2.0",
-    "pixelmatch": "^7.2.0",
-    "pngjs": "^7.0.0",
     "shevchenko": "^3.2.2",
     "svelte": "^4.2.7",
     "web-streams-polyfill": "^4.2.0",
@@ -31,6 +29,7 @@
   "devDependencies": {
     "@playwright/test": "^1.61.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
+    "adm-zip": "^0.5.17",
     "concurrently": "^9.1.2",
     "electron": "^22.0.0",
     "electron-builder": "^23.6.0",

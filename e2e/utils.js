@@ -1,29 +1,7 @@
 import { test, expect, _electron as electron } from "@playwright/test";
 import fs from "fs";
 import path from "path";
-import XlsxPopulate from "xlsx-populate";
-
-import { exec } from "child_process";
-import util from "util";
-import { fromPath } from "pdf2pic";
-import { PNG } from "pngjs";
-import pixelmatch from "pixelmatch";
-
-const execAsync = util.promisify(exec);
-
-const STYLES_TO_COMPARE = [
-  "bold",
-  "italic",
-  "underline",
-  "strikethrough",
-  "fontSize",
-  "fontFamily",
-  "fontColor",
-  "fill",
-  "horizontalAlignment",
-  "verticalAlignment",
-  "wrapText",
-];
+import AdmZip from "adm-zip";
 
 export async function preparingTheFolder(pathToTheFolder, files) {
   for (const file of files) {
@@ -70,127 +48,21 @@ export async function waitFiles(pathToTheFolder, files, timeout = 45000) {
   for (const file of files) {
     const fullFilePath = path.join(pathToTheFolder, file);
     await expect
-      .poll(() => fs.existsSync(fullFilePath), {
-        message: `The file was not created on time. Searched here: ${fullFilePath}`,
+      .poll(() => {
+        if (!fs.existsSync(fullFilePath)) return false;
+        
+        try {
+          new AdmZip(fullFilePath);
+          return true;
+        } catch (error) {
+          return false;
+        }
+      }, {
+        message: `The file was not created or fully written on time. Searched here: ${fullFilePath}`,
         timeout: timeout,
       })
       .toBeTruthy();
   }
-}
-
-async function convertToPdf(inputFilePath, outputFilePath) {
-  const docbuilderCmd =
-    '"C:\\Program Files\\ONLYOFFICE\\DocumentBuilder\\docbuilder.exe"';
-
-  const outputDir = path.dirname(outputFilePath);
-  const scriptPath = path.join(
-    outputDir,
-    `convert_${Date.now()}_${Math.floor(Math.random() * 1000)}.docbuilder`,
-  );
-
-  const safeInputPath = inputFilePath.replace(/\\/g, "/");
-  const safeOutputPath = outputFilePath.replace(/\\/g, "/");
-
-  const scriptContent = `
-    builder.OpenFile("${safeInputPath}");
-    builder.SaveFile("pdf", "${safeOutputPath}");
-    builder.CloseFile();
-  `;
-
-  fs.writeFileSync(scriptPath, scriptContent);
-
-  const command = `${docbuilderCmd} "${scriptPath}"`;
-
-  try {
-    await execAsync(command);
-  } catch (error) {
-    console.error(
-      `[ONLYOFFICE Error] Ошибка конвертации файла: ${inputFilePath}\n`,
-      error.message,
-    );
-    throw error;
-  } finally {
-    if (fs.existsSync(scriptPath)) {
-      fs.unlinkSync(scriptPath);
-    }
-  }
-
-  return outputFilePath;
-}
-
-function readPNG(filePath) {
-  return new Promise((resolve, reject) => {
-    const readStream = fs.createReadStream(filePath);
-    readStream.on("error", reject);
-
-    const img = readStream
-      .pipe(new PNG())
-      .on("parsed", () => resolve(img))
-      .on("error", reject);
-  });
-}
-
-async function renderAllPdfPages(pdfPath, outputDir, prefix) {
-  const options = {
-    density: 300,
-    saveFilename: `${path.parse(pdfPath).name}_${prefix}`,
-    savePath: outputDir,
-    format: "png",
-    width: 2480,
-    height: 3508,
-  };
-
-  const storeAsImage = fromPath(pdfPath, options);
-  const results = await storeAsImage.bulk(-1, { returnAsFile: true });
-
-  return results.map((res) => res.path).sort();
-}
-
-async function comparePdfs(refPdfPath, testPdfPath, outputDir) {
-  const refImages = await renderAllPdfPages(refPdfPath, outputDir, "ref");
-  const testImages = await renderAllPdfPages(testPdfPath, outputDir, "out");
-
-  if (refImages.length !== testImages.length) {
-    console.error(
-      `Page count mismatch: Ref has ${refImages.length}, Test has ${testImages.length}`,
-    );
-    return false;
-  }
-
-  for (let i = 0; i < refImages.length; i++) {
-    const img1 = await readPNG(refImages[i]);
-    const img2 = await readPNG(testImages[i]);
-
-    if (img1.width !== img2.width || img1.height !== img2.height) {
-      return false;
-    }
-
-    const diff = new PNG({ width: img1.width, height: img1.height });
-    const numDiffPixels = pixelmatch(
-      img1.data,
-      img2.data,
-      diff.data,
-      img1.width,
-      img1.height,
-      { threshold: 0.1 },
-    );
-
-    if (numDiffPixels !== 0) {
-      const diffPath = path.join(outputDir, `difference_map_page_${i + 1}.png`);
-      await new Promise((resolve, reject) => {
-        const outStream = fs.createWriteStream(diffPath);
-        outStream.on("finish", resolve);
-        outStream.on("error", reject);
-        diff.pack().pipe(outStream);
-      });
-      return false;
-    }
-
-    fs.unlinkSync(refImages[i]);
-    fs.unlinkSync(testImages[i]);
-  }
-
-  return true;
 }
 
 export async function clearFolder(pathForClear) {
@@ -198,7 +70,6 @@ export async function clearFolder(pathForClear) {
     const dirFiles = fs.readdirSync(pathForClear);
 
     for (const entry of dirFiles) {
-      // "..txt"
       const isTargetTxt = /^\..*\.txt$/i.test(entry);
 
       if (!isTargetTxt) {
@@ -209,27 +80,86 @@ export async function clearFolder(pathForClear) {
   }
 }
 
+function getNormalizedDocx(filePath) {
+  const zip = new AdmZip(filePath);
+  let documentXml = zip.readAsText("word/document.xml");
+  
+  if (!documentXml) {
+    throw new Error(`Invalid DOCX or missing document.xml: ${filePath}`);
+  }
+
+  documentXml = documentXml.replace(/ w:rsid[a-zA-Z0-9]*="[^"]*"/g, "");
+  
+  return documentXml;
+}
+
+function getNormalizedXlsx(filePath) {
+  const zip = new AdmZip(filePath);
+  const zipEntries = zip.getEntries();
+  const extractedData = {};
+
+  zipEntries.forEach((entry) => {
+    const fileName = entry.entryName;
+
+    if (
+      fileName === "xl/styles.xml" ||
+      fileName === "xl/sharedStrings.xml" ||
+      fileName === "xl/workbook.xml" ||
+      fileName.startsWith("xl/worksheets/")
+    ) {
+      extractedData[fileName] = zip.readAsText(fileName);
+    }
+  });
+
+  return extractedData;
+}
+
 export async function checkingOutputFiles(referencePath, outputPath, files) {
   for (const file of files) {
     const stepResult = await test.step(file, async () => {
-      const refPdfPath = path.join(referencePath, "ref.pdf");
-      const outPdfPath = path.join(outputPath, "out.pdf");
+      const refFile = path.join(referencePath, file);
+      const outFile = path.join(outputPath, file);
 
-      await convertToPdf(path.join(referencePath, file), refPdfPath);
-      await convertToPdf(path.join(outputPath, file), outPdfPath);
-
-      const isMatch = await comparePdfs(refPdfPath, outPdfPath, outputPath);
-
-      if (!isMatch) {
+      if (!fs.existsSync(outFile)) {
+        console.error(`Missing output file: ${outFile}`);
         return file;
       }
 
-      fs.unlinkSync(refPdfPath);
-      fs.unlinkSync(outPdfPath);
+      try {
+        if (file.endsWith(".docx")) {
+          const refContent = getNormalizedDocx(refFile);
+          const outContent = getNormalizedDocx(outFile);
+          
+          if (refContent !== outContent) return file;
+        } else if (file.endsWith(".xlsx")) {
+          const refStruct = getNormalizedXlsx(refFile);
+          const outStruct = getNormalizedXlsx(outFile);
+
+          const refKeys = Object.keys(refStruct).sort();
+          const outKeys = Object.keys(outStruct).sort();
+
+          if (JSON.stringify(refKeys) !== JSON.stringify(outKeys)) {
+            return file;
+          }
+
+          for (const key of refKeys) {
+            if (refStruct[key] !== outStruct[key]) {
+              return file;
+            }
+          }
+        } else {
+          console.warn(`Unsupported file format for comparison: ${file}`);
+        }
+      } catch (error) {
+        console.error(`Error comparing ${file}:`, error);
+        return file;
+      }
     });
 
     if (stepResult) {
       return stepResult;
     }
   }
+  
+  return undefined;
 }
