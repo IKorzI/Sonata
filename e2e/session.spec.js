@@ -10,10 +10,12 @@ import {
   checkingOutputFiles,
 } from "./utils.js";
 
+const codeWord = "session";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const projectPath = path.resolve(__dirname, "../");
-const outputPath = path.join(projectPath, "test/output/");
+const testPath = path.resolve(__dirname, "../test/");
+const outputPath = path.join(testPath, "output/");
 
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
@@ -21,7 +23,7 @@ test("[Session] 1.1. Package of documents (14 subjects)", async () => {
   await clearFolder(outputPath);
   test.setTimeout(120000);
 
-  const inputPath = path.join(projectPath, "test/package-of-documents/");
+  const inputPath = path.join(testPath, `${codeWord}--package-of-documents/`);
   const referencePath = path.join(inputPath, "reference/14 subjects/");
   const files = [
     "Відомості.xlsx",
@@ -79,7 +81,7 @@ test("[Session] 1.2. Package of documents (15 subjects)", async () => {
   await clearFolder(outputPath);
   test.setTimeout(120000);
 
-  const inputPath = path.join(projectPath, "test/package-of-documents/");
+  const inputPath = path.join(testPath, `${codeWord}--package-of-documents/`);
   const referencePath = path.join(inputPath, "reference/15 subjects/");
   const files = [
     "Відомості.xlsx",
@@ -137,7 +139,7 @@ test("[Session] 2.1. Empty statements (1 semester 14 subjects)", async () => {
   await clearFolder(outputPath);
   test.setTimeout(120000);
 
-  const inputPath = path.join(projectPath, "test/empty-statements/");
+  const inputPath = path.join(testPath, `${codeWord}--empty-statements/`);
   const referencePath = path.join(
     inputPath,
     "reference/1 semester 14 subjects/",
@@ -189,7 +191,7 @@ test("[Session] 2.2. Empty statements (1 semester 15 subjects)", async () => {
   await clearFolder(outputPath);
   test.setTimeout(120000);
 
-  const inputPath = path.join(projectPath, "test/empty-statements/");
+  const inputPath = path.join(testPath, `${codeWord}--empty-statements/`);
   const referencePath = path.join(
     inputPath,
     "reference/1 semester 15 subjects/",
@@ -241,7 +243,7 @@ test("[Session] 2.3. Empty statements (2 semester 14 subjects)", async () => {
   await clearFolder(outputPath);
   test.setTimeout(120000);
 
-  const inputPath = path.join(projectPath, "test/empty-statements/");
+  const inputPath = path.join(testPath, `${codeWord}--empty-statements/`);
   const referencePath = path.join(
     inputPath,
     "reference/2 semester 14 subjects/",
@@ -302,7 +304,7 @@ test("[Session] 2.4. Empty statements (2 semester 15 subjects)", async () => {
   await clearFolder(outputPath);
   test.setTimeout(120000);
 
-  const inputPath = path.join(projectPath, "test/empty-statements/");
+  const inputPath = path.join(testPath, `${codeWord}--empty-statements/`);
   const referencePath = path.join(
     inputPath,
     "reference/2 semester 15 subjects/",
@@ -359,32 +361,13 @@ test("[Session] 2.4. Empty statements (2 semester 15 subjects)", async () => {
   await electronApp.close();
 });
 
-test("[Session] 3.1. Empty statements (2 semester 15 subjects)", async () => {
+test("[Session] 3.1. Report (14 subjects)", async () => {
   await clearFolder(outputPath);
   test.setTimeout(120000);
 
-  const inputPath = path.join(projectPath, "test/empty-statements/");
-  const referencePath = path.join(
-    inputPath,
-    "reference/2 semester 15 subjects/",
-  );
-  const files = [
-    "II семестр/25-1/Відомості 25-1.xlsx",
-    "II семестр/25-2/Відомості 25-2.xlsx",
-    "II семестр/25-3/Відомості 25-3.xlsx",
-    "II семестр/25-4/Відомості 25-4.xlsx",
-    "II семестр/25-5/Відомості 25-5.xlsx",
-    "II семестр/Відомості для викладачів.xlsx",
-    "II семестр/Журнал видачі відомостей.xlsx",
-
-    "рік/25-1/Відомості 25-1.xlsx",
-    "рік/25-2/Відомості 25-2.xlsx",
-    "рік/25-3/Відомості 25-3.xlsx",
-    "рік/25-4/Відомості 25-4.xlsx",
-    "рік/25-5/Відомості 25-5.xlsx",
-    "рік/Відомості для викладачів.xlsx",
-    "рік/Журнал видачі відомостей.xlsx",
-  ];
+  const inputPath = path.join(testPath, `${codeWord}--report/`);
+  const referencePath = path.join(inputPath, "reference/14 subjects/");
+  const files = ["ПЗСО.xlsx"];
 
   let electronApp, window;
 
@@ -394,17 +377,135 @@ test("[Session] 3.1. Empty statements (2 semester 15 subjects)", async () => {
   });
 
   await test.step("2. Fill out the form and start", async () => {
-    await window.locator(".section-button#empty-statements").click();
-    const hoursFilePath = path.join(inputPath, "hours_2_15.xlsx");
+    await window.locator(".section-button#report").click();
+    const hoursFile1Path = path.join(inputPath, "statements_1_14.xlsx");
     await window
-      .locator(".file-input#session--empty-statements--hours input")
-      .setInputFiles(hoursFilePath);
-    const contingentFilePath = path.join(inputPath, "contingent.xlsx");
+      .locator(".file-input#session--report--statements input")
+      .setInputFiles(hoursFile1Path);
+    const hoursFile2Path = path.join(inputPath, "statements_2_14.xlsx");
     await window
-      .locator(".file-input#session--empty-statements--contingent input")
-      .setInputFiles(contingentFilePath);
-    await window.locator(".semester-number input").fill("2");
-    await window.locator(".first-index input").fill("76");
+      .locator(".file-input#session--report--statements input")
+      .setInputFiles(hoursFile2Path);
+
+    await window.locator(".workspace > .start").click();
+  });
+
+  await test.step("3. Waiting for output files", async () => {
+    await waitFiles(outputPath, files);
+  });
+
+  await test.step("4. Checking output files", async () => {
+    await checkingOutputFiles(referencePath, outputPath, files);
+  });
+
+  await electronApp.close();
+});
+
+test("[Session] 3.2. Report (15 subjects)", async () => {
+  await clearFolder(outputPath);
+  test.setTimeout(120000);
+
+  const inputPath = path.join(testPath, `${codeWord}--report/`);
+  const referencePath = path.join(inputPath, "reference/15 subjects/");
+  const files = ["ПЗСО.xlsx"];
+
+  let electronApp, window;
+
+  await test.step("1. Launching the application", async () => {
+    await preparingTheFolder(inputPath, files);
+    [electronApp, window] = await electronLaunch();
+  });
+
+  await test.step("2. Fill out the form and start", async () => {
+    await window.locator(".section-button#report").click();
+    const hoursFile1Path = path.join(inputPath, "statements_1_15.xlsx");
+    await window
+      .locator(".file-input#session--report--statements input")
+      .setInputFiles(hoursFile1Path);
+    const hoursFile2Path = path.join(inputPath, "statements_2_15.xlsx");
+    await window
+      .locator(".file-input#session--report--statements input")
+      .setInputFiles(hoursFile2Path);
+
+    await window.locator(".workspace > .start").click();
+  });
+
+  await test.step("3. Waiting for output files", async () => {
+    await waitFiles(outputPath, files);
+  });
+
+  await test.step("4. Checking output files", async () => {
+    await checkingOutputFiles(referencePath, outputPath, files);
+  });
+
+  await electronApp.close();
+});
+
+test("[Session] 4.1. Debtors (14 subjects)", async () => {
+  await clearFolder(outputPath);
+  test.setTimeout(120000);
+
+  const inputPath = path.join(testPath, `${codeWord}--debtors/`);
+  const referencePath = path.join(inputPath, "reference/14 subjects/");
+  const files = ["Боржники.xlsx"];
+
+  let electronApp, window;
+
+  await test.step("1. Launching the application", async () => {
+    await preparingTheFolder(inputPath, files);
+    [electronApp, window] = await electronLaunch();
+  });
+
+  await test.step("2. Fill out the form and start", async () => {
+    await window.locator(".section-button#debtors").click();
+    const hoursFile1Path = path.join(inputPath, "statements_1_14.xlsx");
+    await window
+      .locator(".file-input#session--debtors--statements input")
+      .setInputFiles(hoursFile1Path);
+    const hoursFile2Path = path.join(inputPath, "statements_2_14.xlsx");
+    await window
+      .locator(".file-input#session--debtors--statements input")
+      .setInputFiles(hoursFile2Path);
+
+    await window.locator(".workspace > .start").click();
+  });
+
+  await test.step("3. Waiting for output files", async () => {
+    await waitFiles(outputPath, files);
+  });
+
+  await test.step("4. Checking output files", async () => {
+    await checkingOutputFiles(referencePath, outputPath, files);
+  });
+
+  await electronApp.close();
+});
+
+test("[Session] 4.2. Debtors (15 subjects)", async () => {
+  await clearFolder(outputPath);
+  test.setTimeout(120000);
+
+  const inputPath = path.join(testPath, `${codeWord}--debtors/`);
+  const referencePath = path.join(inputPath, "reference/15 subjects/");
+  const files = ["Боржники.xlsx"];
+
+  let electronApp, window;
+
+  await test.step("1. Launching the application", async () => {
+    await preparingTheFolder(inputPath, files);
+    [electronApp, window] = await electronLaunch();
+  });
+
+  await test.step("2. Fill out the form and start", async () => {
+    await window.locator(".section-button#debtors").click();
+    const hoursFile1Path = path.join(inputPath, "statements_1_15.xlsx");
+    await window
+      .locator(".file-input#session--debtors--statements input")
+      .setInputFiles(hoursFile1Path);
+    const hoursFile2Path = path.join(inputPath, "statements_2_15.xlsx");
+    await window
+      .locator(".file-input#session--debtors--statements input")
+      .setInputFiles(hoursFile2Path);
 
     await window.locator(".workspace > .start").click();
   });

@@ -8,7 +8,6 @@ on:
 
 jobs:
   build-and-test:
-    # Указываем таймаут, чтобы процесс не висел бесконечно, если Electron зависнет
     timeout-minutes: 60
     runs-on: windows-latest
 

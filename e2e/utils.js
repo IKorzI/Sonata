@@ -48,19 +48,22 @@ export async function waitFiles(pathToTheFolder, files, timeout = 90000) {
   for (const file of files) {
     const fullFilePath = path.join(pathToTheFolder, file);
     await expect
-      .poll(() => {
-        if (!fs.existsSync(fullFilePath)) return false;
-        
-        try {
-          new AdmZip(fullFilePath);
-          return true;
-        } catch (error) {
-          return false;
-        }
-      }, {
-        message: `The file was not created or fully written on time. Searched here: ${fullFilePath}`,
-        timeout: timeout,
-      })
+      .poll(
+        () => {
+          if (!fs.existsSync(fullFilePath)) return false;
+
+          try {
+            new AdmZip(fullFilePath);
+            return true;
+          } catch (error) {
+            return false;
+          }
+        },
+        {
+          message: `The file was not created or fully written on time. Searched here: ${fullFilePath}`,
+          timeout: timeout,
+        },
+      )
       .toBeTruthy();
   }
 }
@@ -83,13 +86,13 @@ export async function clearFolder(pathForClear) {
 function getNormalizedDocx(filePath) {
   const zip = new AdmZip(filePath);
   let documentXml = zip.readAsText("word/document.xml");
-  
+
   if (!documentXml) {
     throw new Error(`Invalid DOCX or missing document.xml: ${filePath}`);
   }
 
   documentXml = documentXml.replace(/ w:rsid[a-zA-Z0-9]*="[^"]*"/g, "");
-  
+
   return documentXml;
 }
 
@@ -127,10 +130,8 @@ export async function checkingOutputFiles(referencePath, outputPath, files) {
       if (file.endsWith(".docx")) {
         const refContent = getNormalizedDocx(refFile);
         const outContent = getNormalizedDocx(outFile);
-        
-        // Если есть разница, Playwright покажет её в консоли
+
         expect(outContent, `Mismatch in DOCX: ${file}`).toEqual(refContent);
-        
       } else if (file.endsWith(".xlsx")) {
         const refStruct = getNormalizedXlsx(refFile);
         const outStruct = getNormalizedXlsx(outFile);
@@ -138,19 +139,18 @@ export async function checkingOutputFiles(referencePath, outputPath, files) {
         const refKeys = Object.keys(refStruct).sort();
         const outKeys = Object.keys(outStruct).sort();
 
-        // Сначала проверяем, совпадают ли наборы внутренних файлов
         expect(outKeys, `Missing internal files in ${file}`).toEqual(refKeys);
 
-        // Затем побайтово/построчно сравниваем каждый XML
         for (const key of refKeys) {
-          // Именно эта строчка покажет точный кусок XML, который не сошелся!
-          expect(outStruct[key], `Mismatch in ${file} -> ${key}`).toEqual(refStruct[key]);
+          expect(outStruct[key], `Mismatch in ${file} -> ${key}`).toEqual(
+            refStruct[key],
+          );
         }
       } else {
         console.warn(`Unsupported file format for comparison: ${file}`);
       }
     });
   }
-  
+
   return undefined;
 }
