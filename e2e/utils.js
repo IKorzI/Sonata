@@ -116,49 +116,40 @@ function getNormalizedXlsx(filePath) {
 
 export async function checkingOutputFiles(referencePath, outputPath, files) {
   for (const file of files) {
-    const stepResult = await test.step(file, async () => {
+    await test.step(`Compare: ${file}`, async () => {
       const refFile = path.join(referencePath, file);
       const outFile = path.join(outputPath, file);
 
       if (!fs.existsSync(outFile)) {
-        console.error(`Missing output file: ${outFile}`);
-        return file;
+        throw new Error(`Missing output file: ${outFile}`);
       }
 
-      try {
-        if (file.endsWith(".docx")) {
-          const refContent = getNormalizedDocx(refFile);
-          const outContent = getNormalizedDocx(outFile);
-          
-          if (refContent !== outContent) return file;
-        } else if (file.endsWith(".xlsx")) {
-          const refStruct = getNormalizedXlsx(refFile);
-          const outStruct = getNormalizedXlsx(outFile);
+      if (file.endsWith(".docx")) {
+        const refContent = getNormalizedDocx(refFile);
+        const outContent = getNormalizedDocx(outFile);
+        
+        // Если есть разница, Playwright покажет её в консоли
+        expect(outContent, `Mismatch in DOCX: ${file}`).toEqual(refContent);
+        
+      } else if (file.endsWith(".xlsx")) {
+        const refStruct = getNormalizedXlsx(refFile);
+        const outStruct = getNormalizedXlsx(outFile);
 
-          const refKeys = Object.keys(refStruct).sort();
-          const outKeys = Object.keys(outStruct).sort();
+        const refKeys = Object.keys(refStruct).sort();
+        const outKeys = Object.keys(outStruct).sort();
 
-          if (JSON.stringify(refKeys) !== JSON.stringify(outKeys)) {
-            return file;
-          }
+        // Сначала проверяем, совпадают ли наборы внутренних файлов
+        expect(outKeys, `Missing internal files in ${file}`).toEqual(refKeys);
 
-          for (const key of refKeys) {
-            if (refStruct[key] !== outStruct[key]) {
-              return file;
-            }
-          }
-        } else {
-          console.warn(`Unsupported file format for comparison: ${file}`);
+        // Затем побайтово/построчно сравниваем каждый XML
+        for (const key of refKeys) {
+          // Именно эта строчка покажет точный кусок XML, который не сошелся!
+          expect(outStruct[key], `Mismatch in ${file} -> ${key}`).toEqual(refStruct[key]);
         }
-      } catch (error) {
-        console.error(`Error comparing ${file}:`, error);
-        return file;
+      } else {
+        console.warn(`Unsupported file format for comparison: ${file}`);
       }
     });
-
-    if (stepResult) {
-      return stepResult;
-    }
   }
   
   return undefined;

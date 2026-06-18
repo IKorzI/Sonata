@@ -69,16 +69,7 @@ test("[Session] 1.1. Package of documents (14 subjects)", async () => {
   });
 
   await test.step("4. Checking output files", async () => {
-    const mismatchedFile = await checkingOutputFiles(
-      referencePath,
-      outputPath,
-      files,
-    );
-
-    expect(
-      mismatchedFile,
-      `The file '${mismatchedFile}' differs from the reference!`,
-    ).toBeUndefined();
+    await checkingOutputFiles(referencePath, outputPath, files);
   });
 
   await electronApp.close();
@@ -136,16 +127,7 @@ test("[Session] 1.2. Package of documents (15 subjects)", async () => {
   });
 
   await test.step("4. Checking output files", async () => {
-    const mismatchedFile = await checkingOutputFiles(
-      referencePath,
-      outputPath,
-      files,
-    );
-
-    expect(
-      mismatchedFile,
-      `The file '${mismatchedFile}' differs from the reference!`,
-    ).toBeUndefined();
+    await checkingOutputFiles(referencePath, outputPath, files);
   });
 
   await electronApp.close();
@@ -197,16 +179,7 @@ test("[Session] 2.1. Empty statements (1 semester 14 subjects)", async () => {
   });
 
   await test.step("4. Checking output files", async () => {
-    const mismatchedFile = await checkingOutputFiles(
-      referencePath,
-      outputPath,
-      files,
-    );
-
-    expect(
-      mismatchedFile,
-      `The file '${mismatchedFile}' differs from the reference!`,
-    ).toBeUndefined();
+    await checkingOutputFiles(referencePath, outputPath, files);
   });
 
   await electronApp.close();
@@ -258,16 +231,7 @@ test("[Session] 2.2. Empty statements (1 semester 15 subjects)", async () => {
   });
 
   await test.step("4. Checking output files", async () => {
-    const mismatchedFile = await checkingOutputFiles(
-      referencePath,
-      outputPath,
-      files,
-    );
-
-    expect(
-      mismatchedFile,
-      `The file '${mismatchedFile}' differs from the reference!`,
-    ).toBeUndefined();
+    await checkingOutputFiles(referencePath, outputPath, files);
   });
 
   await electronApp.close();
@@ -328,16 +292,7 @@ test("[Session] 2.3. Empty statements (2 semester 14 subjects)", async () => {
   });
 
   await test.step("4. Checking output files", async () => {
-    const mismatchedFile = await checkingOutputFiles(
-      referencePath,
-      outputPath,
-      files,
-    );
-
-    expect(
-      mismatchedFile,
-      `The file '${mismatchedFile}' differs from the reference!`,
-    ).toBeUndefined();
+    await checkingOutputFiles(referencePath, outputPath, files);
   });
 
   await electronApp.close();
@@ -398,16 +353,7 @@ test("[Session] 2.4. Empty statements (2 semester 15 subjects)", async () => {
   });
 
   await test.step("4. Checking output files", async () => {
-    const mismatchedFile = await checkingOutputFiles(
-      referencePath,
-      outputPath,
-      files,
-    );
-
-    expect(
-      mismatchedFile,
-      `The file '${mismatchedFile}' differs from the reference!`,
-    ).toBeUndefined();
+    await checkingOutputFiles(referencePath, outputPath, files);
   });
 
   await electronApp.close();
