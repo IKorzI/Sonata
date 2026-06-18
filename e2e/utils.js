@@ -41,6 +41,10 @@ export async function electronLaunch() {
 
   const window = await electronApp.firstWindow();
 
+  await window.waitForLoadState("load");
+
+  await window.waitForLoadState("domcontentloaded");
+
   return [electronApp, window];
 }
 
