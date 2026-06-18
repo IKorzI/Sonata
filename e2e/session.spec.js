@@ -49,17 +49,27 @@ test("[Session] 1.1. Package of documents (14 subjects)", async () => {
     await window.locator(".social-scholarship .add").click();
     await window.locator(".social-scholarship .add").click();
     await window.locator(".social-scholarship .list #row-0 .student").click();
+    await sleep(1000)
     await window.getByText("Білан Інна Євгенівна").click();
+    await sleep(1000)
     await window.locator(".social-scholarship .list #row-0 .status").click();
+    await sleep(1000)
     await window.getByText("Внутрішньо переміщена особа").click();
+    await sleep(1000)
     await window.locator(".social-scholarship .list #row-1 .student").click();
+    await sleep(1000)
     await window.getByText("Безуглий Юрій Віталійович").click();
+    await sleep(1000)
     await window.locator(".social-scholarship .list #row-1 .status").click();
+    await sleep(1000)
     await window.getByText("Дитина учасника бойових дій").click();
+    await sleep(1000)
     await window.locator(".social-scholarship .label2").click();
     await window.locator(".social-scholarship .add").click();
     await window.locator(".social-scholarship .list #row-0 .student").click();
+    await sleep(1000)
     await window.getByText("Сидоренко Ілля Артемович").click();
+    await sleep(1000)
 
     await window.locator(".workspace > .start").click();
   });
@@ -115,18 +125,29 @@ test("[Session] 1.2. Package of documents (15 subjects)", async () => {
       .setInputFiles(filePath);
     await window.locator(".social-scholarship .add").click();
     await window.locator(".social-scholarship .add").click();
+    await sleep(1000)
     await window.locator(".social-scholarship .list #row-0 .student").click();
+    await sleep(1000)
     await window.getByText("Білан Інна Євгенівна").click();
+    await sleep(1000)
     await window.locator(".social-scholarship .list #row-0 .status").click();
+    await sleep(1000)
     await window.getByText("Внутрішньо переміщена особа").click();
+    await sleep(1000)
     await window.locator(".social-scholarship .list #row-1 .student").click();
+    await sleep(1000)
     await window.getByText("Безуглий Юрій Віталійович").click();
+    await sleep(1000)
     await window.locator(".social-scholarship .list #row-1 .status").click();
+    await sleep(1000)
     await window.getByText("Дитина учасника бойових дій").click();
+    await sleep(1000)
     await window.locator(".social-scholarship .label2").click();
     await window.locator(".social-scholarship .add").click();
     await window.locator(".social-scholarship .list #row-0 .student").click();
+    await sleep(1000)
     await window.getByText("Сидоренко Ілля Артемович").click();
+    await sleep(1000)
 
     await window.locator(".workspace > .start").click();
   });
