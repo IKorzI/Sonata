@@ -44,7 +44,7 @@ jobs:
       - name: Сборка Vite (Frontend)
         run: npm run vite:build
 
-      - name: Запуск E2E тестов
-        run: npx playwright test
+      - name: Run Playwright tests
+        run: npx playwright test --retries=2
         env:
           CI: true

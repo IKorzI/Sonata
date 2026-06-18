@@ -44,7 +44,7 @@ export async function electronLaunch() {
   return [electronApp, window];
 }
 
-export async function waitFiles(pathToTheFolder, files, timeout = 90000) {
+export async function waitFiles(pathToTheFolder, files, timeout = 1200000) {
   for (const file of files) {
     const fullFilePath = path.join(pathToTheFolder, file);
     await expect

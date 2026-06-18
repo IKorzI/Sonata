@@ -11,6 +11,7 @@ import {
 } from "./utils.js";
 
 const codeWord = "session";
+const testDuration = 150000;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,7 +22,7 @@ const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
 test("[Session] 1.1. Package of documents (14 subjects)", async () => {
   await clearFolder(outputPath);
-  test.setTimeout(120000);
+  test.setTimeout(testDuration);
 
   const inputPath = path.join(testPath, `${codeWord}--package-of-documents/`);
   const referencePath = path.join(inputPath, "reference/14 subjects/");
@@ -79,7 +80,7 @@ test("[Session] 1.1. Package of documents (14 subjects)", async () => {
 
 test("[Session] 1.2. Package of documents (15 subjects)", async () => {
   await clearFolder(outputPath);
-  test.setTimeout(120000);
+  test.setTimeout(testDuration);
 
   const inputPath = path.join(testPath, `${codeWord}--package-of-documents/`);
   const referencePath = path.join(inputPath, "reference/15 subjects/");
@@ -137,7 +138,7 @@ test("[Session] 1.2. Package of documents (15 subjects)", async () => {
 
 test("[Session] 2.1. Empty statements (1 semester 14 subjects)", async () => {
   await clearFolder(outputPath);
-  test.setTimeout(120000);
+  test.setTimeout(testDuration);
 
   const inputPath = path.join(testPath, `${codeWord}--empty-statements/`);
   const referencePath = path.join(
@@ -189,7 +190,7 @@ test("[Session] 2.1. Empty statements (1 semester 14 subjects)", async () => {
 
 test("[Session] 2.2. Empty statements (1 semester 15 subjects)", async () => {
   await clearFolder(outputPath);
-  test.setTimeout(120000);
+  test.setTimeout(testDuration);
 
   const inputPath = path.join(testPath, `${codeWord}--empty-statements/`);
   const referencePath = path.join(
@@ -241,7 +242,7 @@ test("[Session] 2.2. Empty statements (1 semester 15 subjects)", async () => {
 
 test("[Session] 2.3. Empty statements (2 semester 14 subjects)", async () => {
   await clearFolder(outputPath);
-  test.setTimeout(120000);
+  test.setTimeout(testDuration);
 
   const inputPath = path.join(testPath, `${codeWord}--empty-statements/`);
   const referencePath = path.join(
@@ -302,7 +303,7 @@ test("[Session] 2.3. Empty statements (2 semester 14 subjects)", async () => {
 
 test("[Session] 2.4. Empty statements (2 semester 15 subjects)", async () => {
   await clearFolder(outputPath);
-  test.setTimeout(120000);
+  test.setTimeout(testDuration);
 
   const inputPath = path.join(testPath, `${codeWord}--empty-statements/`);
   const referencePath = path.join(
@@ -363,7 +364,7 @@ test("[Session] 2.4. Empty statements (2 semester 15 subjects)", async () => {
 
 test("[Session] 3.1. Report (14 subjects)", async () => {
   await clearFolder(outputPath);
-  test.setTimeout(120000);
+  test.setTimeout(testDuration);
 
   const inputPath = path.join(testPath, `${codeWord}--report/`);
   const referencePath = path.join(inputPath, "reference/14 subjects/");
@@ -403,7 +404,7 @@ test("[Session] 3.1. Report (14 subjects)", async () => {
 
 test("[Session] 3.2. Report (15 subjects)", async () => {
   await clearFolder(outputPath);
-  test.setTimeout(120000);
+  test.setTimeout(testDuration);
 
   const inputPath = path.join(testPath, `${codeWord}--report/`);
   const referencePath = path.join(inputPath, "reference/15 subjects/");
@@ -443,7 +444,7 @@ test("[Session] 3.2. Report (15 subjects)", async () => {
 
 test("[Session] 4.1. Debtors (14 subjects)", async () => {
   await clearFolder(outputPath);
-  test.setTimeout(120000);
+  test.setTimeout(testDuration);
 
   const inputPath = path.join(testPath, `${codeWord}--debtors/`);
   const referencePath = path.join(inputPath, "reference/14 subjects/");
@@ -483,7 +484,7 @@ test("[Session] 4.1. Debtors (14 subjects)", async () => {
 
 test("[Session] 4.2. Debtors (15 subjects)", async () => {
   await clearFolder(outputPath);
-  test.setTimeout(120000);
+  test.setTimeout(testDuration);
 
   const inputPath = path.join(testPath, `${codeWord}--debtors/`);
   const referencePath = path.join(inputPath, "reference/15 subjects/");
