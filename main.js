@@ -34,7 +34,7 @@ process.on("uncaughtException", (err) => {
 function createWindow() {
   let windowWidth = 0;
   let windowHeight = 0;
-  if (isDev || process.env.E2E_TEST === "true") {
+  if (isDev) {
     windowWidth = 2000 + 4;
     windowHeight = 1000 + 4;
   } else {
@@ -58,13 +58,9 @@ function createWindow() {
     },
   });
 
-  if (isDev || process.env.E2E_TEST === "true") {
+  if (isDev) {
     console.log("================(Development mode)================");
-    if (process.env.E2E_TEST === "true") {
-      mainWindow.loadFile(path.join(__dirname, "dist-vite", "index.html"));
-    } else {
-      mainWindow.loadURL("http://localhost:5173");
-    }
+    mainWindow.loadURL("http://localhost:5173");
     mainWindow.webContents.once("did-finish-load", () => {
       mainWindow.webContents.openDevTools({ mode: "right" });
     });
@@ -98,6 +94,8 @@ function createWindow() {
 
       menu.popup();
     });
+  } else if (process.env.E2E_TEST === "true") {
+    mainWindow.loadFile(path.join(__dirname, "dist-vite", "index.html"));
   } else {
     mainWindow.loadFile(path.join(__dirname, "dist", "index.html"));
   }
