@@ -358,3 +358,64 @@ test("[Session] 2.4. Empty statements (2 semester 15 subjects)", async () => {
 
   await electronApp.close();
 });
+
+test("[Session] 3.1. Empty statements (2 semester 15 subjects)", async () => {
+  await clearFolder(outputPath);
+  test.setTimeout(120000);
+
+  const inputPath = path.join(projectPath, "test/empty-statements/");
+  const referencePath = path.join(
+    inputPath,
+    "reference/2 semester 15 subjects/",
+  );
+  const files = [
+    "II семестр/25-1/Відомості 25-1.xlsx",
+    "II семестр/25-2/Відомості 25-2.xlsx",
+    "II семестр/25-3/Відомості 25-3.xlsx",
+    "II семестр/25-4/Відомості 25-4.xlsx",
+    "II семестр/25-5/Відомості 25-5.xlsx",
+    "II семестр/Відомості для викладачів.xlsx",
+    "II семестр/Журнал видачі відомостей.xlsx",
+
+    "рік/25-1/Відомості 25-1.xlsx",
+    "рік/25-2/Відомості 25-2.xlsx",
+    "рік/25-3/Відомості 25-3.xlsx",
+    "рік/25-4/Відомості 25-4.xlsx",
+    "рік/25-5/Відомості 25-5.xlsx",
+    "рік/Відомості для викладачів.xlsx",
+    "рік/Журнал видачі відомостей.xlsx",
+  ];
+
+  let electronApp, window;
+
+  await test.step("1. Launching the application", async () => {
+    await preparingTheFolder(inputPath, files);
+    [electronApp, window] = await electronLaunch();
+  });
+
+  await test.step("2. Fill out the form and start", async () => {
+    await window.locator(".section-button#empty-statements").click();
+    const hoursFilePath = path.join(inputPath, "hours_2_15.xlsx");
+    await window
+      .locator(".file-input#session--empty-statements--hours input")
+      .setInputFiles(hoursFilePath);
+    const contingentFilePath = path.join(inputPath, "contingent.xlsx");
+    await window
+      .locator(".file-input#session--empty-statements--contingent input")
+      .setInputFiles(contingentFilePath);
+    await window.locator(".semester-number input").fill("2");
+    await window.locator(".first-index input").fill("76");
+
+    await window.locator(".workspace > .start").click();
+  });
+
+  await test.step("3. Waiting for output files", async () => {
+    await waitFiles(outputPath, files);
+  });
+
+  await test.step("4. Checking output files", async () => {
+    await checkingOutputFiles(referencePath, outputPath, files);
+  });
+
+  await electronApp.close();
+});
