@@ -20,8 +20,9 @@
   let ePercentage, eFirstIndex, eSemesterNumber;
   let percentageOfScholarship = "";
   let firstIndex = "";
+  let semesterNumber = "";
 
-  let contingentData = { semesterNumber: "" };
+  let contingentData = null;
   let hoursData = null;
 
   $: if ($selectedSection) {
@@ -53,23 +54,24 @@
   }
 
   function clearAll() {
-    contingentData = { semesterNumber: "" };
+    contingentData = null;
     hoursData = null;
     uploadedFileHours = null;
     uploadedFileContingent = null;
     percentageOfScholarship = "";
     firstIndex = "";
+    semesterNumber = "";
   }
 
   async function saveAll() {
     if (
       percentageOfScholarship === "" ||
       firstIndex === "" ||
-      contingentData.semesterNumber === "" ||
+      semesterNumber === "" ||
+      contingentData === null ||
       hoursData === null ||
       uploadedFileHours === null ||
-      uploadedFileContingent === null ||
-      semesterNumber === null
+      uploadedFileContingent === null
     ) {
       message.set({ type: "error", text: _lng.emptyStatements.notAllData });
       return;
@@ -84,15 +86,14 @@
       filePath: targetPath,
       percentage: Number(percentageOfScholarship),
       firstIndex: Number(firstIndex),
+      semesterNumber: Number(semesterNumber),
       hoursData: hoursData,
       contingentData: contingentData,
-      semesterNumber: semesterNumber,
     };
 
     // Final data supplementation before sending to the backend
     endInformation =
       await window.electron.sessionEmptyDataSupplement(endInformation);
-    console.log(endInformation);
     savedInformation.set(endInformation);
   }
 
@@ -133,7 +134,7 @@
       } else {
         message.set({ type: "error", text: _lng.inputFile.error });
         uploadedFileContingent = null;
-        contingentData = { semesterNumber: "" };
+        contingentData = null;
 
         // Clearing the specific FileInput component in case of a file reading error
         clearInformation.set("session--empty-statements--contingent");
@@ -148,6 +149,7 @@
     if (uploadedFileHours !== null && uploadedFileContingent !== null) {
       percentageOfScholarship = 40;
       firstIndex = 1;
+      semesterNumber = contingentData.semesterNumber;
     }
   }
 
@@ -159,7 +161,7 @@
       hoursData = null;
     } else if (detail.id === "session--empty-statements--contingent") {
       uploadedFileContingent = null;
-      contingentData = { semesterNumber: "" };
+      contingentData = null;
     }
   }
 </script>
@@ -193,7 +195,7 @@
     <input
       type="text"
       bind:this={ePercentage}
-      value={percentageOfScholarship}
+      bind:value={percentageOfScholarship}
       class:unavailable={uploadedFileHours === null ||
         uploadedFileContingent === null}
       on:input={(e) => handleInput(e.target, { numbers: true, maxNumber: 100 })}
@@ -205,7 +207,7 @@
     <input
       type="text"
       bind:this={eFirstIndex}
-      value={firstIndex}
+      bind:value={firstIndex}
       class:unavailable={uploadedFileHours === null ||
         uploadedFileContingent === null}
       on:input={(e) => handleInput(e.target, { numbers: true })}
@@ -217,7 +219,7 @@
     <input
       type="text"
       bind:this={eSemesterNumber}
-      value={contingentData.semesterNumber}
+      bind:value={semesterNumber}
       class:unavailable={uploadedFileHours === null ||
         uploadedFileContingent === null}
       on:input={(e) =>

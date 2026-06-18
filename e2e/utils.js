@@ -79,18 +79,40 @@ export async function waitFiles(pathToTheFolder, files, timeout = 45000) {
 }
 
 async function convertToPdf(inputFilePath, outputFilePath) {
-  const sofficeCmd = '"C:\\Program Files\\LibreOffice\\program\\soffice.exe"';
+  const docbuilderCmd =
+    '"C:\\Program Files\\ONLYOFFICE\\DocumentBuilder\\docbuilder.exe"';
+
   const outputDir = path.dirname(outputFilePath);
+  const scriptPath = path.join(
+    outputDir,
+    `convert_${Date.now()}_${Math.floor(Math.random() * 1000)}.docbuilder`,
+  );
 
-  const command = `${sofficeCmd} --headless --convert-to pdf --outdir "${outputDir}" "${inputFilePath}"`;
+  const safeInputPath = inputFilePath.replace(/\\/g, "/");
+  const safeOutputPath = outputFilePath.replace(/\\/g, "/");
 
-  await execAsync(command);
+  const scriptContent = `
+    builder.OpenFile("${safeInputPath}");
+    builder.SaveFile("pdf", "${safeOutputPath}");
+    builder.CloseFile();
+  `;
 
-  const baseName = path.parse(inputFilePath).name;
-  const defaultOutputPath = path.join(outputDir, `${baseName}.pdf`);
+  fs.writeFileSync(scriptPath, scriptContent);
 
-  if (defaultOutputPath !== outputFilePath) {
-    fs.renameSync(defaultOutputPath, outputFilePath);
+  const command = `${docbuilderCmd} "${scriptPath}"`;
+
+  try {
+    await execAsync(command);
+  } catch (error) {
+    console.error(
+      `[ONLYOFFICE Error] Ошибка конвертации файла: ${inputFilePath}\n`,
+      error.message,
+    );
+    throw error;
+  } finally {
+    if (fs.existsSync(scriptPath)) {
+      fs.unlinkSync(scriptPath);
+    }
   }
 
   return outputFilePath;
@@ -108,10 +130,10 @@ function readPNG(filePath) {
   });
 }
 
-async function renderPdfPage(pdfPath, pageNum, outputDir) {
+async function renderAllPdfPages(pdfPath, outputDir, prefix) {
   const options = {
     density: 300,
-    saveFilename: path.parse(pdfPath).name,
+    saveFilename: `${path.parse(pdfPath).name}_${prefix}`,
     savePath: outputDir,
     format: "png",
     width: 2480,
@@ -119,46 +141,71 @@ async function renderPdfPage(pdfPath, pageNum, outputDir) {
   };
 
   const storeAsImage = fromPath(pdfPath, options);
-  const result = await storeAsImage(pageNum);
-  return result.path;
+  const results = await storeAsImage.bulk(-1, { returnAsFile: true });
+
+  return results.map((res) => res.path).sort();
 }
 
 async function comparePdfs(refPdfPath, testPdfPath, outputDir) {
-  const refImgPath = await renderPdfPage(refPdfPath, 1, outputDir);
-  const testImgPath = await renderPdfPage(testPdfPath, 1, outputDir);
+  const refImages = await renderAllPdfPages(refPdfPath, outputDir, "ref");
+  const testImages = await renderAllPdfPages(testPdfPath, outputDir, "out");
 
-  const img1 = await readPNG(refImgPath);
-  const img2 = await readPNG(testImgPath);
-
-  if (img1.width !== img2.width || img1.height !== img2.height) {
+  if (refImages.length !== testImages.length) {
+    console.error(
+      `Page count mismatch: Ref has ${refImages.length}, Test has ${testImages.length}`,
+    );
     return false;
   }
 
-  const diff = new PNG({ width: img1.width, height: img1.height });
-  const numDiffPixels = pixelmatch(
-    img1.data,
-    img2.data,
-    diff.data,
-    img1.width,
-    img1.height,
-    { threshold: 0.1 },
-  );
+  for (let i = 0; i < refImages.length; i++) {
+    const img1 = await readPNG(refImages[i]);
+    const img2 = await readPNG(testImages[i]);
 
-  if (numDiffPixels === 0) {
-    fs.unlinkSync(refImgPath);
-    fs.unlinkSync(testImgPath);
-    return true;
-  } else {
-    const diffPath = path.join(outputDir, "difference_map.png");
+    if (img1.width !== img2.width || img1.height !== img2.height) {
+      return false;
+    }
 
-    await new Promise((resolve, reject) => {
-      const outStream = fs.createWriteStream(diffPath);
-      outStream.on("finish", resolve);
-      outStream.on("error", reject);
-      diff.pack().pipe(outStream);
-    });
+    const diff = new PNG({ width: img1.width, height: img1.height });
+    const numDiffPixels = pixelmatch(
+      img1.data,
+      img2.data,
+      diff.data,
+      img1.width,
+      img1.height,
+      { threshold: 0.1 },
+    );
 
-    return false;
+    if (numDiffPixels !== 0) {
+      const diffPath = path.join(outputDir, `difference_map_page_${i + 1}.png`);
+      await new Promise((resolve, reject) => {
+        const outStream = fs.createWriteStream(diffPath);
+        outStream.on("finish", resolve);
+        outStream.on("error", reject);
+        diff.pack().pipe(outStream);
+      });
+      return false;
+    }
+
+    fs.unlinkSync(refImages[i]);
+    fs.unlinkSync(testImages[i]);
+  }
+
+  return true;
+}
+
+export async function clearFolder(pathForClear) {
+  if (fs.existsSync(pathForClear)) {
+    const dirFiles = fs.readdirSync(pathForClear);
+
+    for (const entry of dirFiles) {
+      // "..txt"
+      const isTargetTxt = /^\..*\.txt$/i.test(entry);
+
+      if (!isTargetTxt) {
+        const fullPath = path.join(pathForClear, entry);
+        fs.rmSync(fullPath, { recursive: true, force: true });
+      }
+    }
   }
 }
 

@@ -8,6 +8,9 @@ export default defineConfig({
     strictPort: true,
     sourcemap: true,
     minify: false,
+    watch: {
+      ignored: ["**/test/**", "**/test-results/**", "**/manual_test/**"],
+    },
   },
   base: "./",
   build: {

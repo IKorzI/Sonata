@@ -216,8 +216,8 @@ function dataSupplement(data) {
   const { groups, ...contingentLevelData } = contingentData;
 
   const result = {
-    ...rootLevelData,
     ...contingentLevelData,
+    ...rootLevelData,
     groups: transformedGroups,
   };
 

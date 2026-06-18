@@ -878,6 +878,9 @@ def filling_out_the_empty_teacher_statement(
     # =============================================================================================================
     # SPECIALTIES AND EDUCATIONAL PROGRAMS
 
+    sheet.cell(row=20, column=7).value = "Оцінка за\n12-бальною шкалою"
+    sheet.cell(row=20, column=10).value = "Підпис\nвикладача"
+
     line_size = 11299
     # "Specialty "         1448
     # "Educational program "  1825
@@ -1123,8 +1126,9 @@ def filling_out_the_empty_teacher_statement(
     for i, el in enumerate(students):
         sheet.cell(row=i + 21, column=4).value = el["student_name"]
 
-    sheet.cell(row=start + 2, column=9).value = "ВСЬОГО\r\nОЦІНОК"
-    sheet.cell(row=start + 2, column=11).value = "Державний\r\nнорматив ***"
+    sheet.cell(row=start + 2, column=9).value = "ВСЬОГО\nОЦІНОК"
+    sheet.cell(row=start + 2, column=11).value = "Державний\nнорматив ***"
+    sheet.cell(row=start + 3, column=5).value = "За національною\nшкалою"
     sheet.cell(row=start + 4, column=11).value = "Не менше 50"
     sheet.cell(row=start + 7, column=11).value = "Не більше 10%"
 
@@ -1265,20 +1269,20 @@ def filling_out_the_empty_sheet(
         row = end_row + 1
         sheet.cell(row=row, column=col).value = (
             f"=IF(SUM({col_letter}$10:{col_letter}{end_row})=0,"
-            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Waiting",0),'
+            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Очікую",0),'
             f"SUM({col_letter}$10:{col_letter}{end_row})/$D{end_row})"
         )
         row = end_row + 2
         sheet.cell(row=row, column=col).value = (
             f"=IF(SUM({col_letter}$10:{col_letter}{end_row})=0,"
-            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Waiting",0),'
+            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Очікую",0),'
             f'IF(COUNTIF({col_letter}$10:{col_letter}{end_row},">=4")=0,0,'
             f'COUNTIF({col_letter}$10:{col_letter}{end_row},">=4")/$D{end_row}*100))'
         )
         row = end_row + 3
         sheet.cell(row=row, column=col).value = (
             f"=IF(SUM({col_letter}$10:{col_letter}{end_row})=0,"
-            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Waiting",0),'
+            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Очікую",0),'
             f'IF(COUNTIF({col_letter}$10:{col_letter}{end_row},">=7")=0,0,'
             f'COUNTIF({col_letter}$10:{col_letter}{end_row},">=7")/$D{end_row}*100))'
         )
@@ -1286,26 +1290,26 @@ def filling_out_the_empty_sheet(
         sheet.cell(row=row, column=end_col + 1).value = (
             f'=IF(COUNTIF($F{row}:{end_col_letter}{row},"=*")>0,IF($C{row}="K","-"," - "),'
             f'IF(COUNTIF($F{row}:{end_col_letter}{row},"<4")>0,IF(C{row}="K","-"," - "),'
-            f'(IFERROR(AVERAGE($F{row}:{end_col_letter}{row}),"Waiting"))))'
+            f'(IFERROR(AVERAGE($F{row}:{end_col_letter}{row}),"Очікую"))))'
         )
     sheet.cell(row=end_row + 1, column=end_col + 1).value = (
-        f'=IFERROR(AVERAGE($F{end_row + 1}:{end_col_letter}{end_row + 1}),"Waiting")'
+        f'=IFERROR(AVERAGE($F{end_row + 1}:{end_col_letter}{end_row + 1}),"Очікую")'
     )
 
     sheet.cell(row=end_row + 4, column=6).value = (
-        f'=IFERROR(AVERAGE(F{end_row + 2}:{end_col_letter}{end_row + 2}),"Waiting")'
+        f'=IFERROR(AVERAGE(F{end_row + 2}:{end_col_letter}{end_row + 2}),"Очікую")'
     )
     sheet.cell(row=end_row + 5, column=6).value = (
-        f'=IFERROR(AVERAGE($F{end_row + 3}:{end_col_letter}{end_row + 3}),"Waiting")'
+        f'=IFERROR(AVERAGE($F{end_row + 3}:{end_col_letter}{end_row + 3}),"Очікую")'
     )
     sheet.cell(row=end_row + 6, column=6).value = (
-        f'=IF(COUNTIF($C$10:$C{end_row},"=B")=0,IF(COUNTIF($C$10:$C{end_row},"=K")=0,"Waiting",0),COUNTIF($C$10:$C{end_row},"=B"))'
+        f'=IF(COUNTIF($C$10:$C{end_row},"=B")=0,IF(COUNTIF($C$10:$C{end_row},"=K")=0,"Очікую",0),COUNTIF($C$10:$C{end_row},"=B"))'
     )
     sheet.cell(row=end_row + 7, column=6).value = (
-        f'=IF(COUNTIF($C$10:$C{end_row},"=K")=0,IF(COUNTIF($C$10:$C{end_row},"=B")=0,"Waiting",0),COUNTIF($C$10:$C{end_row},"=K"))'
+        f'=IF(COUNTIF($C$10:$C{end_row},"=K")=0,IF(COUNTIF($C$10:$C{end_row},"=B")=0,"Очікую",0),COUNTIF($C$10:$C{end_row},"=K"))'
     )
     sheet.cell(row=end_row + 9, column=6).value = (
-        f'=IF(F{end_row + 6}="Waiting","Waiting",IF(F{end_row + 6}-COUNTIF(${end_col_plus_1_letter}$10:${end_col_plus_1_letter}{end_row}," - ")<ROUNDDOWN(F{end_row + 6}*{percentage / 100},0),F{end_row + 6}-COUNTIF(${end_col_plus_1_letter}$10:${end_col_plus_1_letter}{end_row}," - "),ROUNDDOWN(F{end_row + 6}*{percentage / 100},0)))'
+        f'=IF(F{end_row + 6}="Очікую","Очікую",IF(F{end_row + 6}-COUNTIF(${end_col_plus_1_letter}$10:${end_col_plus_1_letter}{end_row}," - ")<ROUNDDOWN(F{end_row + 6}*{percentage / 100},0),F{end_row + 6}-COUNTIF(${end_col_plus_1_letter}$10:${end_col_plus_1_letter}{end_row}," - "),ROUNDDOWN(F{end_row + 6}*{percentage / 100},0)))'
     )
 
     # =============================================================================================================
@@ -1317,13 +1321,13 @@ def filling_out_the_empty_sheet(
     if subject_len >= 14:
         kurator_col_letter = get_column_letter(16)
         sheet.cell(row=end_row + 7, column=16).value = (
-            f"='General'!{kurator_col_letter}{last_student_row + 7}"
+            f"='Загальна'!{kurator_col_letter}{last_student_row + 7}"
         )
         sheet.cell(row=end_row + 9, column=16).value = f"Margarita BRITIKOVA"
     else:
         kurator_col_letter = get_column_letter(21 - delete_col_count)
         sheet.cell(row=end_row + 7, column=21 - delete_col_count).value = (
-            f"='General'!{kurator_col_letter}{last_student_row + 7}"
+            f"='Загальна'!{kurator_col_letter}{last_student_row + 7}"
         )
         sheet.cell(row=end_row + 9, column=21 - delete_col_count).value = (
             f"Margarita BRITIKOVA"
@@ -1333,16 +1337,16 @@ def filling_out_the_empty_sheet(
     end_col = 6 + subject_len
     for col in range(start_col, end_col):
         fcol_letter = get_column_letter(col)
-        sheet.cell(row=9, column=col).value = f"='General'!{fcol_letter}9"
+        sheet.cell(row=9, column=col).value = f"='Загальна'!{fcol_letter}9"
 
     for el_index, student_index in enumerate(students):
         row = el_index + 10
         frow = student_index + 10
-        sheet.cell(row=row, column=3).value = f"='General'!C{frow}"
-        sheet.cell(row=row, column=5).value = f"='General'!E{frow}"
+        sheet.cell(row=row, column=3).value = f"='Загальна'!C{frow}"
+        sheet.cell(row=row, column=5).value = f"='Загальна'!E{frow}"
         for col in range(start_col, end_col):
             fcol_letter = get_column_letter(col)
-            sheet.cell(row=row, column=col).value = f"='General'!{fcol_letter}{frow}"
+            sheet.cell(row=row, column=col).value = f"='Загальна'!{fcol_letter}{frow}"
 
 
 def filling_out_the_general_empty_sheet(
@@ -1411,20 +1415,20 @@ def filling_out_the_general_empty_sheet(
         row = end_row + 1
         sheet.cell(row=row, column=col).value = (
             f"=IF(SUM({col_letter}$10:{col_letter}{end_row})=0,"
-            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Waiting",0),'
+            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Очікую",0),'
             f"SUM({col_letter}$10:{col_letter}{end_row})/$D{end_row})"
         )
         row = end_row + 2
         sheet.cell(row=row, column=col).value = (
             f"=IF(SUM({col_letter}$10:{col_letter}{end_row})=0,"
-            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Waiting",0),'
+            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Очікую",0),'
             f'IF(COUNTIF({col_letter}$10:{col_letter}{end_row},">=4")=0,0,'
             f'COUNTIF({col_letter}$10:{col_letter}{end_row},">=4")/$D{end_row}*100))'
         )
         row = end_row + 3
         sheet.cell(row=row, column=col).value = (
             f"=IF(SUM({col_letter}$10:{col_letter}{end_row})=0,"
-            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Waiting",0),'
+            f'IF(COUNTA({col_letter}$10:{col_letter}{end_row})=0,"Очікую",0),'
             f'IF(COUNTIF({col_letter}$10:{col_letter}{end_row},">=7")=0,0,'
             f'COUNTIF({col_letter}$10:{col_letter}{end_row},">=7")/$D{end_row}*100))'
         )
@@ -1432,26 +1436,26 @@ def filling_out_the_general_empty_sheet(
         sheet.cell(row=row, column=end_col + 1).value = (
             f'=IF(COUNTIF($F{row}:{end_col_letter}{row},"=*")>0,IF($C{row}="K","-"," - "),'
             f'IF(COUNTIF($F{row}:{end_col_letter}{row},"<4")>0,IF($C{row}="K","-"," - "),'
-            f'(IFERROR(AVERAGE($F{row}:{end_col_letter}{row}),"Waiting"))))'
+            f'(IFERROR(AVERAGE($F{row}:{end_col_letter}{row}),"Очікую"))))'
         )
     sheet.cell(row=end_row + 1, column=end_col + 1).value = (
-        f'=IFERROR(AVERAGE($F{end_row + 1}:{end_col_letter}{end_row + 1}),"Waiting")'
+        f'=IFERROR(AVERAGE($F{end_row + 1}:{end_col_letter}{end_row + 1}),"Очікую")'
     )
 
     sheet.cell(row=end_row + 4, column=6).value = (
-        f'=IFERROR(AVERAGE(F{end_row + 2}:{end_col_letter}{end_row + 2}),"Waiting")'
+        f'=IFERROR(AVERAGE(F{end_row + 2}:{end_col_letter}{end_row + 2}),"Очікую")'
     )
     sheet.cell(row=end_row + 5, column=6).value = (
-        f'=IFERROR(AVERAGE($F{end_row + 3}:{end_col_letter}{end_row + 3}),"Waiting")'
+        f'=IFERROR(AVERAGE($F{end_row + 3}:{end_col_letter}{end_row + 3}),"Очікую")'
     )
     sheet.cell(row=end_row + 6, column=6).value = (
-        f'=IF(COUNTIF($C$10:$C{end_row},"=B")=0,IF(COUNTIF($C$10:$C{end_row},"=K")=0,"Waiting",0),COUNTIF($C$10:$C{end_row},"=B"))'
+        f'=IF(COUNTIF($C$10:$C{end_row},"=B")=0,IF(COUNTIF($C$10:$C{end_row},"=K")=0,"Очікую",0),COUNTIF($C$10:$C{end_row},"=B"))'
     )
     sheet.cell(row=end_row + 7, column=6).value = (
-        f'=IF(COUNTIF($C$10:$C{end_row},"=K")=0,IF(COUNTIF($C$10:$C{end_row},"=B")=0,"Waiting",0),COUNTIF($C$10:$C{end_row},"=K"))'
+        f'=IF(COUNTIF($C$10:$C{end_row},"=K")=0,IF(COUNTIF($C$10:$C{end_row},"=B")=0,"Очікую",0),COUNTIF($C$10:$C{end_row},"=K"))'
     )
     sheet.cell(row=end_row + 9, column=6).value = (
-        f'=IF(F{end_row + 6}="Waiting","Waiting",IF(F{end_row + 6}-COUNTIF(${end_col_plus_1_letter}$10:${end_col_plus_1_letter}{end_row}," - ")<ROUNDDOWN(F{end_row + 6}*{percentage / 100},0),F{end_row + 6}-COUNTIF(${end_col_plus_1_letter}$10:${end_col_plus_1_letter}{end_row}," - "),ROUNDDOWN(F{end_row + 6}*{percentage / 100},0)))'
+        f'=IF(F{end_row + 6}="Очікую","Очікую",IF(F{end_row + 6}-COUNTIF(${end_col_plus_1_letter}$10:${end_col_plus_1_letter}{end_row}," - ")<ROUNDDOWN(F{end_row + 6}*{percentage / 100},0),F{end_row + 6}-COUNTIF(${end_col_plus_1_letter}$10:${end_col_plus_1_letter}{end_row}," - "),ROUNDDOWN(F{end_row + 6}*{percentage / 100},0)))'
     )
 
     # =============================================================================================================

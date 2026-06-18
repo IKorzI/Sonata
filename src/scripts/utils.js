@@ -5,12 +5,12 @@ import { spawn } from "child_process";
 import fs from "fs";
 import readline from "readline";
 import { lng } from "./language.js";
-import { app } from 'electron';
+import { app } from "electron";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const up2 = path.resolve(__dirname, "../../");
+const projectPath = path.resolve(__dirname, "../../");
 
 export const monthNames = {
   січень: 1,
@@ -144,9 +144,9 @@ export function findCell(sheet, searchValue, direction, startAddress) {
 let pythonBasePath;
 
 if (app.isPackaged) {
-  pythonBasePath = path.join(process.resourcesPath, 'python-backend');
+  pythonBasePath = path.join(process.resourcesPath, "python-backend");
 } else {
-  pythonBasePath = path.join(up2, "src", "scripts", "python"); 
+  pythonBasePath = path.join(projectPath, "src", "scripts", "python");
 }
 
 const pathStart = path.join(pythonBasePath, "start.exe");
@@ -161,7 +161,7 @@ const pendingRequests = new Map();
 export function initPythonServer() {
   if (pyProcess) return;
 
-  pyProcess = spawn(pathStart, [up2], { cwd: pythonBasePath });
+  pyProcess = spawn(pathStart, [projectPath], { cwd: pythonBasePath });
 
   const rl = readline.createInterface({
     input: pyProcess.stdout,
@@ -254,6 +254,11 @@ export async function startBackendFunc(data) {
     );
   }
 
+  if (process.env.E2E_TEST === "true" && data.filePath) {
+    const originalFileName = path.basename(data.filePath);
+    data.filePath = path.join(projectPath, "test", "output", originalFileName);
+  }
+
   return new Promise((resolve, reject) => {
     const reqId = ++requestCounter;
 
@@ -287,7 +292,7 @@ export async function startBackendFunc(data) {
  * @returns {{extension: string, fullPath: string}|null} An object with the extension and full path, or null.
  */
 function findFileWithExtension(dir, baseName) {
-  const fullDir = path.join(up2, "public/", dir);
+  const fullDir = path.join(projectPath, "public/", dir);
 
   const files = fs.readdirSync(fullDir);
 
@@ -312,8 +317,8 @@ function findFileWithExtension(dir, baseName) {
  * @returns {Promise<string|null>} The path to the saved file or null if canceled.
  */
 async function saveDialog(fileName, extension) {
-  if (process.env.E2E_TEST === 'true') {
-    return path.join(__dirname, "..", "..", 'test', `${fileName}${extension}`);
+  if (process.env.E2E_TEST === "true") {
+    return "null";
   }
 
   const { filePath, canceled } = await dialog.showSaveDialog({
