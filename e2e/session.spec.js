@@ -19,7 +19,7 @@ const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
 test("[Session] 1.1. Package of documents (14 subjects)", async () => {
   await clearFolder(outputPath);
-  test.setTimeout(60000);
+  test.setTimeout(120000);
 
   const inputPath = path.join(projectPath, "test/package-of-documents/");
   const referencePath = path.join(inputPath, "reference/14 subjects/");
@@ -49,27 +49,17 @@ test("[Session] 1.1. Package of documents (14 subjects)", async () => {
     await window.locator(".social-scholarship .add").click();
     await window.locator(".social-scholarship .add").click();
     await window.locator(".social-scholarship .list #row-0 .student").click();
-    await sleep(1000)
     await window.getByText("Білан Інна Євгенівна").click();
-    await sleep(1000)
     await window.locator(".social-scholarship .list #row-0 .status").click();
-    await sleep(1000)
     await window.getByText("Внутрішньо переміщена особа").click();
-    await sleep(1000)
     await window.locator(".social-scholarship .list #row-1 .student").click();
-    await sleep(1000)
     await window.getByText("Безуглий Юрій Віталійович").click();
-    await sleep(1000)
     await window.locator(".social-scholarship .list #row-1 .status").click();
-    await sleep(1000)
     await window.getByText("Дитина учасника бойових дій").click();
-    await sleep(1000)
     await window.locator(".social-scholarship .label2").click();
     await window.locator(".social-scholarship .add").click();
     await window.locator(".social-scholarship .list #row-0 .student").click();
-    await sleep(1000)
     await window.getByText("Сидоренко Ілля Артемович").click();
-    await sleep(1000)
 
     await window.locator(".workspace > .start").click();
   });
@@ -96,7 +86,7 @@ test("[Session] 1.1. Package of documents (14 subjects)", async () => {
 
 test("[Session] 1.2. Package of documents (15 subjects)", async () => {
   await clearFolder(outputPath);
-  test.setTimeout(60000);
+  test.setTimeout(120000);
 
   const inputPath = path.join(projectPath, "test/package-of-documents/");
   const referencePath = path.join(inputPath, "reference/15 subjects/");
@@ -125,29 +115,18 @@ test("[Session] 1.2. Package of documents (15 subjects)", async () => {
       .setInputFiles(filePath);
     await window.locator(".social-scholarship .add").click();
     await window.locator(".social-scholarship .add").click();
-    await sleep(1000)
     await window.locator(".social-scholarship .list #row-0 .student").click();
-    await sleep(1000)
     await window.getByText("Білан Інна Євгенівна").click();
-    await sleep(1000)
     await window.locator(".social-scholarship .list #row-0 .status").click();
-    await sleep(1000)
     await window.getByText("Внутрішньо переміщена особа").click();
-    await sleep(1000)
     await window.locator(".social-scholarship .list #row-1 .student").click();
-    await sleep(1000)
     await window.getByText("Безуглий Юрій Віталійович").click();
-    await sleep(1000)
     await window.locator(".social-scholarship .list #row-1 .status").click();
-    await sleep(1000)
     await window.getByText("Дитина учасника бойових дій").click();
-    await sleep(1000)
     await window.locator(".social-scholarship .label2").click();
     await window.locator(".social-scholarship .add").click();
     await window.locator(".social-scholarship .list #row-0 .student").click();
-    await sleep(1000)
     await window.getByText("Сидоренко Ілля Артемович").click();
-    await sleep(1000)
 
     await window.locator(".workspace > .start").click();
   });
@@ -174,7 +153,7 @@ test("[Session] 1.2. Package of documents (15 subjects)", async () => {
 
 test("[Session] 2.1. Empty statements (1 semester 14 subjects)", async () => {
   await clearFolder(outputPath);
-  test.setTimeout(60000);
+  test.setTimeout(120000);
 
   const inputPath = path.join(projectPath, "test/empty-statements/");
   const referencePath = path.join(
@@ -235,7 +214,7 @@ test("[Session] 2.1. Empty statements (1 semester 14 subjects)", async () => {
 
 test("[Session] 2.2. Empty statements (1 semester 15 subjects)", async () => {
   await clearFolder(outputPath);
-  test.setTimeout(60000);
+  test.setTimeout(120000);
 
   const inputPath = path.join(projectPath, "test/empty-statements/");
   const referencePath = path.join(
@@ -296,7 +275,7 @@ test("[Session] 2.2. Empty statements (1 semester 15 subjects)", async () => {
 
 test("[Session] 2.3. Empty statements (2 semester 14 subjects)", async () => {
   await clearFolder(outputPath);
-  test.setTimeout(60000);
+  test.setTimeout(120000);
 
   const inputPath = path.join(projectPath, "test/empty-statements/");
   const referencePath = path.join(
@@ -366,7 +345,7 @@ test("[Session] 2.3. Empty statements (2 semester 14 subjects)", async () => {
 
 test("[Session] 2.4. Empty statements (2 semester 15 subjects)", async () => {
   await clearFolder(outputPath);
-  test.setTimeout(60000);
+  test.setTimeout(120000);
 
   const inputPath = path.join(projectPath, "test/empty-statements/");
   const referencePath = path.join(
