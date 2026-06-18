@@ -318,7 +318,7 @@ function findFileWithExtension(dir, baseName) {
  */
 async function saveDialog(fileName, extension) {
   if (process.env.E2E_TEST === "true") {
-    return "null";
+    return `C:\\${fileName}${extension}`;
   }
 
   const { filePath, canceled } = await dialog.showSaveDialog({

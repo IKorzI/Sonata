@@ -4,13 +4,13 @@ import path from "path";
 import { fileURLToPath } from "url";
 import {
   clearFolder,
-  preparingTheFolder,
   electronLaunch,
   waitFiles,
   checkingOutputFiles,
 } from "./utils.js";
 
 const codeWord = "session";
+const codeWord1 = "Session";
 const testDuration = 150000;
 
 const __filename = fileURLToPath(import.meta.url);
@@ -20,7 +20,7 @@ const outputPath = path.join(testPath, "output/");
 
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
-test("[Session] 1.1. Package of documents (14 subjects)", async () => {
+test(`[${codeWord1}] 1.1. Package of documents (14 subjects)`, async () => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -39,7 +39,6 @@ test("[Session] 1.1. Package of documents (14 subjects)", async () => {
   let electronApp, window;
 
   await test.step("1. Launching the application", async () => {
-    await preparingTheFolder(inputPath, files);
     [electronApp, window] = await electronLaunch();
   });
 
@@ -78,7 +77,7 @@ test("[Session] 1.1. Package of documents (14 subjects)", async () => {
   await electronApp.close();
 });
 
-test("[Session] 1.2. Package of documents (15 subjects)", async () => {
+test(`[${codeWord1}] 1.2. Package of documents (15 subjects)`, async () => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -97,7 +96,6 @@ test("[Session] 1.2. Package of documents (15 subjects)", async () => {
   let electronApp, window;
 
   await test.step("1. Launching the application", async () => {
-    await preparingTheFolder(inputPath, files);
     [electronApp, window] = await electronLaunch();
   });
 
@@ -136,7 +134,7 @@ test("[Session] 1.2. Package of documents (15 subjects)", async () => {
   await electronApp.close();
 });
 
-test("[Session] 2.1. Empty statements (1 semester 14 subjects)", async () => {
+test(`[${codeWord1}] 2.1. Empty statements (1 semester 14 subjects)`, async () => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -158,7 +156,6 @@ test("[Session] 2.1. Empty statements (1 semester 14 subjects)", async () => {
   let electronApp, window;
 
   await test.step("1. Launching the application", async () => {
-    await preparingTheFolder(inputPath, files);
     [electronApp, window] = await electronLaunch();
   });
 
@@ -188,7 +185,7 @@ test("[Session] 2.1. Empty statements (1 semester 14 subjects)", async () => {
   await electronApp.close();
 });
 
-test("[Session] 2.2. Empty statements (1 semester 15 subjects)", async () => {
+test(`[${codeWord1}] 2.2. Empty statements (1 semester 15 subjects)`, async () => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -210,7 +207,6 @@ test("[Session] 2.2. Empty statements (1 semester 15 subjects)", async () => {
   let electronApp, window;
 
   await test.step("1. Launching the application", async () => {
-    await preparingTheFolder(inputPath, files);
     [electronApp, window] = await electronLaunch();
   });
 
@@ -240,7 +236,7 @@ test("[Session] 2.2. Empty statements (1 semester 15 subjects)", async () => {
   await electronApp.close();
 });
 
-test("[Session] 2.3. Empty statements (2 semester 14 subjects)", async () => {
+test(`[${codeWord1}] 2.3. Empty statements (2 semester 14 subjects)`, async () => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -270,7 +266,6 @@ test("[Session] 2.3. Empty statements (2 semester 14 subjects)", async () => {
   let electronApp, window;
 
   await test.step("1. Launching the application", async () => {
-    await preparingTheFolder(inputPath, files);
     [electronApp, window] = await electronLaunch();
   });
 
@@ -301,7 +296,7 @@ test("[Session] 2.3. Empty statements (2 semester 14 subjects)", async () => {
   await electronApp.close();
 });
 
-test("[Session] 2.4. Empty statements (2 semester 15 subjects)", async () => {
+test(`[${codeWord1}] 2.4. Empty statements (2 semester 15 subjects)`, async () => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -331,7 +326,6 @@ test("[Session] 2.4. Empty statements (2 semester 15 subjects)", async () => {
   let electronApp, window;
 
   await test.step("1. Launching the application", async () => {
-    await preparingTheFolder(inputPath, files);
     [electronApp, window] = await electronLaunch();
   });
 
@@ -362,7 +356,7 @@ test("[Session] 2.4. Empty statements (2 semester 15 subjects)", async () => {
   await electronApp.close();
 });
 
-test("[Session] 3.1. Report (14 subjects)", async () => {
+test(`[${codeWord1}] 3.1. Report (14 subjects)`, async () => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -373,7 +367,6 @@ test("[Session] 3.1. Report (14 subjects)", async () => {
   let electronApp, window;
 
   await test.step("1. Launching the application", async () => {
-    await preparingTheFolder(inputPath, files);
     [electronApp, window] = await electronLaunch();
   });
 
@@ -402,7 +395,7 @@ test("[Session] 3.1. Report (14 subjects)", async () => {
   await electronApp.close();
 });
 
-test("[Session] 3.2. Report (15 subjects)", async () => {
+test(`[${codeWord1}] 3.2. Report (15 subjects)`, async () => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -413,7 +406,6 @@ test("[Session] 3.2. Report (15 subjects)", async () => {
   let electronApp, window;
 
   await test.step("1. Launching the application", async () => {
-    await preparingTheFolder(inputPath, files);
     [electronApp, window] = await electronLaunch();
   });
 
@@ -442,7 +434,7 @@ test("[Session] 3.2. Report (15 subjects)", async () => {
   await electronApp.close();
 });
 
-test("[Session] 4.1. Debtors (14 subjects)", async () => {
+test(`[${codeWord1}] 4.1. Debtors (14 subjects)`, async () => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -453,7 +445,6 @@ test("[Session] 4.1. Debtors (14 subjects)", async () => {
   let electronApp, window;
 
   await test.step("1. Launching the application", async () => {
-    await preparingTheFolder(inputPath, files);
     [electronApp, window] = await electronLaunch();
   });
 
@@ -482,7 +473,7 @@ test("[Session] 4.1. Debtors (14 subjects)", async () => {
   await electronApp.close();
 });
 
-test("[Session] 4.2. Debtors (15 subjects)", async () => {
+test(`[${codeWord1}] 4.2. Debtors (15 subjects)`, async () => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -493,7 +484,6 @@ test("[Session] 4.2. Debtors (15 subjects)", async () => {
   let electronApp, window;
 
   await test.step("1. Launching the application", async () => {
-    await preparingTheFolder(inputPath, files);
     [electronApp, window] = await electronLaunch();
   });
 

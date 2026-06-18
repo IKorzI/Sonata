@@ -56,7 +56,6 @@
   let this_;
   let uploadedFile = null;
   let data = { semesterEndDate: null };
-  let semesterEnd;
   let subjectsAndHours = [];
 
   $: if ($selectedSection) {
@@ -97,8 +96,9 @@
   async function saveAll() {
     if (
       uploadedFile === null ||
-      semesterEnd === "" ||
-      subjectsAndHours.length === 0
+      data.semesterEndDate === null ||
+      subjectsAndHours.length === 0 ||
+      subjectsAndHours.some((item) => item.hours === "--")
     ) {
       message.set({ type: "error", text: "basedOnTheFirstMonth.notAllData" });
       return;
@@ -106,7 +106,6 @@
 
     let endInformation = {
       ...data,
-      semesterEndDate: semesterEnd,
       id: thisId,
       filePath: uploadedFile.path,
       hoursPerSubject: subjectsAndHours,

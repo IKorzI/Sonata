@@ -112,7 +112,7 @@
     "emptyStatements.notAllData": "The data is incorrect for one of the following reasons:\n  –  files not uploaded;\n  –  the \"% of scholarship budget\" field is not filled in;\n  –  the \"Number of the first statement in the issuance journal\" field is not filled in.",
     "report.notAllData": "The data is incorrect for one of the reasons:\n  –  groups uploaded 0.",
     "debtors.notAllData": "The data is incorrect for one of the reasons:\n  –  groups uploaded 0.",
-    "basedOnTheFirstMonth.notAllData": "The data is incorrect for one of the reasons:\n  –  file not uploaded;\n  –  no last date of study in the semester has been entered.",
+    "basedOnTheFirstMonth.notAllData": "The data is incorrect for one of the reasons:\n  –  file not uploaded;\n  –  no last date of study in the semester has been entered;\n  –  not all hours for subjects have been entered.",
     "summaryOfTeachers.notAllData": "The data is incorrect for one of the reasons:\n  –  no file has been uploaded.",
     "other.numDen.notAllData": "The data is incorrect for one of the reasons:\n  –  all start and end dates of the semesters have not been entered (or entered incorrectly).",
     "inputFile.error": "Error retrieving information from the file. Check the correctness of the selected file.",
