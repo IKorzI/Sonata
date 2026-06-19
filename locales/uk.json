@@ -76,7 +76,7 @@
     "programMenu.session.report": "Звіт за семестр",
     "programMenu.session.debtors": "Боржники",
     "programMenu.hours.sectionTitle": "Години",
-    "programMenu.hours.basedOnTheFirstMonth": "На основі І-го місяця",
+    "programMenu.hours.basedOnTheFirstMonth": "На основі I-го місяця",
     "programMenu.hours.summaryOfTeachers": "По викладачам",
     "programMenu.other.sectionTitle": "Інше",
     "programMenu.other.templates": "Шаблони документів",
@@ -117,7 +117,14 @@
     "other.numDen.notAllData": "Дані невірні з однієї з причин:\n  –  не введено всі дати початку та кінця семестрів (або невірно введено).",
     "inputFile.error": "Помилка при отриманні інформації з файлу. Перевірте правильність вибраного файлу.",
 
-    "save": "Зберегти"
+    "save": "Зберегти",
+
+    "about.title": "Про додаток",
+    "about.version": "Версія",
+    "about.gitHub": "Сторінка проекту на GitHub",
+    "about.history": "Додаток спочатку створювався як \"А що, якщо ...?\". Чим далі продовжувалася розробка, тим більше додаток переростав у повноцінний проект.",
+    "about.authors.title": "У програмі використовуються зображення від наступних авторів:",
+    "about.authors.elementText": "Зображення{imageName} від {autorName}"
   },
   "backend": {
     "renderAndTransform.done.title": "Експорт завершено", 

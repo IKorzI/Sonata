@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CustomSaveDialog")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8016c8762b61e7fc434ed3e2729ea44f24d40328")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+19b1b74ec865322679b1487a209b141a2ba893e7")]
 [assembly: System.Reflection.AssemblyProductAttribute("CustomSaveDialog")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CustomSaveDialog")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

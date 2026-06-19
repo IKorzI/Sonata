@@ -1,8 +1,6 @@
 <script>
   import { message, lng } from "../lib/store.js";
 
-  let _lng = {};
-  lng.subscribe((value) => (_lng = value));
   let errorText = "";
   let errorType = "";
 

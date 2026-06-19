@@ -117,7 +117,14 @@
     "other.numDen.notAllData": "The data is incorrect for one of the reasons:\n  –  all start and end dates of the semesters have not been entered (or entered incorrectly).",
     "inputFile.error": "Error retrieving information from the file. Check the correctness of the selected file.",
 
-    "save": "Save"
+    "save": "Save",
+
+    "about.title": "About the app",
+    "about.version": "Version",
+    "about.gitHub": "Project page on GitHub",
+    "about.history": "The app was initially created as a \"What if ...?\" project. The further development continued, the more the application grew into a full-fledged project.",
+    "about.authors.title": "The application uses images from the following authors:",
+    "about.authors.elementText": "Image{imageName} by {autorName}"
   },
   "backend": {
     "renderAndTransform.done.title": "Export complete",

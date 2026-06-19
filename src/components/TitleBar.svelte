@@ -7,7 +7,7 @@
     transition,
     themeSwap,
     hide,
-    about
+    about,
   } from "../lib/store.js";
 
   let _lng = {};
@@ -118,7 +118,7 @@
   }
 
   function showAbout() {
-    about.set(true)
+    about.set(true);
   }
 </script>
 
@@ -179,7 +179,7 @@
     position: absolute;
     height: 85px;
     top: 26px;
-    left: 25px;
+    left: 50px;
     opacity: 0;
     z-index: -1;
   }

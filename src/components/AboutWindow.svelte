@@ -1,20 +1,247 @@
 <script>
-  import { about } from "../lib/store.js";
+  import { about, lng } from "../lib/store.js";
+
+  let _lng = {};
+  lng.subscribe((value) => (_lng = value));
+
+  const authorsList = [
+    {
+      url: "https://www.magnific.com/icon/verify_6270466",
+      author: "Rizki Ahmad Fauzi",
+      imageName: { ru: "«Удачно»", uk: "«Вдало»", en: '"Successful"' },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/documents_666701",
+      author: "Vitaly Gorbachev",
+      imageName: {
+        ru: "«Пакет документов»",
+        uk: "«Пакет документів»",
+        en: '"Package of documents"',
+      },
+    },
+    {
+      url: "https://www.magnific.com/icon/story-telling_8253764",
+      author: "Talha Dogar",
+      imageName: {
+        ru: "«Пустые ведомости»",
+        uk: "«Порожні відомості»",
+        en: '"Empty statements"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/report_3029316?related_id=3029337&origin=search",
+      author: "catkuro",
+      imageName: {
+        ru: "«Отчет за семестр»",
+        uk: "«Звіт за семестр»",
+        en: '"Report"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/contract_5692245",
+      author: "Freepik",
+      imageName: {
+        ru: "«Должники»",
+        uk: "«Боржники»",
+        en: '"Debtors"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/document_8964973?related_id=8964905&origin=search",
+      author: "Talha Dogar",
+      imageName: {
+        ru: "«На основе I-го місяця»",
+        uk: "«На основі I-го місяця»",
+        en: '"Based on 1st month"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/planner_15688913",
+      author: "Freepik",
+      imageName: {
+        ru: "«По преподавателям»",
+        uk: "«По викладачам»",
+        en: '"By teachers"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/docs_281760",
+      author: "Freepik",
+      imageName: {
+        ru: "«Шаблоны»",
+        uk: "«Шаблони документів»",
+        en: '"Document templates"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/other_7245102",
+      author: "sonnycandra",
+      imageName: {
+        ru: "«Другое»",
+        uk: "«Інше»",
+        en: '"Other"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon-font/cross-small_3917195",
+      author: "Flaticon",
+      imageName: {
+        ru: "«Закрыть»",
+        uk: "«Закрити»",
+        en: '"Close"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/minimize-sign_6057365?term=minus&page=1&position=15&origin=search&related_id=6057365",
+      author: "Circlon Tech",
+      imageName: {
+        ru: "«Свернуть»",
+        uk: "«Згорнути»",
+        en: '"Minimize"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/moon_865882",
+      author: "Good Ware",
+      imageName: {
+        ru: "«Темная тема»",
+        uk: "«Темна тема»",
+        en: '"Dark theme"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/sun_702459",
+      author: "Good Ware",
+      imageName: {
+        ru: "«Светлая тема»",
+        uk: "«Світла тема»",
+        en: '"Light theme"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/info_1445402",
+      author: "Freepik",
+      imageName: {
+        ru: "«О приложении»",
+        uk: "«Про додаток»",
+        en: '"About the app"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon-font/cross-small_3917195",
+      author: "Flaticon",
+      imageName: {
+        ru: "«Очистить»",
+        uk: "«Очистити»",
+        en: '"Clear"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/doubt_446110",
+      author: "Freepik",
+      imageName: {
+        ru: "«Узнать»",
+        uk: "«Дізнатися»",
+        en: '"Find out"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/plus-sign_32339",
+      author: "Freepik",
+      imageName: {
+        ru: "«Добавить»",
+        uk: "«Додати»",
+        en: '"Add"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/download-arrow_81500",
+      author: "Freepik",
+      imageName: {
+        ru: "«Скачать»",
+        uk: "«Скачати»",
+        en: '"Download"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/edit_565317",
+      author: "Google",
+      imageName: {
+        ru: "«Редактировать»",
+        uk: "«Редагувати»",
+        en: '"Edit"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/loading_6356630?term=loading&page=1&position=2&origin=search&related_id=6356630",
+      author: "Krystsina Mikhailouskaya",
+      imageName: {
+        ru: "«В процессе»",
+        uk: "«У процесі»",
+        en: '"In process"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/resize_152358",
+      author: "Freepik",
+      imageName: {
+        ru: "«По ширине»",
+        uk: "«По ширині»",
+        en: '"By width"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/minus-in-zoom-symbol_54696",
+      author: "Catalin Fertu",
+      imageName: {
+        ru: "«Отдалить»",
+        uk: "«Віддалити»",
+        en: '"Zoom out"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icon/zoom-increasing-symbol_54862",
+      author: "Catalin Fertu",
+      imageName: {
+        ru: "«Приблизить»",
+        uk: "«Наблизити»",
+        en: '"Zoom in"',
+      },
+    },
+    {
+      url: "https://www.magnific.com/free-vector/simple-gradient-background-vector-winter-blue_16358990.htm",
+      author: "rawpixel.com",
+      imageName: {
+        ru: "«Фон светлой темы»",
+        uk: "«Фон світлої теми»",
+        en: '"Light theme background"',
+      },
+    },
+  ];
+
+  function formatAuthorText(template, author, imageTranslations) {
+    if (!template) return "";
+
+    const currentLang = _lng.lng || "ru";
+
+    const imageTranslated =
+      imageTranslations && imageTranslations[currentLang]
+        ? ` ${imageTranslations[currentLang]}`
+        : "";
+
+    return template
+      .replace("{imageName}", imageTranslated)
+      .replace("{autorName}", author);
+  }
 
   function handleClose() {
-    about.set(false)
+    about.set(false);
   }
 </script>
 
-<div
-  class="about-area"
-  class:showed={$about}
->
-  <div
-    class="about-window"
-    class:showed={$about}
-  >
-    <div class="title">О приложении</div>
+<div class="about-area" class:showed={$about}>
+  <div class="about-window" class:showed={$about}>
+    <div class="title">{_lng.about.title}</div>
     <button class="close" on:click={handleClose}>✕</button>
     <div class="text-area">
       <div class="program-icon"></div>
@@ -23,19 +250,26 @@
         <div class="text">onata</div>
       </div>
       <div class="description">
-        Версия 1.0
-        <a href="https://github.com/IKorzI/Sonata" target="_blank">Страница проекта на GitHub</a>
+        {_lng.about.title} 1.0
+        <a href="https://github.com/IKorzI/Sonata" target="_blank"
+          >{_lng.about.gitHub}</a
+        >
       </div>
       <div class="history">
-        <p>Приложение изначально создавалось как "А что, если ...?".</p>
-        <p>Чем дальше заходила разработка, тем больше оно перерастало в полноценный проект.</p>
+        <p>{_lng.about.history}</p>
       </div>
       <div class="authors">
-        <div class="title">В приложении используются изображения от следующих авторов:</div>
+        <div class="title">{_lng.about.authors.title}</div>
         <div class="list">
-          <a href="https://www.magnific.com/icon/verify_6270466">Icon by Rizki Ahmad Fauzi</a>
-          <a href="https://www.magnific.com/es/icono/basura_10147947">Icono de kumakamu</a>
-          <a href="https://www.flaticon.com/ru/free-icons/" title="документ иконки">Документ иконки от Talha Dogar - Flaticon</a>
+          {#each authorsList as item}
+            <a href={item.url} target="_blank">
+              {formatAuthorText(
+                _lng.about.authors.elementText,
+                item.author,
+                item.imageName,
+              )}
+            </a>
+          {/each}
         </div>
       </div>
     </div>
@@ -43,10 +277,6 @@
 </div>
 
 <style>
-  br {
-    width: 0px;
-
-  }
   .about-area {
     position: absolute;
     top: 27px;
@@ -191,8 +421,51 @@
     left: 190px;
   }
 
-  .history p {    
+  .history p {
+    font-size: 16px;
+    white-space: normal;
+  }
+
+  .authors {
+    position: absolute;
+    top: 235px;
+    width: calc(100% - 10px);
+    display: grid;
+    grid-template-rows: 25px 1fr;
+  }
+  .authors * {
     font-size: 16px;
   }
 
+  .authors .title {
+    width: 100%;
+  }
+
+  .authors .list {
+    display: flex;
+    flex-direction: column;
+    height: 90px;
+    overflow-y: auto;
+    width: 90%;
+    border-radius: 0px;
+    padding-left: 5px;
+    background-color: var(--background-color);
+  }
+  .authors .list::-webkit-scrollbar {
+    width: 8px;
+  }
+  .authors .list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .authors .list::-webkit-scrollbar-thumb {
+    background-color: rgb(155, 155, 155);
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+    min-height: 50px;
+  }
+  .authors .list * {
+    width: max-content;
+    cursor: pointer;
+  }
 </style>
