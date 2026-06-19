@@ -32,6 +32,11 @@
       </div>
       <div class="authors">
         <div class="title">В приложении используются изображения от следующих авторов:</div>
+        <div class="list">
+          <a href="https://www.magnific.com/icon/verify_6270466">Icon by Rizki Ahmad Fauzi</a>
+          <a href="https://www.magnific.com/es/icono/basura_10147947">Icono de kumakamu</a>
+          <a href="https://www.flaticon.com/ru/free-icons/" title="документ иконки">Документ иконки от Talha Dogar - Flaticon</a>
+        </div>
       </div>
     </div>
   </div>
