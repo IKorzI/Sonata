@@ -4,7 +4,8 @@ export const styles = writable();
 export const lng = writable();
 
 export const selectedSection = writable();
-export const whatDocument = writable();
+export const whatDocument = writable(false);
+export const about = writable(false);
 export const hide = writable(false);
 export const clearInformation = writable();
 export const saveInformation = writable();

@@ -2,6 +2,7 @@
   "light": {
 
     "app.background.image": "url('../light/background.jpg')",
+    "about.background.image": "url('../light/about.png')",
     "themeSwap.background.image": "url('../light/theme.png')",
     "settingsButton.background.image": "url('../light/settings.png')",
     "programMenu.background.image": "url('../light/menu.png')",
@@ -60,6 +61,7 @@
   "dark": {
 
     "app.background.image": "url('../dark/background.jpg')",
+    "about.background.image": "url('../dark/about.png')",
     "themeSwap.background.image": "url('../dark/theme.png')",
     "settingsButton.background.image": "url('../dark/settings.png')",
     "programMenu.background.image": "url('../dark/menu.png')",

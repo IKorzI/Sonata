@@ -8,8 +8,9 @@
   import TitleBar from "./components/TitleBar.svelte";
   import ProgramMenu from "./components/ProgramMenu.svelte";
   import Workspace from "./components/Workspace.svelte";
-  import ExampleWindows from "./components/ExampleWindow.svelte";
-  import ErrorWindows from "./components/ErrorWindow.svelte";
+  import AboutWindow from "./components/AboutWindow.svelte";
+  import ExampleWindow from "./components/ExampleWindow.svelte";
+  import ErrorWindow from "./components/ErrorWindow.svelte";
 </script>
 
 <main
@@ -19,6 +20,7 @@
   --transition: {_transition};
 
   --app-background-image: {_styles.app.background.image};
+  --about-background-image: {_styles.about.background.image};
   --themeSwap-background-image: {_styles.themeSwap.background.image};
   --settingsButton-background-image: {_styles.settingsButton.background.image};
   --programMenu-background-image: {_styles.programMenu.background.image};
@@ -95,9 +97,11 @@
 
   <Workspace />
 
-  <ExampleWindows />
+  <AboutWindow />
 
-  <ErrorWindows />
+  <ExampleWindow />
+
+  <ErrorWindow />
 </main>
 
 <style>

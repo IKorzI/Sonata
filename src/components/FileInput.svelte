@@ -346,7 +346,6 @@
     border-radius: 40px;
     border-style: dashed;
     border-width: 3px;
-    border-color: rgb(153, 153, 153);
     display: flex;
     justify-content: center;
   }

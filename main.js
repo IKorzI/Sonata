@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, Menu } from "electron";
+import { app, BrowserWindow, ipcMain, Menu, shell } from "electron";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
@@ -56,6 +56,18 @@ function createWindow() {
       enableRemoteModule: false,
       preload: path.join(__dirname, "preload.cjs"),
     },
+  });
+
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    // Если это внешняя ссылка, открываем в браузере по умолчанию
+    if (url.startsWith('http:') || url.startsWith('https:')) {
+      shell.openExternal(url); 
+      
+      // 'deny' — это самое важное! Говорит Electron: "Не создавай новое окно приложения"
+      return { action: 'deny' }; 
+    }
+    
+    return { action: 'allow' };
   });
 
   if (isDev) {

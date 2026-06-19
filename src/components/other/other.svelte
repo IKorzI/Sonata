@@ -211,11 +211,7 @@
       <div
         class="complete"
         bind:this={elComplete}
-        style="
-        background-image: {isDone === true
-          ? 'url("/done.png")'
-          : 'url("/undone.png")'};
-      "
+        style="background-image: {isDone === true ? 'url(\'./done.png\')' : 'url(\'./undone.png\')'};"
       ></div>
     </button>
     <div class="what" on:click={() => handleWhat()}></div>

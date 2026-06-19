@@ -7,6 +7,7 @@
     transition,
     themeSwap,
     hide,
+    about
   } from "../lib/store.js";
 
   let _lng = {};
@@ -115,10 +116,15 @@
       languageListIsOpen = false;
     }
   }
+
+  function showAbout() {
+    about.set(true)
+  }
 </script>
 
 <div class="title-bar">
   <div class="program-icon"></div>
+  <button class="about" on:click={showAbout}></button>
   <button class="language" on:click={showLngList}>{_lng.lng}</button>
   <ul class="language-list"></ul>
   <div class="program-name">Sonata</div>
@@ -135,7 +141,7 @@
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     display: grid;
-    grid-template-columns: 25px 25px 1fr 25px 25px 25px;
+    grid-template-columns: 25px 25px 25px 1fr 25px 25px 25px;
     background-color: var(--background-color);
     border-radius: 0px;
     border-color: var(--border-color);
@@ -186,6 +192,10 @@
     -webkit-app-region: drag;
     font-weight: normal;
     font-size: 20px;
+  }
+
+  .about {
+    background-image: var(--about-background-image);
   }
 
   .theme-swap {
