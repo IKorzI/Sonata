@@ -213,7 +213,7 @@
 
   <div class="hours-per-subject">
     <div class="label">{_lng.basedOnTheFirstMonth.hoursPerSubject}</div>
-    <div class="list">
+    <div class="list" id="list">
       {#each subjectsAndHours as subject, subjectIndex}
         <div class="row" id={subject.subjectName}>
           <div class="subject">{subject.subjectName}</div>
@@ -258,7 +258,6 @@
     width: 250px;
     background-color: var(--background-reverse-color);
     border-width: 2px;
-    overflow-y: auto;
   }
 
   .hours-per-subject .label {
@@ -271,9 +270,14 @@
     justify-content: center;
   }
 
-  .hours-per-subject::-webkit-scrollbar {
-    display: none;
-    display: none;
+  .list#list {
+    border-radius: 0px;
+    border-width: 0px;
+    background-color: transparent;
+    list-style: none;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
   }
 
   .list .row {

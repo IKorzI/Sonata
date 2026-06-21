@@ -511,7 +511,11 @@
         </div>
       {/each}
     </div>
-    <ul class="students-by-specialty" bind:this={eStudentsBySpecialty}>
+    <div
+      class="students-by-specialty"
+      id="list"
+      bind:this={eStudentsBySpecialty}
+    >
       {#each Object.entries(studentNamesByCode) as [specialityCode, object]}
         <div class="speciality-code">----- {specialityCode} -----</div>
 
@@ -530,14 +534,14 @@
           {/each}
         </ul>
       {/each}
-    </ul>
-    <ul class="status-list" bind:this={eStatusList}>
+    </div>
+    <div class="status-list" id="list" bind:this={eStatusList}>
       {#each Object.entries(statusesList || {}) as [key, text]}
         <li on:click={() => handleSetStatus(key)}>
           {text}
         </li>
       {/each}
-    </ul>
+    </div>
     <div
       class="add"
       on:click={handleAddRow}
@@ -622,7 +626,6 @@
     border-width: 2px;
     display: grid;
     grid-template-rows: 1fr 29px;
-    overflow: hidden;
   }
 
   .social-scholarship .label1 {
@@ -656,9 +659,20 @@
 
   .list {
     overflow-y: auto;
+    overflow-x: hidden;
   }
   .list::-webkit-scrollbar {
-    display: none;
+    width: 8px;
+  }
+  .list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .list::-webkit-scrollbar-thumb {
+    background-color: rgb(155, 155, 155);
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+    min-height: 50px;
   }
 
   .list .row {
@@ -722,7 +736,7 @@
     white-space: nowrap;
   }
 
-  ul {
+  div#list {
     position: fixed;
   }
   .students {
@@ -746,7 +760,7 @@
     align-items: center;
   }
   :global(.social-scholarship .students-by-specialty) {
-    overflow: auto;
+    overflow-y: auto;
     width: 330px;
     height: 200px;
     z-index: -1;
@@ -755,13 +769,13 @@
   :global(.social-scholarship .students-by-specialty.showed) {
     opacity: 1;
   }
-  :global(.social-scholarship .status-list) {
+  :global(.social-scholarship .status-list#list) {
     width: 200px;
     height: 190px;
     z-index: -1;
     opacity: 0;
   }
-  :global(.social-scholarship .status-list.showed) {
+  :global(.social-scholarship .status-list#list.showed) {
     opacity: 1;
   }
 
@@ -791,7 +805,6 @@
     position: absolute;
     top: 300px;
     display: none;
-    /* display: grid; */
     grid-template-columns: 210px 25px;
     row-gap: 5px;
   }

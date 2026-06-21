@@ -133,7 +133,7 @@
 
   <div class="loaded-groups">
     <div class="label">{_lng.report.loadedGroups}</div>
-    <div class="list">
+    <div class="list" id="list">
       {#each loadedGroups as group}
         <div class="row" id={group.groupCode}>
           <div class="groupCode">{group.groupCode}</div>
@@ -168,7 +168,6 @@
     width: 250px;
     background-color: var(--background-reverse-color);
     border-width: 2px;
-    overflow-y: auto;
   }
 
   .loaded-groups .label {
@@ -181,8 +180,14 @@
     justify-content: center;
   }
 
-  .loaded-groups::-webkit-scrollbar {
-    display: none;
+  .list#list {
+    border-radius: 0px;
+    border-width: 0px;
+    background-color: transparent;
+    list-style: none;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
   }
 
   .list .row {

@@ -194,7 +194,7 @@
     outline: none;
   }
 
-  :global(.program ul) {
+  :global(.program div#list) {
     list-style: none;
     background-color: var(--ul-background-color);
     border-width: 1px;
@@ -202,6 +202,19 @@
     border-color: var(--ul-border-color);
     overflow: auto;
     width: fit-content;
+  }
+  :global(.program div#list::-webkit-scrollbar) {
+    width: 8px;
+  }
+  :global(.program div#list::-webkit-scrollbar-track) {
+    background: transparent;
+  }
+  :global(.program div#list::-webkit-scrollbar-thumb) {
+    background-color: rgb(155, 155, 155);
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+    min-height: 50px;
   }
   :global(.program ul::-webkit-scrollbar) {
     display: none;

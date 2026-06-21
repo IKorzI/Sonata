@@ -12,36 +12,36 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Получение кода
+      - name: Receiving the code
         uses: actions/checkout@v4
 
-      - name: Установка Node.js
+      - name: Installing Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      - name: Установка Python
+      - name: Installing Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Установка зависимостей Python (PyInstaller)
+      - name: Installing Python dependencies
         run: |
           pip install -r src/scripts/python/requirements.txt
 
-      - name: Установка Node-модулей
+      - name: Installing Node modules
         run: npm install
 
-      - name: Установка браузеров для Playwright
+      - name: Installing browsers for Playwright
         run: npx playwright install --with-deps chromium
 
-      - name: Сборка C#
+      - name: Building C#
         run: npm run C#:build
 
-      - name: Сборка Python
+      - name: Building Python
         run: npm run py:build
 
-      - name: Сборка Vite (Frontend)
+      - name: Building Vite (Frontend)
         run: npm run vite:build
 
       - name: Run Playwright tests
