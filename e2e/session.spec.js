@@ -35,6 +35,9 @@ test(`[${codeWord1}] 1.1. Package of documents (14 subjects)`, async ({
 
   await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#package-of-documents").click();
+    await window.locator(".workspace > .clear").click();
+    await sleep(500);
+    await window.locator(".social-scholarship > .label1").click();
     const filePath = path.join(inputPath, "statements_14.xlsx");
     await window
       .locator(".file-input#session--package-of-documents--statements input")
@@ -64,10 +67,6 @@ test(`[${codeWord1}] 1.1. Package of documents (14 subjects)`, async ({
   await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
-
-  await window.locator(".workspace > .clear").click();
-  await sleep(500);
-  await window.locator(".social-scholarship > .label1").click();
 });
 
 test(`[${codeWord1}] 1.2. Package of documents (15 subjects)`, async ({
@@ -90,6 +89,9 @@ test(`[${codeWord1}] 1.2. Package of documents (15 subjects)`, async ({
 
   await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#package-of-documents").click();
+    await window.locator(".workspace > .clear").click();
+    await sleep(500);
+    await window.locator(".social-scholarship > .label1").click();
     const filePath = path.join(inputPath, "statements_15.xlsx");
     await window
       .locator(".file-input#session--package-of-documents--statements input")
@@ -119,10 +121,6 @@ test(`[${codeWord1}] 1.2. Package of documents (15 subjects)`, async ({
   await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
-
-  await window.locator(".workspace > .clear").click();
-  await sleep(500);
-  await window.locator(".social-scholarship > .label1").click();
 });
 
 test(`[${codeWord1}] 2.1. Empty statements (1 semester 14 subjects)`, async ({
@@ -148,6 +146,8 @@ test(`[${codeWord1}] 2.1. Empty statements (1 semester 14 subjects)`, async ({
 
   await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#empty-statements").click();
+    await window.locator(".workspace > .clear").click();
+    await sleep(500);
     const hoursFilePath = path.join(inputPath, "hours_1_14.xlsx");
     await window
       .locator(".file-input#session--empty-statements--hours input")
@@ -170,7 +170,6 @@ test(`[${codeWord1}] 2.1. Empty statements (1 semester 14 subjects)`, async ({
   });
 
   await window.locator(".error-window > .ok").click();
-  await window.locator(".workspace > .clear").click();
   await sleep(500);
 });
 
@@ -197,6 +196,8 @@ test(`[${codeWord1}] 2.2. Empty statements (1 semester 15 subjects)`, async ({
 
   await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#empty-statements").click();
+    await window.locator(".workspace > .clear").click();
+    await sleep(500);
     const hoursFilePath = path.join(inputPath, "hours_1_15.xlsx");
     await window
       .locator(".file-input#session--empty-statements--hours input")
@@ -219,7 +220,6 @@ test(`[${codeWord1}] 2.2. Empty statements (1 semester 15 subjects)`, async ({
   });
 
   await window.locator(".error-window > .ok").click();
-  await window.locator(".workspace > .clear").click();
   await sleep(500);
 });
 
@@ -254,6 +254,8 @@ test(`[${codeWord1}] 2.3. Empty statements (2 semester 14 subjects)`, async ({
 
   await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#empty-statements").click();
+    await window.locator(".workspace > .clear").click();
+    await sleep(500);
     const hoursFilePath = path.join(inputPath, "hours_2_14.xlsx");
     await window
       .locator(".file-input#session--empty-statements--hours input")
@@ -277,7 +279,6 @@ test(`[${codeWord1}] 2.3. Empty statements (2 semester 14 subjects)`, async ({
   });
 
   await window.locator(".error-window > .ok").click();
-  await window.locator(".workspace > .clear").click();
   await sleep(500);
 });
 
@@ -312,6 +313,8 @@ test(`[${codeWord1}] 2.4. Empty statements (2 semester 15 subjects)`, async ({
 
   await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#empty-statements").click();
+    await window.locator(".workspace > .clear").click();
+    await sleep(500);
     const hoursFilePath = path.join(inputPath, "hours_2_15.xlsx");
     await window
       .locator(".file-input#session--empty-statements--hours input")
@@ -335,7 +338,6 @@ test(`[${codeWord1}] 2.4. Empty statements (2 semester 15 subjects)`, async ({
   });
 
   await window.locator(".error-window > .ok").click();
-  await window.locator(".workspace > .clear").click();
   await sleep(500);
 });
 
@@ -349,6 +351,8 @@ test(`[${codeWord1}] 3.1. Report (14 subjects)`, async ({ window }) => {
 
   await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#report").click();
+    await window.locator(".workspace > .clear").click();
+    await sleep(500);
     const hoursFile1Path = path.join(inputPath, "statements_1_14.xlsx");
     await window
       .locator(".file-input#session--report--statements input")
@@ -368,9 +372,6 @@ test(`[${codeWord1}] 3.1. Report (14 subjects)`, async ({ window }) => {
   await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
-
-  await window.locator(".workspace > .clear").click();
-  await sleep(500);
 });
 
 test(`[${codeWord1}] 3.2. Report (15 subjects)`, async ({ window }) => {
@@ -383,6 +384,8 @@ test(`[${codeWord1}] 3.2. Report (15 subjects)`, async ({ window }) => {
 
   await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#report").click();
+    await window.locator(".workspace > .clear").click();
+    await sleep(500);
     const hoursFile1Path = path.join(inputPath, "statements_1_15.xlsx");
     await window
       .locator(".file-input#session--report--statements input")
@@ -402,9 +405,6 @@ test(`[${codeWord1}] 3.2. Report (15 subjects)`, async ({ window }) => {
   await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
-
-  await window.locator(".workspace > .clear").click();
-  await sleep(500);
 });
 
 test(`[${codeWord1}] 4.1. Debtors (14 subjects)`, async ({ window }) => {
@@ -417,6 +417,8 @@ test(`[${codeWord1}] 4.1. Debtors (14 subjects)`, async ({ window }) => {
 
   await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#debtors").click();
+    await window.locator(".workspace > .clear").click();
+    await sleep(500);
     const hoursFile1Path = path.join(inputPath, "statements_1_14.xlsx");
     await window
       .locator(".file-input#session--debtors--statements input")
@@ -436,9 +438,6 @@ test(`[${codeWord1}] 4.1. Debtors (14 subjects)`, async ({ window }) => {
   await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
-
-  await window.locator(".workspace > .clear").click();
-  await sleep(500);
 });
 
 test(`[${codeWord1}] 4.2. Debtors (15 subjects)`, async ({ window }) => {
@@ -451,6 +450,8 @@ test(`[${codeWord1}] 4.2. Debtors (15 subjects)`, async ({ window }) => {
 
   await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#debtors").click();
+    await window.locator(".workspace > .clear").click();
+    await sleep(500);
     const hoursFile1Path = path.join(inputPath, "statements_1_15.xlsx");
     await window
       .locator(".file-input#session--debtors--statements input")
@@ -470,7 +471,4 @@ test(`[${codeWord1}] 4.2. Debtors (15 subjects)`, async ({ window }) => {
   await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
-
-  await window.locator(".workspace > .clear").click();
-  await sleep(500);
 });

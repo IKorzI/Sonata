@@ -39,6 +39,8 @@ test(`[${codeWord1}] 1.1. Based on the first month (1 semester 14 subjects)`, as
 
   await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#based-on-the-first-month").click();
+    await window.locator(".workspace > .clear").click();
+    await sleep(500);
     const filePath = path.join(inputPath, "hours_1_14.xlsx");
     await window
       .locator(".file-input#hours--based-on-the-first-month--hours input")
@@ -54,9 +56,6 @@ test(`[${codeWord1}] 1.1. Based on the first month (1 semester 14 subjects)`, as
   await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
-
-  await window.locator(".workspace > .clear").click();
-  await sleep(500);
 });
 
 test(`[${codeWord1}] 1.2. Based on the first month (2 semester 15 subjects)`, async ({
@@ -85,6 +84,8 @@ test(`[${codeWord1}] 1.2. Based on the first month (2 semester 15 subjects)`, as
 
   await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#based-on-the-first-month").click();
+    await window.locator(".workspace > .clear").click();
+    await sleep(500);
     const filePath = path.join(inputPath, "hours_2_15.xlsx");
     await window
       .locator(".file-input#hours--based-on-the-first-month--hours input")
@@ -100,9 +101,6 @@ test(`[${codeWord1}] 1.2. Based on the first month (2 semester 15 subjects)`, as
   await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
-
-  await window.locator(".workspace > .clear").click();
-  await sleep(500);
 });
 
 test(`[${codeWord1}] 2.1. Summary of teachers (1 semester 14 subjects)`, async ({
@@ -120,6 +118,8 @@ test(`[${codeWord1}] 2.1. Summary of teachers (1 semester 14 subjects)`, async (
 
   await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#summary-of-teachers").click();
+    await window.locator(".workspace > .clear").click();
+    await sleep(500);
     const filePath = path.join(inputPath, "hours_1_14.xlsx");
     await window
       .locator(".file-input#hours--summary-of-teachers--hours input")
@@ -135,9 +135,6 @@ test(`[${codeWord1}] 2.1. Summary of teachers (1 semester 14 subjects)`, async (
   await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
-
-  await window.locator(".workspace > .clear").click();
-  await sleep(500);
 });
 
 test(`[${codeWord1}] 2.2. Summary of teachers (1 semester 15 subjects)`, async ({
@@ -155,6 +152,8 @@ test(`[${codeWord1}] 2.2. Summary of teachers (1 semester 15 subjects)`, async (
 
   await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#summary-of-teachers").click();
+    await window.locator(".workspace > .clear").click();
+    await sleep(500);
     const filePath = path.join(inputPath, "hours_1_15.xlsx");
     await window
       .locator(".file-input#hours--summary-of-teachers--hours input")
@@ -170,9 +169,6 @@ test(`[${codeWord1}] 2.2. Summary of teachers (1 semester 15 subjects)`, async (
   await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
-
-  await window.locator(".workspace > .clear").click();
-  await sleep(500);
 });
 
 test(`[${codeWord1}] 2.3. Summary of teachers (2 semester 14 subjects)`, async ({
@@ -190,6 +186,8 @@ test(`[${codeWord1}] 2.3. Summary of teachers (2 semester 14 subjects)`, async (
 
   await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#summary-of-teachers").click();
+    await window.locator(".workspace > .clear").click();
+    await sleep(500);
     const filePath = path.join(inputPath, "hours_2_14.xlsx");
     await window
       .locator(".file-input#hours--summary-of-teachers--hours input")
@@ -205,9 +203,6 @@ test(`[${codeWord1}] 2.3. Summary of teachers (2 semester 14 subjects)`, async (
   await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
-
-  await window.locator(".workspace > .clear").click();
-  await sleep(500);
 });
 
 test(`[${codeWord1}] 2.4. Summary of teachers (2 semester 15 subjects)`, async ({
@@ -225,6 +220,8 @@ test(`[${codeWord1}] 2.4. Summary of teachers (2 semester 15 subjects)`, async (
 
   await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#summary-of-teachers").click();
+    await window.locator(".workspace > .clear").click();
+    await sleep(500);
     const filePath = path.join(inputPath, "hours_2_15.xlsx");
     await window
       .locator(".file-input#hours--summary-of-teachers--hours input")
@@ -240,7 +237,4 @@ test(`[${codeWord1}] 2.4. Summary of teachers (2 semester 15 subjects)`, async (
   await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
-
-  await window.locator(".workspace > .clear").click();
-  await sleep(500);
 });
