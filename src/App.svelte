@@ -194,7 +194,8 @@
     outline: none;
   }
 
-  :global(.program div#list) {
+  :global(.program div#list),
+  :global(.program ul) {
     list-style: none;
     background-color: var(--ul-background-color);
     border-width: 1px;
@@ -225,6 +226,7 @@
     border-bottom-width: 1px;
     border-color: var(--ul-border-color);
     border-radius: 0px;
+    list-style-type: none;
   }
   :global(.program li:hover) {
     background-color: var(--li-hover-background-color);

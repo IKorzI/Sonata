@@ -25,24 +25,24 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Installing Node modules
+        run: npm install
+
       - name: Installing Python dependencies
         run: |
           pip install -r src/scripts/python/requirements.txt
 
-      - name: Installing Node modules
-        run: npm install
-
       - name: Installing browsers for Playwright
         run: npx playwright install --with-deps chromium
+
+      - name: Building Vite (Frontend)
+        run: npm run vite:build
 
       - name: Building C#
         run: npm run C#:build
 
       - name: Building Python
         run: npm run py:build
-
-      - name: Building Vite (Frontend)
-        run: npm run vite:build
 
       - name: Run Playwright tests
         run: npx playwright test --retries=2

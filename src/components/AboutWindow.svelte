@@ -250,7 +250,7 @@
         <div class="text">onata</div>
       </div>
       <div class="description">
-        {_lng.about.title} 1.0
+        {_lng.about.version} 1.0
         <a href="https://github.com/IKorzI/Sonata" target="_blank"
           >{_lng.about.gitHub}</a
         >
