@@ -1319,14 +1319,14 @@ def filling_out_the_empty_sheet(
         sheet.cell(row=end_row + 7, column=16).value = (
             f"='Загальна'!{kurator_col_letter}{last_student_row + 7}"
         )
-        sheet.cell(row=end_row + 9, column=16).value = f"Margarita BRITIKOVA"
+        sheet.cell(row=end_row + 9, column=16).value = f"Маргарита БРІТІКОВА"
     else:
         kurator_col_letter = get_column_letter(21 - delete_col_count)
         sheet.cell(row=end_row + 7, column=21 - delete_col_count).value = (
             f"='Загальна'!{kurator_col_letter}{last_student_row + 7}"
         )
         sheet.cell(row=end_row + 9, column=21 - delete_col_count).value = (
-            f"Margarita BRITIKOVA"
+            f"Маргарита БРІТІКОВА"
         )
 
     start_col = 6
@@ -1459,11 +1459,11 @@ def filling_out_the_general_empty_sheet(
 
     if subject_len >= 14:
         sheet.cell(row=end_row + 7, column=16).value = kurator
-        sheet.cell(row=end_row + 9, column=16).value = f"Margarita BRITIKOVA"
+        sheet.cell(row=end_row + 9, column=16).value = f"Маргарита БРІТІКОВА"
     else:
         sheet.cell(row=end_row + 7, column=21 - delete_col_count).value = kurator
         sheet.cell(row=end_row + 9, column=21 - delete_col_count).value = (
-            f"Margarita BRITIKOVA"
+            f"Маргарита БРІТІКОВА"
         )
 
     for i, subj in enumerate(subjects):

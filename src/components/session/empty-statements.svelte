@@ -147,7 +147,7 @@
       uploadedFileContingent = detail.file;
     }
     if (uploadedFileHours !== null && uploadedFileContingent !== null) {
-      percentageOfScholarship = 40;
+      percentageOfScholarship = 45;
       firstIndex = 1;
       semesterNumber = contingentData.semesterNumber;
     }

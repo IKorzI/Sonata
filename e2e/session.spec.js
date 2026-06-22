@@ -1,13 +1,8 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixture.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import {
-  clearFolder,
-  electronLaunch,
-  waitFiles,
-  checkingOutputFiles,
-} from "./utils.js";
+import { clearFolder, waitFiles, checkingOutputFiles } from "./utils.js";
 
 const codeWord = "session";
 const codeWord1 = "Session";
@@ -20,7 +15,9 @@ const outputPath = path.join(testPath, "output/");
 
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
-test(`[${codeWord1}] 1.1. Package of documents (14 subjects)`, async () => {
+test(`[${codeWord1}] 1.1. Package of documents (14 subjects)`, async ({
+  window,
+}) => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -36,13 +33,7 @@ test(`[${codeWord1}] 1.1. Package of documents (14 subjects)`, async () => {
     "Рейтинг на сайт D7.docx",
   ];
 
-  let electronApp, window;
-
-  await test.step("1. Launching the application", async () => {
-    [electronApp, window] = await electronLaunch();
-  });
-
-  await test.step("2. Fill out the form and start", async () => {
+  await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#package-of-documents").click();
     const filePath = path.join(inputPath, "statements_14.xlsx");
     await window
@@ -66,18 +57,22 @@ test(`[${codeWord1}] 1.1. Package of documents (14 subjects)`, async () => {
     await window.locator(".workspace > .start").click();
   });
 
-  await test.step("3. Waiting for output files", async () => {
+  await test.step("2. Waiting for output files", async () => {
     await waitFiles(outputPath, files);
   });
 
-  await test.step("4. Checking output files", async () => {
+  await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
 
-  await electronApp.close();
+  await window.locator(".workspace > .clear").click();
+  await sleep(500);
+  await window.locator(".social-scholarship > .label1").click();
 });
 
-test(`[${codeWord1}] 1.2. Package of documents (15 subjects)`, async () => {
+test(`[${codeWord1}] 1.2. Package of documents (15 subjects)`, async ({
+  window,
+}) => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -93,13 +88,7 @@ test(`[${codeWord1}] 1.2. Package of documents (15 subjects)`, async () => {
     "Рейтинг на сайт D7.docx",
   ];
 
-  let electronApp, window;
-
-  await test.step("1. Launching the application", async () => {
-    [electronApp, window] = await electronLaunch();
-  });
-
-  await test.step("2. Fill out the form and start", async () => {
+  await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#package-of-documents").click();
     const filePath = path.join(inputPath, "statements_15.xlsx");
     await window
@@ -123,18 +112,22 @@ test(`[${codeWord1}] 1.2. Package of documents (15 subjects)`, async () => {
     await window.locator(".workspace > .start").click();
   });
 
-  await test.step("3. Waiting for output files", async () => {
+  await test.step("2. Waiting for output files", async () => {
     await waitFiles(outputPath, files);
   });
 
-  await test.step("4. Checking output files", async () => {
+  await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
 
-  await electronApp.close();
+  await window.locator(".workspace > .clear").click();
+  await sleep(500);
+  await window.locator(".social-scholarship > .label1").click();
 });
 
-test(`[${codeWord1}] 2.1. Empty statements (1 semester 14 subjects)`, async () => {
+test(`[${codeWord1}] 2.1. Empty statements (1 semester 14 subjects)`, async ({
+  window,
+}) => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -153,13 +146,7 @@ test(`[${codeWord1}] 2.1. Empty statements (1 semester 14 subjects)`, async () =
     "I семестр/Журнал видачі відомостей.xlsx",
   ];
 
-  let electronApp, window;
-
-  await test.step("1. Launching the application", async () => {
-    [electronApp, window] = await electronLaunch();
-  });
-
-  await test.step("2. Fill out the form and start", async () => {
+  await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#empty-statements").click();
     const hoursFilePath = path.join(inputPath, "hours_1_14.xlsx");
     await window
@@ -174,18 +161,22 @@ test(`[${codeWord1}] 2.1. Empty statements (1 semester 14 subjects)`, async () =
     await window.locator(".workspace > .start").click();
   });
 
-  await test.step("3. Waiting for output files", async () => {
+  await test.step("2. Waiting for output files", async () => {
     await waitFiles(outputPath, files);
   });
 
-  await test.step("4. Checking output files", async () => {
+  await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
 
-  await electronApp.close();
+  await window.locator(".error-window > .ok").click();
+  await window.locator(".workspace > .clear").click();
+  await sleep(500);
 });
 
-test(`[${codeWord1}] 2.2. Empty statements (1 semester 15 subjects)`, async () => {
+test(`[${codeWord1}] 2.2. Empty statements (1 semester 15 subjects)`, async ({
+  window,
+}) => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -204,13 +195,7 @@ test(`[${codeWord1}] 2.2. Empty statements (1 semester 15 subjects)`, async () =
     "I семестр/Журнал видачі відомостей.xlsx",
   ];
 
-  let electronApp, window;
-
-  await test.step("1. Launching the application", async () => {
-    [electronApp, window] = await electronLaunch();
-  });
-
-  await test.step("2. Fill out the form and start", async () => {
+  await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#empty-statements").click();
     const hoursFilePath = path.join(inputPath, "hours_1_15.xlsx");
     await window
@@ -225,18 +210,22 @@ test(`[${codeWord1}] 2.2. Empty statements (1 semester 15 subjects)`, async () =
     await window.locator(".workspace > .start").click();
   });
 
-  await test.step("3. Waiting for output files", async () => {
+  await test.step("2. Waiting for output files", async () => {
     await waitFiles(outputPath, files);
   });
 
-  await test.step("4. Checking output files", async () => {
+  await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
 
-  await electronApp.close();
+  await window.locator(".error-window > .ok").click();
+  await window.locator(".workspace > .clear").click();
+  await sleep(500);
 });
 
-test(`[${codeWord1}] 2.3. Empty statements (2 semester 14 subjects)`, async () => {
+test(`[${codeWord1}] 2.3. Empty statements (2 semester 14 subjects)`, async ({
+  window,
+}) => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -263,13 +252,7 @@ test(`[${codeWord1}] 2.3. Empty statements (2 semester 14 subjects)`, async () =
     "рік/Журнал видачі відомостей.xlsx",
   ];
 
-  let electronApp, window;
-
-  await test.step("1. Launching the application", async () => {
-    [electronApp, window] = await electronLaunch();
-  });
-
-  await test.step("2. Fill out the form and start", async () => {
+  await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#empty-statements").click();
     const hoursFilePath = path.join(inputPath, "hours_2_14.xlsx");
     await window
@@ -285,18 +268,22 @@ test(`[${codeWord1}] 2.3. Empty statements (2 semester 14 subjects)`, async () =
     await window.locator(".workspace > .start").click();
   });
 
-  await test.step("3. Waiting for output files", async () => {
+  await test.step("2. Waiting for output files", async () => {
     await waitFiles(outputPath, files);
   });
 
-  await test.step("4. Checking output files", async () => {
+  await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
 
-  await electronApp.close();
+  await window.locator(".error-window > .ok").click();
+  await window.locator(".workspace > .clear").click();
+  await sleep(500);
 });
 
-test(`[${codeWord1}] 2.4. Empty statements (2 semester 15 subjects)`, async () => {
+test(`[${codeWord1}] 2.4. Empty statements (2 semester 15 subjects)`, async ({
+  window,
+}) => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -323,13 +310,7 @@ test(`[${codeWord1}] 2.4. Empty statements (2 semester 15 subjects)`, async () =
     "рік/Журнал видачі відомостей.xlsx",
   ];
 
-  let electronApp, window;
-
-  await test.step("1. Launching the application", async () => {
-    [electronApp, window] = await electronLaunch();
-  });
-
-  await test.step("2. Fill out the form and start", async () => {
+  await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#empty-statements").click();
     const hoursFilePath = path.join(inputPath, "hours_2_15.xlsx");
     await window
@@ -345,18 +326,20 @@ test(`[${codeWord1}] 2.4. Empty statements (2 semester 15 subjects)`, async () =
     await window.locator(".workspace > .start").click();
   });
 
-  await test.step("3. Waiting for output files", async () => {
+  await test.step("2. Waiting for output files", async () => {
     await waitFiles(outputPath, files);
   });
 
-  await test.step("4. Checking output files", async () => {
+  await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
 
-  await electronApp.close();
+  await window.locator(".error-window > .ok").click();
+  await window.locator(".workspace > .clear").click();
+  await sleep(500);
 });
 
-test(`[${codeWord1}] 3.1. Report (14 subjects)`, async () => {
+test(`[${codeWord1}] 3.1. Report (14 subjects)`, async ({ window }) => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -364,13 +347,7 @@ test(`[${codeWord1}] 3.1. Report (14 subjects)`, async () => {
   const referencePath = path.join(inputPath, "reference/14 subjects/");
   const files = ["ПЗСО.xlsx"];
 
-  let electronApp, window;
-
-  await test.step("1. Launching the application", async () => {
-    [electronApp, window] = await electronLaunch();
-  });
-
-  await test.step("2. Fill out the form and start", async () => {
+  await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#report").click();
     const hoursFile1Path = path.join(inputPath, "statements_1_14.xlsx");
     await window
@@ -384,18 +361,19 @@ test(`[${codeWord1}] 3.1. Report (14 subjects)`, async () => {
     await window.locator(".workspace > .start").click();
   });
 
-  await test.step("3. Waiting for output files", async () => {
+  await test.step("2. Waiting for output files", async () => {
     await waitFiles(outputPath, files);
   });
 
-  await test.step("4. Checking output files", async () => {
+  await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
 
-  await electronApp.close();
+  await window.locator(".workspace > .clear").click();
+  await sleep(500);
 });
 
-test(`[${codeWord1}] 3.2. Report (15 subjects)`, async () => {
+test(`[${codeWord1}] 3.2. Report (15 subjects)`, async ({ window }) => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -403,13 +381,7 @@ test(`[${codeWord1}] 3.2. Report (15 subjects)`, async () => {
   const referencePath = path.join(inputPath, "reference/15 subjects/");
   const files = ["ПЗСО.xlsx"];
 
-  let electronApp, window;
-
-  await test.step("1. Launching the application", async () => {
-    [electronApp, window] = await electronLaunch();
-  });
-
-  await test.step("2. Fill out the form and start", async () => {
+  await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#report").click();
     const hoursFile1Path = path.join(inputPath, "statements_1_15.xlsx");
     await window
@@ -423,18 +395,19 @@ test(`[${codeWord1}] 3.2. Report (15 subjects)`, async () => {
     await window.locator(".workspace > .start").click();
   });
 
-  await test.step("3. Waiting for output files", async () => {
+  await test.step("2. Waiting for output files", async () => {
     await waitFiles(outputPath, files);
   });
 
-  await test.step("4. Checking output files", async () => {
+  await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
 
-  await electronApp.close();
+  await window.locator(".workspace > .clear").click();
+  await sleep(500);
 });
 
-test(`[${codeWord1}] 4.1. Debtors (14 subjects)`, async () => {
+test(`[${codeWord1}] 4.1. Debtors (14 subjects)`, async ({ window }) => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -442,13 +415,7 @@ test(`[${codeWord1}] 4.1. Debtors (14 subjects)`, async () => {
   const referencePath = path.join(inputPath, "reference/14 subjects/");
   const files = ["Боржники.xlsx"];
 
-  let electronApp, window;
-
-  await test.step("1. Launching the application", async () => {
-    [electronApp, window] = await electronLaunch();
-  });
-
-  await test.step("2. Fill out the form and start", async () => {
+  await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#debtors").click();
     const hoursFile1Path = path.join(inputPath, "statements_1_14.xlsx");
     await window
@@ -462,18 +429,19 @@ test(`[${codeWord1}] 4.1. Debtors (14 subjects)`, async () => {
     await window.locator(".workspace > .start").click();
   });
 
-  await test.step("3. Waiting for output files", async () => {
+  await test.step("2. Waiting for output files", async () => {
     await waitFiles(outputPath, files);
   });
 
-  await test.step("4. Checking output files", async () => {
+  await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
 
-  await electronApp.close();
+  await window.locator(".workspace > .clear").click();
+  await sleep(500);
 });
 
-test(`[${codeWord1}] 4.2. Debtors (15 subjects)`, async () => {
+test(`[${codeWord1}] 4.2. Debtors (15 subjects)`, async ({ window }) => {
   await clearFolder(outputPath);
   test.setTimeout(testDuration);
 
@@ -481,13 +449,7 @@ test(`[${codeWord1}] 4.2. Debtors (15 subjects)`, async () => {
   const referencePath = path.join(inputPath, "reference/15 subjects/");
   const files = ["Боржники.xlsx"];
 
-  let electronApp, window;
-
-  await test.step("1. Launching the application", async () => {
-    [electronApp, window] = await electronLaunch();
-  });
-
-  await test.step("2. Fill out the form and start", async () => {
+  await test.step("1. Fill out the form and start", async () => {
     await window.locator(".section-button#debtors").click();
     const hoursFile1Path = path.join(inputPath, "statements_1_15.xlsx");
     await window
@@ -501,13 +463,14 @@ test(`[${codeWord1}] 4.2. Debtors (15 subjects)`, async () => {
     await window.locator(".workspace > .start").click();
   });
 
-  await test.step("3. Waiting for output files", async () => {
+  await test.step("2. Waiting for output files", async () => {
     await waitFiles(outputPath, files);
   });
 
-  await test.step("4. Checking output files", async () => {
+  await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
 
-  await electronApp.close();
+  await window.locator(".workspace > .clear").click();
+  await sleep(500);
 });

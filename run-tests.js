@@ -11,7 +11,7 @@ const args = process.argv.slice(2).reduce((acc, arg) => {
 const fileName = args.fileName;
 const testName = args.testName;
 
-let command = "npx playwright test --workers=1";
+let command = "npx playwright test";
 
 if (fileName) {
   command += ` e2e/${fileName}`;
