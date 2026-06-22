@@ -57,13 +57,14 @@ async function getInfo(filePath) {
   match = semesterCellV.match(/семестр\s+(\d{4})/i);
   const yearNumber = parseInt(match[1], 10);
   const semesterStart =
-    semesterNumber === 1 ? `01.01.${yearNumber + 1}` : `01.07.${yearNumber}`;
-  const semesterEnd =
-    semesterNumber === 1 ? `30.06.${yearNumber + 1}` : `31.12.${yearNumber}`;
-  const years =
     semesterNumber === 1
-      ? `${yearNumber}-${yearNumber + 1}`
-      : `${yearNumber - 1}-${yearNumber}`;
+      ? `01.01.${yearNumber + 1}`
+      : `01.07.${yearNumber + 1}`;
+  const semesterEnd =
+    semesterNumber === 1
+      ? `30.06.${yearNumber + 1}`
+      : `31.12.${yearNumber + 1}`;
+  const years = `${yearNumber}-${yearNumber + 1}`;
 
   // Finding the "Average grade" column and reading the list of subjects and teachers
   findedCell = findCell(sheet, "Середній бал", "right", { row: 8, column: 5 });
