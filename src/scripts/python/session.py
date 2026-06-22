@@ -450,7 +450,7 @@ def session_PackageOfDocuments(info, app_path):
             doc_petition = replace_text(doc_petition, "kurator_31", info["kurator_gen"])
             doc_petition = replace_text(doc_petition, "kurator_32", info["kurator_nom"])
             doc_petition = replace_text(
-                doc_petition, "semesterNumber_3", info["semester_number_word"]
+                doc_petition, "semester_number_3", info["semester_number_word"]
             )
             doc_petition = replace_text(doc_petition, "years_3", info["years"])
             doc_petition = replace_text(
@@ -1578,7 +1578,7 @@ def session_EmptyCreate(info, app_path, path_to_save, semester, subcject_index=N
         # Filling statements for each subgroup
         for subgroup_index, subgroup in enumerate(group["subgroups"]):
             cells = {
-                "C5": f"Успішності студентів спеціальності {subgroup['speciality_code']} «{subgroup['speciality_name']}»",
+                "C5": f"Успішності студентів спеціальності {subgroup['speciality_code']} {subgroup['speciality_name']}",
                 "C6": (
                     f"За {info['semester_roman']} семестр {info['years']} н.р."
                     if semester != "рік"

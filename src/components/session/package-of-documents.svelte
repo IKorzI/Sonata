@@ -141,7 +141,7 @@
       await window.electron.sessionPackageDataSupplement(endInformation);
     console.log(endInformation);
 
-    savedInformation.set(endInformation);
+    //savedInformation.set(endInformation);
   }
 
   // Management of positioning and animation of custom dropdown lists with prevention of timing conflicts
