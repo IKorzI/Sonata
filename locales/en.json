@@ -124,8 +124,16 @@
     "about.gitHub": "Project page on GitHub",
     "about.history": "The app was initially created as a \"What if ...?\" project. The further development continued, the more the application grew into a full-fledged project.",
     "about.authors.title": "The application uses images from the following authors:",
-    "about.authors.elementText": "Image{imageName} by {autorName}"
-  },
+    "about.authors.elementText": "Image{imageName} by {autorName}",
+
+    "settings.title": "Settings",
+    "settings.headName": "Head of Department Name",
+    "settings.percentage": "% of scholarship budget",
+    "settings.semesterDates.label": "Scholarship award dates (day and month)",
+    "settings.semesterDates.start": "Start date",
+    "settings.semesterDates.end": "End date",
+    "settings.save": "Save"
+      },
   "backend": {
     "renderAndTransform.done.title": "Export complete",
     "renderAndTransform.done.message": "Image saved successfully!",

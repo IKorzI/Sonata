@@ -92,15 +92,6 @@
       },
     },
     {
-      url: "https://www.flaticon.com/free-icon/minimize-sign_6057365?term=minus&page=1&position=15&origin=search&related_id=6057365",
-      author: "Circlon Tech",
-      imageName: {
-        ru: "«Свернуть»",
-        uk: "«Згорнути»",
-        en: '"Minimize"',
-      },
-    },
-    {
       url: "https://www.flaticon.com/free-icon/moon_865882",
       author: "Good Ware",
       imageName: {

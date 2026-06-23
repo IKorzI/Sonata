@@ -11,6 +11,7 @@
   import AboutWindow from "./components/AboutWindow.svelte";
   import ExampleWindow from "./components/ExampleWindow.svelte";
   import ErrorWindow from "./components/ErrorWindow.svelte";
+  import SettingsWindow from "./components/SettingsWindow.svelte";
 </script>
 
 <main
@@ -20,7 +21,9 @@
   --transition: {_transition};
 
   --app-background-image: {_styles.app.background.image};
+  --settings-background-image: {_styles.settings.background.image};
   --about-background-image: {_styles.about.background.image};
+  --themeMenu-background-image: {_styles.themeMenu.background.image};
   --themeSwap-background-image: {_styles.themeSwap.background.image};
   --settingsButton-background-image: {_styles.settingsButton.background.image};
   --programMenu-background-image: {_styles.programMenu.background.image};
@@ -102,6 +105,8 @@
   <ExampleWindow />
 
   <ErrorWindow />
+
+  <SettingsWindow />
 </main>
 
 <style>

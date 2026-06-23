@@ -124,7 +124,15 @@
     "about.gitHub": "Страница проекта на GitHub",
     "about.history": "Приложение изначально создавалось как \"А что, если ...?\". Чем дальше продолжалась разработка, тем больше приложение перерастало в полноценный проект.",
     "about.authors.title": "В приложении используются изображения от следующих авторов:",
-    "about.authors.elementText": "Изображение{imageName} от {autorName}"
+    "about.authors.elementText": "Изображение{imageName} от {autorName}",
+    
+    "settings.title": "Настройки", 
+    "settings.headName": "Имя и фамилия заведующего отделением", 
+    "settings.percentage": "% бюджета на стипендию", 
+    "settings.semesterDates.label": "Дать назначения стипендии (день и месяц)", 
+    "settings.semesterDates.start": "Начальная дата", 
+    "settings.semesterDates.end": "Крайняя дата", 
+    "settings.save": "Сохранить"
   },
   "backend": {
     "renderAndTransform.done.title": "Экспорт завершен",

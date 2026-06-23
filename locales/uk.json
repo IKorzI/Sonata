@@ -124,7 +124,15 @@
     "about.gitHub": "Сторінка проекту на GitHub",
     "about.history": "Додаток спочатку створювався як \"А що, якщо ...?\". Чим далі продовжувалася розробка, тим більше додаток переростав у повноцінний проект.",
     "about.authors.title": "У програмі використовуються зображення від наступних авторів:",
-    "about.authors.elementText": "Зображення{imageName} від {autorName}"
+    "about.authors.elementText": "Зображення{imageName} від {autorName}",
+
+    "settings.title": "Налаштування",
+    "settings.headName": "Ім'я та прізвище завідуючого відділенням",
+    "settings.percentage": "% бюджета на стипендію",
+    "settings.semesterDates.label": "Дати призначення стипендії (день та місяць)",
+    "settings.semesterDates.start": "Початкова дата",
+    "settings.semesterDates.end": "Крайня дата",
+    "settings.save": "Зберегти"
   },
   "backend": {
     "renderAndTransform.done.title": "Експорт завершено", 

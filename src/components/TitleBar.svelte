@@ -8,6 +8,8 @@
     themeSwap,
     hide,
     about,
+    settings,
+    themeMenu
   } from "../lib/store.js";
 
   let _lng = {};
@@ -120,14 +122,24 @@
   function showAbout() {
     about.set(true);
   }
+
+  function showSettings() {
+    settings.set(true);
+  }
+
+  function showThemeMenu() {
+    themeMenu.set(true);
+  }
 </script>
 
 <div class="title-bar">
   <div class="program-icon"></div>
   <button class="about" on:click={showAbout}></button>
   <button class="language" on:click={showLngList}>{_lng.lng}</button>
+  <button class="settings" on:click={showSettings}></button>
   <ul class="language-list"></ul>
   <div class="program-name">Sonata</div>
+  <button class="theme-menu" on:click={showThemeMenu}></button>
   <button class="theme-swap" on:click={handleThemeSwap}></button>
   <button class="minimize" on:click={handleMinimize}>—</button>
   <button class="close" on:click={handleClose}>✕</button>
@@ -141,7 +153,7 @@
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     display: grid;
-    grid-template-columns: 25px 25px 25px 1fr 25px 25px 25px;
+    grid-template-columns: 25px 25px 25px 25px 1fr 25px 25px 25px 25px;
     background-color: var(--background-color);
     border-radius: 0px;
     border-color: var(--border-color);
@@ -194,8 +206,16 @@
     font-size: 20px;
   }
 
+  .settings {
+    background-image: var(--settings-background-image);
+  }
+
   .about {
     background-image: var(--about-background-image);
+  }
+
+  .theme-menu {
+    background-image: var(--themeMenu-background-image);
   }
 
   .theme-swap {
