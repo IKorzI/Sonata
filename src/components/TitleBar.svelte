@@ -1,8 +1,5 @@
 <script>
-  import { onMount, onDestroy } from "svelte";
-  import {
-    availableLngs,
-    changeLanguage,
+  import {    
     lng,
     transition,
     themeSwap,
@@ -14,44 +11,6 @@
 
   let _lng = {};
   lng.subscribe((value) => (_lng = value));
-  let languageListIsOpen = false;
-
-  function handleGlobalClick(event) {
-    if (
-      !event.target.className.includes("language") &&
-      event.target.tagName !== "LI" &&
-      languageListIsOpen
-    ) {
-      const languageList = document.querySelector(".title-bar .language-list");
-      languageList.style.opacity = "";
-      languageList.style.zIndex = "";
-      languageListIsOpen = false;
-    }
-  }
-
-  onMount(() => {
-    const languageList = document.querySelector(".title-bar .language-list");
-    availableLngs.forEach((lng, index) => {
-      const li = document.createElement("li");
-      li.textContent = lng;
-      if (index === availableLngs.length - 1) {
-        li.className = "last";
-      }
-      li.addEventListener("click", function (event) {
-        changeLanguage(event.target.textContent);
-
-        languageList.style.opacity = "";
-        languageList.style.zIndex = "";
-        languageListIsOpen = false;
-      });
-      languageList.appendChild(li);
-    });
-
-    window.addEventListener("click", handleGlobalClick);
-  });
-  onDestroy(() => {
-    window.removeEventListener("click", handleGlobalClick);
-  });
 
   // Flag to block repeated clicks on window control elements during animation playback
   let isProcess = false;
@@ -106,19 +65,6 @@
     }, 200);
   }
 
-  function showLngList() {
-    const languageList = document.querySelector(".title-bar .language-list");
-    if (!languageListIsOpen) {
-      languageList.style.zIndex = "999";
-      languageList.style.opacity = "1";
-      languageListIsOpen = true;
-    } else {
-      languageList.style.opacity = "";
-      languageList.style.zIndex = "";
-      languageListIsOpen = false;
-    }
-  }
-
   function showAbout() {
     about.set(true);
   }
@@ -135,9 +81,7 @@
 <div class="title-bar">
   <div class="program-icon"></div>
   <button class="about" on:click={showAbout}></button>
-  <button class="language" on:click={showLngList}>{_lng.lng}</button>
   <button class="settings" on:click={showSettings}></button>
-  <ul class="language-list"></ul>
   <div class="program-name">Sonata</div>
   <button class="theme-menu" on:click={showThemeMenu}></button>
   <button class="theme-swap" on:click={handleThemeSwap}></button>
@@ -153,13 +97,13 @@
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     display: grid;
-    grid-template-columns: 25px 25px 25px 25px 1fr 25px 25px 25px 25px;
+    grid-template-columns: 25px 25px 25px 1fr 25px 25px 25px 25px;
     background-color: var(--background-color);
     border-radius: 0px;
     border-color: var(--border-color);
   }
 
-  .title-bar > *:not(.language-list) {
+  .title-bar > * {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -181,23 +125,6 @@
   .program-icon {
     border-top-left-radius: 7.5px;
     background-image: url("../icon.png");
-  }
-
-  .title-bar .language {
-    font-weight: normal;
-  }
-
-  .language-list {
-    position: absolute;
-    height: 85px;
-    top: 26px;
-    left: 50px;
-    opacity: 0;
-    z-index: -1;
-  }
-
-  :global(.language-list li) {
-    cursor: pointer;
   }
 
   .program-name {

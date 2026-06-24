@@ -1,5 +1,5 @@
 {
-  "light": {
+  "light1": {
 
     "app.background.image": "url('../light/background.jpg')",
     "settings.background.image": "url('../light/settings.png')",
@@ -60,7 +60,7 @@
     "li.active.background.color": "rgba(155, 155, 155, 0.6)"
   },
 
-  "dark": {
+  "dark1": {
 
     "app.background.image": "url('../dark/background.jpg')",
     "settings.background.image": "url('../dark/settings.png')",

@@ -6,11 +6,31 @@ import fs from "fs";
 import readline from "readline";
 import { lng } from "./language.js";
 import { app } from "electron";
+import Store from "electron-store";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const projectPath = path.resolve(__dirname, "../../");
+
+const store = new Store({
+  defaults: {
+    language: 'uk',
+    theme:{
+      current: "dark",
+      dark: "dark1",
+      light: "light1"
+    },
+    headName: 'Маргарита БРІТІКОВА',
+    percentage: '45',
+    scholarshipSemester: {
+      start1: '01.07',
+      end1: '31.12',
+      start2: '01.01',
+      end2: '30.06'
+    }
+  }
+});
 
 export const monthNames = {
   січень: 1,
@@ -359,4 +379,12 @@ ipcMain.handle("check-file-access", async (event, filePath) => {
 
 ipcMain.handle("startBackendFunc", async (event, data) => {
   return startBackendFunc(data);
+});
+
+ipcMain.handle("getSettings", async (event) => {
+  return store.store;
+});
+
+ipcMain.on("saveSetting", (event, key, value) => {
+  store.set(key, value)
 });

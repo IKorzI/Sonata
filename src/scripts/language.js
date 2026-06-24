@@ -7,16 +7,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.join(__dirname, "../..");
 
-const availableLngs = ["en", "ru", "uk"];
-const defaultLangCode = "uk";
-
 const localesDir = path.join(rootDir, "locales");
 
-let defaultBackendLng = {};
+export const availableLngs = {};
+const defaultLangCode = "uk";
 
+const backendLngsData = {};
+let defaultBackendLng = {};
 export const lng = {};
 
-// Converts dotted keys to an object hierarchy: { "a.b": "val" } -> { a: { b: "val" } }
 function unflattenStyles(flat) {
   const result = {};
   for (const key in flat) {
@@ -49,25 +48,41 @@ function deepMerge(target, source) {
   return result;
 }
 
+function loadAvailableLanguages() {
+  if (!fs.existsSync(localesDir)) return;
+
+  const files = fs.readdirSync(localesDir).filter(file => file.endsWith(".json"));
+
+  for (const file of files) {
+    const filePath = path.join(localesDir, file);
+    try {
+      const fileData = JSON.parse(fs.readFileSync(filePath, "utf8"));
+      const langKey = fileData.lng;
+
+      if (langKey && !availableLngs[langKey]) {
+        availableLngs[langKey] = file;
+
+        backendLngsData[langKey] = {
+          lng: fileData.lng,
+          name: fileData.name,
+          ...unflattenStyles(fileData.backend || {})
+        };
+      }
+    } catch (error) {
+      console.error(`Ошибка при чтении файла ${file}:`, error);
+    }
+  }
+}
+
 function initBackendLanguage() {
-  const defaultPath = path.join(localesDir, `${defaultLangCode}.json`);
-  const fileData = JSON.parse(fs.readFileSync(defaultPath, "utf8"));
-
-  defaultBackendLng = unflattenStyles(fileData.backend || {});
-
+  defaultBackendLng = backendLngsData[defaultLangCode] || {};
   Object.assign(lng, defaultBackendLng);
 }
 
 export function languageSet(language) {
-  if (!availableLngs.includes(language)) return;
+  if (!availableLngs.hasOwnProperty(language)) return;
 
-  const filePath = path.join(localesDir, `${language}.json`);
-  if (!fs.existsSync(filePath)) return;
-
-  const fileData = JSON.parse(fs.readFileSync(filePath, "utf8"));
-
-  const targetBackend = unflattenStyles(fileData.backend || {});
-
+  const targetBackend = backendLngsData[language] || {};
   const newLng = deepMerge(defaultBackendLng, targetBackend);
 
   for (const key in lng) {
@@ -76,6 +91,7 @@ export function languageSet(language) {
   Object.assign(lng, newLng);
 }
 
+loadAvailableLanguages();
 initBackendLanguage();
 
 ipcMain.handle("languageSet", async (event, isMode) => {

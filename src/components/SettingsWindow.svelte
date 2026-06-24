@@ -1,20 +1,93 @@
 <script>
-  import { settings, lng, handleInput } from "../lib/store.js";
+  import { onMount, onDestroy } from "svelte";
+  import { settings, appSettings, lng, changeLanguage, availableLngs, handleInput } from "../lib/store.js";
 
   let _lng = {};
   lng.subscribe((value) => (_lng = value));
 
   let eHeadName, headName;
   let ePercentage, percentageOfScholarship;
-  let eSemesterStart, semesterStart, eSemesterEnd, semesterEnd;
+  let eSemester1Start, eSemester1End, semester1Start, semester1End;
+  let eSemester2Start, eSemester2End, semester2Start, semester2End;
 
+  let languageListIsOpen = false;
 
-  function handlerClickOK() {
+  function handleGlobalClick(event) {
+    if (
+      !event.target.className.includes("languageButton") &&
+      event.target.tagName !== "LI" &&
+      languageListIsOpen
+    ) {
+      const languageList = document.querySelector(".settings-window .language-list");
+      languageList.style.opacity = "";
+      languageList.style.zIndex = "";
+      languageListIsOpen = false;
+    }
+  }
+
+  onMount(() => {
+    const languageList = document.querySelector(".settings-window .language-list");
+    const keys = Object.keys(availableLngs);
+    keys.forEach((lngCode, index) => {
+      const li = document.createElement("li");
+      li.textContent = availableLngs[lngCode]; 
+      if (index === keys.length - 1) {
+        li.className = "last";
+      }
+      li.id = lngCode;
+
+      li.addEventListener("click", function (event) {
+        changeLanguage(event.target.id);
+
+        languageList.style.opacity = "";
+        languageList.style.zIndex = "";
+        languageListIsOpen = false;
+      });
+      
+      languageList.appendChild(li);
+    });
+
+    window.addEventListener("click", handleGlobalClick);
+
+    headName = appSettings.headName
+    percentageOfScholarship = appSettings.percentage
+    semester1Start = appSettings.scholarshipSemester.start2
+    semester1End = appSettings.scholarshipSemester.end2
+    semester2Start = appSettings.scholarshipSemester.start1
+    semester2End = appSettings.scholarshipSemester.end1
+  });
+
+  onDestroy(() => {
+    window.removeEventListener("click", handleGlobalClick);
+  });
+
+  function handlerClickSave() {
+    window.electron.saveSetting("language", _lng.lng);
+    window.electron.saveSetting("headName", headName);
+    window.electron.saveSetting("percentage", percentageOfScholarship);
+    window.electron.saveSetting("scholarshipSemester.start1", semester2Start);
+    window.electron.saveSetting("scholarshipSemester.end1", semester2End);
+    window.electron.saveSetting("scholarshipSemester.start2", semester1Start);
+    window.electron.saveSetting("scholarshipSemester.end2", semester1End);
+
     settings.set(false);
   }
 
   function handleClose() {
     settings.set(false);
+  }
+
+  function showLngList() {
+    const languageList = document.querySelector(".settings-window .language-list");
+    if (!languageListIsOpen) {
+      languageList.style.zIndex = "999";
+      languageList.style.opacity = "1";
+      languageListIsOpen = true;
+    } else {
+      languageList.style.opacity = "";
+      languageList.style.zIndex = "";
+      languageListIsOpen = false;
+    }
   }
 </script>
 
@@ -23,6 +96,12 @@
     <div class="title">{_lng.settings.title}</div>
     <button class="close" on:click={handleClose}>✕</button>
     <div class="text-area">
+
+      <div class="language">
+        <div>{_lng.settings.language}</div>
+        <button class="languageButton" on:click={showLngList}>{_lng.name}</button>
+        <ul class="language-list"></ul>
+      </div>
 
       <div class="head-name">
         <div>{_lng.settings.headName}</div>
@@ -44,14 +123,14 @@
         />
       </div>
 
-      <div class="data-block" id="semester-dates">
-        <div class="label">{_lng.settings.semesterDates.label}</div>
+      <div class="data-block" id="semester1-dates">
+        <div class="label">{_lng.settings.semester1Dates.label}</div>
         <div class="row" id="start">
           <div>{_lng.settings.semesterDates.start}</div>
           <input
             type="text"
-            bind:this={eSemesterStart}
-            value={semesterStart}
+            bind:this={eSemester1Start}
+            value={semester1Start}
             on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}
           />
         </div>
@@ -59,15 +138,37 @@
           <div>{_lng.settings.semesterDates.end}</div>
           <input
             type="text"
-            bind:this={eSemesterEnd}
-            value={semesterEnd}
+            bind:this={eSemester1End}
+            value={semester1End}
+            on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}
+          />
+        </div>
+      </div>
+
+      <div class="data-block" id="semester2-dates">
+        <div class="label">{_lng.settings.semester2Dates.label}</div>
+        <div class="row" id="start">
+          <div>{_lng.settings.semesterDates.start}</div>
+          <input
+            type="text"
+            bind:this={eSemester2Start}
+            value={semester2Start}
+            on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}
+          />
+        </div>
+        <div class="row" id="end">
+          <div>{_lng.settings.semesterDates.end}</div>
+          <input
+            type="text"
+            bind:this={eSemester2End}
+            value={semester2End}
             on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}
           />
         </div>
       </div>
       
     </div>
-    <button class="ok" on:click={handlerClickOK}>{_lng.settings.save}</button>
+    <button class="save" on:click={handlerClickSave}>{_lng.settings.save}</button>
   </div>
 </div>
 
@@ -87,7 +188,7 @@
     transition: 0.4s;
     border-radius: 0px;
   }
-  :global(.settings-area.showed) {
+  .settings-area.showed {
     z-index: 3;
     opacity: 1;
   }
@@ -104,7 +205,7 @@
     grid-template-rows: 30px 1fr 30px;
     transition: transform 0.4s;
   }
-  :global(.settings-area .settings-window.showed) {
+  .settings-area .settings-window.showed {
     transform: translateY(0px);
   }
 
@@ -145,7 +246,7 @@
     background-color: rgba(255, 59, 59, 0.5);
   }
 
-  .ok {
+  .save {
     display: grid;
     text-align: center;
     align-items: center;
@@ -167,4 +268,101 @@
     border: 2px solid transparent;
     background-clip: content-box;
   }
+
+  .language {
+    position: absolute;
+    top: 40px;
+    display: grid;
+    grid-template-columns: 340px 140px;
+    row-gap: 5px;
+    font-weight: normal;
+  }
+  .language div {
+    text-align: right;
+    padding-right: 15px;
+  }
+  .language button {
+    background-color: var(--input-background-color);
+    width: calc(100% + 6px);
+    text-align: left;
+    border-width: 1px;
+    border-radius: 3px;
+    padding-left: 4px;
+  }
+  .language button:hover {
+    background-color: var(--input-hover-background-color);
+  }
+  .language-list {
+    position: absolute;
+    height: 85px;
+    width: calc(140px + 4px);
+    top: 26px;
+    left: 340px;
+    opacity: 0;
+    z-index: -1;
+  }
+  :global(.language-list li) {
+    cursor: pointer;
+  }
+
+  .head-name {
+    position: absolute;
+    top: 80px;
+    display: grid;
+    grid-template-columns: 340px 240px;
+    row-gap: 5px;
+  }
+  .head-name input {
+    width: 100%;
+    text-align: left;
+  }
+  .head-name div {
+    text-align: right;
+    padding-right: 15px;
+  }
+
+  .percentage-of-scholarship {
+    position: absolute;
+    top: 120px;
+    display: grid;
+    grid-template-columns: 340px 50px;
+    row-gap: 5px;
+  }
+  .percentage-of-scholarship input {
+    width: 100%;
+    text-align: center;
+    padding-left: 0px;
+  }
+  .percentage-of-scholarship div {
+    text-align: right;
+    padding-right: 15px;
+  }
+
+  .data-block {
+    position: absolute;
+    display: grid;
+    grid-template-rows: 25px 25px 25px;
+    row-gap: 15px;
+  }
+  .data-block .label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .data-block .row {
+    display: grid;
+  }
+
+  #semester1-dates .row,
+  #semester2-dates .row {
+    grid-template-columns: 160px 95px;
+  }
+  #semester1-dates {
+    top: 160px;
+  }
+  #semester2-dates {
+    top: 300px;
+  }
+
+
 </style>

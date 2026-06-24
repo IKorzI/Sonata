@@ -19,6 +19,7 @@
     "app:testDebug": "npx playwright test --debug "
   },
   "dependencies": {
+    "electron-store": "^11.0.2",
     "fs": "^0.0.1-security",
     "shevchenko": "^3.2.2",
     "svelte": "^4.2.7",

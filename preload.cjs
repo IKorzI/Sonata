@@ -4,6 +4,8 @@ contextBridge.exposeInMainWorld("electron", {
   minimize: () => ipcRenderer.send("window-action", "minimize"),
   close: () => ipcRenderer.send("window-action", "close"),
   languageSet: (lng) => ipcRenderer.invoke("languageSet", lng),
+  getSettings: () => ipcRenderer.invoke("getSettings"),
+  saveSetting: (key, value) => ipcRenderer.send("saveSetting", key, value),
 
   saveDialog: (fileName, extension) =>
     ipcRenderer.invoke("save-dialog", fileName, extension),

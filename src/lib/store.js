@@ -1,5 +1,6 @@
 import { writable } from "svelte/store";
 
+export const appSettings = await window.electron.getSettings();
 export const styles = writable();
 export const lng = writable();
 
@@ -22,8 +23,8 @@ export { textFilter, handleInput, strToDate } from "./handle-input.js";
 
 import { start as startTheme } from "./theme.js";
 import { start as startLanguage } from "./language.js";
-startTheme();
-startLanguage();
+startTheme(appSettings.theme);
+startLanguage(appSettings.language);
 
 // Converts dotted keys to an object hierarchy: { "a.b": "val" } -> { a: { b: "val" } }
 export function unflattenStyles(flat) {

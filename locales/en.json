@@ -1,7 +1,7 @@
 {
+  "lng": "en",
+  "name": "English",
   "frontend": {
-    "lng": "en",
-
     "workspace.example": "Example of output document(s)",
     "workspace.clear": "Clear",
     "workspace.start": "Start",
@@ -127,9 +127,11 @@
     "about.authors.elementText": "Image{imageName} by {autorName}",
 
     "settings.title": "Settings",
+    "settings.language": "Interface language",
     "settings.headName": "Head of Department Name",
     "settings.percentage": "% of scholarship budget",
-    "settings.semesterDates.label": "Scholarship award dates (day and month)",
+    "settings.semester1Dates.label": "Scholarship award dates after the first semester (day and month)",
+    "settings.semester2Dates.label": "Scholarship award dates after the second semester (day and month)",
     "settings.semesterDates.start": "Start date",
     "settings.semesterDates.end": "End date",
     "settings.save": "Save"
