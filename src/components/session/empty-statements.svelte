@@ -73,12 +73,12 @@
       uploadedFileHours === null ||
       uploadedFileContingent === null
     ) {
-      message.set({ type: "error", text: _lng.emptyStatements.notAllData });
+      message.set({ type: "error", text: _lng?.emptyStatements.notAllData });
       return;
     }
 
     // Prompt the user for the path to save the final file
-    const targetPath = await window.electron.saveDialog(_lng.save, ".txt");
+    const targetPath = await window.electron.saveDialog(_lng?.save, ".txt");
     if (!targetPath) return;
 
     let endInformation = {
@@ -110,7 +110,7 @@
       if (result) {
         hoursData = result;
       } else {
-        message.set({ type: "error", text: _lng.inputFile.error });
+        message.set({ type: "error", text: _lng?.inputFile.error });
         uploadedFileHours = null;
         hoursData = null;
 
@@ -132,7 +132,7 @@
       if (result) {
         contingentData = result;
       } else {
-        message.set({ type: "error", text: _lng.inputFile.error });
+        message.set({ type: "error", text: _lng?.inputFile.error });
         uploadedFileContingent = null;
         contingentData = null;
 
@@ -191,7 +191,7 @@
   />
 
   <div class="percentage-of-scholarship">
-    <div>{_lng.emptyStatements.percentage}</div>
+    <div>{_lng?.emptyStatements.percentage}</div>
     <input
       type="text"
       bind:this={ePercentage}
@@ -203,7 +203,7 @@
   </div>
 
   <div class="first-index">
-    <div>{_lng.emptyStatements.firstIndex}</div>
+    <div>{_lng?.emptyStatements.firstIndex}</div>
     <input
       type="text"
       bind:this={eFirstIndex}
@@ -215,7 +215,7 @@
   </div>
 
   <div class="semester-number">
-    <div>{_lng.emptyStatements.semesterNumber}</div>
+    <div>{_lng?.emptyStatements.semesterNumber}</div>
     <input
       type="text"
       bind:this={eSemesterNumber}

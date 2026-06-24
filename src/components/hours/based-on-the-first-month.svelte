@@ -204,7 +204,7 @@
   />
 
   <div class="semester-end">
-    <div>{_lng.basedOnTheFirstMonth.semesterEnd}</div>
+    <div>{_lng?.basedOnTheFirstMonth.semesterEnd}</div>
     <CustomDateInput
       bind:value={data.semesterEndDate}
       class={uploadedFile === null ? "unavailable" : ""}
@@ -212,7 +212,7 @@
   </div>
 
   <div class="hours-per-subject">
-    <div class="label">{_lng.basedOnTheFirstMonth.hoursPerSubject}</div>
+    <div class="label">{_lng?.basedOnTheFirstMonth.hoursPerSubject}</div>
     <div class="list" id="list">
       {#each subjectsAndHours as subject, subjectIndex}
         <div class="row" id={subject.subjectName}>

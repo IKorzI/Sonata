@@ -74,7 +74,7 @@
   }
 
   function showThemeMenu() {
-    themeMenu.set(true);
+    themeMenu.set(!$themeMenu);
   }
 </script>
 

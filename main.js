@@ -70,9 +70,8 @@ function createWindow() {
     return { action: 'allow' };
   });
 
-  if (isDev) {
+  function devOptions() {
     console.log("================(Development mode)================");
-    mainWindow.loadURL("http://localhost:5173");
     mainWindow.webContents.once("did-finish-load", () => {
       mainWindow.webContents.openDevTools({ mode: "right" });
     });
@@ -106,6 +105,11 @@ function createWindow() {
 
       menu.popup();
     });
+  }
+
+  if (isDev) {
+    mainWindow.loadURL("http://localhost:5173");
+    devOptions();
   } else if (process.env.E2E_TEST === "true") {
     mainWindow.loadFile(path.join(__dirname, "dist-vite", "index.html"));
   } else {

@@ -21,78 +21,78 @@
 
   --transition: {_transition};
 
-  --app-background-image: {_styles.app.background.image};
-  --settings-background-image: {_styles.settings.background.image};
-  --about-background-image: {_styles.about.background.image};
-  --themeMenu-background-image: {_styles.themeMenu.background.image};
-  --themeSwap-background-image: {_styles.themeSwap.background.image};
-  --settingsButton-background-image: {_styles.settingsButton.background.image};
-  --programMenu-background-image: {_styles.programMenu.background.image};
-  --add-background-image: {_styles.add.background.image};
-  --editStatus-background-image: {_styles.editStatus.background.image};
-  --startProcess-background-image: {_styles.startProcess.background.image};
+  --app-background-image: {_styles?.app.background.image};
+  --settings-background-image: {_styles?.settings.background.image};
+  --about-background-image: {_styles?.about.background.image};
+  --themeMenu-background-image: {_styles?.themeMenu.background.image};
+  --themeSwap-background-image: {_styles?.themeSwap.background.image};
+  --settingsButton-background-image: {_styles?.settingsButton.background.image};
+  --programMenu-background-image: {_styles?.programMenu.background.image};
+  --add-background-image: {_styles?.add.background.image};
+  --editStatus-background-image: {_styles?.editStatus.background.image};
+  --startProcess-background-image: {_styles?.startProcess.background.image};
 
-  --text-color: {_styles.text.color};
-  --text-shadow: {_styles.text.shadow};
+  --text-color: {_styles?.text.color};
+  --text-shadow: {_styles?.text.shadow};
 
-  --ExampleArea-background-color: {_styles.ExampleArea.background.color};
-  --ExampleArea-window-background-color: {_styles.ExampleArea.window.background
+  --ExampleArea-background-color: {_styles?.ExampleArea.background.color};
+  --ExampleArea-window-background-color: {_styles?.ExampleArea.window.background
     .color};
-  --ExampleArea-window-border-color: {_styles.ExampleArea.window.border.color};
-  --ExampleArea-window-download-background-image: {_styles.ExampleArea.window
+  --ExampleArea-window-border-color: {_styles?.ExampleArea.window.border.color};
+  --ExampleArea-window-download-background-image: {_styles?.ExampleArea.window
     .download.background.image};
-  --ExampleArea-window-scaleUp-background-image: {_styles.ExampleArea.window
+  --ExampleArea-window-scaleUp-background-image: {_styles?.ExampleArea.window
     .scaleUp.background.image};
-  --ExampleArea-window-scaleByWidth-background-image: {_styles.ExampleArea
+  --ExampleArea-window-scaleByWidth-background-image: {_styles?.ExampleArea
     .window.scaleByWidth.background.image};
-  --ExampleArea-window-scaleDown-background-image: {_styles.ExampleArea.window
+  --ExampleArea-window-scaleDown-background-image: {_styles?.ExampleArea.window
     .scaleDown.background.image};
-  --ExampleArea-window-button-background-color: {_styles.ExampleArea.window
+  --ExampleArea-window-button-background-color: {_styles?.ExampleArea.window
     .button.background.color};
-  --ExampleArea-window-button-hover-background-color: {_styles.ExampleArea
+  --ExampleArea-window-button-hover-background-color: {_styles?.ExampleArea
     .window.button.hover.background.color};
-  --ExampleArea-window-button-active-background-color: {_styles.ExampleArea
+  --ExampleArea-window-button-active-background-color: {_styles?.ExampleArea
     .window.button.active.background.color};
-  --ExampleArea-window-close-background-color: {_styles.ExampleArea.window.close
+  --ExampleArea-window-close-background-color: {_styles?.ExampleArea.window.close
     .background.color};
-  --ExampleArea-window-close-hover-background-color: {_styles.ExampleArea.window
+  --ExampleArea-window-close-hover-background-color: {_styles?.ExampleArea.window
     .close.hover.background.color};
-  --ExampleArea-window-close-active-background-color: {_styles.ExampleArea
+  --ExampleArea-window-close-active-background-color: {_styles?.ExampleArea
     .window.close.active.background.color};
-  --ExampleArea-tabArea-background-color: {_styles.ExampleArea.tabArea
+  --ExampleArea-tabArea-background-color: {_styles?.ExampleArea.tabArea
     .background.color};
 
-  --ErrorArea-background-color: {_styles.ErrorArea.background.color};
-  --ErrorArea-window-background-color: {_styles.ErrorArea.window.background
+  --ErrorArea-background-color: {_styles?.ErrorArea.background.color};
+  --ErrorArea-window-background-color: {_styles?.ErrorArea.window.background
     .color};
 
-  --inputFile-delete-background-image: {_styles.inputFile.delete.background
+  --inputFile-delete-background-image: {_styles?.inputFile.delete.background
     .image};
-  --inputFile-what-background-image: {_styles.inputFile.what.background.image};
+  --inputFile-what-background-image: {_styles?.inputFile.what.background.image};
 
-  --background-color: {_styles.background.color};
-  --background-reverse-color: {_styles.background.reverse.color};
-  --border-color: {_styles.border.color};
-  --line-with-text-color: {_styles.lineWithText.color};
-  --choiceMark-color: {_styles.choiceMark.color};
-  --packageOfDocuments-choiceMark-color: {_styles.packageOfDocuments.choiceMark
+  --background-color: {_styles?.background.color};
+  --background-reverse-color: {_styles?.background.reverse.color};
+  --border-color: {_styles?.border.color};
+  --line-with-text-color: {_styles?.lineWithText.color};
+  --choiceMark-color: {_styles?.choiceMark.color};
+  --packageOfDocuments-choiceMark-color: {_styles?.packageOfDocuments.choiceMark
     .color};
 
-  --button-background-color: {_styles.button.background.color};
-  --button-hover-background-color: {_styles.button.hover.background.color};
-  --button-active-background-color: {_styles.button.active.background.color};
+  --button-background-color: {_styles?.button.background.color};
+  --button-hover-background-color: {_styles?.button.hover.background.color};
+  --button-active-background-color: {_styles?.button.active.background.color};
 
-  --input-placeholder-color: {_styles.input.placeholder.color};
-  --input-background-color: {_styles.input.background.color};
-  --input-hover-background-color: {_styles.input.hover.background.color};
-  --input-focus-background-color: {_styles.input.focus.background.color};
-  --input-border-color: {_styles.input.border.color};
-  --input-focus-border-color: {_styles.input.focus.border.color};
+  --input-placeholder-color: {_styles?.input.placeholder.color};
+  --input-background-color: {_styles?.input.background.color};
+  --input-hover-background-color: {_styles?.input.hover.background.color};
+  --input-focus-background-color: {_styles?.input.focus.background.color};
+  --input-border-color: {_styles?.input.border.color};
+  --input-focus-border-color: {_styles?.input.focus.border.color};
 
-  --ul-background-color: {_styles.ul.background.color};
-  --ul-border-color: {_styles.ul.border.color};
-  --li-hover-background-color: {_styles.li.hover.background.color};
-  --li-active-background-color: {_styles.li.active.background.color};
+  --ul-background-color: {_styles?.ul.background.color};
+  --ul-border-color: {_styles?.ul.border.color};
+  --li-hover-background-color: {_styles?.li.hover.background.color};
+  --li-active-background-color: {_styles?.li.active.background.color};
 "
 >
   <TitleBar />

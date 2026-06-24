@@ -121,7 +121,7 @@
     }
 
     const targetPath = await window.electron.saveDialog(
-      _lng.other.numDen.saveName,
+      _lng?.other.numDen.saveName,
       ".xlsx",
     );
     if (!targetPath) return;
@@ -172,34 +172,34 @@
   bind:this={this_}
 >
   <div class="block" id="screenshot-mode">
-    <div class="label">{_lng.other.screenshotMode}</div>
+    <div class="label">{_lng?.other.screenshotMode}</div>
     <button
       class={`screenshot-mode ${isScreenshotMode ? "active" : ""}`}
-      on:click={() => screenshotMode()}>{_lng.other.screenshotMode}</button
+      on:click={() => screenshotMode()}>{_lng?.other.screenshotMode}</button
     >
   </div>
 
   <div class="block" id="num-den">
-    <div class="label">{_lng.other.numDen.title}</div>
+    <div class="label">{_lng?.other.numDen.title}</div>
     <div class="input-block" id="start1">
-      <div>{_lng.other.numDen.start1}</div>
+      <div>{_lng?.other.numDen.start1}</div>
       <CustomDateInput bind:value={semester1Start} />
     </div>
     <div class="input-block" id="end1">
-      <div>{_lng.other.numDen.end1}</div>
+      <div>{_lng?.other.numDen.end1}</div>
       <CustomDateInput bind:value={semester1End} />
     </div>
     <div class="input-block" id="start2">
-      <div>{_lng.other.numDen.start2}</div>
+      <div>{_lng?.other.numDen.start2}</div>
       <CustomDateInput bind:value={semester2Start} />
     </div>
     <div class="input-block" id="end2">
-      <div>{_lng.other.numDen.end2}</div>
+      <div>{_lng?.other.numDen.end2}</div>
       <CustomDateInput bind:value={semester2End} />
     </div>
     <button class="start" on:click={() => numDenStart()}>
       {#if isProcessing === false && isComleting === false}
-        {_lng.other.start}
+        {_lng?.other.start}
       {/if}
       <div
         class="process"

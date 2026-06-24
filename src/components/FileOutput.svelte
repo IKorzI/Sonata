@@ -7,22 +7,22 @@
   let _lng = {};
   lng.subscribe((value) => (_lng = value));
   $: label = {
-    "other--templates--statements": _lng.fileOutput.label.statements,
-    "other--templates--hours": _lng.fileOutput.label.hours,
-    "other--templates--contingent": _lng.fileOutput.label.contingent,
+    "other--templates--statements": _lng?.fileOutput.label.statements,
+    "other--templates--hours": _lng?.fileOutput.label.hours,
+    "other--templates--contingent": _lng?.fileOutput.label.contingent,
   };
 
   $: names = {
     "other--templates--statements": {
-      fileNameToSave: _lng.fileOutput.names.statements,
+      fileNameToSave: _lng?.fileOutput.names.statements,
       filePathToSave: "statements",
     },
     "other--templates--hours": {
-      fileNameToSave: _lng.fileOutput.names.hours,
+      fileNameToSave: _lng?.fileOutput.names.hours,
       filePathToSave: "hours",
     },
     "other--templates--contingent": {
-      fileNameToSave: _lng.fileOutput.names.contingent,
+      fileNameToSave: _lng?.fileOutput.names.contingent,
       filePathToSave: "contingent",
     },
   };
@@ -97,7 +97,7 @@
   <div class="label">{label[eId]}</div>
 
   <div class="area" on:click={handleDownload} bind:this={eArea}>
-    <div class="text">{_lng.fileOutput.area.text}</div>
+    <div class="text">{_lng?.fileOutput.area.text}</div>
     <div
       class="img"
       style:background-image={`url(${backgroundImageUrl})`}

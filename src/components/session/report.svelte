@@ -132,7 +132,7 @@
   />
 
   <div class="loaded-groups">
-    <div class="label">{_lng.report.loadedGroups}</div>
+    <div class="label">{_lng?.report.loadedGroups}</div>
     <div class="list" id="list">
       {#each loadedGroups as group}
         <div class="row" id={group.groupCode}>

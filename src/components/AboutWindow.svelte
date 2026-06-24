@@ -213,7 +213,7 @@
   function formatAuthorText(template, author, imageTranslations) {
     if (!template) return "";
 
-    const currentLang = _lng.lng || "ru";
+    const currentLang = _lng?.lng || "ru";
 
     const imageTranslated =
       imageTranslations && imageTranslations[currentLang]
@@ -232,7 +232,7 @@
 
 <div class="about-area" class:showed={$about}>
   <div class="about-window" class:showed={$about}>
-    <div class="title">{_lng.about.title}</div>
+    <div class="title">{_lng?.about.title}</div>
     <button class="close" on:click={handleClose}>✕</button>
     <div class="text-area">
       <div class="program-icon"></div>
@@ -241,21 +241,21 @@
         <div class="text">onata</div>
       </div>
       <div class="description">
-        {_lng.about.version} 1.0
+        {_lng?.about.version} 1.0
         <a href="https://github.com/IKorzI/Sonata" target="_blank"
-          >{_lng.about.gitHub}</a
+          >{_lng?.about.gitHub}</a
         >
       </div>
       <div class="history">
-        <p>{_lng.about.history}</p>
+        <p>{_lng?.about.history}</p>
       </div>
       <div class="authors">
-        <div class="title">{_lng.about.authors.title}</div>
+        <div class="title">{_lng?.about.authors.title}</div>
         <div class="list">
           {#each authorsList as item}
             <a href={item.url} target="_blank">
               {formatAuthorText(
-                _lng.about.authors.elementText,
+                _lng?.about.authors.elementText,
                 item.author,
                 item.imageName,
               )}

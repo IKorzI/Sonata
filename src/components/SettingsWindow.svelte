@@ -5,10 +5,12 @@
   let _lng = {};
   lng.subscribe((value) => (_lng = value));
 
-  let eHeadName, headName;
-  let ePercentage, percentageOfScholarship;
-  let eSemester1Start, eSemester1End, semester1Start, semester1End;
-  let eSemester2Start, eSemester2End, semester2Start, semester2End;
+  $: headName = $appSettings?.headName;
+  $: percentageOfScholarship = $appSettings?.percentage;
+  $: semester1Start = $appSettings?.scholarshipSemester?.start2;
+  $: semester1End = $appSettings?.scholarshipSemester?.end2;
+  $: semester2Start = $appSettings?.scholarshipSemester?.start1;
+  $: semester2End = $appSettings?.scholarshipSemester?.end1;
 
   let languageListIsOpen = false;
 
@@ -48,13 +50,6 @@
     });
 
     window.addEventListener("click", handleGlobalClick);
-
-    headName = appSettings.headName
-    percentageOfScholarship = appSettings.percentage
-    semester1Start = appSettings.scholarshipSemester.start2
-    semester1End = appSettings.scholarshipSemester.end2
-    semester2Start = appSettings.scholarshipSemester.start1
-    semester2End = appSettings.scholarshipSemester.end1
   });
 
   onDestroy(() => {
@@ -62,7 +57,7 @@
   });
 
   function handlerClickSave() {
-    window.electron.saveSetting("language", _lng.lng);
+    window.electron.saveSetting("language", _lng?.lng);
     window.electron.saveSetting("headName", headName);
     window.electron.saveSetting("percentage", percentageOfScholarship);
     window.electron.saveSetting("scholarshipSemester.start1", semester2Start);
@@ -93,52 +88,48 @@
 
 <div class="settings-area" class:showed={$settings}>
   <div class="settings-window" class:showed={$settings}>
-    <div class="title">{_lng.settings.title}</div>
+    <div class="title">{_lng?.settings.title}</div>
     <button class="close" on:click={handleClose}>✕</button>
     <div class="text-area">
 
       <div class="language">
-        <div>{_lng.settings.language}</div>
-        <button class="languageButton" on:click={showLngList}>{_lng.name}</button>
+        <div>{_lng?.settings.language}</div>
+        <button class="languageButton" on:click={showLngList}>{_lng?.name}</button>
         <ul class="language-list"></ul>
       </div>
 
       <div class="head-name">
-        <div>{_lng.settings.headName}</div>
+        <div>{_lng?.settings.headName}</div>
         <input
           type="text"
-          bind:this={eHeadName}
           bind:value={headName}
           on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}
         />
       </div>
 
       <div class="percentage-of-scholarship">
-        <div>{_lng.settings.percentage}</div>
+        <div>{_lng?.settings.percentage}</div>
         <input
           type="text"
-          bind:this={ePercentage}
           bind:value={percentageOfScholarship}
           on:input={(e) => handleInput(e.target, { numbers: true, maxNumber: 100 })}
         />
       </div>
 
       <div class="data-block" id="semester1-dates">
-        <div class="label">{_lng.settings.semester1Dates.label}</div>
+        <div class="label">{_lng?.settings.semester1Dates.label}</div>
         <div class="row" id="start">
-          <div>{_lng.settings.semesterDates.start}</div>
+          <div>{_lng?.settings.semesterDates.start}</div>
           <input
             type="text"
-            bind:this={eSemester1Start}
             value={semester1Start}
             on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}
           />
         </div>
         <div class="row" id="end">
-          <div>{_lng.settings.semesterDates.end}</div>
+          <div>{_lng?.settings.semesterDates.end}</div>
           <input
             type="text"
-            bind:this={eSemester1End}
             value={semester1End}
             on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}
           />
@@ -146,21 +137,19 @@
       </div>
 
       <div class="data-block" id="semester2-dates">
-        <div class="label">{_lng.settings.semester2Dates.label}</div>
+        <div class="label">{_lng?.settings.semester2Dates.label}</div>
         <div class="row" id="start">
-          <div>{_lng.settings.semesterDates.start}</div>
+          <div>{_lng?.settings.semesterDates.start}</div>
           <input
             type="text"
-            bind:this={eSemester2Start}
             value={semester2Start}
             on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}
           />
         </div>
         <div class="row" id="end">
-          <div>{_lng.settings.semesterDates.end}</div>
+          <div>{_lng?.settings.semesterDates.end}</div>
           <input
             type="text"
-            bind:this={eSemester2End}
             value={semester2End}
             on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}
           />
@@ -168,7 +157,7 @@
       </div>
       
     </div>
-    <button class="save" on:click={handlerClickSave}>{_lng.settings.save}</button>
+    <button class="save" on:click={handlerClickSave}>{_lng?.settings.save}</button>
   </div>
 </div>
 

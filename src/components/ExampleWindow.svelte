@@ -1,6 +1,9 @@
 <script>
   import { whatDocument, lng } from "../lib/store.js";
 
+  let _lng = {};
+  lng.subscribe((value) => (_lng = value));
+
   let scale = 1;
   let minScale = 1;
   let maxScale = 1;
@@ -65,23 +68,23 @@
       filesToDisplay: [
         {
           filePath: "based-on-the-first-month--september",
-          displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.september,
+          displayName: _lng?.exampleWindow.names.basedOnTheFirstMonth.september,
         },
         {
           filePath: "based-on-the-first-month--october",
-          displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.october,
+          displayName: _lng?.exampleWindow.names.basedOnTheFirstMonth.october,
         },
         {
           filePath: "based-on-the-first-month--november",
-          displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.november,
+          displayName: _lng?.exampleWindow.names.basedOnTheFirstMonth.november,
         },
         {
           filePath: "based-on-the-first-month--december",
-          displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.december,
+          displayName: _lng?.exampleWindow.names.basedOnTheFirstMonth.december,
         },
         {
           filePath: "based-on-the-first-month--total",
-          displayName: $lng.exampleWindow.names.basedOnTheFirstMonth.total,
+          displayName: _lng?.exampleWindow.names.basedOnTheFirstMonth.total,
         },
       ],
     },
@@ -90,7 +93,7 @@
       filesToDisplay: [
         {
           filePath: "summary-of-teachers",
-          displayName: $lng.exampleWindow.names.summaryOfTeachers,
+          displayName: _lng?.exampleWindow.names.summaryOfTeachers,
         },
       ],
     },
@@ -99,11 +102,11 @@
       filesToDisplay: [
         {
           filePath: "empty-statements--general",
-          displayName: $lng.exampleWindow.names.emptyStatements.general,
+          displayName: _lng?.exampleWindow.names.emptyStatements.general,
         },
         {
           filePath: "empty-statements--statements",
-          displayName: $lng.exampleWindow.names.emptyStatements.statements,
+          displayName: _lng?.exampleWindow.names.emptyStatements.statements,
         },
       ],
     },
@@ -112,156 +115,156 @@
       filesToDisplay: [
         {
           filePath: "package-of-documents--summary",
-          displayName: $lng.exampleWindow.names.packageOfDocuments.summary,
+          displayName: _lng?.exampleWindow.names.packageOfDocuments.summary,
         },
         {
           filePath: "package-of-documents--rating",
-          displayName: $lng.exampleWindow.names.packageOfDocuments.rating,
+          displayName: _lng?.exampleWindow.names.packageOfDocuments.rating,
         },
         {
           filePath: "package-of-documents--petition",
-          displayName: $lng.exampleWindow.names.packageOfDocuments.petition,
+          displayName: _lng?.exampleWindow.names.packageOfDocuments.petition,
         },
         {
           filePath: "package-of-documents--submission",
-          displayName: $lng.exampleWindow.names.packageOfDocuments.submission,
+          displayName: _lng?.exampleWindow.names.packageOfDocuments.submission,
         },
         {
           filePath: "package-of-documents--explanation",
-          displayName: $lng.exampleWindow.names.packageOfDocuments.explanation,
+          displayName: _lng?.exampleWindow.names.packageOfDocuments.explanation,
         },
         {
           filePath: "package-of-documents--rating-on-website",
           displayName:
-            $lng.exampleWindow.names.packageOfDocuments.ratingOnWebsite,
+            _lng?.exampleWindow.names.packageOfDocuments.ratingOnWebsite,
         },
       ],
     },
     "session--report": {
       downloadable: false,
       filesToDisplay: [
-        { filePath: "report", displayName: $lng.exampleWindow.names.report },
+        { filePath: "report", displayName: _lng?.exampleWindow.names.report },
       ],
     },
     "session--debtors": {
       downloadable: false,
       filesToDisplay: [
-        { filePath: "debtors", displayName: $lng.exampleWindow.names.debtors },
+        { filePath: "debtors", displayName: _lng?.exampleWindow.names.debtors },
       ],
     },
     "other--other--num-den": {
       downloadable: false,
       filesToDisplay: [
-        { filePath: "num-den", displayName: $lng.exampleWindow.names.numDen },
+        { filePath: "num-den", displayName: _lng?.exampleWindow.names.numDen },
       ],
     },
     "hours--based-on-the-first-month--hours": {
       downloadable: true,
-      fileNameToSave: $lng.exampleWindow.names.hours.fileNameToSave,
+      fileNameToSave: _lng?.exampleWindow.names.hours.fileNameToSave,
       filePathToSave: "hours",
       filesToDisplay: [
         {
           filePath: "hours",
-          displayName: $lng.exampleWindow.names.hours.displayName,
+          displayName: _lng?.exampleWindow.names.hours.displayName,
         },
       ],
     },
     "hours--summary-of-teachers--hours": {
       downloadable: true,
-      fileNameToSave: $lng.exampleWindow.names.hours.fileNameToSave,
+      fileNameToSave: _lng?.exampleWindow.names.hours.fileNameToSave,
       filePathToSave: "hours",
       filesToDisplay: [
         {
           filePath: "hours",
-          displayName: $lng.exampleWindow.names.hours.displayName,
+          displayName: _lng?.exampleWindow.names.hours.displayName,
         },
       ],
     },
     "session--empty-statements--contingent": {
       downloadable: true,
-      fileNameToSave: $lng.exampleWindow.names.contingent.fileNameToSave,
+      fileNameToSave: _lng?.exampleWindow.names.contingent.fileNameToSave,
       filePathToSave: "contingent",
       filesToDisplay: [
         {
           filePath: "contingent",
-          displayName: $lng.exampleWindow.names.contingent.displayName,
+          displayName: _lng?.exampleWindow.names.contingent.displayName,
         },
       ],
     },
     "session--empty-statements--hours": {
       downloadable: true,
-      fileNameToSave: $lng.exampleWindow.names.hours.fileNameToSave,
+      fileNameToSave: _lng?.exampleWindow.names.hours.fileNameToSave,
       filePathToSave: "hours",
       filesToDisplay: [
         {
           filePath: "hours",
-          displayName: $lng.exampleWindow.names.hours.displayName,
+          displayName: _lng?.exampleWindow.names.hours.displayName,
         },
       ],
     },
     "session--package-of-documents--statements": {
       downloadable: true,
-      fileNameToSave: $lng.exampleWindow.names.statements.fileNameToSave,
+      fileNameToSave: _lng?.exampleWindow.names.statements.fileNameToSave,
       filePathToSave: "statements",
       filesToDisplay: [
         {
           filePath: "statements",
-          displayName: $lng.exampleWindow.names.statements.displayName,
+          displayName: _lng?.exampleWindow.names.statements.displayName,
         },
       ],
     },
     "session--report--statements": {
       downloadable: true,
-      fileNameToSave: $lng.exampleWindow.names.statements.fileNameToSave,
+      fileNameToSave: _lng?.exampleWindow.names.statements.fileNameToSave,
       filePathToSave: "statements",
       filesToDisplay: [
         {
           filePath: "statements",
-          displayName: $lng.exampleWindow.names.statements.displayName,
+          displayName: _lng?.exampleWindow.names.statements.displayName,
         },
       ],
     },
     "session--debtors--statements": {
       downloadable: true,
-      fileNameToSave: $lng.exampleWindow.names.statements.fileNameToSave,
+      fileNameToSave: _lng?.exampleWindow.names.statements.fileNameToSave,
       filePathToSave: "statements",
       filesToDisplay: [
         {
           filePath: "statements",
-          displayName: $lng.exampleWindow.names.statements.displayName,
+          displayName: _lng?.exampleWindow.names.statements.displayName,
         },
       ],
     },
     "other--templates--statements": {
       downloadable: true,
-      fileNameToSave: $lng.exampleWindow.names.statements.fileNameToSave,
+      fileNameToSave: _lng?.exampleWindow.names.statements.fileNameToSave,
       filePathToSave: "statements",
       filesToDisplay: [
         {
           filePath: "statements",
-          displayName: $lng.exampleWindow.names.statements.displayName,
+          displayName: _lng?.exampleWindow.names.statements.displayName,
         },
       ],
     },
     "other--templates--hours": {
       downloadable: true,
-      fileNameToSave: $lng.exampleWindow.names.hours.fileNameToSave,
+      fileNameToSave: _lng?.exampleWindow.names.hours.fileNameToSave,
       filePathToSave: "hours",
       filesToDisplay: [
         {
           filePath: "hours",
-          displayName: $lng.exampleWindow.names.hours.displayName,
+          displayName: _lng?.exampleWindow.names.hours.displayName,
         },
       ],
     },
     "other--templates--contingent": {
       downloadable: true,
-      fileNameToSave: $lng.exampleWindow.names.contingent.fileNameToSave,
+      fileNameToSave: _lng?.exampleWindow.names.contingent.fileNameToSave,
       filePathToSave: "contingent",
       filesToDisplay: [
         {
           filePath: "contingent",
-          displayName: $lng.exampleWindow.names.contingent.displayName,
+          displayName: _lng?.exampleWindow.names.contingent.displayName,
         },
       ],
     },

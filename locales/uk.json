@@ -134,7 +134,11 @@
     "settings.semester2Dates.label": "Дати призначення стипендії після другого семестру (день та місяць)",
     "settings.semesterDates.start": "Початкова дата",
     "settings.semesterDates.end": "Крайня дата",
-    "settings.save": "Зберегти"
+    "settings.save": "Зберегти",
+
+    "themeMenu.title": "Закріплення тем",
+    "themeMenu.light": "Світла",
+    "themeMenu.dark": "Темна"
   },
   "backend": {
     "renderAndTransform.done.title": "Експорт завершено", 

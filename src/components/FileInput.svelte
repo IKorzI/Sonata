@@ -27,20 +27,20 @@
   let fileName = "";
   $: label = {
     "session--package-of-documents--statements":
-      _lng.fileInput.label.session.packageOfDocuments.statements,
+      _lng?.fileInput.label.session.packageOfDocuments.statements,
     "session--empty-statements--hours":
-      _lng.fileInput.label.session.emptyStatements.hours,
+      _lng?.fileInput.label.session.emptyStatements.hours,
     "session--empty-statements--contingent":
-      _lng.fileInput.label.session.emptyStatements.contingent,
+      _lng?.fileInput.label.session.emptyStatements.contingent,
     "session--report--statements":
-      _lng.fileInput.label.session.report.statements,
+      _lng?.fileInput.label.session.report.statements,
     "session--debtors--statements":
-      _lng.fileInput.label.session.debtors.statements,
+      _lng?.fileInput.label.session.debtors.statements,
 
     "hours--based-on-the-first-month--hours":
-      _lng.fileInput.label.hours.basedOnTheFirstMonth.hours,
+      _lng?.fileInput.label.hours.basedOnTheFirstMonth.hours,
     "hours--summary-of-teachers--hours":
-      _lng.fileInput.label.hours.summaryOfTeachers.hours,
+      _lng?.fileInput.label.hours.summaryOfTeachers.hours,
   };
 
   let eArea, eText, eName, eExtensions, eDelete, eWhat;
@@ -292,7 +292,7 @@
     on:dragover={handleDragOver}
     on:drop={handleDrop}
   >
-    <div class="text" bind:this={eText}>{_lng.fileInput.area.text}</div>
+    <div class="text" bind:this={eText}>{_lng?.fileInput.area.text}</div>
     <div class="name" bind:this={eName}>{truncatedFileName}</div>
     <div class="extensions" bind:this={eExtensions}>
       {extensions.join(", ")}

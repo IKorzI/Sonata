@@ -17,7 +17,7 @@
   let _lng = {};
   lng.subscribe((value) => (_lng = value));
 
-  $: statusesList = _lng.packageOfDocuments.socialScholarship.statusesList;
+  $: statusesList = _lng?.packageOfDocuments.socialScholarship.statusesList;
   let data = {
     subgroups: [],
     kuratorNom: null,
@@ -467,10 +467,10 @@
   <div class="social-scholarship">
     <div class="choice-mark" />
     <div class="label1" on:click={() => handleLabelClick("label1")}>
-      {_lng.packageOfDocuments.socialScholarship.label1}
+      {_lng?.packageOfDocuments.socialScholarship.label1}
     </div>
     <div class="label2" on:click={() => handleLabelClick("label2")}>
-      {_lng.packageOfDocuments.socialScholarship.label2}
+      {_lng?.packageOfDocuments.socialScholarship.label2}
     </div>
     <div class="list" bind:this={eList}>
       {#each list as item, index}
@@ -486,7 +486,7 @@
           <div class="student" on:click={() => handleOpenStudentsList(index)}>
             {item.studentName
               ? item.studentName
-              : _lng.packageOfDocuments.list.student}
+              : _lng?.packageOfDocuments.list.student}
           </div>
           <input
             class="status"
@@ -495,7 +495,7 @@
             value={currentList === "socialy"
               ? item.status
                 ? statusesList?.[item.status] || item.status
-                : _lng.packageOfDocuments.list.status
+                : _lng?.packageOfDocuments.list.status
               : ""}
             on:click={() => handleOpenStatusesList(index)}
             on:mouseenter={() => handleStatusEnter(index)}
@@ -549,7 +549,7 @@
   </div>
 
   <div class="percentage-of-scholarship">
-    <div>{_lng.packageOfDocuments.percentageOfScholarship}</div>
+    <div>{_lng?.packageOfDocuments.percentageOfScholarship}</div>
     <input
       type="text"
       bind:this={ePercentage}
@@ -559,9 +559,9 @@
   </div>
 
   <div class="data-block" id="semester-dates">
-    <div class="label">{_lng.packageOfDocuments.semesterDates.label}</div>
+    <div class="label">{_lng?.packageOfDocuments.semesterDates.label}</div>
     <div class="row" id="start">
-      <div>{_lng.packageOfDocuments.semesterDates.start}</div>
+      <div>{_lng?.packageOfDocuments.semesterDates.start}</div>
 
       <CustomDateInput
         bind:value={data.semesterStart}
@@ -569,7 +569,7 @@
       />
     </div>
     <div class="row" id="end">
-      <div>{_lng.packageOfDocuments.semesterDates.end}</div>
+      <div>{_lng?.packageOfDocuments.semesterDates.end}</div>
       <CustomDateInput
         bind:value={data.semesterEnd}
         class={uploadedFile === null ? "unavailable" : ""}
@@ -578,9 +578,9 @@
   </div>
 
   <div class="data-block" id="class-teacher-name">
-    <div class="label">{_lng.packageOfDocuments.classTeacherName.label}</div>
+    <div class="label">{_lng?.packageOfDocuments.classTeacherName.label}</div>
     <div class="row" id="nominative">
-      <div>{_lng.packageOfDocuments.classTeacherName.nominative}</div>
+      <div>{_lng?.packageOfDocuments.classTeacherName.nominative}</div>
       <input
         type="text"
         bind:this={eKuratorNom}
@@ -590,7 +590,7 @@
       />
     </div>
     <div class="row" id="genitive">
-      <div>{_lng.packageOfDocuments.classTeacherName.genitive}</div>
+      <div>{_lng?.packageOfDocuments.classTeacherName.genitive}</div>
       <input
         type="text"
         bind:this={eKuratorGen}

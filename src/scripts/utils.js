@@ -17,9 +17,13 @@ const store = new Store({
   defaults: {
     language: 'uk',
     theme:{
-      current: "dark",
-      dark: "dark1",
-      light: "light1"
+      current: {
+        name: "dark",
+        type: "dark",
+        number: "1"
+      },
+      dark: "1",
+      light: "1"
     },
     headName: 'Маргарита БРІТІКОВА',
     percentage: '45',

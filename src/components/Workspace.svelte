@@ -172,14 +172,14 @@
 
 <div class="workspace">
   <button class="example" class:hidden={!isVisible} on:click={() => example()}
-    >{_lng.workspace.example}</button
+    >{_lng?.workspace.example}</button
   >
   <button class="clear" class:hidden={!isVisible} on:click={() => clear()}
-    >{_lng.workspace.clear}</button
+    >{_lng?.workspace.clear}</button
   >
   <button class="start" class:hidden={!isVisible} on:click={() => save()}>
     {#if isProcessing === false && isComleting === false}
-      {_lng.workspace.start}
+      {_lng?.workspace.start}
     {/if}
     <div
       class="process"
