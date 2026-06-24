@@ -361,7 +361,7 @@
     top: 160px;
   }
   #semester2-dates {
-    top: 300px;
+    top: 280px;
   }
 
 

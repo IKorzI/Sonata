@@ -12,6 +12,7 @@
   import ExampleWindow from "./components/ExampleWindow.svelte";
   import ErrorWindow from "./components/ErrorWindow.svelte";
   import SettingsWindow from "./components/SettingsWindow.svelte";
+  import ThemeMenu from "./components/ThemeMenu.svelte";
 </script>
 
 <main
@@ -107,6 +108,8 @@
   <ErrorWindow />
 
   <SettingsWindow />
+
+  <ThemeMenu />
 </main>
 
 <style>
