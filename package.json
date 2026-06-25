@@ -18,7 +18,7 @@
     "app:prebuild": "npm run C#:build && npm run py:build && npm run vite:build",
     "py:test": "src\\scripts\\python\\test.bat",
     "app:test": "node run-tests.js",
-    "app:testDebug": "npx playwright test --debug "
+    "app:testDebug": "npx playwright test --debug"
   },
   "dependencies": {
     "electron-store": "^11.0.2",
