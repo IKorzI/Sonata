@@ -60,14 +60,14 @@ function createWindow() {
 
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     // Если это внешняя ссылка, открываем в браузере по умолчанию
-    if (url.startsWith('http:') || url.startsWith('https:')) {
-      shell.openExternal(url); 
-      
+    if (url.startsWith("http:") || url.startsWith("https:")) {
+      shell.openExternal(url);
+
       // 'deny' — это самое важное! Говорит Electron: "Не создавай новое окно приложения"
-      return { action: 'deny' }; 
+      return { action: "deny" };
     }
-    
-    return { action: 'allow' };
+
+    return { action: "allow" };
   });
 
   function devOptions() {

@@ -1,6 +1,6 @@
 <script>
   import { createEventDispatcher, onMount, onDestroy } from "svelte";
-  import { whatDocument, clearInformation, lng } from "../lib/store.js";
+  import { whatDocumentWindow, clearInformation, lng } from "../lib/store.js";
 
   const dispatch = createEventDispatcher();
   export let extensions;
@@ -221,7 +221,7 @@
   }
 
   function handleWhat() {
-    whatDocument.set(eId);
+    whatDocumentWindow.set(eId);
   }
 
   onMount(() => {

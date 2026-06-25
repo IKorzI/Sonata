@@ -1,6 +1,6 @@
 <script>
   import { onMount, onDestroy } from "svelte";
-  import { whatDocument, lng } from "../lib/store.js";
+  import { whatDocumentWindow, lng } from "../lib/store.js";
   export let type;
   export let eId;
 
@@ -61,7 +61,7 @@
   }
 
   function handleWhat() {
-    whatDocument.set(eId);
+    whatDocumentWindow.set(eId);
   }
 
   onMount(() => {

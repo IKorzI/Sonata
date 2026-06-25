@@ -2,6 +2,8 @@
   "lng": "ru",
   "name": "Русский",
   "frontend": {
+    "titleBar.update": "Обновить!",
+
     "workspace.example": "Пример выходного документа (документов)",
     "workspace.clear": "Очистить",
     "workspace.start": "Старт",
@@ -126,15 +128,15 @@
     "about.authors.title": "В приложении используются изображения от следующих авторов:",
     "about.authors.elementText": "Изображение{imageName} от {autorName}",
     
-    "settings.title": "Настройки", 
-    "settings.language": "Язык интерфейса",
-    "settings.headName": "Имя и фамилия заведующего отделением", 
-    "settings.percentage": "% бюджета на стипендию", 
-    "settings.semester1Dates.label": "Дать назначение стипендии после первого семестра (день и месяц)", 
-    "settings.semester2Dates.label": "Дать назначение стипендии после второго семестра (день и месяц)",
-    "settings.semesterDates.start": "Начальная дата", 
-    "settings.semesterDates.end": "Крайняя дата", 
-    "settings.save": "Сохранить"
+    "settingsWindow.title": "Настройки", 
+    "settingsWindow.language": "Язык интерфейса",
+    "settingsWindow.headName": "Имя и фамилия заведующего отделением", 
+    "settingsWindow.percentage": "% бюджета на стипендию", 
+    "settingsWindow.semester1Dates.label": "Дать назначение стипендии после первого семестра (день и месяц)", 
+    "settingsWindow.semester2Dates.label": "Дать назначение стипендии после второго семестра (день и месяц)",
+    "settingsWindow.semesterDates.start": "Начальная дата", 
+    "settingsWindow.semesterDates.end": "Крайняя дата", 
+    "settingsWindow.save": "Сохранить"
   },
   "backend": {
     "renderAndTransform.done.title": "Экспорт завершен",

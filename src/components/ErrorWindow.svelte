@@ -74,41 +74,17 @@
 </script>
 
 <div
-  class="error-area"
+  class="error-window"
   class:showed={$message.text || $message.params?.messageFromTheBackendData}
 >
-  <div
-    class="error-window"
-    class:showed={$message.text || $message.params?.messageFromTheBackendData}
-  >
-    <div class="title">{errorType}</div>
-    <div class="text-area">{errorText}</div>
-    <button class="ok" on:click={handlerClickOK}>OK</button>
-  </div>
+  <div class="title">{errorType}</div>
+  <div class="text-area">{errorText}</div>
+  <button class="ok" on:click={handlerClickOK}>OK</button>
 </div>
 
 <style>
-  .error-area {
-    position: absolute;
-    top: 27px;
-    left: 0;
-    height: calc(100% - 27px);
-    width: 100%;
-    background-color: var(--ErrorArea-background-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    z-index: -1;
-    transition: 0.4s;
-    border-radius: 0px;
-  }
-  :global(.error-area.showed) {
-    z-index: 3;
-    opacity: 1;
-  }
-
   .error-window {
+    grid-area: 1 / 1;
     height: 250px;
     width: 450px;
     background-color: var(--ErrorArea-window-background-color);
@@ -117,10 +93,16 @@
     border-width: 2px;
     transform: translateY(+20px);
     display: grid;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
     grid-template-rows: 30px 1fr 30px;
-    transition: transform 0.4s;
+    transition: 0.4s;
   }
-  :global(.error-area .error-window.showed) {
+  .error-window.showed {
+    z-index: 2;
+    opacity: 1;
+    pointer-events: auto;
     transform: translateY(0px);
   }
 

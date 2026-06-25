@@ -1,12 +1,12 @@
 <script>
-  import {    
+  import {
     lng,
     transition,
     themeSwap,
     hide,
-    about,
-    settings,
-    themeMenu
+    aboutWindow,
+    settingsWindow,
+    themeMenuWindow,
   } from "../lib/store.js";
 
   let _lng = {};
@@ -66,24 +66,26 @@
   }
 
   function showAbout() {
-    about.set(true);
+    aboutWindow.set(true);
   }
 
   function showSettings() {
-    settings.set(true);
+    settingsWindow.set(true);
   }
 
-  function showThemeMenu() {
-    themeMenu.set(!$themeMenu);
+  function showThemeMenuWindow() {
+    themeMenuWindow.set(!$themeMenuWindow);
   }
 </script>
 
 <div class="title-bar">
+  <div class="program-name">Sonata</div>
   <div class="program-icon"></div>
   <button class="about" on:click={showAbout}></button>
   <button class="settings" on:click={showSettings}></button>
-  <div class="program-name">Sonata</div>
-  <button class="theme-menu" on:click={showThemeMenu}></button>
+  <button class="update">{_lng?.titleBar.update}</button>
+  <div class="drag-region"></div>
+  <button class="theme-menu" on:click={showThemeMenuWindow}></button>
   <button class="theme-swap" on:click={handleThemeSwap}></button>
   <button class="minimize" on:click={handleMinimize}>—</button>
   <button class="close" on:click={handleClose}>✕</button>
@@ -97,7 +99,7 @@
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     display: grid;
-    grid-template-columns: 25px 25px 25px 1fr 25px 25px 25px 25px;
+    grid-template-columns: 25px 25px 25px 85px 1fr 25px 25px 25px 25px;
     background-color: var(--background-color);
     border-radius: 0px;
     border-color: var(--border-color);
@@ -108,6 +110,7 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
+    z-index: 2;
   }
 
   button {
@@ -122,31 +125,37 @@
     background-color: var(--button-active-background-color);
   }
 
+  .program-name {
+    position: absolute;
+    font-weight: normal;
+    font-size: 20px;
+    width: 100%;
+    z-index: 1;
+  }
+
   .program-icon {
     border-top-left-radius: 7.5px;
     background-image: url("../icon.png");
   }
 
-  .program-name {
+  .drag-region {
     -webkit-app-region: drag;
-    font-weight: normal;
-    font-size: 20px;
   }
 
   .settings {
-    background-image: var(--settings-background-image);
+    background-image: var(--TitleBar--settings-background-image);
   }
 
   .about {
-    background-image: var(--about-background-image);
+    background-image: var(--TitleBar--about-background-image);
   }
 
   .theme-menu {
-    background-image: var(--themeMenu-background-image);
+    background-image: var(--TitleBar--themeMenu-background-image);
   }
 
   .theme-swap {
-    background-image: var(--themeSwap-background-image);
+    background-image: var(--TitleBar--themeSwap-background-image);
   }
 
   .close {

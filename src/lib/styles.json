@@ -2,12 +2,12 @@
   "light": {
     "general": {
       "app.background.image": "url('../light/background1.jpg')",
-      "settings.background.image": "url('../light/settings.png')",
-      "about.background.image": "url('../light/about.png')",
-      "themeMenu.background.image": "url('../light/menu.png')",
-      "themeSwap.background.image": "url('../light/theme.png')",
-      "settingsButton.background.image": "url('../light/settings.png')",
-      "programMenu.background.image": "url('../light/menu.png')",
+
+      "TitleBar.settings.background.image": "url('../light/settings.png')",
+      "TitleBar.about.background.image": "url('../light/about.png')",
+      "TitleBar.themeMenu.background.image": "url('../light/menu.png')",
+      "TitleBar.themeSwap.background.image": "url('../light/theme.png')",
+      
       "add.background.image": "url('../light/add.png')",
       "editStatus.background.image": "url('../light/edit.png')",
       "startProcess.background.image": "url('../light/loading.png')",
@@ -72,12 +72,12 @@
   "dark": {
     "general": {
       "app.background.image": "url('../dark/background1.jpg')",
-      "settings.background.image": "url('../dark/settings.png')",
-      "about.background.image": "url('../dark/about.png')",
-      "themeMenu.background.image": "url('../dark/menu.png')",
-      "themeSwap.background.image": "url('../dark/theme.png')",
-      "settingsButton.background.image": "url('../dark/settings.png')",
-      "programMenu.background.image": "url('../dark/menu.png')",
+
+      "TitleBar.settings.background.image": "url('../dark/settings.png')",
+      "TitleBar.about.background.image": "url('../dark/about.png')",
+      "TitleBar.themeMenu.background.image": "url('../dark/menu.png')",
+      "TitleBar.themeSwap.background.image": "url('../dark/theme.png')",
+      
       "add.background.image": "url('../dark/add.png')",
       "editStatus.background.image": "url('../dark/edit.png')",
       "startProcess.background.image": "url('../dark/loading.png')",

@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import CustomDateInput from "../CustomDateInput.svelte";
   import {
-    whatDocument,
+    whatDocumentWindow,
     selectedSection,
     lng,
     message,
@@ -158,7 +158,7 @@
   }
 
   function handleWhat() {
-    whatDocument.set(`${thisId}--num-den`);
+    whatDocumentWindow.set(`${thisId}--num-den`);
   }
 </script>
 
@@ -211,7 +211,9 @@
       <div
         class="complete"
         bind:this={elComplete}
-        style="background-image: {isDone === true ? 'url(\'./done.png\')' : 'url(\'./undone.png\')'};"
+        style="background-image: {isDone === true
+          ? "url('./done.png')"
+          : "url('./undone.png')"};"
       ></div>
     </button>
     <div class="what" on:click={() => handleWhat()}></div>

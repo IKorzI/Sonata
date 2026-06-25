@@ -1,15 +1,35 @@
 import { writable } from "svelte/store";
 
-export const appSettings = writable({});
+export const settings = writable({});
 
 export const styles = writable();
 export const lng = writable();
 
 export const selectedSection = writable();
-export const whatDocument = writable(false);
-export const about = writable(false);
-export const themeMenu = writable(false);
-export const settings = writable(false);
+
+export const whatDocumentWindow = writable(false);
+export const aboutWindow = writable(false);
+export const themeMenuWindow = writable(false);
+export const settingsWindow = writable(false);
+const stores = [
+  whatDocumentWindow,
+  aboutWindow,
+  themeMenuWindow,
+  settingsWindow,
+];
+function autoCloseOthers(currentStore) {
+  currentStore.subscribe((value) => {
+    if (value === true) {
+      stores.forEach((store) => {
+        if (store !== currentStore) {
+          store.set(false);
+        }
+      });
+    }
+  });
+}
+stores.forEach(autoCloseOthers);
+
 export const hide = writable(false);
 export const clearInformation = writable();
 export const saveInformation = writable();
@@ -26,10 +46,10 @@ import { start as startTheme } from "./theme.js";
 import { start as startLanguage } from "./language.js";
 
 async function initializeApp() {
-  const settings = await window.electron.getSettings();
-  appSettings.set(settings);
-  startTheme(settings.theme);
-  startLanguage(settings.language);
+  const collectedSettings = await window.electron.getSettings();
+  settings.set(collectedSettings);
+  startTheme(collectedSettings.theme);
+  startLanguage(collectedSettings.language);
 }
 initializeApp();
 

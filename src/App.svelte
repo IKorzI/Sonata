@@ -8,11 +8,7 @@
   import TitleBar from "./components/TitleBar.svelte";
   import ProgramMenu from "./components/ProgramMenu.svelte";
   import Workspace from "./components/Workspace.svelte";
-  import AboutWindow from "./components/AboutWindow.svelte";
-  import ExampleWindow from "./components/ExampleWindow.svelte";
-  import ErrorWindow from "./components/ErrorWindow.svelte";
-  import SettingsWindow from "./components/SettingsWindow.svelte";
-  import ThemeMenu from "./components/ThemeMenu.svelte";
+  import WindowArea from "./components/WindowArea.svelte";
 </script>
 
 <main
@@ -22,12 +18,16 @@
   --transition: {_transition};
 
   --app-background-image: {_styles?.app.background.image};
-  --settings-background-image: {_styles?.settings.background.image};
-  --about-background-image: {_styles?.about.background.image};
-  --themeMenu-background-image: {_styles?.themeMenu.background.image};
-  --themeSwap-background-image: {_styles?.themeSwap.background.image};
-  --settingsButton-background-image: {_styles?.settingsButton.background.image};
-  --programMenu-background-image: {_styles?.programMenu.background.image};
+  
+  --TitleBar--settings-background-image: {_styles?.TitleBar.settings.background
+    .image};
+  --TitleBar--about-background-image: {_styles?.TitleBar.about.background
+    .image};
+  --TitleBar--themeMenu-background-image: {_styles?.TitleBar.themeMenu
+    .background.image};
+  --TitleBar--themeSwap-background-image: {_styles?.TitleBar.themeSwap
+    .background.image};
+
   --add-background-image: {_styles?.add.background.image};
   --editStatus-background-image: {_styles?.editStatus.background.image};
   --startProcess-background-image: {_styles?.startProcess.background.image};
@@ -53,10 +53,10 @@
     .window.button.hover.background.color};
   --ExampleArea-window-button-active-background-color: {_styles?.ExampleArea
     .window.button.active.background.color};
-  --ExampleArea-window-close-background-color: {_styles?.ExampleArea.window.close
-    .background.color};
-  --ExampleArea-window-close-hover-background-color: {_styles?.ExampleArea.window
-    .close.hover.background.color};
+  --ExampleArea-window-close-background-color: {_styles?.ExampleArea.window
+    .close.background.color};
+  --ExampleArea-window-close-hover-background-color: {_styles?.ExampleArea
+    .window.close.hover.background.color};
   --ExampleArea-window-close-active-background-color: {_styles?.ExampleArea
     .window.close.active.background.color};
   --ExampleArea-tabArea-background-color: {_styles?.ExampleArea.tabArea
@@ -101,15 +101,7 @@
 
   <Workspace />
 
-  <AboutWindow />
-
-  <ExampleWindow />
-
-  <ErrorWindow />
-
-  <SettingsWindow />
-
-  <ThemeMenu />
+  <WindowArea />
 </main>
 
 <style>

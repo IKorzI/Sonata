@@ -1,5 +1,5 @@
 <script>
-  import { whatDocument, lng } from "../lib/store.js";
+  import { whatDocumentWindow, lng } from "../lib/store.js";
 
   let _lng = {};
   lng.subscribe((value) => (_lng = value));
@@ -271,8 +271,8 @@
   };
 
   $: currentImages =
-    $whatDocument && names[$whatDocument]
-      ? names[$whatDocument].filesToDisplay
+    $whatDocumentWindow && names[$whatDocumentWindow]
+      ? names[$whatDocumentWindow].filesToDisplay
       : [];
 
   let activeImgName = null;
@@ -282,9 +282,9 @@
   let imageTimeout = null;
 
   $: {
-    if ($whatDocument !== prevDocument) {
+    if ($whatDocumentWindow !== prevDocument) {
       clearTimeout(imageTimeout);
-      if ($whatDocument) {
+      if ($whatDocumentWindow) {
         if (currentImages.length > 0) {
           activeImgName = currentImages[0].filePath;
         } else {
@@ -297,13 +297,13 @@
         }, 500);
       }
 
-      prevDocument = $whatDocument;
+      prevDocument = $whatDocumentWindow;
     }
 
     const isDownloadable =
-      $whatDocument &&
-      names[$whatDocument] &&
-      names[$whatDocument].downloadable;
+      $whatDocumentWindow &&
+      names[$whatDocumentWindow] &&
+      names[$whatDocumentWindow].downloadable;
     if (isDownloadable) {
       clearTimeout(downloadTimeout);
       showDownload = true;
@@ -320,45 +320,10 @@
   }
 
   $: {
-    if ($whatDocument) {
-      stylesLoadedSet(true);
+    if ($whatDocumentWindow) {
       if (activeImgName && imageDimensions[activeImgName]) {
         setTimeout(() => initTransformForActiveImage(activeImgName), 0);
       }
-    } else {
-      stylesLoadedSet(false);
-    }
-  }
-
-  function stylesLoadedSet(type) {
-    if (type) {
-      if (!areaEl || !containerEl) return;
-      areaEl.style.zIndex = "10";
-      areaEl.style.transition = "0.4s";
-      areaEl.classList.add("loaded");
-
-      containerEl.style.transition = "0.4s";
-      containerEl.classList.add("loaded");
-
-      // Temporarily disabling transition (null) after the window appears prevents it from "twitching" during subsequent resizing or dragging
-      setTimeout(() => {
-        if (areaEl) areaEl.style.transition = null;
-        if (containerEl) containerEl.style.transition = null;
-      }, 400);
-    } else {
-      if (!areaEl || !containerEl) return;
-      areaEl.style.transition = "0.4s";
-      areaEl.classList.remove("loaded");
-      containerEl.style.transition = "0.4s";
-      containerEl.classList.remove("loaded");
-
-      setTimeout(() => {
-        if (areaEl) {
-          areaEl.style.transition = null;
-          areaEl.style.zIndex = "-1";
-        }
-        if (containerEl) containerEl.style.transition = null;
-      }, 400);
     }
   }
 
@@ -517,14 +482,14 @@
   }
 
   function handleDelete() {
-    whatDocument.set(null);
+    whatDocumentWindow.set(null);
   }
 
   async function handleDownload() {
     if (!window.electron) return;
-    if (!$whatDocument) return;
+    if (!$whatDocumentWindow) return;
 
-    const baseName = names[$whatDocument].filePathToSave;
+    const baseName = names[$whatDocumentWindow].filePathToSave;
     const basePath = "examples/save/";
 
     // Calling the Electron IPC bridge to find the actual file in the OS
@@ -538,7 +503,7 @@
     }
 
     const { fullPath, extension } = fileInfo;
-    const fileName = names[$whatDocument].fileNameToSave;
+    const fileName = names[$whatDocumentWindow].fileNameToSave;
     const targetPath = await window.electron.saveDialog(fileName, extension);
     if (!targetPath) return;
 
@@ -562,82 +527,62 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 
-<div class="example-area" bind:this={areaEl}>
-  <div
-    class="example-window"
-    bind:this={containerEl}
-    on:wheel={handleWheel}
-    on:mousedown={handleMouseDown}
-    on:mousemove={handleMouseMove}
-    on:mouseup={handleMouseUp}
-    on:mouseleave={handleMouseLeave}
+<div
+  class="example-window"
+  class:showed={$whatDocumentWindow}
+  bind:this={containerEl}
+  on:wheel={handleWheel}
+  on:mousedown={handleMouseDown}
+  on:mousemove={handleMouseMove}
+  on:mouseup={handleMouseUp}
+  on:mouseleave={handleMouseLeave}
+>
+  <button
+    class="close"
+    class:rounded-corner={!showDownload}
+    on:click|stopPropagation={handleDelete}>✕</button
   >
-    <button
-      class="close"
-      class:rounded-corner={!showDownload}
-      on:click|stopPropagation={handleDelete}>✕</button
-    >
-    {#if showDownload}
-      <button class="download" on:click|stopPropagation={handleDownload}
-      ></button>
-    {/if}
+  {#if showDownload}
+    <button class="download" on:click|stopPropagation={handleDownload}></button>
+  {/if}
 
-    <button class="scale-up" on:click|stopPropagation={handleScaleUp}></button>
-    <button class="scale-by-width" on:click|stopPropagation={handleScaleByWidth}
-    ></button>
+  <button class="scale-up" on:click|stopPropagation={handleScaleUp}></button>
+  <button class="scale-by-width" on:click|stopPropagation={handleScaleByWidth}
+  ></button>
 
-    <button class="scale-down" on:click|stopPropagation={handleScaleDown}
-    ></button>
+  <button class="scale-down" on:click|stopPropagation={handleScaleDown}
+  ></button>
 
-    {#each uniqueImageNames as imgName (imgName)}
-      <img
-        src={"examples/save/" + imgName + ".png"}
-        alt="Zoomable {imgName}"
-        class="zoom-image {imgName === activeImgName ? 'visible' : ''}"
-        draggable="false"
-        on:load={(e) => handleImageLoad(e, imgName)}
-        bind:this={imgRefs[imgName]}
-      />
-    {/each}
+  {#each uniqueImageNames as imgName (imgName)}
+    <img
+      src={"examples/save/" + imgName + ".png"}
+      alt="Zoomable {imgName}"
+      class="zoom-image {imgName === activeImgName ? 'visible' : ''}"
+      draggable="false"
+      on:load={(e) => handleImageLoad(e, imgName)}
+      bind:this={imgRefs[imgName]}
+    />
+  {/each}
 
-    {#if currentImages.length > 1}
-      <div class="nav-buttons-container" on:mousedown|stopPropagation>
-        {#each currentImages as imgInfo}
-          <button
-            class="nav-button {imgInfo.filePath === activeImgName
-              ? 'active'
-              : ''}"
-            on:click|stopPropagation={() => switchImage(imgInfo.filePath)}
-          >
-            {imgInfo.displayName}
-          </button>
-        {/each}
-      </div>
-    {/if}
-  </div>
+  {#if currentImages.length > 1}
+    <div class="nav-buttons-container" on:mousedown|stopPropagation>
+      {#each currentImages as imgInfo}
+        <button
+          class="nav-button {imgInfo.filePath === activeImgName
+            ? 'active'
+            : ''}"
+          on:click|stopPropagation={() => switchImage(imgInfo.filePath)}
+        >
+          {imgInfo.displayName}
+        </button>
+      {/each}
+    </div>
+  {/if}
 </div>
 
 <style>
-  .example-area {
-    position: absolute;
-    top: 27px;
-    left: 0;
-    height: calc(100% - 27px);
-    width: 100%;
-    background-color: var(--ExampleArea-background-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    z-index: -1;
-    transition: 0.4s;
-    border-radius: 0px;
-  }
-  :global(.example-area.loaded) {
-    opacity: 1;
-  }
-
   .example-window {
+    grid-area: 1 / 1;
     height: 500px;
     width: 900px;
     background-color: var(--ExampleArea-window-background-color);
@@ -646,9 +591,16 @@
     position: relative;
     border-width: 2px;
     cursor: grab;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
     transform: translateY(+20px);
+    transition: 0.4s;
   }
-  :global(.example-area .example-window.loaded) {
+  .example-window.showed {
+    z-index: 2;
+    opacity: 1;
+    pointer-events: auto;
     transform: translateY(0px);
   }
   .example-window:active {

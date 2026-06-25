@@ -391,6 +391,9 @@
       () => {
         status.setAttribute("readonly", true);
         status.setSelectionRange(0, 0);
+        if (window.getSelection) {
+          window.getSelection().removeAllRanges();
+        }
         status.style.cursor = "pointer";
         if (currentStudentRow !== null) {
           list[currentStudentRow].status = status.value;

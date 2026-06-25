@@ -1,5 +1,5 @@
 <script>
-  import { about, lng } from "../lib/store.js";
+  import { aboutWindow, lng } from "../lib/store.js";
 
   let _lng = {};
   lng.subscribe((value) => (_lng = value));
@@ -226,69 +226,48 @@
   }
 
   function handleClose() {
-    about.set(false);
+    aboutWindow.set(false);
   }
 </script>
 
-<div class="about-area" class:showed={$about}>
-  <div class="about-window" class:showed={$about}>
-    <div class="title">{_lng?.about.title}</div>
-    <button class="close" on:click={handleClose}>✕</button>
-    <div class="text-area">
+<div class="about-window" class:showed={$aboutWindow}>
+  <div class="title">{_lng?.about.title}</div>
+  <button class="close" on:click={handleClose}>✕</button>
+  <div class="text-area">
+    <div class="program-icon"></div>
+    <div class="program-name">
       <div class="program-icon"></div>
-      <div class="program-name">
-        <div class="program-icon"></div>
-        <div class="text">onata</div>
-      </div>
-      <div class="description">
-        {_lng?.about.version} 1.0
-        <a href="https://github.com/IKorzI/Sonata" target="_blank"
-          >{_lng?.about.gitHub}</a
-        >
-      </div>
-      <div class="history">
-        <p>{_lng?.about.history}</p>
-      </div>
-      <div class="authors">
-        <div class="title">{_lng?.about.authors.title}</div>
-        <div class="list">
-          {#each authorsList as item}
-            <a href={item.url} target="_blank">
-              {formatAuthorText(
-                _lng?.about.authors.elementText,
-                item.author,
-                item.imageName,
-              )}
-            </a>
-          {/each}
-        </div>
+      <div class="text">onata</div>
+    </div>
+    <div class="description">
+      {_lng?.about.version} 1.0
+      <a href="https://github.com/IKorzI/Sonata" target="_blank"
+        >{_lng?.about.gitHub}</a
+      >
+    </div>
+    <div class="history">
+      <p>{_lng?.about.history}</p>
+    </div>
+    <div class="authors">
+      <div class="title">{_lng?.about.authors.title}</div>
+      <div class="list">
+        {#each authorsList as item}
+          <a href={item.url} target="_blank">
+            {formatAuthorText(
+              _lng?.about.authors.elementText,
+              item.author,
+              item.imageName,
+            )}
+          </a>
+        {/each}
       </div>
     </div>
   </div>
 </div>
 
 <style>
-  .about-area {
-    position: absolute;
-    top: 27px;
-    left: 0;
-    height: calc(100% - 27px);
-    width: 100%;
-    background-color: var(--ErrorArea-background-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    z-index: -1;
-    transition: 0.4s;
-    border-radius: 0px;
-  }
-  .about-area.showed {
-    z-index: 3;
-    opacity: 1;
-  }
-
   .about-window {
+    grid-area: 1 / 1;
     height: 400px;
     width: 600px;
     background-color: var(--ErrorArea-window-background-color);
@@ -297,10 +276,16 @@
     border-width: 2px;
     transform: translateY(+20px);
     display: grid;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
     grid-template-rows: 30px 1fr;
-    transition: transform 0.4s;
+    transition: 0.4s;
   }
-  .about-area .about-window.showed {
+  .about-window.showed {
+    z-index: 2;
+    opacity: 1;
+    pointer-events: auto;
     transform: translateY(0px);
   }
 

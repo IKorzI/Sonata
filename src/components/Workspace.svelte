@@ -5,7 +5,7 @@
     saveInformation,
     savedInformation,
     message,
-    whatDocument,
+    whatDocumentWindow,
     lng,
   } from "../lib/store.js";
   import { tick } from "svelte";
@@ -157,7 +157,7 @@
   }
 
   function example() {
-    whatDocument.set($selectedSection);
+    whatDocumentWindow.set($selectedSection);
   }
 
   function clear() {
@@ -191,7 +191,9 @@
     <div
       class="complete"
       bind:this={elComplete}
-      style="background-image: {isDone === true ? 'url(\'./done.png\')' : 'url(\'./undone.png\')'};"
+      style="background-image: {isDone === true
+        ? "url('./done.png')"
+        : "url('./undone.png')"};"
     ></div>
   </button>
 

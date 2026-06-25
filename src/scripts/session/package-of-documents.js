@@ -302,9 +302,19 @@ function dataSupplement(data) {
 
     // Distributing students into social and increased scholarship lists
     students.forEach((student, studIndex) => {
-      if (student.socialStatus && !student.scholarship) {
+      const hasValidGrade =
+        student.avgGrade !== "-" && student.avgGrade !== " - ";
+      const isBudget = student.bc !== "К";
+
+      if (
+        student.socialStatus &&
+        !student.scholarship &&
+        hasValidGrade &&
+        isBudget
+      ) {
         specialityData.socialScholarshipList.push(studIndex);
       }
+
       if (student.increased && student.scholarship) {
         specialityData.increasedScholarshipList.push(studIndex);
       }

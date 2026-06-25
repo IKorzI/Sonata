@@ -1,16 +1,23 @@
 <script>
   import { onMount, onDestroy } from "svelte";
-  import { settings, appSettings, lng, changeLanguage, availableLngs, handleInput } from "../lib/store.js";
+  import {
+    settingsWindow,
+    settings,
+    lng,
+    changeLanguage,
+    availableLngs,
+    handleInput,
+  } from "../lib/store.js";
 
   let _lng = {};
   lng.subscribe((value) => (_lng = value));
 
-  $: headName = $appSettings?.headName;
-  $: percentageOfScholarship = $appSettings?.percentage;
-  $: semester1Start = $appSettings?.scholarshipSemester?.start2;
-  $: semester1End = $appSettings?.scholarshipSemester?.end2;
-  $: semester2Start = $appSettings?.scholarshipSemester?.start1;
-  $: semester2End = $appSettings?.scholarshipSemester?.end1;
+  $: headName = $settings?.headName;
+  $: percentageOfScholarship = $settings?.percentage;
+  $: semester1Start = $settings?.scholarshipSemester?.start2;
+  $: semester1End = $settings?.scholarshipSemester?.end2;
+  $: semester2Start = $settings?.scholarshipSemester?.start1;
+  $: semester2End = $settings?.scholarshipSemester?.end1;
 
   let languageListIsOpen = false;
 
@@ -20,7 +27,9 @@
       event.target.tagName !== "LI" &&
       languageListIsOpen
     ) {
-      const languageList = document.querySelector(".settings-window .language-list");
+      const languageList = document.querySelector(
+        ".settings-window .language-list",
+      );
       languageList.style.opacity = "";
       languageList.style.zIndex = "";
       languageListIsOpen = false;
@@ -28,11 +37,13 @@
   }
 
   onMount(() => {
-    const languageList = document.querySelector(".settings-window .language-list");
+    const languageList = document.querySelector(
+      ".settings-window .language-list",
+    );
     const keys = Object.keys(availableLngs);
     keys.forEach((lngCode, index) => {
       const li = document.createElement("li");
-      li.textContent = availableLngs[lngCode]; 
+      li.textContent = availableLngs[lngCode];
       if (index === keys.length - 1) {
         li.className = "last";
       }
@@ -45,7 +56,7 @@
         languageList.style.zIndex = "";
         languageListIsOpen = false;
       });
-      
+
       languageList.appendChild(li);
     });
 
@@ -65,15 +76,17 @@
     window.electron.saveSetting("scholarshipSemester.start2", semester1Start);
     window.electron.saveSetting("scholarshipSemester.end2", semester1End);
 
-    settings.set(false);
+    settingsWindow.set(false);
   }
 
   function handleClose() {
-    settings.set(false);
+    settingsWindow.set(false);
   }
 
   function showLngList() {
-    const languageList = document.querySelector(".settings-window .language-list");
+    const languageList = document.querySelector(
+      ".settings-window .language-list",
+    );
     if (!languageListIsOpen) {
       languageList.style.zIndex = "999";
       languageList.style.opacity = "1";
@@ -86,103 +99,88 @@
   }
 </script>
 
-<div class="settings-area" class:showed={$settings}>
-  <div class="settings-window" class:showed={$settings}>
-    <div class="title">{_lng?.settings.title}</div>
-    <button class="close" on:click={handleClose}>✕</button>
-    <div class="text-area">
-
-      <div class="language">
-        <div>{_lng?.settings.language}</div>
-        <button class="languageButton" on:click={showLngList}>{_lng?.name}</button>
-        <ul class="language-list"></ul>
-      </div>
-
-      <div class="head-name">
-        <div>{_lng?.settings.headName}</div>
-        <input
-          type="text"
-          bind:value={headName}
-          on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}
-        />
-      </div>
-
-      <div class="percentage-of-scholarship">
-        <div>{_lng?.settings.percentage}</div>
-        <input
-          type="text"
-          bind:value={percentageOfScholarship}
-          on:input={(e) => handleInput(e.target, { numbers: true, maxNumber: 100 })}
-        />
-      </div>
-
-      <div class="data-block" id="semester1-dates">
-        <div class="label">{_lng?.settings.semester1Dates.label}</div>
-        <div class="row" id="start">
-          <div>{_lng?.settings.semesterDates.start}</div>
-          <input
-            type="text"
-            value={semester1Start}
-            on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}
-          />
-        </div>
-        <div class="row" id="end">
-          <div>{_lng?.settings.semesterDates.end}</div>
-          <input
-            type="text"
-            value={semester1End}
-            on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}
-          />
-        </div>
-      </div>
-
-      <div class="data-block" id="semester2-dates">
-        <div class="label">{_lng?.settings.semester2Dates.label}</div>
-        <div class="row" id="start">
-          <div>{_lng?.settings.semesterDates.start}</div>
-          <input
-            type="text"
-            value={semester2Start}
-            on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}
-          />
-        </div>
-        <div class="row" id="end">
-          <div>{_lng?.settings.semesterDates.end}</div>
-          <input
-            type="text"
-            value={semester2End}
-            on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}
-          />
-        </div>
-      </div>
-      
+<div class="settings-window" class:showed={$settingsWindow}>
+  <div class="title">{_lng?.settingsWindow.title}</div>
+  <button class="close" on:click={handleClose}>✕</button>
+  <div class="text-area">
+    <div class="language">
+      <div>{_lng?.settingsWindow.language}</div>
+      <button class="languageButton" on:click={showLngList}>{_lng?.name}</button
+      >
+      <ul class="language-list"></ul>
     </div>
-    <button class="save" on:click={handlerClickSave}>{_lng?.settings.save}</button>
+
+    <div class="head-name">
+      <div>{_lng?.settingsWindow.headName}</div>
+      <input
+        type="text"
+        bind:value={headName}
+        on:input={(e) => handleInput(e.target, { letters: true, spaces: true })}
+      />
+    </div>
+
+    <div class="percentage-of-scholarship">
+      <div>{_lng?.settingsWindow.percentage}</div>
+      <input
+        type="text"
+        bind:value={percentageOfScholarship}
+        on:input={(e) =>
+          handleInput(e.target, { numbers: true, maxNumber: 100 })}
+      />
+    </div>
+
+    <div class="data-block" id="semester1-dates">
+      <div class="label">{_lng?.settingsWindow.semester1Dates.label}</div>
+      <div class="row" id="start">
+        <div>{_lng?.settingsWindow.semesterDates.start}</div>
+        <input
+          type="text"
+          value={semester1Start}
+          on:input={(e) =>
+            handleInput(e.target, { letters: true, spaces: true })}
+        />
+      </div>
+      <div class="row" id="end">
+        <div>{_lng?.settingsWindow.semesterDates.end}</div>
+        <input
+          type="text"
+          value={semester1End}
+          on:input={(e) =>
+            handleInput(e.target, { letters: true, spaces: true })}
+        />
+      </div>
+    </div>
+
+    <div class="data-block" id="semester2-dates">
+      <div class="label">{_lng?.settingsWindow.semester2Dates.label}</div>
+      <div class="row" id="start">
+        <div>{_lng?.settingsWindow.semesterDates.start}</div>
+        <input
+          type="text"
+          value={semester2Start}
+          on:input={(e) =>
+            handleInput(e.target, { letters: true, spaces: true })}
+        />
+      </div>
+      <div class="row" id="end">
+        <div>{_lng?.settingsWindow.semesterDates.end}</div>
+        <input
+          type="text"
+          value={semester2End}
+          on:input={(e) =>
+            handleInput(e.target, { letters: true, spaces: true })}
+        />
+      </div>
+    </div>
   </div>
+  <button class="save" on:click={handlerClickSave}
+    >{_lng?.settingsWindow.save}</button
+  >
 </div>
 
 <style>
-  .settings-area {
-    position: absolute;
-    top: 27px;
-    left: 0;
-    height: calc(100% - 27px);
-    width: 100%;
-    background-color: var(--ErrorArea-background-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    z-index: -1;
-    transition: 0.4s;
-    border-radius: 0px;
-  }
-  .settings-area.showed {
-    z-index: 3;
-    opacity: 1;
-  }
-
   .settings-window {
+    grid-area: 1 / 1;
     height: 450px;
     width: 650px;
     background-color: var(--ErrorArea-window-background-color);
@@ -191,10 +189,16 @@
     border-width: 2px;
     transform: translateY(+20px);
     display: grid;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
     grid-template-rows: 30px 1fr 30px;
-    transition: transform 0.4s;
+    transition: 0.4s;
   }
-  .settings-area .settings-window.showed {
+  .settings-window.showed {
+    z-index: 2;
+    opacity: 1;
+    pointer-events: auto;
     transform: translateY(0px);
   }
 
@@ -352,6 +356,4 @@
   #semester2-dates {
     top: 280px;
   }
-
-
 </style>

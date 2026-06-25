@@ -2,6 +2,8 @@
   "lng": "uk",
   "name": "Українська",
   "frontend": {
+    "titleBar.update": "Оновити!",
+
     "workspace.example": "Приклад вихідного документа (документів)",
     "workspace.clear": "Очистити",
     "workspace.start": "Старт",
@@ -126,19 +128,19 @@
     "about.authors.title": "У програмі використовуються зображення від наступних авторів:",
     "about.authors.elementText": "Зображення{imageName} від {autorName}",
 
-    "settings.title": "Налаштування",
-    "settings.language": "Мова інтферфейсу",
-    "settings.headName": "Ім'я та прізвище завідуючого відділенням",
-    "settings.percentage": "% бюджета на стипендію",
-    "settings.semester1Dates.label": "Дати призначення стипендії після першого семестру (день та місяць)",
-    "settings.semester2Dates.label": "Дати призначення стипендії після другого семестру (день та місяць)",
-    "settings.semesterDates.start": "Початкова дата",
-    "settings.semesterDates.end": "Крайня дата",
-    "settings.save": "Зберегти",
+    "settingsWindow.title": "Налаштування",
+    "settingsWindow.language": "Мова інтферфейсу",
+    "settingsWindow.headName": "Ім'я та прізвище завідуючого відділенням",
+    "settingsWindow.percentage": "% бюджета на стипендію",
+    "settingsWindow.semester1Dates.label": "Дати призначення стипендії після першого семестру (день та місяць)",
+    "settingsWindow.semester2Dates.label": "Дати призначення стипендії після другого семестру (день та місяць)",
+    "settingsWindow.semesterDates.start": "Початкова дата",
+    "settingsWindow.semesterDates.end": "Крайня дата",
+    "settingsWindow.save": "Зберегти",
 
-    "themeMenu.title": "Закріплення тем",
-    "themeMenu.light": "Світла",
-    "themeMenu.dark": "Темна"
+    "themeMenuWindow.title": "Закріплення тем",
+    "themeMenuWindow.light": "Світла",
+    "themeMenuWindow.dark": "Темна"
   },
   "backend": {
     "renderAndTransform.done.title": "Експорт завершено", 

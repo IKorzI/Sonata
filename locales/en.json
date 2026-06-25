@@ -2,6 +2,8 @@
   "lng": "en",
   "name": "English",
   "frontend": {
+    "titleBar.update": "Update!",
+
     "workspace.example": "Example of output document(s)",
     "workspace.clear": "Clear",
     "workspace.start": "Start",
@@ -126,15 +128,15 @@
     "about.authors.title": "The application uses images from the following authors:",
     "about.authors.elementText": "Image{imageName} by {autorName}",
 
-    "settings.title": "Settings",
-    "settings.language": "Interface language",
-    "settings.headName": "Head of Department Name",
-    "settings.percentage": "% of scholarship budget",
-    "settings.semester1Dates.label": "Scholarship award dates after the first semester (day and month)",
-    "settings.semester2Dates.label": "Scholarship award dates after the second semester (day and month)",
-    "settings.semesterDates.start": "Start date",
-    "settings.semesterDates.end": "End date",
-    "settings.save": "Save"
+    "settingsWindow.title": "Settings",
+    "settingsWindow.language": "Interface language",
+    "settingsWindow.headName": "Head of Department Name",
+    "settingsWindow.percentage": "% of scholarship budget",
+    "settingsWindow.semester1Dates.label": "Scholarship award dates after the first semester (day and month)",
+    "settingsWindow.semester2Dates.label": "Scholarship award dates after the second semester (day and month)",
+    "settingsWindow.semesterDates.start": "Start date",
+    "settingsWindow.semesterDates.end": "End date",
+    "settingsWindow.save": "Save"
       },
   "backend": {
     "renderAndTransform.done.title": "Export complete",
