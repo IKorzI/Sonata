@@ -35,6 +35,8 @@
       "combatantChild": "Child of combatant",
       "orphanOrFoster": "Child deprived of parental care",
       "disabledChild": "Disabled child",
+      "childWithADisability": "Child with a disability",
+      "disabled Since Childhood": "Disabled Since Childhood",
       "poorLargeFamily": "Large low-income family family"
     },
     "packageOfDocuments.socialScholarship.label1": "Social statuses of students",

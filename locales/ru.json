@@ -35,6 +35,8 @@
       "combatantChild": "Ребенок участника боевых действий",
       "orphanOrFoster": "Ребенок,лишенный родительской опеки",
       "disabledChild": "Ребенок-инвалид",
+      "childWithADisability": "Ребенок с инвалидностью",
+      "disabled Since Childhood": "Инвалид с детства",
       "poorLargeFamily": "Многодетная малообеспеченная семья" 
     },
     "packageOfDocuments.socialScholarship.label1": "Социальные статусы студентов",
@@ -130,7 +132,7 @@
     
     "settingsWindow.title": "Настройки", 
     "settingsWindow.language": "Язык интерфейса",
-    "settingsWindow.headName": "Имя и фамилия заведующего отделением", 
+    "settingsWindow.headName": "Имя и фамилия заведующего отделение", 
     "settingsWindow.percentage": "% бюджета на стипендию", 
     "settingsWindow.semester1Dates.label": "Дать назначение стипендии после первого семестра (день и месяц)", 
     "settingsWindow.semester2Dates.label": "Дать назначение стипендии после второго семестра (день и месяц)",

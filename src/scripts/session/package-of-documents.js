@@ -56,14 +56,6 @@ async function getInfo(filePath) {
   const semesterNumberWord = semesterNumber === 1 ? "першого" : "другого";
   match = semesterCellV.match(/семестр\s+(\d{4})/i);
   const yearNumber = parseInt(match[1], 10);
-  const semesterStart =
-    semesterNumber === 1
-      ? `01.01.${yearNumber + 1}`
-      : `01.07.${yearNumber + 1}`;
-  const semesterEnd =
-    semesterNumber === 1
-      ? `30.06.${yearNumber + 1}`
-      : `31.12.${yearNumber + 1}`;
   const years = `${yearNumber}-${yearNumber + 1}`;
 
   // Finding the "Average grade" column and reading the list of subjects and teachers
@@ -162,11 +154,12 @@ async function getInfo(filePath) {
     subgroups: subgroups,
     kuratorNom: kuratorNom,
     kuratorGen: kuratorGen,
+    yearNumber: yearNumber,
     years: years,
     semesterNumber: semesterNumberRoman,
     semesterNumberWord: semesterNumberWord,
-    semesterStart: semesterStart,
-    semesterEnd: semesterEnd,
+    semesterStart: null,
+    semesterEnd: null,
     subjects: subjects,
     percentage: percentage,
   };

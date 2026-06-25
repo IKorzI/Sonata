@@ -177,7 +177,7 @@
   <button class="clear" class:hidden={!isVisible} on:click={() => clear()}
     >{_lng?.workspace.clear}</button
   >
-  <button class="start" class:hidden={!isVisible} on:click={() => save()}>
+  <button class="start" class:hidden={!isVisible} class:isProcessing={isProcessing} on:click={() => save()}>
     {#if isProcessing === false && isComleting === false}
       {_lng?.workspace.start}
     {/if}
@@ -242,6 +242,9 @@
   .start {
     right: 20px;
     z-index: 2;
+  }
+  .start.isProcessing {
+    pointer-events: none;
   }
 
   .process {

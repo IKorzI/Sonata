@@ -33,6 +33,7 @@ def filling_out_the_summary_sheet(
     subjects: list,
     kurator: str,
     percentage: int,
+    head_name: str,
 ):
     """
     Filling out the summary sheet.
@@ -45,6 +46,7 @@ def filling_out_the_summary_sheet(
         subjects (list): The list of subjects.
         kurator (str): The name of the curator.
         percentage (int): The percentage for calculations.
+        head_name (str): First name and last name of the head of the department.
     """
 
     student_len = len(students)
@@ -154,12 +156,10 @@ def filling_out_the_summary_sheet(
     sheet.cell(row=end_row + 8, column=6).value = social_len
     if subject_len >= 14:
         sheet.cell(row=end_row + 7, column=16).value = kurator
-        sheet.cell(row=end_row + 9, column=16).value = f"Маргарита БРІТІКОВА"
+        sheet.cell(row=end_row + 9, column=16).value = head_name
     else:
         sheet.cell(row=end_row + 7, column=21 - delete_col_count).value = kurator
-        sheet.cell(row=end_row + 9, column=21 - delete_col_count).value = (
-            f"Маргарита БРІТІКОВА"
-        )
+        sheet.cell(row=end_row + 9, column=21 - delete_col_count).value = head_name
 
     for i, subject in enumerate(subjects):
         sheet.cell(row=9, column=i + 6).value = (
@@ -180,6 +180,7 @@ def filling_out_the_rating_sheet(
     students: list,
     sorted_list: list,
     subjects: list,
+    head_name: str,
 ):
     """
     Filling out the rating sheet.
@@ -277,15 +278,11 @@ def filling_out_the_rating_sheet(
         sheet.cell(row=end_row + 2, column=16).value = (
             f"='{s_title}'!{kurator_col_letter}{summary_kurator_row}"
         )
-        sheet.cell(row=end_row + 4, column=16).value = f"Маргарита БРІТІКОВА"
+        sheet.cell(row=end_row + 4, column=16).value = head_name
     else:
         kurator_col_letter = get_column_letter(21 - delete_col_count)
-        sheet.cell(row=end_row + 2, column=21 - delete_col_count).value = (
-            f"='{s_title}'!{kurator_col_letter}{summary_kurator_row}"
-        )
-        sheet.cell(row=end_row + 4, column=21 - delete_col_count).value = (
-            f"Маргарита БРІТІКОВА"
-        )
+        sheet.cell(row=end_row + 2, column=21 - delete_col_count).value = f"='{s_title}'!{kurator_col_letter}{summary_kurator_row}"
+        sheet.cell(row=end_row + 4, column=21 - delete_col_count).value = head_name
 
     for i in range(subject_len):
         col = get_column_letter(i + 6)
@@ -350,6 +347,7 @@ def session_PackageOfDocuments(info, app_path):
             info["subjects"],
             info["kurator_nom"],
             info["percentage"],
+            info["head_name"]
         )
 
         if subgroup["scholarship_number"] == 0:
@@ -364,6 +362,7 @@ def session_PackageOfDocuments(info, app_path):
             subgroup["students"],
             subgroup["sorted_list"],
             info["subjects"],
+            info["head_name"],
         )
 
         _semester_start_split = info["semester_start"].split(".")
@@ -627,6 +626,7 @@ def filling_out_the_empty_teacher_statement(
     students: list,
     subgroups: list,
     group_code: str,
+    head_name: str
 ):
     """
     Fills out the empty teacher statement.
@@ -638,6 +638,7 @@ def filling_out_the_empty_teacher_statement(
         students (list): The list of students.
         subgroups (list): The list of subgroups (specialties).
         group_code (str): The name or code of the group.
+        head_name (str): First name and last name of the head of the department.
     """
 
     default_font = InlineFont(rFont="Times New Roman", sz=12)
@@ -1130,7 +1131,7 @@ def filling_out_the_empty_teacher_statement(
 
     sheet.cell(row=start + 15, column=9).value = "(ім'я та прізвище)"
     sheet.cell(row=start + 15, column=6).value = "(підпис)"
-    sheet.cell(row=start + 16, column=9).value = "Маргарита БРІТІКОВА"
+    sheet.cell(row=start + 16, column=9).value = head_name
     sheet.cell(row=start + 17, column=9).value = "(ім'я та прізвище)"
     sheet.cell(row=start + 17, column=6).value = "(підпис)"
     sheet.cell(row=start + 19, column=3).value = f"«____» _______ _____ {year} р."
@@ -1199,6 +1200,7 @@ def filling_out_the_empty_sheet(
     subject_len: int,
     last_student_row: int,
     percentage: int,
+    head_name: str,
 ):
     """
     Fills out an empty grade statement sheet for a subgroup.
@@ -1210,6 +1212,7 @@ def filling_out_the_empty_sheet(
         subject_len (int): The number of subjects.
         last_student_row (int): The index of the last row containing a student on the general sheet.
         percentage (int): The percentage for performance calculations.
+        head_name (str): First name and last name of the head of the department.
     """
 
     student_len = len(students)
@@ -1319,15 +1322,13 @@ def filling_out_the_empty_sheet(
         sheet.cell(row=end_row + 7, column=16).value = (
             f"='Загальна'!{kurator_col_letter}{last_student_row + 7}"
         )
-        sheet.cell(row=end_row + 9, column=16).value = f"Маргарита БРІТІКОВА"
+        sheet.cell(row=end_row + 9, column=16).value = head_name
     else:
         kurator_col_letter = get_column_letter(21 - delete_col_count)
         sheet.cell(row=end_row + 7, column=21 - delete_col_count).value = (
             f"='Загальна'!{kurator_col_letter}{last_student_row + 7}"
         )
-        sheet.cell(row=end_row + 9, column=21 - delete_col_count).value = (
-            f"Маргарита БРІТІКОВА"
-        )
+        sheet.cell(row=end_row + 9, column=21 - delete_col_count).value = head_name
 
     start_col = 6
     end_col = 6 + subject_len
@@ -1346,7 +1347,7 @@ def filling_out_the_empty_sheet(
 
 
 def filling_out_the_general_empty_sheet(
-    sheet: Worksheet, students: list, subjects: list, kurator: str, percentage: int
+    sheet: Worksheet, students: list, subjects: list, kurator: str, percentage: int, head_name: str
 ):
     """
     Fills out the general empty grade statement sheet for the entire group.
@@ -1357,6 +1358,7 @@ def filling_out_the_general_empty_sheet(
         subjects (list): The general list of subjects.
         kurator (str): The full name of the group curator.
         percentage (int): The percentage for calculations (e.g., for scholarships).
+        head_name (str): First name and last name of the head of the department.
     """
 
     student_len = len(students)
@@ -1459,12 +1461,10 @@ def filling_out_the_general_empty_sheet(
 
     if subject_len >= 14:
         sheet.cell(row=end_row + 7, column=16).value = kurator
-        sheet.cell(row=end_row + 9, column=16).value = f"Маргарита БРІТІКОВА"
+        sheet.cell(row=end_row + 9, column=16).value = head_name
     else:
         sheet.cell(row=end_row + 7, column=21 - delete_col_count).value = kurator
-        sheet.cell(row=end_row + 9, column=21 - delete_col_count).value = (
-            f"Маргарита БРІТІКОВА"
-        )
+        sheet.cell(row=end_row + 9, column=21 - delete_col_count).value = head_name
 
     for i, subj in enumerate(subjects):
         sheet.cell(row=9, column=i + 6).value = (
@@ -1573,6 +1573,7 @@ def session_EmptyCreate(info, app_path, path_to_save, semester, subcject_index=N
             group["subjects"],
             group["kurator_nom"],
             info["percentage"],
+            info["head_name"],
         )
 
         # Filling statements for each subgroup
@@ -1596,6 +1597,7 @@ def session_EmptyCreate(info, app_path, path_to_save, semester, subcject_index=N
                 subject_len,
                 last_student_row,
                 info["percentage"],
+                info["head_name"]
             )
 
         # Filling statements for teachers
@@ -1610,7 +1612,7 @@ def session_EmptyCreate(info, app_path, path_to_save, semester, subcject_index=N
                 }
             )
         filling_out_the_empty_teacher_statement(
-            sheet, semester, info["year"], group["students"], subgroups, group_code
+            sheet, semester, info["year"], group["students"], subgroups, group_code, info["head_name"],
         )
 
         # Creating a directory to save group files

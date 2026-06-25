@@ -35,6 +35,8 @@
       "combatantChild": "Дитина учасника бойових дій",
       "orphanOrFoster": "Дитина, позбавлена батьківського піклування",
       "disabledChild": "Дитина-інвалід",
+      "childWithADisability": "Дитина з інвалідністю",
+      "disabledSinceChildhood": "Інвалід з дитинства",
       "poorLargeFamily": "Багатодітна малозабезпечена родина"
     },
     "packageOfDocuments.socialScholarship.label1": "Соціальні статуси студентів",
@@ -123,14 +125,14 @@
 
     "about.title": "Про додаток",
     "about.version": "Версія",
-    "about.gitHub": "Сторінка проекту на GitHub",
-    "about.history": "Додаток спочатку створювався як \"А що, якщо ...?\". Чим далі продовжувалася розробка, тим більше додаток переростав у повноцінний проект.",
+    "about.gitHub": "Сторінка проєкту на GitHub",
+    "about.history": "Додаток спочатку створювався як \"А що, якщо ...?\". Чим далі продовжувалася розробка, тим більше додаток переростав у повноцінний проєкт.",
     "about.authors.title": "У програмі використовуються зображення від наступних авторів:",
     "about.authors.elementText": "Зображення{imageName} від {autorName}",
 
     "settingsWindow.title": "Налаштування",
     "settingsWindow.language": "Мова інтферфейсу",
-    "settingsWindow.headName": "Ім'я та прізвище завідуючого відділенням",
+    "settingsWindow.headName": "Ім'я та прізвище завідуючого відділення",
     "settingsWindow.percentage": "% бюджета на стипендію",
     "settingsWindow.semester1Dates.label": "Дати призначення стипендії після першого семестру (день та місяць)",
     "settingsWindow.semester2Dates.label": "Дати призначення стипендії після другого семестру (день та місяць)",

@@ -8,6 +8,7 @@
     lng,
     message,
     handleInput,
+    settings,
   } from "../../lib/store.js";
 
   let thisId = "session--empty-statements";
@@ -89,11 +90,13 @@
       semesterNumber: Number(semesterNumber),
       hoursData: hoursData,
       contingentData: contingentData,
+      headName: $settings.headName,
     };
 
     // Final data supplementation before sending to the backend
     endInformation =
       await window.electron.sessionEmptyDataSupplement(endInformation);
+
     savedInformation.set(endInformation);
   }
 
@@ -147,7 +150,7 @@
       uploadedFileContingent = detail.file;
     }
     if (uploadedFileHours !== null && uploadedFileContingent !== null) {
-      percentageOfScholarship = 45;
+      percentageOfScholarship = $settings.percentage;
       firstIndex = 1;
       semesterNumber = contingentData.semesterNumber;
     }

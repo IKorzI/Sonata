@@ -11,6 +11,7 @@
     message,
     handleInput,
     strToDate,
+    settings,
   } from "../../lib/store.js";
 
   let thisId = "session--package-of-documents";
@@ -135,6 +136,7 @@
       increasedList: increasedList,
       kuratorNom: eKuratorNom.value,
       kuratorGen: eKuratorGen.value,
+      headName: $settings.headName
     };
 
     endInformation =
@@ -245,6 +247,15 @@
         };
         return acc;
       }, {});
+
+      data.semesterStart =
+        data.semesterNumber === "I"
+          ? `${$settings.scholarshipSemester.start2}.${data.yearNumber + 1}`
+          : `${$settings.scholarshipSemester.start1}.${data.yearNumber + 1}`;
+      data.semesterEnd =
+        data.semesterNumber === "I"
+          ? `${$settings.scholarshipSemester.end2}.${data.yearNumber + 1}`
+          : `${$settings.scholarshipSemester.end1}.${data.yearNumber + 1}`;
     }
   }
 
