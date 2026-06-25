@@ -2,6 +2,11 @@ import { writable } from "svelte/store";
 
 export const settings = writable({});
 
+export const updating = writable(false);
+export const updateAvailable = writable(false);
+updateAvailable.set(window.electron.checkUpdate());
+export const updateProgress = writable(0);
+
 export const styles = writable();
 export const lng = writable();
 

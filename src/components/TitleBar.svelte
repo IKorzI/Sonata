@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from 'svelte';
   import {
     lng,
     transition,
@@ -7,6 +8,9 @@
     aboutWindow,
     settingsWindow,
     themeMenuWindow,
+    updateAvailable,
+    updating,
+    updateProgress,
   } from "../lib/store.js";
 
   let _lng = {};
@@ -76,6 +80,17 @@
   function showThemeMenuWindow() {
     themeMenuWindow.set(!$themeMenuWindow);
   }
+
+  function getUpdate() {
+    updating.set(true);
+    window.electron.update();
+  }
+
+  onMount(async () => {
+    window.electron.onUpdateProgress((event, percent) => {
+      updateProgress.set(Math.round(percent));
+    });
+  });
 </script>
 
 <div class="title-bar">
@@ -83,7 +98,13 @@
   <div class="program-icon"></div>
   <button class="about" on:click={showAbout}></button>
   <button class="settings" on:click={showSettings}></button>
-  <button class="update">{_lng?.titleBar.update}</button>
+  <button class="update" on:click={getUpdate} class:showed={$updateAvailable}>
+    {#if $updating}
+      Загрузка... {$updateProgress}%
+    {:else}
+      {_lng?.titleBar.update}
+    {/if}
+  </button>
   <div class="drag-region"></div>
   <button class="theme-menu" on:click={showThemeMenuWindow}></button>
   <button class="theme-swap" on:click={handleThemeSwap}></button>

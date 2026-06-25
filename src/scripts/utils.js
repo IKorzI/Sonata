@@ -7,6 +7,10 @@ import readline from "readline";
 import { lng } from "./language.js";
 import { app } from "electron";
 import Store from "electron-store";
+const { autoUpdater } = require("electron-updater");
+
+autoUpdater.autoDownload = false;
+autoUpdater.autoInstallOnAppQuit = true;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -354,6 +358,14 @@ async function saveDialog(fileName, extension) {
   return filePath;
 }
 
+function checkUpdate() {
+  return false
+}
+
+function update() {
+  
+}
+
 ipcMain.handle("save-dialog", async (event, fileName, extension) => {
   return saveDialog(fileName, extension);
 });
@@ -391,4 +403,34 @@ ipcMain.handle("getSettings", async (event) => {
 
 ipcMain.on("saveSetting", (event, key, value) => {
   store.set(key, value)
+});
+
+ipcMain.handle("checkUpdate", async () => {
+  try {
+    const result = await autoUpdater.checkForUpdates();
+    return result && result.updateInfo.version !== app.getVersion();
+  } catch (error) {
+    console.error("Ошибка при проверке обновлений:", error);
+    return false;
+  }
+});
+
+ipcMain.handle("update", async (event) => {
+  try {
+    await autoUpdater.downloadUpdate();
+  } catch (error) {
+    console.error("Ошибка при скачивании обновления:", error);
+  }
+});
+
+autoUpdater.on('download-progress', (progressObj) => {
+  const { BrowserWindow } = require('electron');
+  const win = BrowserWindow.getAllWindows()[0];
+  if (win) {
+    win.webContents.send('update-progress', progressObj.percent);
+  }
+});
+
+autoUpdater.on('update-downloaded', () => {
+  autoUpdater.quitAndInstall();
 });

@@ -11,7 +11,7 @@
     "C#:build": "src\\scripts\\C#\\CustomSaveDialog\\build.bat",
     "py:build": "src\\scripts\\python\\build.bat",
     "vite:build": "vite build",
-    "electron:build": "electron-builder --config.forceCodeSigning=false --config.generateUpdatesFilesForAllChannels=false",
+    "electron:build": "electron-builder --config.forceCodeSigning=false --config.generateUpdatesFilesForAllChannels=false --publish always",
     "app:build": "npm run C#:build && npm run py:build && npm run vite:build && npm run electron:build",
     "app:prebuild": "npm run C#:build && npm run py:build && npm run vite:build",
     "py:test": "src\\scripts\\python\\test.bat",
@@ -75,5 +75,9 @@
       "icon": "public/icon.ico",
       "target": "nsis"
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IKorzI/Sonata"
   }
 }
