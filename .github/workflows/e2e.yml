@@ -4,7 +4,6 @@ on:
   push:
     tags:
       - 'test'
-      - 'v*'
 
 jobs:
   build-and-test:

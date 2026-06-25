@@ -70,11 +70,13 @@ function createWindow() {
     return { action: "allow" };
   });
 
-  function devOptions() {
+  function devOptions(type="closed") {
     console.log("================(Development mode)================");
-    mainWindow.webContents.once("did-finish-load", () => {
-      mainWindow.webContents.openDevTools({ mode: "right" });
-    });
+    if (type == "opened") {
+      mainWindow.webContents.once("did-finish-load", () => {
+        mainWindow.webContents.openDevTools({ mode: "right" });
+      });
+    }
 
     // Context menu handling
     mainWindow.webContents.on("context-menu", (event, params) => {
@@ -109,11 +111,12 @@ function createWindow() {
 
   if (isDev) {
     mainWindow.loadURL("http://localhost:5173");
-    devOptions();
+    devOptions("opened");
   } else if (process.env.E2E_TEST === "true") {
     mainWindow.loadFile(path.join(__dirname, "dist-vite", "index.html"));
   } else {
     mainWindow.loadFile(path.join(__dirname, "dist", "index.html"));
+    devOptions();
   }
 }
 

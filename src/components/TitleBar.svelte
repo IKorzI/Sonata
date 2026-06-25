@@ -100,7 +100,7 @@
   <button class="settings" on:click={showSettings}></button>
   <button class="update" on:click={getUpdate} class:showed={$updateAvailable}>
     {#if $updating}
-      Загрузка... {$updateProgress}%
+      {$updateProgress}%
     {:else}
       {_lng?.titleBar.update}
     {/if}
@@ -163,7 +163,7 @@
     pointer-events: none;
     opacity: 0;
   }
-  .update:showed {
+  .update.showed {
     pointer-events: auto;
     opacity: 1;
   }

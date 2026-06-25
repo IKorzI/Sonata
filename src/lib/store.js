@@ -1,10 +1,10 @@
-import { writable } from "svelte/store";
+import { writable, get } from "svelte/store";
 
 export const settings = writable({});
 
+export const appVersion = writable("0.0.0");
 export const updating = writable(false);
 export const updateAvailable = writable(false);
-updateAvailable.set(window.electron.checkUpdate());
 export const updateProgress = writable(0);
 
 export const styles = writable();
@@ -55,6 +55,9 @@ async function initializeApp() {
   settings.set(collectedSettings);
   startTheme(collectedSettings.theme);
   startLanguage(collectedSettings.language);
+
+  appVersion.set(await window.electron.getAppVersion());
+  updateAvailable.set(await window.electron.checkUpdate());
 }
 initializeApp();
 

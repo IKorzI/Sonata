@@ -1,4 +1,4 @@
-import { ipcMain, dialog } from "electron";
+import { ipcMain, dialog, BrowserWindow } from "electron";
 import { fileURLToPath } from "url";
 import path from "path";
 import { spawn } from "child_process";
@@ -12,6 +12,11 @@ const { autoUpdater } = pkg;
 
 autoUpdater.autoDownload = false;
 autoUpdater.autoInstallOnAppQuit = true;
+
+if (!app.isPackaged) {
+  autoUpdater.updateConfigPath = path.join(process.cwd(), "dev-app-update.yml");
+  autoUpdater.forceDevUpdateConfig = true;
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -359,14 +364,6 @@ async function saveDialog(fileName, extension) {
   return filePath;
 }
 
-function checkUpdate() {
-  return false
-}
-
-function update() {
-  
-}
-
 ipcMain.handle("save-dialog", async (event, fileName, extension) => {
   return saveDialog(fileName, extension);
 });
@@ -406,26 +403,27 @@ ipcMain.on("saveSetting", (event, key, value) => {
   store.set(key, value)
 });
 
+ipcMain.handle("getAppVersion", async () => {
+  return app.getVersion();
+});
+
 ipcMain.handle("checkUpdate", async () => {
   try {
     const result = await autoUpdater.checkForUpdates();
     return result && result.updateInfo.version !== app.getVersion();
   } catch (error) {
-    console.error("Ошибка при проверке обновлений:", error);
+    console.error("Error checking for updates:", error);
     return false;
   }
 });
 
 ipcMain.handle("update", async (event) => {
-  try {
+  if (app.isPackaged) {
     await autoUpdater.downloadUpdate();
-  } catch (error) {
-    console.error("Ошибка при скачивании обновления:", error);
   }
 });
 
 autoUpdater.on('download-progress', (progressObj) => {
-  const { BrowserWindow } = require('electron');
   const win = BrowserWindow.getAllWindows()[0];
   if (win) {
     win.webContents.send('update-progress', progressObj.percent);

@@ -1,5 +1,5 @@
 <script>
-  import { aboutWindow, lng } from "../lib/store.js";
+  import { aboutWindow, lng, appVersion } from "../lib/store.js";
 
   let _lng = {};
   lng.subscribe((value) => (_lng = value));
@@ -240,7 +240,7 @@
       <div class="text">onata</div>
     </div>
     <div class="description">
-      {_lng?.about.version} 1.0
+      {_lng?.about.version} {$appVersion}
       <a href="https://github.com/IKorzI/Sonata" target="_blank"
         >{_lng?.about.gitHub}</a
       >
