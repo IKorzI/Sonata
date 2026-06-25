@@ -116,7 +116,6 @@ function createWindow() {
     mainWindow.loadFile(path.join(__dirname, "dist-vite", "index.html"));
   } else {
     mainWindow.loadFile(path.join(__dirname, "dist", "index.html"));
-    devOptions();
   }
 }
 
