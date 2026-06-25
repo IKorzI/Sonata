@@ -159,6 +159,15 @@
     background-image: url("../icon.png");
   }
 
+  .update {
+    pointer-events: none;
+    opacity: 0;
+  }
+  .update:showed {
+    pointer-events: auto;
+    opacity: 1;
+  }
+
   .drag-region {
     -webkit-app-region: drag;
   }

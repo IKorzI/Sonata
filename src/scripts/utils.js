@@ -7,7 +7,8 @@ import readline from "readline";
 import { lng } from "./language.js";
 import { app } from "electron";
 import Store from "electron-store";
-const { autoUpdater } = require("electron-updater");
+import pkg from "electron-updater";
+const { autoUpdater } = pkg;
 
 autoUpdater.autoDownload = false;
 autoUpdater.autoInstallOnAppQuit = true;

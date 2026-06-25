@@ -8,7 +8,7 @@ contextBridge.exposeInMainWorld("electron", {
   saveSetting: (key, value) => ipcRenderer.send("saveSetting", key, value),
   checkUpdate: () => ipcRenderer.invoke("checkUpdate"),
   update: () => ipcRenderer.invoke("update"),
-  onUpdateProgress: (callback) => ipcRenderer.on("update-progress", callback)
+  onUpdateProgress: (callback) => ipcRenderer.on("update-progress", callback),
 
   saveDialog: (fileName, extension) =>
     ipcRenderer.invoke("save-dialog", fileName, extension),
