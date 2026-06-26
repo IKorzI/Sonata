@@ -1,6 +1,6 @@
 import { lng, unflattenStyles } from "./store.js";
 
-export const availableLngs = {};
+export let availableLngs = {};
 const lngs = {};
 
 const localeFiles = import.meta.glob("../../locales/*.json", { eager: true });
@@ -11,14 +11,21 @@ for (const path in localeFiles) {
 
   if (langKey && !availableLngs[langKey]) {
     availableLngs[langKey] = fileData.name || langKey;
-    
+
     lngs[langKey] = {
       lng: fileData.lng,
       name: fileData.name,
-      ...unflattenStyles(fileData.frontend || {})
+      ...unflattenStyles(fileData.frontend || {}),
     };
   }
 }
+
+availableLngs = Object.keys(availableLngs)
+  .sort()
+  .reduce((acc, key) => {
+    acc[key] = availableLngs[key];
+    return acc;
+  }, {});
 
 const defaultLangCode = "uk";
 const defaultLng = lngs[defaultLangCode] || {};

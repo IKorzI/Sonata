@@ -1159,7 +1159,7 @@ def filling_out_the_empty_teacher_statement(
 
     if len(educational_programs_text) == 1:
         sheet.cell(row=8, column=3).value = CellRichText(
-            TextBlock(default_font, "Освітня програма "),
+            TextBlock(default_font, "Освітня додаток "),
             TextBlock(underline_font, educational_programs_text[0]),
         )
         sheet.unmerge_cells(start_row=8, start_column=3, end_row=8, end_column=12)
@@ -1169,7 +1169,7 @@ def filling_out_the_empty_teacher_statement(
         sheet.row_dimensions[9].height = 7.5
     else:
         sheet.cell(row=8, column=3).value = CellRichText(
-            TextBlock(default_font, "Освітня програма "),
+            TextBlock(default_font, "Освітня додаток "),
             TextBlock(underline_font, educational_programs_text[0]),
         )
         sheet.cell(row=9, column=3).value = CellRichText(

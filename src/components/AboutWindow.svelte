@@ -288,13 +288,14 @@
   <div class="title">{_lng?.about.title}</div>
   <button class="close" on:click={handleClose}>✕</button>
   <div class="text-area">
-    <div class="program-icon"></div>
-    <div class="program-name">
-      <div class="program-icon"></div>
+    <div class="app-icon"></div>
+    <div class="app-name">
+      <div class="app-icon"></div>
       <div class="text">onata</div>
     </div>
     <div class="description">
-      {_lng?.about.version} {$appVersion}
+      {_lng?.about.version}
+      {$appVersion}
       <a href="https://github.com/IKorzI/Sonata" target="_blank"
         >{_lng?.about.gitHub}</a
       >
@@ -395,13 +396,13 @@
     background-color: rgba(255, 59, 59, 0.5);
   }
 
-  .program-icon {
+  .app-icon {
     background-image: url("../icon2.png");
     background-repeat: no-repeat;
     background-position: center center;
   }
 
-  .text-area > .program-icon {
+  .text-area > .app-icon {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -410,7 +411,7 @@
     background-size: 100px auto;
   }
 
-  .program-name {
+  .app-name {
     position: absolute;
     top: 20px;
     left: 300px;
@@ -420,12 +421,12 @@
     justify-content: center;
     align-items: end;
   }
-  .program-name .program-icon {
+  .app-name .app-icon {
     height: 60px;
     width: 28px;
     background-size: 28px auto;
   }
-  .program-name .text {
+  .app-name .text {
     position: relative;
     font-size: 40px;
     top: 4px;

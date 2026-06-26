@@ -4,10 +4,10 @@ import stylesData from "./styles.json";
 const theme = {
   current: {
     type: null,
-    number: null
+    number: null,
   },
   dark: null,
-  light: null
+  light: null,
 };
 
 function applyTheme() {
@@ -31,7 +31,7 @@ function applyTheme() {
 export function themeSwap() {
   theme.current.type = theme.current.type === "dark" ? "light" : "dark";
   theme.current.number = theme[theme.current.type];
-  
+
   applyTheme();
 }
 

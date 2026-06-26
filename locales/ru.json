@@ -74,17 +74,17 @@
     "fileOutput.names.hours": "Часы",
     "fileOutput.names.contingent": "Контингент",
 
-    "programMenu.session.sectionTitle": "Сессия",
-    "programMenu.session.packageOfDocuments": "Пакет документов",
-    "programMenu.session.emptyStatements": "Пустые ведомости",
-    "programMenu.session.report": "Отчет за семестр",
-    "programMenu.session.debtors": "Должники",
-    "programMenu.hours.sectionTitle": "Часы",
-    "programMenu.hours.basedOnTheFirstMonth": "На основе I-го месяца",
-    "programMenu.hours.summaryOfTeachers": "По преподавателям",
-    "programMenu.other.sectionTitle": "Другое",
-    "programMenu.other.templates": "Шаблоны",
-    "programMenu.other.other": "Другое",
+    "appMenu.session.sectionTitle": "Сессия",
+    "appMenu.session.packageOfDocuments": "Пакет документов",
+    "appMenu.session.emptyStatements": "Пустые ведомости",
+    "appMenu.session.report": "Отчет за семестр",
+    "appMenu.session.debtors": "Должники",
+    "appMenu.hours.sectionTitle": "Часы",
+    "appMenu.hours.basedOnTheFirstMonth": "На основе I-го месяца",
+    "appMenu.hours.summaryOfTeachers": "По преподавателям",
+    "appMenu.other.sectionTitle": "Другое",
+    "appMenu.other.templates": "Шаблоны",
+    "appMenu.other.other": "Другое",
 
     "exampleWindow.names.basedOnTheFirstMonth.september": "Сентябрь",
     "exampleWindow.names.basedOnTheFirstMonth.october": "Октябрь",
@@ -113,7 +113,7 @@
     "python.session.emptyStart.customText": "В группах есть специальности с несколькими ОПП.\nВ сведения для преподавателей в такие специальности были записаны следующие ОПП:",
     "python.session.report.warning": "Проверьте столбцы «на початок» и «прибуло» и, при необходимости, отредактируйте их.\nВ сводных сведениях не записывается информация о количестве студентов в начале и количестве студентов, отчисленных.",
 
-    "packageOfDocuments.notAllData": "Данные неверны по одной из причин:\n  –  не загружен файл;\n  –  не введена дата назначения стипендии (или неверно введено);\n  –  не введена фамилия классного руководителя;\n  –  в списках на социальную и повышенную стипендии есть значение «Выберите студента» или «Выберите статус».",
+    "packageOfDocuments.notAllData": "Данные неверны по одной из причин:\n  –  не загружен файл;\n  –  не введена дата назначения стипендии (или неверно введено);\n  –  не введена фамилия классного руководителя;\n  –  в списках на социальную и повышенную стипендии есть значение «Выберите студента» или «Выберите статус»;\n  –  в списках на социальную и повышенную стипендии есть дублирование студентов.",
     "emptyStatements.notAllData": "Данные неверны по одной из причин:\n  –  не загружены файлы;\n  –  не заполнено поле «% бюджета на стипендию«;\n  –  не заполнено поле «Номер первой ведомости в журнале выдачи».",
     "report.notAllData": "Данные неверны по одной из причин:\n  –  загруженных групп 0.",
     "debtors.notAllData": "Данные неверны по одной из причин:\n  –  загруженных групп 0.",
@@ -139,7 +139,11 @@
     "settingsWindow.semester2Dates.label": "Дать назначение стипендии после второго семестра (день и месяц)",
     "settingsWindow.semesterDates.start": "Начальная дата", 
     "settingsWindow.semesterDates.end": "Крайняя дата", 
-    "settingsWindow.save": "Сохранить"
+    "settingsWindow.save": "Сохранить",
+
+    "themeMenuWindow.title": "Закрепление тем", 
+    "themeMenuWindow.light": "Светлая", 
+    "themeMenuWindow.dark": "Темная"
   },
   "backend": {
     "renderAndTransform.done.title": "Экспорт завершен",

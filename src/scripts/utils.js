@@ -25,25 +25,25 @@ const projectPath = path.resolve(__dirname, "../../");
 
 const store = new Store({
   defaults: {
-    language: 'uk',
-    theme:{
+    language: "uk",
+    theme: {
       current: {
         name: "dark",
         type: "dark",
-        number: "1"
+        number: "1",
       },
       dark: "1",
-      light: "1"
+      light: "1",
     },
-    headName: 'Маргарита БРІТІКОВА',
-    percentage: '45',
+    headName: "Маргарита БРІТІКОВА",
+    percentage: "45",
     scholarshipSemester: {
-      start1: '01.07',
-      end1: '31.12',
-      start2: '01.01',
-      end2: '30.06'
-    }
-  }
+      start1: "01.07",
+      end1: "31.12",
+      start2: "01.01",
+      end2: "30.06",
+    },
+  },
 });
 
 export const monthNames = {
@@ -400,7 +400,7 @@ ipcMain.handle("getSettings", async (event) => {
 });
 
 ipcMain.on("saveSetting", (event, key, value) => {
-  store.set(key, value)
+  store.set(key, value);
 });
 
 ipcMain.handle("getAppVersion", async () => {
@@ -409,8 +409,8 @@ ipcMain.handle("getAppVersion", async () => {
 
 ipcMain.handle("checkUpdate", async () => {
   function compareVersions(v1, v2) {
-    const parts1 = v1.split('.').map(Number);
-    const parts2 = v2.split('.').map(Number);
+    const parts1 = v1.split(".").map(Number);
+    const parts2 = v2.split(".").map(Number);
     for (let i = 0; i < Math.max(parts1.length, parts2.length); i++) {
       const p1 = parts1[i] || 0;
       const p2 = parts2[i] || 0;
@@ -421,7 +421,10 @@ ipcMain.handle("checkUpdate", async () => {
   }
   try {
     const result = await autoUpdater.checkForUpdates();
-    return result && compareVersions(result.updateInfo.version, app.getVersion()) == 1;
+    return (
+      result &&
+      compareVersions(result.updateInfo.version, app.getVersion()) == 1
+    );
   } catch (error) {
     console.error("Error checking for updates:", error);
     return false;
@@ -434,13 +437,13 @@ ipcMain.handle("update", async (event) => {
   }
 });
 
-autoUpdater.on('download-progress', (progressObj) => {
+autoUpdater.on("download-progress", (progressObj) => {
   const win = BrowserWindow.getAllWindows()[0];
   if (win) {
-    win.webContents.send('update-progress', progressObj.percent);
+    win.webContents.send("update-progress", progressObj.percent);
   }
 });
 
-autoUpdater.on('update-downloaded', () => {
+autoUpdater.on("update-downloaded", () => {
   autoUpdater.quitAndInstall();
 });

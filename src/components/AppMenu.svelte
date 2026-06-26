@@ -11,7 +11,7 @@
   selectedSection.set("");
   function selectSection(event) {
     const { id, parentId } = event.detail;
-    const button = document.querySelector(`.program-menu #${parentId} #${id}`);
+    const button = document.querySelector(`.app-menu #${parentId} #${id}`);
 
     moveChoiceMark(button);
     selectedSection.set(`${parentId}--${id}`);
@@ -54,73 +54,71 @@
   }
 
   onMount(() => {
-    choiceMark = document.querySelector(`.program-menu .choice-mark`);
+    choiceMark = document.querySelector(`.app-menu .choice-mark`);
     choiceMark.style.top = "23px";
     choiceMark.style.height = "21px";
   });
 </script>
 
-<div class="program-menu">
+<div class="app-menu">
   <div class="choice-mark" />
 
   <div class="section-list">
     <div class="group-of-sections" id="session">
       <div class="line-with-text">
-        <span class="section-title"
-          >{_lng?.programMenu.session.sectionTitle}</span
-        >
+        <span class="section-title">{_lng?.appMenu.session.sectionTitle}</span>
       </div>
       <SectionButton
         on:sectionclick={selectSection}
         id="package-of-documents"
-        text={_lng?.programMenu.session.packageOfDocuments}
+        text={_lng?.appMenu.session.packageOfDocuments}
       />
       <SectionButton
         on:sectionclick={selectSection}
         id="empty-statements"
-        text={_lng?.programMenu.session.emptyStatements}
+        text={_lng?.appMenu.session.emptyStatements}
       />
       <SectionButton
         on:sectionclick={selectSection}
         id="report"
-        text={_lng?.programMenu.session.report}
+        text={_lng?.appMenu.session.report}
       />
       <SectionButton
         on:sectionclick={selectSection}
         id="debtors"
-        text={_lng?.programMenu.session.debtors}
+        text={_lng?.appMenu.session.debtors}
       />
     </div>
 
     <div class="group-of-sections" id="hours">
       <div class="line-with-text">
-        <span class="section-title">{_lng?.programMenu.hours.sectionTitle}</span>
+        <span class="section-title">{_lng?.appMenu.hours.sectionTitle}</span>
       </div>
       <SectionButton
         on:sectionclick={selectSection}
         id="based-on-the-first-month"
-        text={_lng?.programMenu.hours.basedOnTheFirstMonth}
+        text={_lng?.appMenu.hours.basedOnTheFirstMonth}
       />
       <SectionButton
         on:sectionclick={selectSection}
         id="summary-of-teachers"
-        text={_lng?.programMenu.hours.summaryOfTeachers}
+        text={_lng?.appMenu.hours.summaryOfTeachers}
       />
     </div>
 
     <div class="group-of-sections" id="other">
       <div class="line-with-text">
-        <span class="section-title">{_lng?.programMenu.other.sectionTitle}</span>
+        <span class="section-title">{_lng?.appMenu.other.sectionTitle}</span>
       </div>
       <SectionButton
         on:sectionclick={selectSection}
         id="templates"
-        text={_lng?.programMenu.other.templates}
+        text={_lng?.appMenu.other.templates}
       />
       <SectionButton
         on:sectionclick={selectSection}
         id="other"
-        text={_lng?.programMenu.other.other}
+        text={_lng?.appMenu.other.other}
       />
     </div>
   </div>
@@ -168,7 +166,7 @@
     margin-right: 4px;
   }
 
-  .program-menu {
+  .app-menu {
     position: relative;
     width: 210px;
     height: calc(100% - 40px);

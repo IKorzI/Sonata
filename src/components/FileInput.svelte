@@ -328,8 +328,8 @@
   .area * {
     cursor: pointer;
   }
-  :global(.program .area.loaded),
-  :global(.program .area .loaded:not(.delete)) {
+  :global(.app .area.loaded),
+  :global(.app .area .loaded:not(.delete)) {
     cursor: default;
   }
 
@@ -349,7 +349,7 @@
     display: flex;
     justify-content: center;
   }
-  :global(.program .area.loaded) {
+  :global(.app .area.loaded) {
     border-color: green;
   }
   :global(.area.hovered) {

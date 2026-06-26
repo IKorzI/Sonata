@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount } from "svelte";
   import {
     lng,
     transition,
@@ -94,8 +94,8 @@
 </script>
 
 <div class="title-bar">
-  <div class="program-name">Sonata</div>
-  <div class="program-icon"></div>
+  <div class="app-name">Sonata</div>
+  <div class="app-icon"></div>
   <button class="about" on:click={showAbout}></button>
   <button class="settings" on:click={showSettings}></button>
   <button class="update" on:click={getUpdate} class:showed={$updateAvailable}>
@@ -146,7 +146,7 @@
     background-color: var(--button-active-background-color);
   }
 
-  .program-name {
+  .app-name {
     position: absolute;
     font-weight: normal;
     font-size: 20px;
@@ -154,7 +154,7 @@
     z-index: 1;
   }
 
-  .program-icon {
+  .app-icon {
     border-top-left-radius: 7.5px;
     background-image: url("../icon.png");
   }

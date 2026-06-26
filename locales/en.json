@@ -74,17 +74,17 @@
     "fileOutput.names.hours": "Hours",
     "fileOutput.names.contingent": "Contingent",
 
-    "programMenu.session.sectionTitle": "Session",
-    "programMenu.session.packageOfDocuments": "Document Package",
-    "programMenu.session.emptyStatements": "Empty Statements",
-    "programMenu.session.report": "Semester Report",
-    "programMenu.session.debtors": "Debtors",
-    "programMenu.hours.sectionTitle": "Hours",
-    "programMenu.hours.basedOnTheFirstMonth": "Based on 1st month",
-    "programMenu.hours.summaryOfTeachers": "By teachers",
-    "programMenu.other.sectionTitle": "Other",
-    "programMenu.other.templates": "Document Templates",
-    "programMenu.other.other": "Other",
+    "appMenu.session.sectionTitle": "Session",
+    "appMenu.session.packageOfDocuments": "Document Package",
+    "appMenu.session.emptyStatements": "Empty Statements",
+    "appMenu.session.report": "Semester Report",
+    "appMenu.session.debtors": "Debtors",
+    "appMenu.hours.sectionTitle": "Hours",
+    "appMenu.hours.basedOnTheFirstMonth": "Based on 1st month",
+    "appMenu.hours.summaryOfTeachers": "By teachers",
+    "appMenu.other.sectionTitle": "Other",
+    "appMenu.other.templates": "Document Templates",
+    "appMenu.other.other": "Other",
 
     "exampleWindow.names.basedOnTheFirstMonth.september": "September",
     "exampleWindow.names.basedOnTheFirstMonth.october": "October",
@@ -113,7 +113,7 @@
     "python.session.emptyStart.customText": "The groups contain specialties with multiple OPPs.\nThe following OPPs were recorded in the information for instructors for these specialties:",
     "python.session.report.warning": "Please review the \"на початок\" and \"прибуло\" columns and edit them if necessary.\nThe summary does not record the number of students at the start and the number of students who were expelled.",
 
-    "packageOfDocuments.notAllData": "The data is incorrect for one of the reasons:\n  –  file not uploaded;\n  –  scholarship assignment dates not entered (or entered incorrectly);\n  –  class teacher's last name not entered;\n  –  in the lists for social and increased scholarships the value is \"Select student\" or \"Select status\".",
+    "packageOfDocuments.notAllData": "The data is incorrect for one of the reasons:\n  –  file not uploaded;\n  –  scholarship assignment dates not entered (or entered incorrectly);\n  –  class teacher's last name not entered;\n  –  in the lists for social and increased scholarships the value is \"Select student\" or \"Select status\";\n  –  there are duplicate students on the lists for social and increased scholarships.",
     "emptyStatements.notAllData": "The data is incorrect for one of the following reasons:\n  –  files not uploaded;\n  –  the \"% of scholarship budget\" field is not filled in;\n  –  the \"Number of the first statement in the issuance journal\" field is not filled in.",
     "report.notAllData": "The data is incorrect for one of the reasons:\n  –  groups uploaded 0.",
     "debtors.notAllData": "The data is incorrect for one of the reasons:\n  –  groups uploaded 0.",
@@ -139,7 +139,11 @@
     "settingsWindow.semester2Dates.label": "Scholarship award dates after the second semester (day and month)",
     "settingsWindow.semesterDates.start": "Start date",
     "settingsWindow.semesterDates.end": "End date",
-    "settingsWindow.save": "Save"
+    "settingsWindow.save": "Save",
+
+    "themeMenuWindow.title": "Theme Pinning",
+    "themeMenuWindow.light": "Light",
+    "themeMenuWindow.dark": "Dark"
       },
   "backend": {
     "renderAndTransform.done.title": "Export complete",

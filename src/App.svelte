@@ -6,13 +6,13 @@
   transition.subscribe((value) => (_transition = value));
 
   import TitleBar from "./components/TitleBar.svelte";
-  import ProgramMenu from "./components/ProgramMenu.svelte";
+  import AppMenu from "./components/AppMenu.svelte";
   import Workspace from "./components/Workspace.svelte";
   import WindowArea from "./components/WindowArea.svelte";
 </script>
 
 <main
-  class="program {$hide ? 'hide' : ''}"
+  class="app {$hide ? 'hide' : ''}"
   style="
 
   --transition: {_transition};
@@ -97,7 +97,7 @@
 >
   <TitleBar />
 
-  <ProgramMenu />
+  <AppMenu />
 
   <Workspace />
 
@@ -105,7 +105,7 @@
 </main>
 
 <style>
-  .program {
+  .app {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -119,11 +119,11 @@
     background-image: var(--app-background-image);
     border-color: var(--border-color);
   }
-  .program.hide {
+  .app.hide {
     opacity: 0;
   }
 
-  :global(.program, .program *) {
+  :global(.app, .app *) {
     user-select: none;
     cursor: default;
     font-family: "Calibri";
@@ -144,11 +144,11 @@
     white-space: pre-line;
   }
 
-  :global(.program img, .program .img) {
+  :global(.app img, .app .img) {
     border-radius: 0px;
   }
 
-  :global(.program .gui) {
+  :global(.app .gui) {
     position: absolute;
     transition: 0.2s;
     z-index: -1;
@@ -156,24 +156,24 @@
     width: 100%;
   }
 
-  :global(.program button) {
+  :global(.app button) {
     cursor: pointer;
     background-color: var(--button-background-color);
   }
-  :global(.program button:hover) {
+  :global(.app button:hover) {
     background-color: var(--button-hover-background-color);
   }
-  :global(.program button.hovered) {
+  :global(.app button.hovered) {
     background-color: var(--button-hover-background-color);
   }
-  :global(.program button:active) {
+  :global(.app button:active) {
     background-color: var(--button-active-background-color);
   }
-  :global(.program button.unwork) {
+  :global(.app button.unwork) {
     pointer-events: none;
   }
 
-  :global(.program input) {
+  :global(.app input) {
     border-color: var(--input-border-color);
     background-color: var(--input-background-color);
     border-width: 1px;
@@ -181,21 +181,21 @@
     cursor: text;
     padding-left: 4px;
   }
-  :global(.program input::placeholder) {
+  :global(.app input::placeholder) {
     color: var(--input-placeholder-color);
     transition: 0.2s;
   }
-  :global(.program input:hover) {
+  :global(.app input:hover) {
     background-color: var(--input-hover-background-color);
   }
-  :global(.program input:focus) {
+  :global(.app input:focus) {
     border-color: var(--input-focus-border-color);
     background-color: var(--input-hover-background-color);
     outline: none;
   }
 
-  :global(.program div#list),
-  :global(.program ul) {
+  :global(.app div#list),
+  :global(.app ul) {
     list-style: none;
     background-color: var(--ul-background-color);
     border-width: 1px;
@@ -204,23 +204,23 @@
     overflow: auto;
     width: fit-content;
   }
-  :global(.program div#list::-webkit-scrollbar) {
+  :global(.app div#list::-webkit-scrollbar) {
     width: 8px;
   }
-  :global(.program div#list::-webkit-scrollbar-track) {
+  :global(.app div#list::-webkit-scrollbar-track) {
     background: transparent;
   }
-  :global(.program div#list::-webkit-scrollbar-thumb) {
+  :global(.app div#list::-webkit-scrollbar-thumb) {
     background-color: rgb(155, 155, 155);
     border-radius: 4px;
     border: 2px solid transparent;
     background-clip: content-box;
     min-height: 50px;
   }
-  :global(.program ul::-webkit-scrollbar) {
+  :global(.app ul::-webkit-scrollbar) {
     display: none;
   }
-  :global(.program li) {
+  :global(.app li) {
     width: auto;
     padding: 3px 5px;
     border-bottom-width: 1px;
@@ -228,17 +228,17 @@
     border-radius: 0px;
     list-style-type: none;
   }
-  :global(.program li:hover) {
+  :global(.app li:hover) {
     background-color: var(--li-hover-background-color);
   }
-  :global(.program li:active) {
+  :global(.app li:active) {
     background-color: var(--li-active-background-color);
   }
-  :global(.program li:last-child) {
+  :global(.app li:last-child) {
     border: none;
   }
 
-  :global(.program .unavailable) {
+  :global(.app .unavailable) {
     pointer-events: none;
   }
 </style>

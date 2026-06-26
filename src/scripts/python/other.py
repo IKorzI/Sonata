@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 from utils import MONTH_NAMES_CAPITAL
 from utils import save_file
 
+
 def other_extend_image(path, final_path):
     """
     Extends the image by adding white margins at the edges.

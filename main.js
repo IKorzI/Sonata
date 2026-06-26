@@ -70,7 +70,7 @@ function createWindow() {
     return { action: "allow" };
   });
 
-  function devOptions(type="closed") {
+  function devOptions(type = "closed") {
     console.log("================(Development mode)================");
     if (type == "opened") {
       mainWindow.webContents.once("did-finish-load", () => {
@@ -97,7 +97,7 @@ function createWindow() {
           },
         },
         {
-          label: "Restart the program",
+          label: "Restart the app",
           click: () => {
             const restartFile = path.join(__dirname, "restart.flag");
             fs.writeFileSync(restartFile, Date.now().toString());

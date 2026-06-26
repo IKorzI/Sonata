@@ -17,11 +17,11 @@ let lastClipboardText = "";
 let isExcelGloballyLocked = false;
 
 async function spawnCustomSaveDialog(params) {
-  if (process.env.E2E_TEST === 'true') {
+  if (process.env.E2E_TEST === "true") {
     return {
-      "canceled": false,
-      "path": path.join(__dirname, "..", "..", "..", 'test', params.defaultName),
-      "scale": 2
+      canceled: false,
+      path: path.join(__dirname, "..", "..", "..", "test", params.defaultName),
+      scale: 2,
     };
   }
 

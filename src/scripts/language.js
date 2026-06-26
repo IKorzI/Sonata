@@ -51,7 +51,9 @@ function deepMerge(target, source) {
 function loadAvailableLanguages() {
   if (!fs.existsSync(localesDir)) return;
 
-  const files = fs.readdirSync(localesDir).filter(file => file.endsWith(".json"));
+  const files = fs
+    .readdirSync(localesDir)
+    .filter((file) => file.endsWith(".json"));
 
   for (const file of files) {
     const filePath = path.join(localesDir, file);
@@ -65,7 +67,7 @@ function loadAvailableLanguages() {
         backendLngsData[langKey] = {
           lng: fileData.lng,
           name: fileData.name,
-          ...unflattenStyles(fileData.backend || {})
+          ...unflattenStyles(fileData.backend || {}),
         };
       }
     } catch (error) {

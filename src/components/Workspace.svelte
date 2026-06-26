@@ -177,7 +177,12 @@
   <button class="clear" class:hidden={!isVisible} on:click={() => clear()}
     >{_lng?.workspace.clear}</button
   >
-  <button class="start" class:hidden={!isVisible} class:isProcessing={isProcessing} on:click={() => save()}>
+  <button
+    class="start"
+    class:hidden={!isVisible}
+    class:isProcessing
+    on:click={() => save()}
+  >
     {#if isProcessing === false && isComleting === false}
       {_lng?.workspace.start}
     {/if}

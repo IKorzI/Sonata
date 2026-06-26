@@ -109,6 +109,17 @@
         status: finalStatus,
       };
     });
+    console.log(translatedSocialyList);
+
+    const hasDuplicates = (list) => {
+      const names = new Set();
+      return list.some((item) => {
+        if (item.studentName === null) return false;
+        if (names.has(item.studentName)) return true;
+        names.add(item.studentName);
+        return false;
+      });
+    };
 
     // Validation: checking all required data and the absence of empty rows in student lists
     if (
@@ -122,7 +133,10 @@
       strToDate(data.semesterEnd) <= strToDate(data.semesterStart) ||
       increasedList.some((item) => item.studentName === null) ||
       translatedSocialyList.some((item) => item.studentName === null) ||
-      translatedSocialyList.some((item) => item.status === null)
+      translatedSocialyList.some((item) => item.status === null) ||
+      increasedList.some((item) => item.studentName === null) ||
+      hasDuplicates(increasedList) ||
+      hasDuplicates(translatedSocialyList)
     ) {
       message.set({ type: "error", text: "packageOfDocuments.notAllData" });
       return;
@@ -136,13 +150,13 @@
       increasedList: increasedList,
       kuratorNom: eKuratorNom.value,
       kuratorGen: eKuratorGen.value,
-      headName: $settings.headName
+      headName: $settings.headName,
     };
 
     endInformation =
       await window.electron.sessionPackageDataSupplement(endInformation);
-
-    savedInformation.set(endInformation);
+    console.log(endInformation);
+    // savedInformation.set(endInformation);
   }
 
   // Management of positioning and animation of custom dropdown lists with prevention of timing conflicts
