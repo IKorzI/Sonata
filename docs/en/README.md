@@ -5,7 +5,7 @@
 
 Work with documents, saving up to 95% of time with software for professional colleges!
 
-![Preview](imgs/preview.png)
+![Preview](imgs/preview1.png)
 
 ## Advantages
 
