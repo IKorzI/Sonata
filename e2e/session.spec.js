@@ -372,6 +372,9 @@ test(`[${codeWord1}] 3.1. Report (14 subjects)`, async ({ window }) => {
   await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
+
+  await window.locator(".error-window > .ok").click();
+  await sleep(500);
 });
 
 test(`[${codeWord1}] 3.2. Report (15 subjects)`, async ({ window }) => {
@@ -405,6 +408,9 @@ test(`[${codeWord1}] 3.2. Report (15 subjects)`, async ({ window }) => {
   await test.step("3. Checking output files", async () => {
     await checkingOutputFiles(referencePath, outputPath, files);
   });
+
+  await window.locator(".error-window > .ok").click();
+  await sleep(500);
 });
 
 test(`[${codeWord1}] 4.1. Debtors (14 subjects)`, async ({ window }) => {

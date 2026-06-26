@@ -1723,7 +1723,7 @@ def session_ReportStart(info, app_path):
     """
     path_to_save = Path(info["file_path"]).parent
 
-    answer = {"success": True, "files": []}
+    answer = {"success": True, "files": [], "customText": "{{python.session.report.warning}}"}
     directory_to_save = os.path.dirname(info["file_path"])
     os.makedirs(directory_to_save, exist_ok=True)
     path = f"{app_path}/public/examples/work"

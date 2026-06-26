@@ -110,6 +110,24 @@
       },
     },
     {
+      url: "https://www.flaticon.com/free-icons/menu",
+      author: "Febrian Hidayat",
+      imageName: {
+        ru: "«Меню тем»",
+        uk: "«Меню тем»",
+        en: '"Theme menu"',
+      },
+    },
+    {
+      url: "https://www.flaticon.com/free-icons/settings",
+      author: "Pixel perfect",
+      imageName: {
+        ru: "«Настройки»",
+        uk: "«Налаштування»",
+        en: '"Settings"',
+      },
+    },
+    {
       url: "https://www.flaticon.com/free-icon/info_1445402",
       author: "Freepik",
       imageName: {
@@ -203,9 +221,45 @@
       url: "https://www.magnific.com/free-vector/simple-gradient-background-vector-winter-blue_16358990.htm",
       author: "rawpixel.com",
       imageName: {
-        ru: "«Фон светлой темы»",
-        uk: "«Фон світлої теми»",
-        en: '"Light theme background"',
+        ru: "«Фон светлой темы 1»",
+        uk: "«Фон світлої теми 1»",
+        en: '"Light theme background 1"',
+      },
+    },
+    {
+      url: "https://www.magnific.com/free-photo/smooth-gray-background-with-high-quality_15667136.htm",
+      author: "rawpixel.com",
+      imageName: {
+        ru: "«Фон светлой темы 2»",
+        uk: "«Фон світлої теми 2»",
+        en: '"Light theme background 2"',
+      },
+    },
+    {
+      url: "https://www.magnific.com/free-photo/artistic-blurry-colorful-wallpaper-background_38064894.htm",
+      author: "Mateus Andre",
+      imageName: {
+        ru: "«Фон светлой темы 3»",
+        uk: "«Фон світлої теми 3»",
+        en: '"Light theme background 3"',
+      },
+    },
+    {
+      url: "https://www.magnific.com/ru/free-photo/abstract-luxury-blur-dark-grey-black-gradient-used-as-background-studio-wall-display-your-pr_29686988.htm",
+      author: "benzoix",
+      imageName: {
+        ru: "«Фон темной темы 2»",
+        uk: "«Фон темної теми 2»",
+        en: '"Dark theme background 2"',
+      },
+    },
+    {
+      url: "https://www.magnific.com/ru/free-photo/beautiful-photo-sea-beautiful-golden-sun_83349086.htm",
+      author: "Mateus Andre",
+      imageName: {
+        ru: "«Фон темной темы 3»",
+        uk: "«Фон темної теми 3»",
+        en: '"Dark theme background 3"',
       },
     },
   ];

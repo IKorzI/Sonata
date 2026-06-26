@@ -111,6 +111,7 @@
     "exampleWindow.names.statements.displayName": "Statements",
 
     "python.session.emptyStart.customText": "The groups contain specialties with multiple OPPs.\nThe following OPPs were recorded in the information for instructors for these specialties:",
+    "python.session.report.warning": "Please review the \"на початок\" and \"прибуло\" columns and edit them if necessary.\nThe summary does not record the number of students at the start and the number of students who were expelled.",
 
     "packageOfDocuments.notAllData": "The data is incorrect for one of the reasons:\n  –  file not uploaded;\n  –  scholarship assignment dates not entered (or entered incorrectly);\n  –  class teacher's last name not entered;\n  –  in the lists for social and increased scholarships the value is \"Select student\" or \"Select status\".",
     "emptyStatements.notAllData": "The data is incorrect for one of the following reasons:\n  –  files not uploaded;\n  –  the \"% of scholarship budget\" field is not filled in;\n  –  the \"Number of the first statement in the issuance journal\" field is not filled in.",

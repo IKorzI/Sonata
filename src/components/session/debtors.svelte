@@ -56,9 +56,12 @@
       return;
     }
 
+    const targetPath = await window.electron.saveDialog("ПЗСО", ".xlsx");
+    if (!targetPath) return;
+
     let endInformation = {
       id: thisId,
-      filePath: loadedGroups[0].filePath,
+      filePath: targetPath,
       groups: loadedGroups,
     };
     // Interaction via IPC: sending the object to Electron to supplement data before final saving
